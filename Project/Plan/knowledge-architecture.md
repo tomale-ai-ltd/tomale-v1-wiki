@@ -351,6 +351,8 @@ Then: resume the frontend at Slice 100 (Characters).
 - Old sessions stay where they are.
 - `cursor-read` has database read scope.
 - Folder names are `Canonical/` and `Repos/<repo>/`.
+- GitHub: every Tomale repo lives in the private organisation **`tomale-ai-ltd`** (`tomale-rn-test`, `tomale-v1-wiki`, `tomale-xano`); the `tomale-ai` account is Kyle's login and the organisation owner.
+- Symlink test passed (B2, 2026-10-24): git stores `Repos/` links as links (mode 120000), Obsidian opens files through them, and Obsidian Git shows a link as one item.
 
 ## Related decisions
 
