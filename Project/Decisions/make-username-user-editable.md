@@ -47,9 +47,9 @@ and is tracked for reconciliation under carryover item #5.
 ## Related notes
 
 - [[Sessions/2026-05-21-001|2026-05-21-001]]
-- [[Project/Cursor/api-spec|api-spec]]
-- [[Project/Plan/5-cto-implementation-plan|5-cto-implementation-plan]]
-- [[Project/Decisions/collapse-bool-preference-endpoints-into-users-me|collapse-bool-preference-endpoints-into-users-me]]
-- [[Project/Decisions/defer-explicit-profile-avatar-endpoint-until-kid-profiles|defer-explicit-profile-avatar-endpoint-until-kid-profiles]]
-- [[Project/Decisions/enforce-server-side-image-validation|enforce-server-side-image-validation]]
-- [[Project/Decisions/separate-verify-email-deeplink-from-magic-link-path|separate-verify-email-deeplink-from-magic-link-path]]
+- [[api-spec|api-spec]]
+- [[5-cto-implementation-plan|5-cto-implementation-plan]]
+- [[collapse-bool-preference-endpoints-into-users-me|collapse-bool-preference-endpoints-into-users-me]]
+- [[defer-explicit-profile-avatar-endpoint-until-kid-profiles|defer-explicit-profile-avatar-endpoint-until-kid-profiles]]
+- [[enforce-server-side-image-validation|enforce-server-side-image-validation]]
+- [[separate-verify-email-deeplink-from-magic-link-path|separate-verify-email-deeplink-from-magic-link-path]]

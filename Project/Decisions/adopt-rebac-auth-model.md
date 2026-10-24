@@ -62,5 +62,5 @@ assignment) without the complexity of a full attribute-based system.
 
 - [[3-cto-tech-review]]
 - [[5-cto-implementation-plan]]
-- [[data-model]]
+- [[Repos/tomale-rn-test/memory/data-model|data-model]]
 - [[6. Backend - Xano]]

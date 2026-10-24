@@ -2,7 +2,7 @@
 type: plan
 title: knowledge-inventory
 project: tomale-rn-v1
-status: draft
+status: current
 version: 0.2
 date: 2026-10-24
 owner: vault
@@ -11,6 +11,8 @@ related:
 ---
 
 # Knowledge inventory (B3)
+
+> **B4 executed 2026-10-24** on branch `b4-structure`, as listed below.
 
 > Every document in the vault, the Cursor repo and the working folders outside the vault, each with its tier, owner and the action B4 will take. Built read-only on 2026-10-24. **Kyle reviews before B4 moves anything.** Tiers and ownership follow [[knowledge-architecture]] §5.
 

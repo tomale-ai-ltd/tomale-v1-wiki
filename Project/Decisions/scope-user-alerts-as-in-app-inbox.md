@@ -20,7 +20,7 @@ In-app inbox and push notifications are complementary rather than either/or: the
 
 ## Alternatives considered
 
-Not discussed in session notes as an explicit rejected alternative, beyond the general framing that push notifications were considered and deferred separately (see [[Project/Decisions/defer-push-notifications-until-post-v1]]).
+Not discussed in session notes as an explicit rejected alternative, beyond the general framing that push notifications were considered and deferred separately (see [[defer-push-notifications-until-post-v1]]).
 
 ## Trade-offs accepted
 
@@ -33,5 +33,5 @@ Alerts are read-only from the client's perspective — all creation logic must b
 ## Related notes
 
 - [[Sessions/2026-06-30-001]]
-- [[Project/Decisions/use-action-url-for-user-alert-deep-linking]]
-- [[Project/Decisions/defer-push-notifications-until-post-v1]]
+- [[use-action-url-for-user-alert-deep-linking]]
+- [[defer-push-notifications-until-post-v1]]

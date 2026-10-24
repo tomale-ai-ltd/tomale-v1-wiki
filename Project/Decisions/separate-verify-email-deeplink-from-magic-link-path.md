@@ -49,9 +49,9 @@ fixed to `data.reason?.includes('expired')`, since Xano returns the string
 ## Related notes
 
 - [[Sessions/2026-05-21-001|2026-05-21-001]]
-- [[Project/Plan/6-api-security-model|6-api-security-model]]
-- [[Project/Decisions/use-https-web-intermediary-for-magic-link-redirect|use-https-web-intermediary-for-magic-link-redirect]]
-- [[Project/Decisions/collapse-bool-preference-endpoints-into-users-me|collapse-bool-preference-endpoints-into-users-me]]
-- [[Project/Decisions/defer-explicit-profile-avatar-endpoint-until-kid-profiles|defer-explicit-profile-avatar-endpoint-until-kid-profiles]]
-- [[Project/Decisions/make-username-user-editable|make-username-user-editable]]
-- [[Project/Decisions/enforce-server-side-image-validation|enforce-server-side-image-validation]]
+- [[6-api-security-model|6-api-security-model]]
+- [[use-https-web-intermediary-for-magic-link-redirect|use-https-web-intermediary-for-magic-link-redirect]]
+- [[collapse-bool-preference-endpoints-into-users-me|collapse-bool-preference-endpoints-into-users-me]]
+- [[defer-explicit-profile-avatar-endpoint-until-kid-profiles|defer-explicit-profile-avatar-endpoint-until-kid-profiles]]
+- [[make-username-user-editable|make-username-user-editable]]
+- [[enforce-server-side-image-validation|enforce-server-side-image-validation]]

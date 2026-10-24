@@ -57,10 +57,10 @@ deferral does not block other `users`-group work.
 ## Related notes
 
 - [[Sessions/2026-05-21-001|2026-05-21-001]]
-- [[Project/Plan/5-cto-implementation-plan|5-cto-implementation-plan]]
-- [[Project/Plan/6-api-security-model|6-api-security-model]]
-- [[Project/Decisions/migrate-image-storage-to-aws-s3-signed-urls|migrate-image-storage-to-aws-s3-signed-urls]]
-- [[Project/Decisions/enforce-server-side-image-validation|enforce-server-side-image-validation]]
-- [[Project/Decisions/collapse-bool-preference-endpoints-into-users-me|collapse-bool-preference-endpoints-into-users-me]]
-- [[Project/Decisions/make-username-user-editable|make-username-user-editable]]
-- [[Project/Decisions/separate-verify-email-deeplink-from-magic-link-path|separate-verify-email-deeplink-from-magic-link-path]]
+- [[5-cto-implementation-plan|5-cto-implementation-plan]]
+- [[6-api-security-model|6-api-security-model]]
+- [[migrate-image-storage-to-aws-s3-signed-urls|migrate-image-storage-to-aws-s3-signed-urls]]
+- [[enforce-server-side-image-validation|enforce-server-side-image-validation]]
+- [[collapse-bool-preference-endpoints-into-users-me|collapse-bool-preference-endpoints-into-users-me]]
+- [[make-username-user-editable|make-username-user-editable]]
+- [[separate-verify-email-deeplink-from-magic-link-path|separate-verify-email-deeplink-from-magic-link-path]]

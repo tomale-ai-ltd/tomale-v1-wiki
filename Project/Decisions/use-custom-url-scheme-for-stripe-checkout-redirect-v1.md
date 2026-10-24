@@ -56,6 +56,6 @@ These will be set in the `stripe/create_checkout_session` endpoint's Stripe API 
 
 ## Related notes
 
-- [[Project/Plan/5-cto-implementation-plan|5-cto-implementation-plan]]
-- [[Project/PRDs/PRD-Store-Orders|PRD-Store-Orders]]
+- [[5-cto-implementation-plan|5-cto-implementation-plan]]
+- [[PRD-Store-Orders|PRD-Store-Orders]]
 - [[Project/Stack/3__Routing_-_Expo_Router|3. Routing - Expo Router]]

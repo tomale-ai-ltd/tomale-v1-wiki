@@ -408,9 +408,9 @@ Include in every event:
 ## Related notes
 - [[3-cto-tech-review]]
 - [[4-cto-improvements-list]]
-- [[plan/data-model|data-model]]
+- [[Repos/tomale-rn-test/memory/data-model|data-model]]
 - [[6. Backend - Xano]]
 - [[decisions/rebac-authorization-approach]]
-- [[decisions/separate-dev-prod-environments]]
-- [[decisions/trunk-based-git-branching]]
+- [[separate-dev-prod-environments]]
+- [[trunk-based-git-branching]]
 - [[decisions/semver-versioning-approach]]

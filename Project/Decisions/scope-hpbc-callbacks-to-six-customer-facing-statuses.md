@@ -33,6 +33,6 @@ Implemented in `webhook_statusCallbackUrl` and `webhook_statusCallbackUrl_Error`
 ## Related notes
 
 [[Sessions/2026-07-15-001]]
-[[Project/Architecture/order-fulfilment-flow]] — full order lifecycle flowchart produced this session
+[[order-fulfilment-flow]] — full order lifecycle flowchart produced this session
 [[confirm-hpbc-webhook-dedup-key-format]] — same endpoints, dedup key mechanics
 [[authenticate-hpbc-webhooks-with-shared-secret-bearer-token]] — same endpoints, auth mechanics

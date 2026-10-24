@@ -28,11 +28,11 @@ Support requests submitted this way aren't stored or queryable in the app's own 
 
 ## Workflow detail
 
-Marked for removal in the Phase 1 classification matrix; actual deletion is part of the ongoing API surface reduction work tracked in [[Project/Plan/6-api-security-model]]. Frontend support entry point becomes a `mailto:` link rather than a form submission.
+Marked for removal in the Phase 1 classification matrix; actual deletion is part of the ongoing API surface reduction work tracked in [[6-api-security-model]]. Frontend support entry point becomes a `mailto:` link rather than a form submission.
 
 ## Related notes
 
 - [[Sessions/2026-06-30-001]]
-- [[Project/Decisions/remove-instant-story-reviews-endpoint]]
-- [[Project/Decisions/remove-user-activities-endpoint]]
-- [[Project/Plan/6-api-security-model]]
+- [[remove-instant-story-reviews-endpoint]]
+- [[remove-user-activities-endpoint]]
+- [[6-api-security-model]]

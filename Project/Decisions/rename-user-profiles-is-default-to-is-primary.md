@@ -33,4 +33,4 @@ Schema column renamed; all endpoints referencing `is_default` updated; a residua
 ## Related notes
 
 - [[Sessions/2026-06-30-001]]
-- [[Project/Decisions/prevent-deleting-active-profile-via-soft-delete]]
+- [[prevent-deleting-active-profile-via-soft-delete]]

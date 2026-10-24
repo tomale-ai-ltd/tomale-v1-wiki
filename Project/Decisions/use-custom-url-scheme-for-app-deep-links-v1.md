@@ -33,5 +33,5 @@ Applies to general in-app deep links, including the `action_url` field used by `
 ## Related notes
 
 - [[Sessions/2026-06-30-001]]
-- [[Project/Decisions/use-action-url-for-user-alert-deep-linking]]
-- [[Project/Decisions/use-custom-url-scheme-for-stripe-checkout-redirect-v1]]
+- [[use-action-url-for-user-alert-deep-linking]]
+- [[use-custom-url-scheme-for-stripe-checkout-redirect-v1]]

@@ -52,9 +52,9 @@ when CloudFront Functions / Lambda@Edge become available.
 ## Related notes
 
 - [[Sessions/2026-05-21-001|2026-05-21-001]]
-- [[Project/Plan/6-api-security-model|6-api-security-model]]
-- [[Project/Decisions/migrate-image-storage-to-aws-s3-signed-urls|migrate-image-storage-to-aws-s3-signed-urls]]
-- [[Project/Decisions/defer-explicit-profile-avatar-endpoint-until-kid-profiles|defer-explicit-profile-avatar-endpoint-until-kid-profiles]]
-- [[Project/Decisions/collapse-bool-preference-endpoints-into-users-me|collapse-bool-preference-endpoints-into-users-me]]
-- [[Project/Decisions/make-username-user-editable|make-username-user-editable]]
-- [[Project/Decisions/separate-verify-email-deeplink-from-magic-link-path|separate-verify-email-deeplink-from-magic-link-path]]
+- [[6-api-security-model|6-api-security-model]]
+- [[migrate-image-storage-to-aws-s3-signed-urls|migrate-image-storage-to-aws-s3-signed-urls]]
+- [[defer-explicit-profile-avatar-endpoint-until-kid-profiles|defer-explicit-profile-avatar-endpoint-until-kid-profiles]]
+- [[collapse-bool-preference-endpoints-into-users-me|collapse-bool-preference-endpoints-into-users-me]]
+- [[make-username-user-editable|make-username-user-editable]]
+- [[separate-verify-email-deeplink-from-magic-link-path|separate-verify-email-deeplink-from-magic-link-path]]

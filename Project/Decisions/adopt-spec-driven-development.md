@@ -51,7 +51,7 @@ Secondary reasons:
 
 ## Related notes
 
-- [[cursor/Constitution]]
+- [[Repos/tomale-rn-test/memory/constitution|Constitution]]
 - [[sdd-process-overview]]
 - [[sdd-flow]]
 - [[2-build-plan]]

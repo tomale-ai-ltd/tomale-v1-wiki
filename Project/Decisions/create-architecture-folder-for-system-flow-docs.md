@@ -33,4 +33,4 @@ Not discussed in session notes beyond the value/drift rationale.
 ## Related notes
 
 [[Sessions/2026-07-15-001]]
-[[Project/Architecture/order-fulfilment-flow]]
+[[order-fulfilment-flow]]

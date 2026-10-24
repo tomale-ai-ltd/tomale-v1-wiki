@@ -28,11 +28,11 @@ Not discussed in session notes. Analytics capability that endpoint provided is d
 
 ## Workflow detail
 
-Marked for removal in the Phase 1 classification matrix; actual deletion is part of the ongoing API surface reduction work tracked in [[Project/Plan/6-api-security-model]].
+Marked for removal in the Phase 1 classification matrix; actual deletion is part of the ongoing API surface reduction work tracked in [[6-api-security-model]].
 
 ## Related notes
 
 - [[Sessions/2026-06-30-001]]
-- [[Project/Decisions/remove-instant-story-reviews-endpoint]]
-- [[Project/Decisions/replace-support-requests-endpoint-with-mailto-ops-inbox]]
-- [[Project/Plan/6-api-security-model]]
+- [[remove-instant-story-reviews-endpoint]]
+- [[replace-support-requests-endpoint-with-mailto-ops-inbox]]
+- [[6-api-security-model]]

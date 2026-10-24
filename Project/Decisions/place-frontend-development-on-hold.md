@@ -44,8 +44,8 @@ The CTO tech review identified several critical issues that, if left unresolved,
 
 ## Related notes 
 
-- [[Project/Plan/3-cto-tech-review|3-cto-tech-review]]
-- [[Project/Plan/4-cto-improvements-list|4-cto-improvements-list]]
-- [[Project/Plan/5-cto-implementation-plan|5-cto-implementation-plan]]
-- [[Project/Stack/12. CICD - EAS, GitHub|12. CICD - EAS, GitHub]]
-- [[Project/Stack/6. Backend - Xano|6. Backend - Xano]]
+- [[3-cto-tech-review|3-cto-tech-review]]
+- [[4-cto-improvements-list|4-cto-improvements-list]]
+- [[5-cto-implementation-plan|5-cto-implementation-plan]]
+- [[12. CICD - EAS, GitHub|12. CICD - EAS, GitHub]]
+- [[6. Backend - Xano|6. Backend - Xano]]

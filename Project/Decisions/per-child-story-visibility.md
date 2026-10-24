@@ -20,7 +20,7 @@ Keeps sibling content private by default without requiring a join table or shari
 
 ## Alternatives considered
 
-A join table for story sharing (as specified in [[Project/Plan/2-build-plan]]) was deferred — the full sharing model is out of scope for V1. No cross-profile visibility model was considered.
+A join table for story sharing (as specified in [[2-build-plan]]) was deferred — the full sharing model is out of scope for V1. No cross-profile visibility model was considered.
 
 ## Trade-offs accepted
 
@@ -32,8 +32,8 @@ On POST `instant_stories`, `user_profiles_id` is populated from `$auth.extras.ac
 
 ## Related notes
 
-- [[Project/Plan/2-build-plan]] — original sharing model that this deviates from
-- [[Project/Plan/5-cto-implementation-plan]] — Phase 1 checklist
-- [[Project/Plan/6-api-security-model]]
-- [[Project/Decisions/fail-closed-active-profile-resolution]]
-- [[Project/Decisions/parental-gate-on-profile-switch]]
+- [[2-build-plan]] — original sharing model that this deviates from
+- [[5-cto-implementation-plan]] — Phase 1 checklist
+- [[6-api-security-model]]
+- [[fail-closed-active-profile-resolution]]
+- [[parental-gate-on-profile-switch]]

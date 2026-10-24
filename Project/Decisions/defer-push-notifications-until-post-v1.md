@@ -33,4 +33,4 @@ V1 users who aren't actively opening the app won't be proactively notified of ne
 ## Related notes
 
 - [[Sessions/2026-06-30-001]]
-- [[Project/Decisions/scope-user-alerts-as-in-app-inbox]]
+- [[scope-user-alerts-as-in-app-inbox]]

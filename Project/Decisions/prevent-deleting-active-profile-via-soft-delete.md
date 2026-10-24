@@ -33,5 +33,5 @@ Implemented as a precondition inside the soft-delete endpoint (`deleted_at = now
 ## Related notes
 
 - [[Sessions/2026-06-30-001]]
-- [[Project/Decisions/fail-closed-active-profile-resolution]]
-- [[Project/Plan/6-api-security-model]]
+- [[fail-closed-active-profile-resolution]]
+- [[6-api-security-model]]

@@ -72,5 +72,5 @@ Once SendGrid templates have been recreated in Resend and all callsites verified
 
 ## Related notes
 
-- [[Project/Plan/5-cto-implementation-plan|5-cto-implementation-plan]]
-- [[Project/Plan/6-api-security-model|6-api-security-model]]
+- [[5-cto-implementation-plan|5-cto-implementation-plan]]
+- [[6-api-security-model|6-api-security-model]]

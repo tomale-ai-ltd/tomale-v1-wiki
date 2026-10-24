@@ -33,5 +33,5 @@ Not yet built as of 2026-06-22 — this is a committed design decision pending i
 ## Related notes
 
 - [[sessions/2026-06-22-001]]
-- [[Project/Decisions/per-child-story-visibility]]
-- [[Project/Plan/6-api-security-model]]
+- [[per-child-story-visibility]]
+- [[6-api-security-model]]

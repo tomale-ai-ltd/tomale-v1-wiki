@@ -33,5 +33,5 @@ The `action_url` column still needs to be added to `user_alerts` (queued as the 
 ## Related notes
 
 - [[Sessions/2026-06-30-001]]
-- [[Project/Decisions/scope-user-alerts-as-in-app-inbox]]
-- [[Project/Decisions/use-custom-url-scheme-for-app-deep-links-v1]]
+- [[scope-user-alerts-as-in-app-inbox]]
+- [[use-custom-url-scheme-for-app-deep-links-v1]]
