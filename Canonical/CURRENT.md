@@ -15,14 +15,10 @@ owner: vault
 
 ## Phase
 - Phase 1 (Security & Data Integrity) **signed off 2026-10-23** (86/86 `_tests`). See [[6-api-security-model]].
-- **Now:** knowledge restructure, per [[knowledge-architecture]] (B0–B4 done; next B5–B12), then the frontend resumes at **Slice 100 (Characters)**, which will be speckit feature **007**.
+- **Now:** knowledge restructure per [[knowledge-architecture]] §13. B0–B4 done (24/10); B5–B12 next, in order. Then the frontend resumes at **Slice 100 (Characters)**, which will be speckit feature **007**.
 
-## Critical path to Slice 100
-1. Generated specs: `update:datamodel` (new) and `update:openapi` (B6, in Cursor)
-2. Constitution amendment and Cursor rules (B10, via [[repo-sync]])
-3. pnpm migration and dependency audit ([[promote-pnpm-migration-ahead-of-slice-100]])
-4. `PRD-Characters` reconciled; `v1-feature-map` row; this page written
-5. Decide what from `wip/pre-restructure-2026-10-24` goes to `main`, then start `007-*` from `main`
+## Next: migration stages per [[knowledge-architecture]] §13 (approved order)
+B5 frontmatter and links → B6 generated specs (Cursor) → B7 V1 audit → B8 canonical docs → B9 PRD reconciliation → B10 repo sync (incl. pnpm, [[repo-sync]]) → B11 agent access and automations → B12 close-out → **then Slice 100** (speckit feature 007).
 
 ## Where things are
 - How knowledge works: [[knowledge-architecture]] · How we work: [[operating-model]]
