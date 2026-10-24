@@ -1,0 +1,323 @@
+---
+type: entity
+entity-type: tool
+name: Xano
+aliases: []
+tags:
+  - llm-wiki/entity
+  - llm-wiki/entity/tool
+source-count: 78
+date-updated: 2026-10-24
+cssclasses: []
+---
+
+
+# Xano
+
+## Facts
+
+- Xano is part of the tech stack notes.
+- Xano endpoints include media-oriented operations indicating backend-managed file handling.
+- Xano’s built-in JWT authentication is used to manage user sessions and secure all API access.
+- Tokens are issued on login and used in all API requests.
+- Xano should remain authoritative for data.
+- Xano is the backend system of record for this app’s domain data and auth contracts.
+- Xano owns broader domain + pipeline concerns including stories, pages, characters, jobs, orders, and subscriptions.
+- Xano is deployed in a cloud, serverless environment.
+- Backend/Xano observability integration is not represented as a first-class implementation in this frontend repo.
+- Heavily used for async API calls with no local business logic duplication.
+- Image generation is orchestrated via Xano using structured prompts derived from story and character data.
+- All requests are orchestrated through Xano using predefined prompt templates and output schemas.
+- Serves as the backend API builder, database, and authentication service.
+- Enable MFA on Xano admin portal + separate admin creds.
+- Enable Sensitive Data Flagging in Xano.
+- Signed URLs for images (Xano Private File Storage).
+- Used to create Stripe checkout sessions.
+- Use Xano admin interface for debugging, support, and data inspection.
+- Orders are fulfilled by Mixam via backend automation in Xano.
+- Xano is used for backend function logic related to the parental oversight system.
+- Recommended for implementing least-privilege authorization and signed URLs for images.
+- Xano serves as the backend API builder, database, and authentication service.
+- Separate Xano workspaces for dev and prod are maintained.
+- Xano backend + React Native frontend have a clear contract boundary.
+- ReBAC is implemented as an owner-or-deny-all default in Xano.
+- Xano REST API is used for authentication, stories, orders, and AI orchestration.
+- Xano is included in the tech stack notes for the project.
+- Xano is mentioned as a potential external document source for a future autonomous fetch agent.
+- Xano is mentioned as a potential external document source for the future build.
+- Xano is mentioned as a source for the future autonomous fetch agent.
+- Monitored as an external doc source for the future autonomous fetch agent.
+- Future build includes monitoring external doc sources like Xano.
+- Planned to be monitored by the future autonomous fetch agent.
+- Future build will monitor external doc sources including Xano.
+- Monitored by the future autonomous fetch agent.
+- Monitored as an external doc source for the future build.
+- Monitored by the future build autonomous fetch agent.
+- Monitored by the future autonomous fetch agent for external document sources.
+- Xano API is involved in the authentication and security implementation.
+- Auth / security implementation in Xano API.
+- Xano API is involved in the auth/security implementation.
+- Auth/security implementation in Xano API is a focus area.
+- The autonomous fetch agent will monitor external doc sources including Xano.
+- Auth / security implementation in Xano for the tomale-rn-v1 build based on CTO implementation plan.
+- Separate Xano workspaces for development and production are established.
+- Xano tables are mapped to their exposure type, CRUD permissions, and required actions.
+- Xano tables are mapped to their exposure type and CRUD permissions as part of the API Security Model.
+- Maps all Xano tables to their exposure type, CRUD permissions, and required actions.
+- Integrated for handling checkout sessions and order history.
+- Xano is a visual-first unified backend for modern apps that allows building APIs, AI Agents, data, logic, auth, and more.
+- Xano documentation on their chatbot feature explains how to build a ChatGPT powered chatbot inside your Xano workspace.
+- Auth / security implementation in Xano for the tomale-rn-v1 build.
+- Plan to monitor external doc sources including Xano.
+- Auth/security implementation in Xano is part of the plan for the tomale-rn-v1 build.
+- Auth / security implementation in Xano is part of the plan for the tomale-rn-v1 build.
+- Auth / security implementation in Xano for the tomale-rn-v1 build is part of the session focus.
+- Future build includes an autonomous fetch agent that monitors external doc sources including Xano.
+- Future build will include an autonomous fetch agent that monitors external doc sources including Xano.
+- Auth / security implementation in Xano for the tomale-rn-v1 build based on CTO implementation plan Phase 1 tasks.
+- Xano can generate 1-click MCP (Model Context Protocol) install deeplinks for Cursor.
+- Xano is used to generate 1-click MCP install deeplinks for backend integration with Cursor.
+- Xano can generate 1-click MCP install deeplinks for Cursor integration.
+- Xano provides tools to generate 1-click MCP install deeplinks for backend integration with Cursor.
+- Xano API security configuration is being continued.
+- Xano API security configuration and endpoint classification are the focus of the session.
+- Outstanding Phase 1 Xano API security tasks are noted in the session.
+- Xano API security tasks are part of the current milestone.
+- Xano is being used for API security hardening in the Tomale project.
+- Xano is being used for API security work and configuration.
+- Xano is used for API security configuration and management.
+- Xano is used for API security configuration and development.
+- Xano is used for API security configuration work.
+- The document assesses the Xano API for security issues and reviews each endpoint on a case-by-case basis.
+- Xano is used to manage the email sending endpoints for both transactional and marketing emails.
+- Phase 1 Xano API security work is ongoing on various tables.
+- Xano system group hardening is a focus area.
+- Xano's built-in API is used for image uploads and other backend functionalities.
+- Xano's built-in API is used for image uploads and user authentication processes.
+- Xano workspace must allow the `tomale.ai` origin in production.
+- Xano API group consolidation uncovered structural issues.
+- Current image assets are stored in Xano's built-in public file storage.
+- Xano API group consolidation was performed, collapsing seven groups into two.
+- All three environments currently point at the same Xano URL.
+- The current Xano plan has no image-transform capability, necessitating client-side processing.
+- Rejected Xano's proposed fix that fell back to the default profile when extras was null.
+- Xano is used for backend operations, including API management.
+- Xano is used to implement the fail-closed mechanism for reading active profiles.
+- Xano is used for managing the backend, including the creation of the blocked_terms table and handling API calls.
+- Xano's Swagger export is used for maintaining the Postman collection.
+- Xano has no native Sentry integration.
+- Xano's Try/Catch is used to handle unique-constraint violations during the deduplication process.
+- Custom functions in Xano are not HTTP reachable.
+- Xano issues JWE tokens, not JWS.
+- Xano is the source of truth for physical book prices.
+- A manually-run function was built to purge stuck stories.
+- The tool used to manually run the function to purge stuck stories.
+- Xano is involved in the backend processes, including order fulfilment and API management.
+- Xano is used to build the task for delayed HPBC submission.
+- Xano's Rate Limit function is to be added per endpoint.
+- Xano's paid plans don't rate-limit at platform level.
+- Xano's paid plans don't rate-limit at the platform level.
+- Xano AI was used to build specifications for executor run lookup.
+- Xano's hidden-fields behaviour caused the overwrite of the created_at timestamp and message fields.
+- Xano's hidden-fields behaviour caused overwrites in the order processing.
+- Used for managing API and backend functions, including executor runs.
+- Xano schema updates are included in the documentation refresh backlog.
+- Xano's hidden-fields behaviour writes any function input/variable named like a column into that column.
+- Xano paid plans have no platform-level rate limit, so protection must be built into the endpoints.
+- The document includes updates related to the Xano schema and API.
+- Xano schema updates are part of the documentation refresh tasks.
+- Xano quick settings were reviewed and updated during the session.
+- Xano AI hidden-fields sweep was triaged; findings were addressed.
+- Publishing the Xano hidden-fields fixes.
+- Xano quick settings were updated.
+- Xano API is assessed for security issues and reviewed for each endpoint.
+- The API contract and data model are generated from Xano, never hand-written.
+- The Xano workspace-level Hidden Fields setting was reviewed and deliberately not enabled.
+- The suite tests the Xano backend, which isn't in GitHub.
+- The vault owns backend (Xano) design.
+- Xano is used for generating the API contract and data model.
+- Xano serves as the backend runtime for the project.
+- Xano is used for backend drafts and has dev/prod branches that sync with GitHub.
+- Xano's GitHub sync will be turned on to a private repo `xano-tomale`.
+- The pipeline includes a 'git pull' of the Xano mirror clone.
+- Xano is used for backend development and management within the Tomale project.
+- Xano AI drafts XanoScript and analyzes the workspace for the Tomale V1 project.
+
+## Connections
+
+- [[expo-app]] *(uses)*
+- [[jwt-based-authentication]] *(uses)*
+- [[asyncstorage]] *(related-to)*
+- [[openapi]] *(uses)*
+- [[stripe]] *(uses)*
+- [[sendgrid]] *(uses)*
+- [[openai]] *(uses)*
+- [[dalle-3]] *(applies-to)*
+- [[gpt-4o]] *(uses)*
+- [[aws-s3]] *(uses)*
+- [[store]] *(uses)*
+- [[api-authentication-authorization]] *(applies-to)*
+- [[order-history]] *(uses)*
+- [[mixam]] *(related-to)*
+- [[parental-oversight-system]] *(uses)*
+- [[authentication-authorization]] *(applies-to)*
+- [[tomale-v1]] *(part-of)*
+- [[react-native]] *(related-to)*
+- [[autonomous-fetch-agent]] *(related-to)*
+- [[auth-security-implementation]] *(applies-to)*
+- [[environment-separation]] *(uses)*
+- [[environment-separation]] *(part-of)*
+- [[environment-separation]] *(applies-to)*
+- [[api-security-model]] *(applies-to)*
+- [[tomale-rn-v1]] *(applies-to)*
+- [[api-security-model]] *(part-of)*
+- [[spec-driven-development-process]] *(related-to)*
+- [[auth-security-implementation]] *(uses)*
+- [[cto-implementation-plan]] *(applies-to)*
+- [[cursor]] *(uses)*
+- [[api-security-model]] *(uses)*
+- [[6-api-security-model]] *(applies-to)*
+- [[observability-gap]] *(related-to)*
+- [[resend]] *(uses)*
+- [[api-security]] *(uses)*
+- [[api-security-pass]] *(applies-to)*
+- [[aws-s3]] *(related-to)*
+- [[openapi-client-regeneration]] *(uses)*
+- [[openapi]] *(extends)*
+- [[stripe]] *(related-to)*
+- [[hp-brand-centre]] *(related-to)*
+- [[tomale-rn-v1]] *(related-to)*
+- [[userprofiles]] *(critiques)*
+- [[userprofiles]] *(applies-to)*
+- [[instantstories]] *(applies-to)*
+- [[fail-closed-mechanism]] *(related-to)*
+- [[userprofiles]] *(uses)*
+- [[postman]] *(uses)*
+- [[sentry]] *(contrasts-with)*
+- [[insert-and-catch-pattern]] *(related-to)*
+- [[api-security-model]] *(influences)*
+- [[adminpurgestuckstories]] *(uses)*
+- [[auditstoreorders]] *(related-to)*
+- [[order-fulfilment-delay]] *(uses)*
+- [[executorruns]] *(related-to)*
+- [[hidden-fields-behaviour]] *(applies-to)*
+- [[order-fulfillment]] *(uses)*
+- [[executor-runs]] *(applies-to)*
+- [[xano-function-input-naming]] *(influences)*
+- [[rate-limiting]] *(applies-to)*
+- [[api-security-model]] *(extends)*
+- [[parental-approval-system]] *(uses)*
+- [[xano-ai-hidden-fields-sweep]] *(uses)*
+- [[parental-approval]] *(applies-to)*
+- [[pre-launch-sweep]] *(related-to)*
+- [[knowledge-architecture]] *(part-of)*
+- [[github-sync]] *(uses)*
+- [[aws-s3]] *(uses)*
+- [[zustand]] *(related-to)*
+- [[sentry]] *(related-to)*
+- [[react-native]] *(uses)*
+- [[gpt-4o]] *(applies-to)*
+- [[rebac]] *(applies-to)*
+- [[tomale-rn-v1]] *(uses)*
+- [[tomale-v1]] *(applies-to)*
+- [[tomale-v1]] *(related-to)*
+- [[future-build]] *(related-to)*
+- [[autonomous-fetch-agent]] *(related-to)*
+- [[tomale-v1]] *(uses)*
+- [[api-security-model]] *(applies-to)*
+- [[chatgpt]] *(uses)*
+- [[tomale-v1]] *(part-of)*
+- [[autonomous-fetch-agent]] *(applies-to)*
+- [[cursor]] *(applies-to)*
+- [[5-cto-implementation-plan]] *(applies-to)*
+- [[6-api-security-model]] *(related-to)*
+- [[phase-1]] *(part-of)*
+- [[tomale]] *(uses)*
+- [[tomale-rn-v1]] *(related-to)*
+- [[stripe]] *(uses)*
+- [[pureprint]] *(related-to)*
+- [[hpbc]] *(related-to)*
+- [[papermill]] *(related-to)*
+- [[postman]] *(uses)*
+- [[cursor]] *(related-to)*
+
+## Sources
+
+- [[Sessions/2026-04-14-001.md]]
+- [[Project/Stack/8. Storage - AWS.md]]
+- [[Project/Stack/7. Auth - Xano.md]]
+- [[Project/Stack/5. State Management - Zustand.md]]
+- [[Project/Stack/6. Backend - Xano.md]]
+- [[Project/Stack/15. Observability - Sentry.md]]
+- [[Project/Stack/2. Frontend - React.md]]
+- [[Project/Stack/14. AI Image Generation - OpenAI.md]]
+- [[Project/Stack/13. AI Text Generation - OpenAI.md]]
+- [[Project/Stack/1. Overview.md]]
+- [[Project/Plan/4-cto-improvements-list.md]]
+- [[Project/Plan/2-build-plan.md]]
+- [[Project/Plan/5-cto-implementation-plan.md]]
+- [[Project/Plan/Feature PRDs/PRD-Store-Orders.md]]
+- [[Project/Plan/Feature PRDs/PRD-Parental-Oversight-Content-Approval.md]]
+- [[Project/Plan/3-cto-tech-review.md]]
+- [[Project/Plan/1-prd-tomale-react-native-app-v1.md]]
+- [[Project/Decisions/separate-dev-prod-environments.md]]
+- [[Project/Decisions/adopt-spec-driven-development.md]]
+- [[Project/Decisions/adopt-rebac-auth-model.md]]
+- [[Project/Cursor/constitution.md]]
+- [[Sessions/2026-04-15-001.md]]
+- [[Project/Decisions/place-frontend-development-on-hold.md]]
+- [[Project/Plan/6-api-security-model.md]]
+- [[Project/Research/Chatbots.md]]
+- [[Sessions/2026-04-16-001.md]]
+- [[Project/Research/Connect Xano Backend to Cursor.md]]
+- [[Sessions/2026-04-16-002.md]]
+- [[Sessions/2026-04-20-001.md]]
+- [[Sessions/2026-04-17-002.md]]
+- [[Sessions/2026-05-07-002.md]]
+- [[Sessions/2026-05-07-001.md]]
+- [[Sessions/2026-05-06-001.md]]
+- [[Sessions/2026-04-30-001.md]]
+- [[Sessions/2026-04-28-002.md]]
+- [[Sessions/2026-04-28-001.md]]
+- [[Sessions/2026-04-21-001.md]]
+- [[Project/Decisions/defer-stripe-webhook-mode-branching-to-phase-2.md]]
+- [[Sessions/2026-05-07-003.md]]
+- [[Sessions/2026-05-08-001.md]]
+- [[_raw/Chat Sessions/_archive/2026-05-11-001.md]]
+- [[Sessions/2026-05-12-001.md]]
+- [[Project/Decisions/migrate-image-storage-to-aws-s3-signed-urls.md]]
+- [[_raw/Chat Sessions/_archive/2026-05-14-002.md]]
+- [[Sessions/2026-05-15-002.md]]
+- [[Project/Decisions/enforce-strict-env-validation-at-startup.md]]
+- [[Project/Decisions/enforce-server-side-image-validation.md]]
+- [[_raw/Chat Sessions/_archive/2026-06-22-001.md]]
+- [[Sessions/2026-06-22-001.md]]
+- [[Project/Decisions/fail-closed-active-profile-resolution.md]]
+- [[_raw/Chat Sessions/2026-06-29-001.md]]
+- [[Project/Decisions/adopt-openapi-import-for-postman-collection-sync.md]]
+- [[Project/Decisions/elevate-backend-observability-to-launch-requirement.md]]
+- [[Project/Decisions/adopt-unique-index-dedup-for-webhook-ingest.md]]
+- [[_raw/Chat Sessions/_archive/2026-07-16-001.md]]
+- [[Project/Decisions/verify-stripe-checkout-totals-against-xano-prices.md]]
+- [[Sessions/2026-10-13-001.md]]
+- [[Project/Decisions/purge-stuck-stories-with-manual-admin-function.md]]
+- [[_raw/Chat Sessions/_archive/2026-10-14-001.md]]
+- [[Project/Decisions/delay-hpbc-submission-with-30-minute-cancellation-window.md]]
+- [[_raw/Chat Sessions/_archive/2026-10-21-001.md]]
+- [[_raw/Chat Sessions/_archive/2026-10-15-001.md]]
+- [[Sessions/2026-10-15-001.md]]
+- [[Sessions/2026-10-21-001.md]]
+- [[Project/Plan/documentation-refresh-backlog.md]]
+- [[Project/Decisions/avoid-column-named-function-inputs-in-xano.md]]
+- [[Project/Decisions/add-per-endpoint-rate-limiting-in-xano.md]]
+- [[_raw/Chat Sessions/_archive/2026-10-23-001.md]]
+- [[_raw/Chat Sessions/_archive/2026-10-22-001.md]]
+- [[Sessions/2026-10-23-001.md]]
+- [[Project/Decisions/generate-data-model-and-api-contract-from-xano.md]]
+- [[Project/Decisions/defer-workspace-hidden-fields-setting-to-pre-launch-sweep.md]]
+- [[Project/Decisions/defer-postman-suite-ci-until-suite-split.md]]
+- [[Project/Decisions/adopt-repo-vault-ownership-split-for-project-knowledge.md]]
+- [[Project/Plan/knowledge-architecture.md]]
+- [[Project/Decisions/mirror-xano-workspace-to-github-read-only.md]]
+- [[Project/Decisions/add-propose-only-reconcile-and-staleness-automations.md]]
+- [[Project/Plan/operating-model.md]]

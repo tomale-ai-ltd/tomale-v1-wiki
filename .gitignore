@@ -1,0 +1,14 @@
+# Obsidian: per-device state and plugins (plugin settings can hold API keys)
+.obsidian/plugins/
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/workspaces.json
+.obsidian/cache
+.trash/
+
+# macOS
+.DS_Store
+
+# Ad-hoc backups (superseded by git history)
+*.bak
+*.bak-*
