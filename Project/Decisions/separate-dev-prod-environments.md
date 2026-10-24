@@ -1,9 +1,9 @@
 ---
 type: decision
 title: separate-dev-prod-environments
-date: 2025-01-01
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2025-01-01
 ---
 
 ---

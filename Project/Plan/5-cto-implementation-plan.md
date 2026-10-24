@@ -1,3 +1,13 @@
+---
+type: plan
+title: 5-cto-implementation-plan
+project: tomale-rn-v1
+status: current
+version: 1.1
+date: 2026-04-14
+last_verified: 2026-10-24
+owner: vault
+---
 
 ---
 
@@ -84,7 +94,7 @@
 
 > **TO DO**: Create spreadsheet listing all Xano tables as rows with columns:
 > `table | used by app | exposure type | C | R | U | D | endpoint type | should exist?`
-[[api-security-model]]
+[[6-api-security-model]]
 
 - API endpoints should represent application capabilities, not database tables
 - Do NOT expose CRUD endpoints for all tables by default
@@ -410,7 +420,7 @@ Include in every event:
 - [[4-cto-improvements-list]]
 - [[Repos/tomale-rn-test/memory/data-model|data-model]]
 - [[6. Backend - Xano]]
-- [[decisions/rebac-authorization-approach]]
+- [[adopt-rebac-auth-model]]
 - [[separate-dev-prod-environments]]
 - [[trunk-based-git-branching]]
-- [[decisions/semver-versioning-approach]]
+- [[adopt-modified-semver-versioning]]

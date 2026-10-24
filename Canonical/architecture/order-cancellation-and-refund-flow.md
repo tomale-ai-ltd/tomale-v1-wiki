@@ -1,9 +1,12 @@
 ---
-type: reference
+type: architecture
 title: order-cancellation-and-refund-flow
-date: 2026-10-14
-status: current
 project: tomale-rn-v1
+status: current
+version: 1.0
+date: 2026-10-14
+last_verified: 2026-10-14
+owner: vault
 tags:
   - store-orders
   - cancellation

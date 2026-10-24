@@ -1,9 +1,11 @@
 ---
 type: decision
-title: "adopt-tiered-vault-structure-with-canonical-folder"
+title: adopt-tiered-vault-structure-with-canonical-folder
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-23
+supersedes:
+  - "[[create-architecture-folder-for-system-flow-docs]]"
 related:
   - "[[knowledge-architecture]]"
 ---

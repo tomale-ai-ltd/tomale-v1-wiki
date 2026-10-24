@@ -1,9 +1,10 @@
 ---
 type: decision
 title: create-architecture-folder-for-system-flow-docs
-date: 2026-07-15
-status: current
 project: tomale-rn-v1
+status: superseded
+date: 2026-07-15
+superseded_by: "[[adopt-tiered-vault-structure-with-canonical-folder]]"
 ---
 
 ---

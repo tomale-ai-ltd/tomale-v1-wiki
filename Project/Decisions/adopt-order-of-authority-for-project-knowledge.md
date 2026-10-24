@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "adopt-order-of-authority-for-project-knowledge"
+title: adopt-order-of-authority-for-project-knowledge
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-24

@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "use-custom-url-scheme-for-app-deep-links-v1"
-date: 2026-06-30
-status: current
+title: use-custom-url-scheme-for-app-deep-links-v1
 project: tomale-rn-v1
+status: accepted
+date: 2026-06-30
 ---
 
 ---

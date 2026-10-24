@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "formalise-story-status-lifecycle"
-date: 2026-10-12
-status: current
+title: formalise-story-status-lifecycle
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-12
 ---
 
 ---

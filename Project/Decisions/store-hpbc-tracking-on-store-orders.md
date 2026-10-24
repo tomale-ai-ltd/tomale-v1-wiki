@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "store-hpbc-tracking-on-store-orders"
-date: 2026-10-13
-status: current
+title: store-hpbc-tracking-on-store-orders
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-13
 ---
 
 ---

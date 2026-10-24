@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "defer-postman-monitor-until-launch"
-date: 2026-10-13
-status: current
+title: defer-postman-monitor-until-launch
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-13
 ---
 
 ---

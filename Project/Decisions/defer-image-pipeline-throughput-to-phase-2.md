@@ -1,9 +1,9 @@
 ---
 type: decision
 title: defer-image-pipeline-throughput-to-phase-2
-date: 2026-08-04
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2026-08-04
 ---
 
 ---

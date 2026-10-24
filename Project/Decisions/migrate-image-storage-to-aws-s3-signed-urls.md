@@ -1,6 +1,12 @@
 ---
+type: decision
+title: migrate-image-storage-to-aws-s3-signed-urls
+project: tomale-rn-v1
+status: accepted
+date: 2026-05-15
+implementation: "not yet implemented (Phase 1.5: S3 + CloudFront)"
+---
 
-## type: decision title: migrate-image-storage-to-aws-s3 date: 2026-05-15 status: accepted-not-implemented project: tomale-rn-v1
 
 # Decision: Migrate image storage from Xano public files to AWS S3 + CloudFront with signed URLs
 

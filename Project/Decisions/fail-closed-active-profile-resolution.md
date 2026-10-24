@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "fail-closed-active-profile-resolution"
-date: 2026-06-22
-status: current
+title: fail-closed-active-profile-resolution
 project: tomale-rn-v1
+status: accepted
+date: 2026-06-22
 ---
 
 ---

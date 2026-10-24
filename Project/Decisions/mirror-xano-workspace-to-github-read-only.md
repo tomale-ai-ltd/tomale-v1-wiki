@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "mirror-xano-workspace-to-github-read-only"
+title: mirror-xano-workspace-to-github-read-only
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-24

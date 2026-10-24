@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "relocate-project-folders-out-of-icloud"
+title: relocate-project-folders-out-of-icloud
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-24

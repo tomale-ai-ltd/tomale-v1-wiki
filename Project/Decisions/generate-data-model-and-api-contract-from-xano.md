@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "generate-data-model-and-api-contract-from-xano"
+title: generate-data-model-and-api-contract-from-xano
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-23

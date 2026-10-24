@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "defer-postman-suite-ci-until-suite-split"
+title: defer-postman-suite-ci-until-suite-split
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-23

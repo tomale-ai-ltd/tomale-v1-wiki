@@ -1,14 +1,17 @@
 ---
-
-type: system-flow
-title: Image Generation Flow
-project: tomale-v1
+type: architecture
+title: image-generation-flow
+aliases:
+  - Image Generation Flow
+project: tomale-rn-v1
 status: draft
+version: 1.0
 date: 2026-08-04
-scope: orchestrator_story_images through worker tick to the three async executors related:
-
-- "[[story-creation-flow]]"
-
+last_verified: 2026-08-04
+owner: vault
+related:
+  - "[[story-creation-flow]]"
+scope: orchestrator_story_images through worker tick to the three async executors
 ---
 
 # Image Generation Flow
@@ -133,6 +136,6 @@ The claim query only selects jobs where `locked_until <= now`, so a validly leas
 ## Related notes
 
 - [[story-creation-flow]]
-- [[DN-image-pipeline-throughput]]
-- [[13__AI_Text_Generation_-_OpenAI]]
-- [[14__AI_Image_Generation_-_OpenAI]]
+- [[defer-image-pipeline-throughput-to-phase-2]]
+- [[13. AI Text Generation - OpenAI]]
+- [[14. AI Image Generation - OpenAI]]

@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "block-ordering-of-stories-awaiting-parental-approval"
-date: 2026-10-22
-status: current
+title: block-ordering-of-stories-awaiting-parental-approval
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-22
 ---
 
 ---

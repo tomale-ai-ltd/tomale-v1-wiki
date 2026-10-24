@@ -167,6 +167,21 @@ Repo note: the working branch is `wip/pre-restructure-2026-10-24`; `main` is `50
 
 **6. Sessions count is 42**, not 40.
 
+## B5 results (2026-10-25)
+
+- **Frontmatter:** 23 canonical and plan docs given the full schema (`type`, `title` = filename, `project`, `status`, `version`, `date`, `last_verified`, `owner`; old display titles kept as `aliases`). PRDs carry `last_verified: 2026-04-14`, so the weekly staleness check will flag them until B9.
+- **Decisions (97):** 80 `current` → `accepted`; 15 already `accepted`; `migrate-image-storage-to-aws-s3-signed-urls` repaired (its frontmatter was malformed) and marked accepted, not yet implemented; **1 superseded**: `create-architecture-folder-for-system-flow-docs` → `superseded_by` [[adopt-tiered-vault-structure-with-canonical-folder]] (which now has `supersedes`).
+- **Sessions:** all 42 now `type: session-note` (7 were `work-session-note`); three malformed raw-archive frontmatters repaired (07-14, 07-16, 08-03).
+- **Links:** 36 old links repointed to the right notes (e.g. `DN-image-pipeline-throughput` → [[defer-image-pipeline-throughput-to-phase-2]], `stack/xano` → `6. Backend - Xano`); 24 unlinked to plain text (research-clipping author names, folder links, and the never-filed `order-fulfilment-flow-test-scripts` / `-test-build-spec`, which `test-suite.md` replaces in B8). **0 broken links remain** (apart from the two placeholders in the decision template).
+- **Templates:** decision template moved to the new schema (`status: proposed`, `related`, `affects`, lifecycle note); session template's previous-session link fixed.
+
+**Flags for B7 (data defects in decisions, not changed in B5 because history is only edited for frontmatter and links):**
+1. `defer-stripe-webhook-mode-branching-to-phase-2`: its "What we decided" text is about replacing SendGrid with Resend (copied from the next note), so the body doesn't match the title.
+2. `separate-dev-prod-environments`, `trunk-based-git-branching`, `adopt-rebac-auth-model`, `adopt-modified-semver-versioning` carry the template's placeholder date `2025-01-01`.
+3. URL schemes conflict: `use-custom-url-scheme-for-stripe-checkout-redirect-v1` says `tomale://`; `use-custom-url-scheme-for-app-deep-links-v1` and `separate-verify-email-deeplink-from-magic-link-path` say `tomalerntest://`.
+4. `avoid-column-named-function-inputs-in-xano` recommends renaming inputs; later practice (22/10) prefers the statement-level `enforce_hidden_fields` flag for external-contract inputs. Possibly a partial supersession; to settle in B7.
+5. `run-real-fulfilment-cascade-against-staging-sku` describes the DB-trigger cascade; submission later moved to a scheduled task ([[delay-hpbc-submission-with-30-minute-cancellation-window]]). The test principle stands, the mechanism is outdated.
+
 ## Kyle: confirmations (24/10)
 
 - [x] Vault copies of `constitution` and `data-model` deleted (Kyle, 24/10).

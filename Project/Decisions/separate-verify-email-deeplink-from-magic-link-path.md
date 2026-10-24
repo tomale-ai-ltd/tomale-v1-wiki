@@ -1,9 +1,9 @@
 ---
 type: decision
 title: separate-verify-email-deeplink-from-magic-link-path
-date: 2026-05-21
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2026-05-21
 ---
 
 ---

@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "add-propose-only-reconcile-and-staleness-automations"
+title: add-propose-only-reconcile-and-staleness-automations
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-23

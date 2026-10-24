@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "add-temporary-audit-trigger-on-store-orders"
-date: 2026-10-14
-status: current
+title: add-temporary-audit-trigger-on-store-orders
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-14
 ---
 
 ---

@@ -1,9 +1,9 @@
 ---
 type: decision
 title: simulate-stripe-payment-with-signed-postman-webhook
-date: 2026-10-09
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-09
 ---
 
 ---

@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "enforce-forward-only-hpbc-callback-status-transitions"
-date: 2026-10-14
-status: current
+title: enforce-forward-only-hpbc-callback-status-transitions
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-14
 ---
 
 ---

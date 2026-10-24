@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "remove-instant-story-reviews-endpoint"
-date: 2026-06-30
-status: current
+title: remove-instant-story-reviews-endpoint
 project: tomale-rn-v1
+status: accepted
+date: 2026-06-30
 ---
 
 ---

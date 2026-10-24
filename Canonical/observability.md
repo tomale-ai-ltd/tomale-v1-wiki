@@ -5,6 +5,7 @@ project: tomale-rn-v1
 status: draft
 version: 0.1
 date: 2026-10-24
+last_verified: 2026-10-24
 owner: vault
 ---
 

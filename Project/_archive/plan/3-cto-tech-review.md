@@ -232,9 +232,9 @@ Tools noted for evaluation — CTO has not yet tested these in production:
 - EAS CLI branch/channel management
 
 ## Related notes
-- [[plan/cto-improvements-implementation-plan]]
-- [[architecture/xano-schema]]
-- [[stack/xano]]
-- [[stack/deployment-eas]]
+- [[5-cto-implementation-plan]]
+- [[Repos/tomale-rn-test/memory/data-model|data-model]]
+- [[6. Backend - Xano]]
+- [[12. CICD - EAS, GitHub]]
 - [[separate-dev-prod-environments]]
-- [[decisions/rebac-authorization-approach]]
+- [[adopt-rebac-auth-model]]

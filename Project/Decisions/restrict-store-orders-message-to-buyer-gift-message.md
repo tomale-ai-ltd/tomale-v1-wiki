@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "restrict-store-orders-message-to-buyer-gift-message"
-date: 2026-10-15
-status: current
+title: restrict-store-orders-message-to-buyer-gift-message
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-15
 ---
 
 ---

@@ -1,10 +1,11 @@
 ---
 type: decision
 title: adopt-spec-driven-development
-date: 2025-10-01
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2025-10-01
 ---
+
 # Decision: Adopt Spec-Driven Development
 
 ## What we decided
@@ -44,7 +45,7 @@ Secondary reasons:
 
 ## Consequences
 
-- Every feature has a PRD in [[plan/Feature PRDs/]] before work begins
+- Every feature has a PRD in plan/Feature PRDs/ before work begins
 - Cursor constitution and process overview enforce this at the tooling level
 - Session notes should reference which sub-slice is in progress and what stage
   of the loop it's at

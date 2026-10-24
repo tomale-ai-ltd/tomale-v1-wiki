@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "purge-stuck-stories-with-manual-admin-function"
-date: 2026-10-13
-status: current
+title: purge-stuck-stories-with-manual-admin-function
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-13
 ---
 
 ---

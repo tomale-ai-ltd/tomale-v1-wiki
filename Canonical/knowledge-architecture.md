@@ -314,7 +314,7 @@ Whether a scheduled task can write to Claude Project knowledge is checked in B11
 
 ## 13. Migration stages
 
-**Progress (2026-10-24):** B0 ✅ · B1 ✅ · B2 ✅ · B3 ✅ ([[knowledge-inventory]]) · B4 ✅ on branch `b4-structure`, pending Kyle's review and merge.
+**Progress (2026-10-24):** B0 ✅ · B1 ✅ · B2 ✅ · B3 ✅ ([[knowledge-inventory]]) · B4 ✅ (merged 25/10) · B5 ✅ on branch `b5-frontmatter`, pending Kyle's review and merge.
 
 Each stage runs on a git branch → diff reviewed → merged. Each stage has a check, and a failed stage is reverted.
 

@@ -3,7 +3,9 @@ type: living-doc
 title: pending-updates
 project: tomale-rn-v1
 status: current
+version: 1.0
 date: 2026-10-24
+last_verified: 2026-10-24
 owner: vault
 ---
 

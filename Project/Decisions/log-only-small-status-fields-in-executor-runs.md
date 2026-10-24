@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "log-only-small-status-fields-in-executor-runs"
-date: 2026-10-21
-status: current
+title: log-only-small-status-fields-in-executor-runs
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-21
 ---
 
 ---

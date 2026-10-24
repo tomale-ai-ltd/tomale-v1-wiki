@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "adopt-repo-vault-ownership-split-for-project-knowledge"
+title: adopt-repo-vault-ownership-split-for-project-knowledge
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-23

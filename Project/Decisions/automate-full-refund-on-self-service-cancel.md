@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "automate-full-refund-on-self-service-cancel"
-date: 2026-10-14
-status: current
+title: automate-full-refund-on-self-service-cancel
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-14
 ---
 
 ---

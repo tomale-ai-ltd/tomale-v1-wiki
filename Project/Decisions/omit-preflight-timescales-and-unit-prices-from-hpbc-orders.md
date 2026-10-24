@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "omit-preflight-timescales-and-unit-prices-from-hpbc-orders"
-date: 2026-10-13
-status: current
+title: omit-preflight-timescales-and-unit-prices-from-hpbc-orders
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-13
 ---
 
 ---

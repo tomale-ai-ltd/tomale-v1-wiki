@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "replace-dblink-inputs-with-explicit-allowlists"
-date: 2026-10-22
-status: current
+title: replace-dblink-inputs-with-explicit-allowlists
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-22
 ---
 
 ---

@@ -1,9 +1,9 @@
 ---
 type: decision
 title: store-money-as-integer-minor-units
-date: 2026-07-15
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2026-07-15
 ---
 
 ---

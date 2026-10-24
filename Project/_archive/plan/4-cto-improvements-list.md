@@ -67,6 +67,6 @@
 ---
 
 ## Related notes
-- [[plan/cto-tech-review]]
-- [[stack/xano]]
-- [[stack/deployment-eas]]
+- [[3-cto-tech-review]]
+- [[6. Backend - Xano]]
+- [[12. CICD - EAS, GitHub]]

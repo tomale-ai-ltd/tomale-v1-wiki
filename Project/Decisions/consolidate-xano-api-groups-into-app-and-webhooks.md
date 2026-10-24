@@ -1,9 +1,9 @@
 ---
 type: decision
 title: consolidate-xano-api-groups-into-app-and-webhooks
-date: 2026-05-15
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2026-05-15
 ---
 
 ---

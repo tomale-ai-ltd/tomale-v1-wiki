@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "classify-and-batch-repo-sync-changes"
+title: classify-and-batch-repo-sync-changes
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-24

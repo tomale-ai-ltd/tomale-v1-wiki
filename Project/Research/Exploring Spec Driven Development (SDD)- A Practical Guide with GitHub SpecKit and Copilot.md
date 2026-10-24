@@ -2,7 +2,7 @@
 title: Exploring Spec Driven Development (SDD)- A Practical Guide with GitHub SpecKit and Copilot
 source: https://levelup.gitconnected.com/exploring-spec-driven-development-sdd-a-practical-guide-with-github-speckit-and-copilot-72fd9a70535a
 author:
-  - "[[Chris Bao]]"
+  - "Chris Bao"
 published: 2026-03-26
 created: 2026-04-15
 description: A blog post written by Chris Bao (microsoft) providing guidance on spec driven development, in particular in relation to 'vibe coding' or AI powered software development workflows.

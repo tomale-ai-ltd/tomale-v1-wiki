@@ -1,3 +1,14 @@
+---
+type: prd
+title: PRD-Chatbot-Story-Conversations
+project: tomale-rn-v1
+status: current
+version: 1.0
+date: 2026-04-14
+last_verified: 2026-04-14
+owner: vault
+---
+
 # 📘 PRD: Chatbot-Driven Story Creation
 
 ## 1. Overview

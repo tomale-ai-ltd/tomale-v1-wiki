@@ -1,9 +1,9 @@
 ---
 type: decision
 title: make-username-user-editable
-date: 2026-05-21
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2026-05-21
 ---
 
 ---

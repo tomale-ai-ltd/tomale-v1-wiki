@@ -1,3 +1,14 @@
+---
+type: prd
+title: PRD-Characters
+project: tomale-rn-v1
+status: current
+version: 1.0
+date: 2026-04-14
+last_verified: 2026-04-14
+owner: vault
+---
+
 # 📘 PRD: Characters Screen (10.0)
 
 ## 1. Overview

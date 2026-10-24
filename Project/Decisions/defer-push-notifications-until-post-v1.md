@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "defer-push-notifications-until-post-v1"
-date: 2026-06-30
-status: current
+title: defer-push-notifications-until-post-v1
 project: tomale-rn-v1
+status: accepted
+date: 2026-06-30
 ---
 
 ---

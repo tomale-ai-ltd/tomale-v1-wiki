@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "split-list-and-detail-projections"
-date: 2026-06-22
-status: current
+title: split-list-and-detail-projections
 project: tomale-rn-v1
+status: accepted
+date: 2026-06-22
 ---
 
 ---

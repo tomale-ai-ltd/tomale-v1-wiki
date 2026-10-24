@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "prevent-deleting-active-profile-via-soft-delete"
-date: 2026-06-30
-status: current
+title: prevent-deleting-active-profile-via-soft-delete
 project: tomale-rn-v1
+status: accepted
+date: 2026-06-30
 ---
 
 ---

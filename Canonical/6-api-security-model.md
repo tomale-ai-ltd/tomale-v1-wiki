@@ -1,11 +1,15 @@
 ---
-type: architecture
-title: API Security Model — Table Classification
-project: tomale-v1
+type: living-doc
+title: 6-api-security-model
+aliases:
+  - API Security Model — Table Classification
+project: tomale-rn-v1
 status: current
-phase-1: signed-off-2026-10-23
+version: 1.1
+date: 2026-04-15
 last_verified: 2026-10-23
-source: API Security Model spreadsheet
+owner: vault
+phase-1: signed-off-2026-10-23
 ---
 
 # API Security Model — Table Classification
@@ -218,8 +222,8 @@ Per [[5-cto-implementation-plan]], Phase 1 items 5–9 closed on 2026-07-16 and 
 
 ## Related notes
 
-- [[plan/cto-improvements-implementation-plan]]
-- [[plan/cto-tech-review]]
-- [[architecture/xano-schema]]
-- [[stack/xano]]
-- [[decisions/rebac-authorization-approach]]
+- [[5-cto-implementation-plan]]
+- [[3-cto-tech-review]]
+- [[Repos/tomale-rn-test/memory/data-model|data-model]]
+- [[6. Backend - Xano]]
+- [[adopt-rebac-auth-model]]

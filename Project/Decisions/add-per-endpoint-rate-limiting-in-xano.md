@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "add-per-endpoint-rate-limiting-in-xano"
-date: 2026-10-21
-status: current
+title: add-per-endpoint-rate-limiting-in-xano
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-21
 ---
 
 ---

@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "protect-speckit-and-generated-spec-documents"
+title: protect-speckit-and-generated-spec-documents
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-24

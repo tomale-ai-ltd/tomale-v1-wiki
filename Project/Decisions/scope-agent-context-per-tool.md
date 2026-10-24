@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "scope-agent-context-per-tool"
+title: scope-agent-context-per-tool
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-23

@@ -1,35 +1,39 @@
 ---
 type: decision
 title: "{{name}}"
-date: 2025-01-01
-status: current
 project: tomale-rn-v1
----
-
+status: proposed
+date: "{{date}}"
+related:
+  - "[[source-session-note]]"
+affects:
+  - "[[canonical-doc-or-spec]]"
 ---
 
 # Decision: {{name}}
 
 ## What we decided
 
-> brief explanation of what was decided, including key topics
+> Brief explanation of what was decided, including key topics.
 
 ## Why
 
-> explanation of why this decision was made, must display clear rationale and benefit to the project, including justification
+> Why this decision was made: clear rationale and benefit to the project.
 
 ## Alternatives considered
 
-> What alternative solutions were considered before reaching the conclusion?
+> What alternatives were considered before reaching the conclusion?
 
 ## Trade-offs accepted
 
-> Were any trade-offs identified within the chosen approach? Why were these acceptable?
+> Trade-offs identified in the chosen approach, and why they're acceptable.
 
 ## Workflow detail
 
-> Brief explanation of the impact of the decision to the work practices, approach, or specific workflows within the tomale-rn-v1 project
+> Impact on work practices, approach or specific workflows in tomale-rn-v1.
 
 ## Related notes
 
-> Reference to any existing notes within the tomale-v1-wiki/projects files, NOT including /wiki.
+> Links (filename only) to related notes in the vault, never into /wiki. Links into Repos/ use the full path.
+
+<!-- status: proposed → accepted (Kyle decided) → superseded (set superseded_by; set supersedes on the replacement). affects: canonical docs, protected specs or backend objects this decision changes. -->

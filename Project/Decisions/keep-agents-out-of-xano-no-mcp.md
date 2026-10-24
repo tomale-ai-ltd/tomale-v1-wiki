@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "keep-agents-out-of-xano-no-mcp"
+title: keep-agents-out-of-xano-no-mcp
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-24

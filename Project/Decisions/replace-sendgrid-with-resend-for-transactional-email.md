@@ -1,9 +1,9 @@
 ---
 type: decision
 title: replace-sendgrid-with-resend-for-transactional-email
-date: 2026-05-07
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2026-05-07
 ---
 
 ---

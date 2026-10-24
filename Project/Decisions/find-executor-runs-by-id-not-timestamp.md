@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "find-executor-runs-by-id-not-timestamp"
-date: 2026-10-15
-status: current
+title: find-executor-runs-by-id-not-timestamp
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-15
 ---
 
 ---

@@ -3,11 +3,11 @@ type: research
 title: "When People Never See Your App: Designing Brands for the Agentic Economy"
 source: https://www.bain.com/insights/when-people-never-see-your-app-designing-brands-for-the-agentic-economy/
 author:
-  - "[[Merritt Robinson]]"
-  - "[[Andy Pierce]]"
-  - "[[Holger Kömm]]"
-  - "[[Eric Sheng]]"
-  - "[[Nikolaus Zacher]]"
+  - "Merritt Robinson"
+  - "Andy Pierce"
+  - "Holger Kömm"
+  - "Eric Sheng"
+  - "Nikolaus Zacher"
 published: 2026-03-04
 created: 2026-04-21
 description: How brands can thrive—and grow—in the age of AI agents.

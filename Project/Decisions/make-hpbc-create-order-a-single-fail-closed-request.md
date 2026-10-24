@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "make-hpbc-create-order-a-single-fail-closed-request"
-date: 2026-10-13
-status: current
+title: make-hpbc-create-order-a-single-fail-closed-request
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-13
 ---
 
 ---

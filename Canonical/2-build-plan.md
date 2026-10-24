@@ -1,3 +1,14 @@
+---
+type: plan
+title: 2-build-plan
+project: tomale-rn-v1
+status: current
+version: 1.0
+date: 2026-04-15
+last_verified: 2026-04-15
+owner: vault
+---
+
 ## Build Plan
 
 - [x] 000\-  Foundations \(ship first, tiny\)

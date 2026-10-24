@@ -1,3 +1,14 @@
+---
+type: prd
+title: PRD-Chatbot-Create-Character
+project: tomale-rn-v1
+status: current
+version: 1.0
+date: 2026-04-14
+last_verified: 2026-04-14
+owner: vault
+---
+
 # 📘 PRD: Create Character (10.2.1)
 
 ## 1. Overview

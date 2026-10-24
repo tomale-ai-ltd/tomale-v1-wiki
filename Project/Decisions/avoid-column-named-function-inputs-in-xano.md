@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "avoid-column-named-function-inputs-in-xano"
-date: 2026-10-15
-status: current
+title: avoid-column-named-function-inputs-in-xano
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-15
 ---
 
 ---

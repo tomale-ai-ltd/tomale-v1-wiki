@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "parental-gate-on-profile-switch"
-date: 2026-06-22
-status: current
+title: parental-gate-on-profile-switch
 project: tomale-rn-v1
+status: accepted
+date: 2026-06-22
 ---
 
 ---

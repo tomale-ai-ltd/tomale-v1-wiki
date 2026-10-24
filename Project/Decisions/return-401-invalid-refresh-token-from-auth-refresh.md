@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "return-401-invalid-refresh-token-from-auth-refresh"
-date: 2026-10-21
-status: current
+title: return-401-invalid-refresh-token-from-auth-refresh
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-21
 ---
 
 ---

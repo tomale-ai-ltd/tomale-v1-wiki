@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "replace-support-requests-endpoint-with-mailto-ops-inbox"
-date: 2026-06-30
-status: current
+title: replace-support-requests-endpoint-with-mailto-ops-inbox
 project: tomale-rn-v1
+status: accepted
+date: 2026-06-30
 ---
 
 ---

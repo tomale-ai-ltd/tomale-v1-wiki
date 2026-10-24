@@ -28,7 +28,7 @@ tags:
 
 **Current milestone:** 
 **Feature/area of focus:** 
-**Carries over from:** [[sessions/{{previous_session}}]]
+**Carries over from:** [[{{previous_session}}]]
 
 ---
 

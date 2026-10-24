@@ -1,9 +1,9 @@
 ---
 type: decision
 title: use-custom-url-scheme-for-stripe-checkout-redirect-v1
-date: 2026-05-07
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2026-05-07
 ---
 
 ---
@@ -58,4 +58,4 @@ These will be set in the `stripe/create_checkout_session` endpoint's Stripe API 
 
 - [[5-cto-implementation-plan|5-cto-implementation-plan]]
 - [[PRD-Store-Orders|PRD-Store-Orders]]
-- [[Project/Stack/3__Routing_-_Expo_Router|3. Routing - Expo Router]]
+- [[3. Routing - Expo Router|3. Routing - Expo Router]]

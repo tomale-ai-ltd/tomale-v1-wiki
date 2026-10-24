@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "promote-pnpm-migration-ahead-of-slice-100"
+title: promote-pnpm-migration-ahead-of-slice-100
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-24

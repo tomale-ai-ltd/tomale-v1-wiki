@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "use-expo-secure-store-for-client-tokens"
-date: 2026-10-21
-status: current
+title: use-expo-secure-store-for-client-tokens
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-21
 ---
 
 ---

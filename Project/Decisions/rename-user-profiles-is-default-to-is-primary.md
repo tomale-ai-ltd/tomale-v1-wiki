@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "rename-user-profiles-is-default-to-is-primary"
-date: 2026-06-30
-status: current
+title: rename-user-profiles-is-default-to-is-primary
 project: tomale-rn-v1
+status: accepted
+date: 2026-06-30
 ---
 
 ---

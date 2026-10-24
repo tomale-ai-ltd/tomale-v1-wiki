@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "version-the-vault-with-git"
+title: version-the-vault-with-git
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-23

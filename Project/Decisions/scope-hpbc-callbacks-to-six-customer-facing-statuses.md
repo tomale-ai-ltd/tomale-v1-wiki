@@ -1,9 +1,9 @@
 ---
 type: decision
 title: scope-hpbc-callbacks-to-six-customer-facing-statuses
-date: 2026-07-15
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2026-07-15
 ---
 
 ---

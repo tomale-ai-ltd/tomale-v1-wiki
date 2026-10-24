@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "verify-stripe-checkout-totals-against-xano-prices"
-date: 2026-10-12
-status: current
+title: verify-stripe-checkout-totals-against-xano-prices
 project: tomale-rn-v1
+status: accepted
+date: 2026-10-12
 ---
 
 ---

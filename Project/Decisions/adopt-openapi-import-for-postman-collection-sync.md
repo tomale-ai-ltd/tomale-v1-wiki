@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "adopt-openapi-import-for-postman-collection-sync"
-date: 2026-06-30
-status: current
+title: adopt-openapi-import-for-postman-collection-sync
 project: tomale-rn-v1
+status: accepted
+date: 2026-06-30
 ---
 
 ---

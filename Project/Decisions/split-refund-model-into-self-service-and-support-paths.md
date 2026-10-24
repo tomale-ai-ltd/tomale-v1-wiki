@@ -1,9 +1,9 @@
 ---
 type: decision
 title: split-refund-model-into-self-service-and-support-paths
-date: 2026-07-15
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2026-07-15
 ---
 
 ---

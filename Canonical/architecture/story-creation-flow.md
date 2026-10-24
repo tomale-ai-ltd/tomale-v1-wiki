@@ -1,20 +1,24 @@
 ---
-type: system-flow
-title: Story Creation Flow
-project: tomale-v1
+type: architecture
+title: story-creation-flow
+aliases:
+  - Story Creation Flow
+project: tomale-rn-v1
 status: draft
+version: 1.0
 date: 2026-07-20
-updated: 2026-10-12
-scope: POST instant_stories through to a story ready for the order fulfilment flow
+last_verified: 2026-10-12
+owner: vault
 related:
-  - "[[order-fulfilment-flow-test-scripts]]"
+  - "order-fulfilment-flow-test-scripts"
+scope: POST instant_stories through to a story ready for the order fulfilment flow
 ---
 
 # Story Creation Flow
 
 Covers the path from initial story creation to a story complete enough to enter the order fulfilment flow. Steps are either user or chatbot triggered (via an authenticated endpoint) or automated (custom function, trigger, or worker drain loop).
 
-Downstream of this sits [[order-fulfilment-flow-test-scripts]], which begins at checkout session creation.
+Downstream of this sits order-fulfilment-flow-test-scripts, which begins at checkout session creation.
 
 Updated 2026-10-12 after the stuck "In Queue" investigation: status lifecycle made explicit, moderation `enforcement` values corrected, `story_completion_check` added, and the `/model` step marked surplus. See [[2026-10-12-001]].
 
@@ -197,8 +201,8 @@ Noted for a later version: regeneration is currently a fresh text to image reque
 
 ## Related notes
 
-- [[order-fulfilment-flow-test-scripts]]
+- order-fulfilment-flow-test-scripts
 - [[PRD-Chatbot-Story-Conversations]]
-- [[13__AI_Text_Generation_-_OpenAI]]
-- [[14__AI_Image_Generation_-_OpenAI]]
+- [[13. AI Text Generation - OpenAI]]
+- [[14. AI Image Generation - OpenAI]]
 - [[2026-10-12-001]]

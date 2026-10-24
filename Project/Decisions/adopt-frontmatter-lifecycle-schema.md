@@ -1,6 +1,6 @@
 ---
 type: decision
-title: "adopt-frontmatter-lifecycle-schema"
+title: adopt-frontmatter-lifecycle-schema
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-23

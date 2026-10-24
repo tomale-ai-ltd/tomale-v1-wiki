@@ -17,7 +17,7 @@ date: 2026-04-14
 > 
 > Note: Replace this file with a fresh export once Phase 1 and Phase 2 are done.
 >
-> See [[6-api-security-model|6-api-security-model]] for the target state and [[cto-improvements-implementation-plan]] for the task breakdown and order of execution.
+> See [[6-api-security-model|6-api-security-model]] for the target state and [[5-cto-implementation-plan]] for the task breakdown and order of execution.
 
 ---
 ## auth

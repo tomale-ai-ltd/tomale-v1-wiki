@@ -1,9 +1,9 @@
 ---
 type: decision
 title: place-frontend-development-on-hold
-date: 2025-12-27
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2025-12-27
 ---
 
 ---

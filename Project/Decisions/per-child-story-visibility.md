@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "per-child-story-visibility"
-date: 2026-06-22
-status: current
+title: per-child-story-visibility
 project: tomale-rn-v1
+status: accepted
+date: 2026-06-22
 ---
 
 ---

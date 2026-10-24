@@ -1,9 +1,9 @@
 ---
 type: decision
 title: defer-stripe-webhook-mode-branching-to-phase-2
-date: 2026-05-07
-status: current
 project: tomale-rn-v1
+status: accepted
+date: 2026-05-07
 ---
 
 ---
