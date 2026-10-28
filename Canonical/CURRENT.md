@@ -25,7 +25,7 @@ Start here. One page, updated whenever the phase or the next step changes. Last 
 
 ## Launch plan
 
-**Decided 28/10: option A.** Public UK App Store release of the full V1, including subscriptions, targeted for **late January 2027** ([[move-v1-public-launch-to-late-january]]). A velocity checkpoint after Slice 100 decides whether an earlier closed beta is worth it ([[roadmap]] §3, §7).
+**Decided 28/10: option A.** Public UK App Store release of the full V1, including subscriptions, targeted for **late January 2027** ([[move-v1-public-launch-to-late-january]]). A velocity checkpoint after Slice 100 decides whether an earlier closed beta is worth it ([[roadmap]] §3, §8).
 
 ## Next
 

@@ -131,11 +131,19 @@ From [[5-cto-implementation-plan]] (archived). Phase 1 (#1–#9) was signed off 
 
 Requirements outside the phase tables that are still open: rate limiting (§4.1), sensitive data flagging and the hidden-fields sweep (§4.6), signed URLs for files (§2.9), Sentry context and backend event logging (§8.2, §8.4), and the dependency policy (§5.4–5.5, applied from M1). Each is placed in M1 or M9 above.
 
-## 6. After V1
+## 6. Background track: image pipeline off Xano
 
-Push notifications, Universal Links, the image pipeline off Xano (Bedrock, Phase 2 throughput), story sharing, the public library, AI character creation if it isn't in V1, phonics (scope undecided: depends on how complex revealing it during text generation is).
+Raised by Kyle on 28/10. The goal is **cost**, not only speed: moving generation off Xano onto AWS (Bedrock and/or a queue-based worker) so most post-launch running costs can be covered by credits, and early revenue goes into marketing. It builds on [[defer-image-pipeline-throughput-to-phase-2]] and pairs naturally with S3 signed URLs ([[migrate-image-storage-to-aws-s3-signed-urls]]): images generated on AWS can land in S3 directly.
 
-## 7. Velocity log
+- **Now (background, off the critical path):** a short research note: current cost per story (image calls, Xano capacity), the target architecture, which costs credits can actually cover, and the quality risk (character consistency if the image model changes).
+- **Decision point:** before M8. Either build before launch (together with the S3 change in M9) or as the first post-launch milestone.
+- **Contract to keep:** `image_jobs` stays the interface. The app and story flow shouldn't change whichever side runs the work.
+
+## 7. After V1
+
+Push notifications, Universal Links, story sharing, the public library, AI character creation if it isn't in V1, phonics (scope undecided: depends on how complex revealing it during text generation is).
+
+## 8. Velocity log
 
 Actual working days per milestone, against the estimate, for the checkpoint after M2.
 
