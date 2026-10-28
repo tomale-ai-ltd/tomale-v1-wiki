@@ -19,7 +19,7 @@ features:
 ## What we decided
 
 - **No downloadable PDFs.** Stories are read in the app's e-reader. A hard copy is obtained only by ordering a printed book. The PDFs Papermill produces are print files and are never offered to users.
-- **Library is dropped from V1.**
+- **Library is dropped from V1.** "Library" is the public, shared story library (a separate navigation item in the umbrella PRD; the CTO plan lists a public library as future work). The **Bookshelf**, where each user keeps their own stories, is unaffected and stays in V1 (Slice 300).
 - **Reading progress** stays in V1 only if it can be delivered without a major backend change (decided in the Slice 300 spec).
 
 ## Why

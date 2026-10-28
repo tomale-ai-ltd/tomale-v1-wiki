@@ -42,7 +42,7 @@ Every session note (43), decision (103) and PRD (10) read and traced to V1 featu
 | P1, P2 | Images are created in the app before any order; generation is limited by entitlements; preference is to launch with subscriptions. | [[gate-image-generation-with-entitlements-at-story-creation]] |
 | P3, P5, P7, P8 | OK. | B8 roadmap, B9 PRDs |
 | P4 | Phonics in V1 depends on how complex it is to reveal during text generation. | Open: B8 roadmap |
-| P6 | Drop Library; reading progress only if there's no major backend overhaul. | [[drop-library-and-pdf-download-from-v1]] |
+| P6 | Drop Library (the public, shared library; the Bookshelf of the user's own stories stays); reading progress only if there's no major backend overhaul. | [[drop-library-and-pdf-download-from-v1]] |
 | §7 | Characters per profile; soft delete; no PATCH for now (it would need the profanity check); names moderated on create; drop `instant_stories_id`. | [[scope-characters-per-profile-with-soft-delete]] |
 | §8 | OK. G1–G3 and G5–G9 filed as `proposed`; G4 accepted (C9). | 9 notes |
 
