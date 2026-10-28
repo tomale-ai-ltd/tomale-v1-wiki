@@ -4,8 +4,8 @@ title: disable-request-history-on-credential-functions
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-14
----
-
+features:
+  - X-security
 ---
 
 # Decision: disable-request-history-on-credential-functions

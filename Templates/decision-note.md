@@ -8,6 +8,8 @@ related:
   - "[[source-session-note]]"
 affects:
   - "[[canonical-doc-or-spec]]"
+features:
+  - F-feature-id
 ---
 
 # Decision: {{name}}
@@ -36,4 +38,4 @@ affects:
 
 > Links (filename only) to related notes in the vault, never into /wiki. Links into Repos/ use the full path.
 
-<!-- status: proposed → accepted (Kyle decided) → superseded (set superseded_by; set supersedes on the replacement). affects: canonical docs, protected specs or backend objects this decision changes. -->
+<!-- status: proposed → accepted (Kyle decided) → superseded (set superseded_by; set supersedes on the replacement). affects: canonical docs, protected specs or backend objects this decision changes. features: V1 feature ids (F-…) or cross-cutting ids (X-security, X-platform, X-testing, X-process) from v1-feature-map. -->

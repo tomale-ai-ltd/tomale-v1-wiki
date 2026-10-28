@@ -12,8 +12,9 @@ affects:
   - constitution
   - package.json
   - CI
----
-
+features:
+  - X-security
+  - X-platform
 ---
 
 # Decision: promote-pnpm-migration-ahead-of-slice-100

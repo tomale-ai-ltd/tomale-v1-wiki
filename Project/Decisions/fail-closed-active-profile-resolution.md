@@ -4,8 +4,9 @@ title: fail-closed-active-profile-resolution
 project: tomale-rn-v1
 status: accepted
 date: 2026-06-22
----
-
+features:
+  - F-profiles
+  - X-security
 ---
 
 # Decision: fail-closed-active-profile-resolution

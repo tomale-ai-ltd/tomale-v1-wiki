@@ -4,8 +4,9 @@ title: migrate-store-orders-money-fields-to-integer-pence
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-22
----
-
+features:
+  - F-store
+  - F-payments
 ---
 
 # Decision: migrate-store-orders-money-fields-to-integer-pence

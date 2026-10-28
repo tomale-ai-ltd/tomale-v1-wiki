@@ -4,8 +4,8 @@ title: use-https-web-intermediary-for-magic-link-redirect
 project: tomale-rn-v1
 status: accepted
 date: 2026-05-15
----
-
+features:
+  - F-auth
 ---
 
 # Decision: use-https-web-intermediary-for-magic-link-redirect

@@ -4,8 +4,8 @@ title: rename-user-profiles-is-default-to-is-primary
 project: tomale-rn-v1
 status: accepted
 date: 2026-06-30
----
-
+features:
+  - F-profiles
 ---
 
 # Decision: rename-user-profiles-is-default-to-is-primary

@@ -4,8 +4,9 @@ title: store-hpbc-tracking-on-store-orders
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-13
----
-
+features:
+  - F-store
+  - F-print-fulfilment
 ---
 
 # Decision: store-hpbc-tracking-on-store-orders

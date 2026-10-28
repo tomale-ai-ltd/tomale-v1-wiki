@@ -4,8 +4,8 @@ title: remove-instant-story-reviews-endpoint
 project: tomale-rn-v1
 status: accepted
 date: 2026-06-30
----
-
+features:
+  - F-bookshelf
 ---
 
 # Decision: remove-instant-story-reviews-endpoint

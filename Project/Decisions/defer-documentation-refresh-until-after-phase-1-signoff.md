@@ -4,8 +4,8 @@ title: defer-documentation-refresh-until-after-phase-1-signoff
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-14
----
-
+features:
+  - X-process
 ---
 
 # Decision: defer-documentation-refresh-until-after-phase-1-signoff

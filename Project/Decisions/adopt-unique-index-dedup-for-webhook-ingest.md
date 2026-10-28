@@ -4,8 +4,9 @@ title: adopt-unique-index-dedup-for-webhook-ingest
 project: tomale-rn-v1
 status: accepted
 date: 2026-07-14
----
-
+features:
+  - F-payments
+  - F-print-fulfilment
 ---
 
 # Decision: adopt-unique-index-dedup-for-webhook-ingest

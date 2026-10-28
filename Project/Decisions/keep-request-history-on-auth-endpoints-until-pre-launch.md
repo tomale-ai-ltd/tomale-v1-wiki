@@ -7,6 +7,9 @@ date: 2026-10-23
 related:
   - "[[2026-10-23-001]]"
   - "[[disable-request-history-on-credential-functions]]"
+features:
+  - X-security
+  - F-auth
 ---
 
 # Decision: keep-request-history-on-auth-endpoints-until-pre-launch

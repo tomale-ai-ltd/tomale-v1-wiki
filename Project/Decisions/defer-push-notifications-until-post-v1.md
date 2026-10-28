@@ -4,8 +4,8 @@ title: defer-push-notifications-until-post-v1
 project: tomale-rn-v1
 status: accepted
 date: 2026-06-30
----
-
+features:
+  - F-notifications
 ---
 
 # Decision: defer-push-notifications-until-post-v1

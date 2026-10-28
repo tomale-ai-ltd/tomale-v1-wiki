@@ -4,8 +4,8 @@ title: replace-dblink-inputs-with-explicit-allowlists
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-22
----
-
+features:
+  - X-security
 ---
 
 # Decision: replace-dblink-inputs-with-explicit-allowlists

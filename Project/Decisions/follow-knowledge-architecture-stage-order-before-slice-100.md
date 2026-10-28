@@ -9,6 +9,8 @@ related:
   - "[[knowledge-architecture]]"
 affects:
   - "[[knowledge-architecture]]"
+features:
+  - X-process
 ---
 
 # Decision: follow-knowledge-architecture-stage-order-before-slice-100

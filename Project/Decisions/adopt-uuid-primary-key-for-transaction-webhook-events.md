@@ -4,8 +4,8 @@ title: adopt-uuid-primary-key-for-transaction-webhook-events
 project: tomale-rn-v1
 status: accepted
 date: 2026-07-14
----
-
+features:
+  - F-payments
 ---
 
 # Decision: adopt-uuid-primary-key-for-transaction-webhook-events

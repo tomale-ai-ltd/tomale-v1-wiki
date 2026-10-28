@@ -4,8 +4,8 @@ title: adopt-openapi-import-for-postman-collection-sync
 project: tomale-rn-v1
 status: accepted
 date: 2026-06-30
----
-
+features:
+  - X-testing
 ---
 
 # Decision: adopt-openapi-import-for-postman-collection-sync

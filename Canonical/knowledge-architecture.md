@@ -3,9 +3,9 @@ type: plan
 title: knowledge-architecture
 project: tomale-rn-v1
 status: current
-version: 1.0
+version: 1.1
 date: 2026-10-23
-last_verified: 2026-10-24
+last_verified: 2026-10-28
 owner: vault
 related:
   - "[[operating-model]]"
@@ -266,9 +266,9 @@ Applied to `Canonical/` and decisions. Session notes keep their template (only `
 ## 9. Generated specs
 
 - **API contract (exists, working since 23/10).** `npm run update:openapi` fetches the private `app` docs (`XANO_APISPEC_URL=https://api.tomale.ai/apispec:1pgd39RE` + `XANO_APISPEC_TOKEN` in the gitignored `.env`), writes `xano.yaml`, regenerates `client.ts`. Run after any `app` endpoint change. `api-spec.md` is retired.
-- **Data model (new, built by Cursor in B6).** `scripts/update-data-model.mjs` → `npm run update:datamodel`. Same pattern as the API script; reads every table's schema from the Xano Metadata API using the `cursor-read` token (database read scope confirmed by Kyle); writes `.specify/memory/data-model.md`. Run after schema changes.
+- **Data model (built by Cursor in B6, 28/10).** `scripts/update-data-model.mjs` → `npm run update:datamodel`. Reads every table's schema from the Xano Metadata API (`XANO_INSTANCE_URL` + `/api:meta`, `XANO_META_TOKEN` = the read-only `cursor-read` token, `XANO_WORKSPACE_ID`, all in the gitignored `.env`) and writes `.specify/memory/data-model.md`: a fixed preamble, then tables grouped by a domain map in the script. The run fails without writing if a live table is missing from the map or a mapped table no longer exists. Deterministic: a rerun with no schema change gives no diff. Run after schema changes.
 - **XanoScript (new, B0).** Xano GitHub sync (on the Launch plan) mirrors every publish to `tomale-xano` on GitHub. It's read-only from Xano's side; building and publishing still happen in Xano. It replaces the staged `.xs` files. With the dev/prod split (V1 uses two Xano branches): many publishes on **dev** give many commits; at release, dev is merged into **prod** in Xano (*branch footer → Merge Branches → source dev, destination prod → review → Merge*), then prod is published once, giving one prod commit. Each Xano branch syncs to its own git branch. The local clone under `Repos/tomale-xano/` fetches both. Until the split exists, the single live branch syncs.
-- **`webhooks` spec:** exported once in B6 for documentation and Postman; Cursor doesn't use it.
+- **`webhooks` spec:** not exported (dropped from B6 on 28/10). Postman already has it, and the XanoScript mirror is the source for those endpoints.
 
 ## 10. Automations
 
@@ -314,7 +314,7 @@ Whether a scheduled task can write to Claude Project knowledge is checked in B11
 
 ## 13. Migration stages
 
-**Progress (2026-10-24):** B0 ✅ · B1 ✅ · B2 ✅ · B3 ✅ ([[knowledge-inventory]]) · B4 ✅ (merged 25/10) · B5 ✅ on branch `b5-frontmatter`, pending Kyle's review and merge.
+**Progress (2026-10-28):** B0 ✅ · B1 ✅ · B2 ✅ · B3 ✅ ([[knowledge-inventory]]) · B4 ✅ (merged 25/10) · B5 ✅ (merged 25/10) · B6 ✅ (generator built and run, PR #9 merged into `wip/pre-restructure-2026-10-24` 28/10) · B7 ✅ audit reviewed 28/10 ([[v1-audit]]); rulings applied on branch `b7-v1-audit`, pending Kyle's merge · Next: B8.
 
 Each stage runs on a git branch → diff reviewed → merged. Each stage has a check, and a failed stage is reverted.
 
@@ -326,7 +326,7 @@ Each stage runs on a git branch → diff reviewed → merged. Each stage has a c
 | **B3: Inventory** | `Project/Plan/knowledge-inventory.md` built from §5, per file | Kyle reviews |
 | **B4: Structure** | Create `Canonical/`, `Repos/`, `Project/_archive/`; moves with link rewriting; delete `wiki/`; remove the plugin; retire the legacy vault and the working folder as sources | Obsidian clean; no new broken links |
 | **B5: Frontmatter and links** | Schema pass on canonical docs and decisions; decision status backfill; fix the 48 links; normalise session `type`; decision template updated | Kyle reviews the diff |
-| **B6: Generated specs (Cursor)** | Build + run `update:datamodel`; run `update:openapi`; export the `webhooks` spec | `data-model.md` matches live Xano |
+| **B6: Generated specs (Cursor)** | Build + run `update:datamodel`; run `update:openapi` (`webhooks` export dropped 28/10) | `data-model.md` matches live Xano |
 | **B7: V1 audit** | Read every session note and decision; record each one's effect on V1 features and PRDs (feature tags); list conflicts and gaps | Audit report reviewed by Kyle |
 | **B8: Canonical docs** | `CURRENT.md`, `backend-xano.md`, `security-model.md` (matrix from OpenAPI), `test-suite.md`, `pre-launch-checklist.md`, `roadmap.md`, `v1-feature-map.md`, architecture flows | Each has `last_verified`; Kyle reads `CURRENT.md` |
 | **B9: PRD reconciliation** | Update the PRDs from the audit and `documentation-refresh-backlog` | Kyle approves each PRD |

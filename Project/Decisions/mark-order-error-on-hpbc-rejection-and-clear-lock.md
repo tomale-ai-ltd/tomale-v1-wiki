@@ -4,8 +4,9 @@ title: mark-order-error-on-hpbc-rejection-and-clear-lock
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-14
----
-
+features:
+  - F-print-fulfilment
+  - F-store
 ---
 
 # Decision: mark-order-error-on-hpbc-rejection-and-clear-lock

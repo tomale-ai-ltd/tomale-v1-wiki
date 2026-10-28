@@ -4,8 +4,8 @@ title: replace-long-done-poll-with-stuck-story-check
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-12
----
-
+features:
+  - X-testing
 ---
 
 # Decision: replace-long-done-poll-with-stuck-story-check

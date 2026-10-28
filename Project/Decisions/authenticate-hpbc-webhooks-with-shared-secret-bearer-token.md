@@ -4,8 +4,9 @@ title: authenticate-hpbc-webhooks-with-shared-secret-bearer-token
 project: tomale-rn-v1
 status: accepted
 date: 2026-07-15
----
-
+features:
+  - F-print-fulfilment
+  - X-security
 ---
 
 # Decision: authenticate-hpbc-webhooks-with-shared-secret-bearer-token

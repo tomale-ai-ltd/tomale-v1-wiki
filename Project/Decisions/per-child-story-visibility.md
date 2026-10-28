@@ -4,8 +4,10 @@ title: per-child-story-visibility
 project: tomale-rn-v1
 status: accepted
 date: 2026-06-22
----
-
+features:
+  - F-profiles
+  - F-bookshelf
+  - F-parental-oversight
 ---
 
 # Decision: per-child-story-visibility

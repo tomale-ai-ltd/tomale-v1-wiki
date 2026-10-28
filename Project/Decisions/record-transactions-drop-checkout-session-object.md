@@ -4,8 +4,8 @@ title: record-transactions-drop-checkout-session-object
 project: tomale-rn-v1
 status: accepted
 date: 2026-07-15
----
-
+features:
+  - F-payments
 ---
 
 # Decision: record-transactions-drop-checkout-session-object

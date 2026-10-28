@@ -10,6 +10,8 @@ related:
   - "[[protect-speckit-and-generated-spec-documents]]"
 affects:
   - "[[knowledge-architecture]]"
+features:
+  - X-process
 ---
 
 # Decision: path-qualify-links-into-repos-folder

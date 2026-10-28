@@ -11,6 +11,8 @@ related:
 affects:
   - data-model
   - "scripts/update-data-model.mjs"
+features:
+  - X-process
 ---
 
 # Decision: embed-domain-map-in-data-model-generator

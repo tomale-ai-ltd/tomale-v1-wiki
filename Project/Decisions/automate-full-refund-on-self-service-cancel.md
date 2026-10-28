@@ -4,8 +4,9 @@ title: automate-full-refund-on-self-service-cancel
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-14
----
-
+features:
+  - F-store
+  - F-payments
 ---
 
 # Decision: automate-full-refund-on-self-service-cancel

@@ -4,8 +4,9 @@ title: verify-stripe-checkout-totals-against-xano-prices
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-12
----
-
+features:
+  - F-store
+  - F-payments
 ---
 
 # Decision: verify-stripe-checkout-totals-against-xano-prices

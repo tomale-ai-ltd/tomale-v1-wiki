@@ -2,10 +2,12 @@
 type: decision
 title: use-custom-url-scheme-for-app-deep-links-v1
 project: tomale-rn-v1
-status: accepted
+status: superseded
 date: 2026-06-30
----
-
+features:
+  - F-notifications
+  - X-platform
+superseded_by: "[[use-per-build-variant-url-schemes]]"
 ---
 
 # Decision: use-custom-url-scheme-for-app-deep-links-v1

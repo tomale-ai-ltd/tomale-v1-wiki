@@ -4,8 +4,8 @@ title: split-list-and-detail-projections
 project: tomale-rn-v1
 status: accepted
 date: 2026-06-22
----
-
+features:
+  - F-bookshelf
 ---
 
 # Decision: split-list-and-detail-projections

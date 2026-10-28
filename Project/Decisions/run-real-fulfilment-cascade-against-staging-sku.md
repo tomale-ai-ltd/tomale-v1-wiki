@@ -4,8 +4,9 @@ title: run-real-fulfilment-cascade-against-staging-sku
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-08
----
-
+features:
+  - X-testing
+  - F-print-fulfilment
 ---
 
 # Decision: Run the Real Fulfilment Cascade Against a Staging SKU Instead of Simulating HPBC
@@ -30,6 +31,9 @@ The terminal status of a valid staging order is unknown until run 1. The expecta
 ## Workflow detail
 
 The flow test is three async-gated phases: A (drive to payment), B (PDFs and cascade), C (HPBC terminal state). Run 1 doubles as discovery of the staging terminal status. The folder runs once per staging SKU (`TOM-001_staging`, `TOM-002_staging`), and Alex at Pureprint is told the `order_number`s once staging orders are sent. Go-live sequence agreed with Pureprint: staging orders on both SKUs, Alex confirms, one order per live SKU (real print, real cost), then production opens.
+
+
+**Amendment (2026-10-28, B7 audit):** the mechanism changed. Submission to HPBC now runs in the `hpbc_submit_due_orders` background task once `submit_after` passes, not from the `order_fulfilment_check` trigger ([[delay-hpbc-submission-with-30-minute-cancellation-window]]). The principle stands: real cascade, staging SKU, no simulated HPBC callback.
 
 ## Related notes
 

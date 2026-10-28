@@ -4,8 +4,10 @@ title: log-only-small-status-fields-in-executor-runs
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-21
----
-
+features:
+  - X-security
+  - F-story-generation
+  - F-print-fulfilment
 ---
 
 # Decision: log-only-small-status-fields-in-executor-runs

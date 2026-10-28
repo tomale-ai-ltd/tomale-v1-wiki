@@ -4,8 +4,8 @@ title: elevate-backend-observability-to-launch-requirement
 project: tomale-rn-v1
 status: accepted
 date: 2026-07-14
----
-
+features:
+  - X-platform
 ---
 
 # Decision: elevate-backend-observability-to-launch-requirement

@@ -4,8 +4,9 @@ title: split-refund-model-into-self-service-and-support-paths
 project: tomale-rn-v1
 status: accepted
 date: 2026-07-15
----
-
+features:
+  - F-store
+  - F-payments
 ---
 
 # Decision: split-refund-model-into-self-service-and-support-paths

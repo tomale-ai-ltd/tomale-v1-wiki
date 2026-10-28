@@ -6,8 +6,8 @@ status: accepted
 date: 2026-10-23
 related:
   - "[[knowledge-architecture]]"
----
-
+features:
+  - X-testing
 ---
 
 # Decision: defer-postman-suite-ci-until-suite-split

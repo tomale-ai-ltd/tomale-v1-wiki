@@ -2,10 +2,11 @@
 type: decision
 title: trunk-based-git-branching
 project: tomale-rn-v1
-status: accepted
-date: 2025-01-01
----
-
+status: superseded
+date: 2025-12-27
+features:
+  - X-process
+superseded_by: "[[name-branches-by-speckit-feature-number]]"
 ---
 
 # Decision: Adopt Trunk-Based Git Branching Model
@@ -75,6 +76,9 @@ determines whether a re-submission is required.
 - Release branches are maintained until superseded by the next minor release
 - OTA eligibility is determined by CI/CD check (no native code changes,
   no new permissions)
+
+
+**Amendment (2026-10-28, B7 audit):** date approximate. The original note carried a placeholder date (2025-01-01); 2025-12-27 is the CTO tech review period it came from.
 
 ## Related notes
 

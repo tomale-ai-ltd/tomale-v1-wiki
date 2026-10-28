@@ -4,8 +4,8 @@ title: formalise-story-status-lifecycle
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-12
----
-
+features:
+  - F-story-generation
 ---
 
 # Decision: formalise-story-status-lifecycle

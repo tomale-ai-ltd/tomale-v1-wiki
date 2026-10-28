@@ -4,8 +4,8 @@ title: enforce-strict-env-validation-at-startup
 project: tomale-rn-v1
 status: accepted
 date: 2026-05-15
----
-
+features:
+  - X-platform
 ---
 
 # Decision: enforce-strict-env-validation-at-startup

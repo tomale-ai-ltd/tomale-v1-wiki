@@ -4,8 +4,8 @@ title: make-username-user-editable
 project: tomale-rn-v1
 status: accepted
 date: 2026-05-21
----
-
+features:
+  - F-account
 ---
 
 # Decision: Make username user-editable via PATCH /users/me

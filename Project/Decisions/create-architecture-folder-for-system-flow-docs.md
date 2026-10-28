@@ -5,8 +5,8 @@ project: tomale-rn-v1
 status: superseded
 date: 2026-07-15
 superseded_by: "[[adopt-tiered-vault-structure-with-canonical-folder]]"
----
-
+features:
+  - X-process
 ---
 
 # Decision: create-architecture-folder-for-system-flow-docs

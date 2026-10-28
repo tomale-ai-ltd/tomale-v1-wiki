@@ -4,8 +4,8 @@ title: purge-stuck-stories-with-manual-admin-function
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-13
----
-
+features:
+  - F-story-generation
 ---
 
 # Decision: purge-stuck-stories-with-manual-admin-function

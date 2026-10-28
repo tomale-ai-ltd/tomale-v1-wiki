@@ -10,6 +10,9 @@ related:
 affects:
   - "[[api-spec]]"
   - stripe/create_checkout_session
+features:
+  - F-store
+  - F-payments
 ---
 
 # Decision: add-order-status-guard-to-stripe-checkout

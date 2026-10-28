@@ -4,8 +4,8 @@ title: key-hpbc-environment-switch-off-stripe-test-mode
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-08
----
-
+features:
+  - F-print-fulfilment
 ---
 
 # Decision: Key the HPBC/Pureprint Environment Switch off the Stripe `test_mode` Flag

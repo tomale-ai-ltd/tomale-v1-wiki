@@ -4,8 +4,9 @@ title: block-ordering-of-stories-awaiting-parental-approval
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-22
----
-
+features:
+  - F-store
+  - F-parental-oversight
 ---
 
 # Decision: block-ordering-of-stories-awaiting-parental-approval

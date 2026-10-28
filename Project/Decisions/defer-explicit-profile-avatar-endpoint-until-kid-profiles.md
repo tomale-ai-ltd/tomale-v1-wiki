@@ -2,10 +2,11 @@
 type: decision
 title: defer-explicit-profile-avatar-endpoint-until-kid-profiles
 project: tomale-rn-v1
-status: accepted
+status: superseded
 date: 2026-05-21
----
-
+features:
+  - F-profiles
+superseded_by: "[[use-bundled-preset-avatars-for-profiles]]"
 ---
 
 # Decision: Defer the explicit profile-avatar endpoint until kid-profile support lands

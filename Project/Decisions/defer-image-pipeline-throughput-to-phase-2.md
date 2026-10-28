@@ -4,8 +4,8 @@ title: defer-image-pipeline-throughput-to-phase-2
 project: tomale-rn-v1
 status: accepted
 date: 2026-08-04
----
-
+features:
+  - F-story-generation
 ---
 
 # Decision: defer-image-pipeline-throughput-to-phase-2

@@ -4,8 +4,8 @@ title: store-money-as-integer-minor-units
 project: tomale-rn-v1
 status: accepted
 date: 2026-07-15
----
-
+features:
+  - F-payments
 ---
 
 # Decision: store-money-as-integer-minor-units

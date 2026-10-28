@@ -4,8 +4,8 @@ title: defer-workspace-hidden-fields-setting-to-pre-launch-sweep
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-22
----
-
+features:
+  - X-security
 ---
 
 # Decision: defer-workspace-hidden-fields-setting-to-pre-launch-sweep

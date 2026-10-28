@@ -4,8 +4,9 @@ title: add-temporary-audit-trigger-on-store-orders
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-14
----
-
+features:
+  - F-store
+  - X-platform
 ---
 
 # Decision: add-temporary-audit-trigger-on-store-orders

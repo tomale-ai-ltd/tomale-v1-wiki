@@ -4,8 +4,8 @@ title: collapse-bool-preference-endpoints-into-users-me
 project: tomale-rn-v1
 status: accepted
 date: 2026-05-21
----
-
+features:
+  - F-account
 ---
 
 # Decision: Collapse bool_* preference endpoints into PATCH /users/me

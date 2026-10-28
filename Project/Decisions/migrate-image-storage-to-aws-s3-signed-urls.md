@@ -5,6 +5,11 @@ project: tomale-rn-v1
 status: accepted
 date: 2026-05-15
 implementation: "not yet implemented (Phase 1.5: S3 + CloudFront)"
+features:
+  - X-platform
+  - F-characters
+  - F-story-generation
+  - F-account
 ---
 
 

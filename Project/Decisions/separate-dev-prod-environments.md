@@ -2,10 +2,11 @@
 type: decision
 title: separate-dev-prod-environments
 project: tomale-rn-v1
-status: accepted
-date: 2025-01-01
----
-
+status: superseded
+date: 2025-12-27
+features:
+  - X-platform
+superseded_by: "[[use-xano-branches-for-dev-and-prod]]"
 ---
 
 # Decision: Separate Dev and Production Environments
@@ -53,6 +54,9 @@ separation in place first — which is why this became Phase 2 priority 1.
 - Stripe and HPBC webhook endpoints must be environment-specific
 - Frontend uses development builds against dev, production builds against prod
 - All Phase 1 security changes tested in dev before promotion to prod
+
+
+**Amendment (2026-10-28, B7 audit):** date approximate. The original note carried a placeholder date (2025-01-01); 2025-12-27 is the CTO tech review period it came from.
 
 ## Related notes
 

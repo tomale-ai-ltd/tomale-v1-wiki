@@ -7,6 +7,8 @@ date: 2026-10-24
 related:
   - "[[2026-10-24-001]]"
   - "[[consolidate-github-repos-in-tomale-ai-ltd-org]]"
+features:
+  - X-process
 ---
 
 # Decision: upgrade-github-org-to-team-for-main-protection

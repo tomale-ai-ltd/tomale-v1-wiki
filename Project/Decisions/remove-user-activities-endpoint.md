@@ -4,8 +4,8 @@ title: remove-user-activities-endpoint
 project: tomale-rn-v1
 status: accepted
 date: 2026-06-30
----
-
+features:
+  - X-security
 ---
 
 # Decision: remove-user-activities-endpoint

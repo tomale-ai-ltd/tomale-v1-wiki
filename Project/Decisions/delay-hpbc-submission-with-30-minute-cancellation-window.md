@@ -4,8 +4,9 @@ title: delay-hpbc-submission-with-30-minute-cancellation-window
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-14
----
-
+features:
+  - F-store
+  - F-print-fulfilment
 ---
 
 # Decision: delay-hpbc-submission-with-30-minute-cancellation-window

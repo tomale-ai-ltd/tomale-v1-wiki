@@ -4,6 +4,8 @@ title: adopt-spec-driven-development
 project: tomale-rn-v1
 status: accepted
 date: 2025-10-01
+features:
+  - X-process
 ---
 
 # Decision: Adopt Spec-Driven Development

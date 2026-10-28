@@ -7,6 +7,8 @@ date: 2026-10-22
 related:
   - "[[2026-10-22-001]]"
   - "[[2026-10-21-001]]"
+features:
+  - X-testing
 ---
 
 # Decision: use-run-scoped-postman-token-in-tests-login

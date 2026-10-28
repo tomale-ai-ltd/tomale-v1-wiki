@@ -4,8 +4,8 @@ title: scope-user-alerts-as-in-app-inbox
 project: tomale-rn-v1
 status: accepted
 date: 2026-06-30
----
-
+features:
+  - F-notifications
 ---
 
 # Decision: scope-user-alerts-as-in-app-inbox

@@ -3,9 +3,9 @@ type: decision
 title: adopt-rebac-auth-model
 project: tomale-rn-v1
 status: accepted
-date: 2025-01-01
----
-
+date: 2025-12-27
+features:
+  - X-security
 ---
 
 # Decision: Adopt ReBAC Authorization Model
@@ -57,6 +57,11 @@ assignment) without the complexity of a full attribute-based system.
 - Child profile access uses a two-layer check: parent owns the data AND
   child profile is assigned to that content
 - Future extensibility (public library, cross-user sharing) deferred to post-V1
+
+
+**Amendment (2026-10-28, B7 audit):** the ownership field is `users_id`, not `owner_user_id` ([[ratify-users-id-as-ownership-field-standard]]). The model itself is unchanged.
+
+**Amendment (2026-10-28, B7 audit):** date approximate. The original note carried a placeholder date (2025-01-01); 2025-12-27 is the CTO tech review period it came from.
 
 ## Related notes
 

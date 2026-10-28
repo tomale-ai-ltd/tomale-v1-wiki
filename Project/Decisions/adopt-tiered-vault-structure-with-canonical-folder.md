@@ -8,8 +8,8 @@ supersedes:
   - "[[create-architecture-folder-for-system-flow-docs]]"
 related:
   - "[[knowledge-architecture]]"
----
-
+features:
+  - X-process
 ---
 
 # Decision: adopt-tiered-vault-structure-with-canonical-folder

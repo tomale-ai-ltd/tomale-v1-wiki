@@ -4,8 +4,9 @@ title: use-expo-secure-store-for-client-tokens
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-21
----
-
+features:
+  - F-auth
+  - X-security
 ---
 
 # Decision: use-expo-secure-store-for-client-tokens

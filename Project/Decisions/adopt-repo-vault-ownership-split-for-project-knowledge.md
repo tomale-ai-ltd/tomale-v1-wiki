@@ -6,8 +6,8 @@ status: accepted
 date: 2026-10-23
 related:
   - "[[knowledge-architecture]]"
----
-
+features:
+  - X-process
 ---
 
 # Decision: adopt-repo-vault-ownership-split-for-project-knowledge

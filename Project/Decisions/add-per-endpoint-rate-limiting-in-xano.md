@@ -4,8 +4,8 @@ title: add-per-endpoint-rate-limiting-in-xano
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-21
----
-
+features:
+  - X-security
 ---
 
 # Decision: add-per-endpoint-rate-limiting-in-xano

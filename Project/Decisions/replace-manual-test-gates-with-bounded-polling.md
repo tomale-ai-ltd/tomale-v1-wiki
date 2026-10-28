@@ -4,8 +4,8 @@ title: replace-manual-test-gates-with-bounded-polling
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-09
----
-
+features:
+  - X-testing
 ---
 
 # Decision: Replace Manual Flow-Test Gates with Bounded Polling

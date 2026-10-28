@@ -130,3 +130,35 @@ The single checklist for the documentation refresh. The refresh runs **after Pha
 ## 8. Claude project knowledge
 
 - [ ] Re-upload the refreshed `api-spec`, `data-model`, `6-api-security-model`, `5-cto-implementation-plan` and the PRDs to the Claude project, so it isn't working from stale copies.
+
+## 9. From the B7 audit (28/10)
+
+Source: [[v1-audit]]. Items are grouped by the stage that closes them.
+
+**B8 (canonical docs and roadmap)**
+- [ ] `v1-feature-map`: formalise the feature ids from [[v1-audit]] §1.
+- [ ] Roadmap: entitlement and subscription system as launch-critical backend work ([[gate-image-generation-with-entitlements-at-story-creation]]); parental PIN gate and approve/reject flow (P8); rate limiting and backend observability (P7); phonics in V1 (P4, open); backend prep for Slice 100 ([[scope-characters-per-profile-with-soft-delete]]).
+- [ ] `pre-launch-checklist`: the 14 stray `error = 422` precondition messages; suffixed dev/prod env vars checked ([[use-xano-branches-for-dev-and-prod]]); Universal Links; backend-generated links using the per-environment scheme ([[use-per-build-variant-url-schemes]]).
+- [ ] `security-model`: repoint decision `affects` that still name the retired `api-spec` (D3).
+- [ ] `backend-xano`: confirm `mark-order-error-on-hpbc-rejection-and-clear-lock` is built (D4); record the live HPBC SKU field names (D5); email verification pattern (G11); order number format (G15).
+- [ ] `stack.md`: current client auth model, superseding the 11/05 token-overwrite pattern (G10); EAS env in `eas.json` (G12).
+- [ ] `test-suite`: staging HPBC terminal status is Order Confirmed (G13).
+- [ ] Data-model preamble: Key Conventions §3 still says references are inferred from `_id` fields; the generator now takes them from the API.
+
+**B9 (PRD reconciliation, per [[v1-audit]] §5)**
+- [ ] All ten PRDs, plus a new short profiles PRD from G1–G6 (P3).
+- [ ] PRD-Characters: per profile, soft delete, no PATCH; decide whether "Edit character" and "Re-create image" become delete-and-recreate or a later moderated PATCH.
+- [ ] PRD-Chatbot-Create-Character: chatbot knows the character data model and prompts for richer descriptions (Q&A or tap/swipe choices).
+- [ ] PRD-Parental-Oversight: approval channels (profile switch, push to parent device, email, push with PIN); field name `parental_approval_required`; Blocked vs oversight wording (C8).
+- [ ] PRD-Store-Orders: Pureprint, statuses, cancellation window, refunds, e-reader preview ([[use-e-reader-preview-before-order-payment]]), in-app checkout return ([[return-from-stripe-checkout-via-in-app-browser-sheet]]).
+- [ ] PRD-Order-PoD-System: replace the payment-gated image generation with the entitlement model.
+- [ ] Umbrella PRD: drop Library and PDF download ([[drop-library-and-pdf-download-from-v1]]); tech stack; notifications; sharing.
+- [ ] `auth/me` still returns `users.profile_photo` ([[use-bundled-preset-avatars-for-profiles]]).
+- [ ] Mark [[defer-documentation-refresh-until-after-phase-1-signoff]] done (C11).
+
+**B11 (automations)**
+- [ ] The daily decision task must add `features:` to new decision notes, and the decision template now carries the field.
+
+**B12 (close-out)**
+- [ ] New decision "resume frontend at Slice 100", superseding [[place-frontend-development-on-hold]] (C10).
+- [ ] Accept or reject the proposed backfilled decisions (G1–G3, G5–G9) if they weren't settled in the B7 review.

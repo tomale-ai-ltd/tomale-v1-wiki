@@ -2,10 +2,11 @@
 type: decision
 title: use-custom-url-scheme-for-stripe-checkout-redirect-v1
 project: tomale-rn-v1
-status: accepted
+status: superseded
 date: 2026-05-07
----
-
+features:
+  - F-store
+superseded_by: "[[return-from-stripe-checkout-via-in-app-browser-sheet]]"
 ---
 
 # Decision: use-custom-url-scheme-for-stripe-checkout-redirect-v1

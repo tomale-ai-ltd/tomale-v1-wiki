@@ -7,8 +7,9 @@ date: 2026-10-24
 related:
   - "[[knowledge-architecture]]"
   - "[[operating-model]]"
----
-
+features:
+  - X-process
+  - X-security
 ---
 
 # Decision: keep-agents-out-of-xano-no-mcp

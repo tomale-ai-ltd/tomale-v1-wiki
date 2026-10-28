@@ -3,9 +3,9 @@ type: decision
 title: adopt-modified-semver-versioning
 project: tomale-rn-v1
 status: accepted
-date: 2025-01-01
----
-
+date: 2025-12-27
+features:
+  - X-process
 ---
 
 # Decision: Adopt Modified SemVer Versioning
@@ -55,6 +55,9 @@ new submission is involved.
   - `dev` — feature development
   - `staging` — current head of main
   - `production` — latest store release
+
+
+**Amendment (2026-10-28, B7 audit):** date approximate. The original note carried a placeholder date (2025-01-01); 2025-12-27 is the CTO tech review period it came from.
 
 ## Related notes
 

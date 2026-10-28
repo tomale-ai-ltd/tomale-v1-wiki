@@ -4,8 +4,8 @@ title: disallow-cancelling-personalised-orders-once-in-production
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-14
----
-
+features:
+  - F-store
 ---
 
 # Decision: disallow-cancelling-personalised-orders-once-in-production

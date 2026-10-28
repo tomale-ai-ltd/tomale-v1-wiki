@@ -4,8 +4,8 @@ title: parental-gate-on-profile-switch
 project: tomale-rn-v1
 status: accepted
 date: 2026-06-22
----
-
+features:
+  - F-profiles
 ---
 
 # Decision: parental-gate-on-profile-switch

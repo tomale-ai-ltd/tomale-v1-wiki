@@ -4,8 +4,9 @@ title: scope-hpbc-callbacks-to-six-customer-facing-statuses
 project: tomale-rn-v1
 status: accepted
 date: 2026-07-15
----
-
+features:
+  - F-print-fulfilment
+  - F-store
 ---
 
 # Decision: scope-hpbc-callbacks-to-six-customer-facing-statuses

@@ -4,8 +4,8 @@ title: prevent-deleting-active-profile-via-soft-delete
 project: tomale-rn-v1
 status: accepted
 date: 2026-06-30
----
-
+features:
+  - F-profiles
 ---
 
 # Decision: prevent-deleting-active-profile-via-soft-delete
@@ -29,6 +29,9 @@ A parent must switch to a different profile before they can delete the one curre
 ## Workflow detail
 
 Implemented as a precondition inside the soft-delete endpoint (`deleted_at = now`, parent-only), alongside the existing guard against deleting the primary profile. Covered by the endpoint's test suite (8/8 green, including the cap-count interaction case).
+
+
+**Amendment (2026-10-28, B7 audit):** Xano has no 422. The live precondition returns 400 (`inputerror`) with code `CANNOT_DELETE_ACTIVE`; its message field reads `422`, one of 14 such stray messages queued for the pre-launch sweep.
 
 ## Related notes
 

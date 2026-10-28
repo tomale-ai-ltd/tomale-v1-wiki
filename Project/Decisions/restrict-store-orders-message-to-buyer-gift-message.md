@@ -4,8 +4,8 @@ title: restrict-store-orders-message-to-buyer-gift-message
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-15
----
-
+features:
+  - F-store
 ---
 
 # Decision: restrict-store-orders-message-to-buyer-gift-message

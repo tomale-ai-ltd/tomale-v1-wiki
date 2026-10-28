@@ -4,8 +4,8 @@ title: use-action-url-for-user-alert-deep-linking
 project: tomale-rn-v1
 status: accepted
 date: 2026-06-30
----
-
+features:
+  - F-notifications
 ---
 
 # Decision: use-action-url-for-user-alert-deep-linking

@@ -4,8 +4,8 @@ title: place-frontend-development-on-hold
 project: tomale-rn-v1
 status: accepted
 date: 2025-12-27
----
-
+features:
+  - X-process
 ---
 
 # Decision: place-frontend-development-on-hold

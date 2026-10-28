@@ -4,8 +4,8 @@ title: avoid-column-named-function-inputs-in-xano
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-15
----
-
+features:
+  - X-platform
 ---
 
 # Decision: avoid-column-named-function-inputs-in-xano
@@ -29,6 +29,9 @@ Not discussed in session notes. A Xano AI sweep for other inputs/variables named
 ## Workflow detail
 
 Review function inputs and variables against the columns they write when building or editing Xano functions. Both HPBC status callback endpoints now map `message` to `update_message`, and `pdf_worker_tick` passes `$now` as `run_created_at`.
+
+
+**Amendment (2026-10-28, B7 audit):** "not by enabling `enforce_hidden_fields`" no longer applies. Renaming stays as naming hygiene; the pre-launch sweep also enables the flag everywhere ([[defer-workspace-hidden-fields-setting-to-pre-launch-sweep]]).
 
 ## Related notes
 

@@ -4,8 +4,8 @@ title: omit-preflight-timescales-and-unit-prices-from-hpbc-orders
 project: tomale-rn-v1
 status: accepted
 date: 2026-10-13
----
-
+features:
+  - F-print-fulfilment
 ---
 
 # Decision: omit-preflight-timescales-and-unit-prices-from-hpbc-orders

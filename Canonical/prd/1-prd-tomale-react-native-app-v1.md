@@ -9,6 +9,23 @@ version: 1.0
 date: 2025-06-01
 last_verified: 2026-04-14
 owner: vault
+features:
+  - F-auth
+  - F-onboarding
+  - F-account
+  - F-profiles
+  - F-notifications
+  - F-characters
+  - F-character-chatbot
+  - F-story-create
+  - F-story-chatbot
+  - F-story-generation
+  - F-parental-oversight
+  - F-bookshelf
+  - F-store
+  - F-print-fulfilment
+  - F-payments
+  - F-subscriptions
 ---
 
 # Tomale.ai — Product & Technical Specification V1

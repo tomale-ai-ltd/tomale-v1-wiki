@@ -7,8 +7,8 @@ date: 2026-10-24
 related:
   - "[[knowledge-architecture]]"
   - "[[operating-model]]"
----
-
+features:
+  - X-process
 ---
 
 # Decision: classify-and-batch-repo-sync-changes
