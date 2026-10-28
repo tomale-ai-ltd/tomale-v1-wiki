@@ -2,7 +2,7 @@
 type: decision
 title: split-webhook-ingress-log-from-money-transactions
 project: tomale-rn-v1
-status: proposed
+status: accepted
 date: 2026-07-03
 related:
   - "[[2026-07-03-001]]"

@@ -2,7 +2,7 @@
 type: decision
 title: carry-active-profile-in-token-extras
 project: tomale-rn-v1
-status: proposed
+status: accepted
 date: 2026-05-08
 related:
   - "[[2026-05-08-001]]"

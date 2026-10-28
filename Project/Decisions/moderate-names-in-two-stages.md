@@ -2,7 +2,7 @@
 type: decision
 title: moderate-names-in-two-stages
 project: tomale-rn-v1
-status: proposed
+status: accepted
 date: 2026-06-29
 related:
   - "[[2026-06-29-001]]"

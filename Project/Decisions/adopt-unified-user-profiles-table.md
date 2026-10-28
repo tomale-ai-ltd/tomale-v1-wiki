@@ -2,7 +2,7 @@
 type: decision
 title: adopt-unified-user-profiles-table
 project: tomale-rn-v1
-status: proposed
+status: accepted
 date: 2026-05-11
 related:
   - "[[2026-05-11-001]]"

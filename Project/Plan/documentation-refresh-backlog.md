@@ -161,4 +161,4 @@ Source: [[v1-audit]]. Items are grouped by the stage that closes them.
 
 **B12 (close-out)**
 - [ ] New decision "resume frontend at Slice 100", superseding [[place-frontend-development-on-hold]] (C10).
-- [ ] Accept or reject the proposed backfilled decisions (G1–G3, G5–G9) if they weren't settled in the B7 review.
+- [x] Accept or reject the proposed backfilled decisions (G1–G3, G5–G9): all accepted 28/10.
