@@ -80,7 +80,7 @@ flowchart TD
         E3 --> E4["load data_models<br/>(default active, by type)"]
         E4 --> E5["prompt compiler<br/>build prompt from story,<br/>page or character, characters"]
         E5 --> E6["text model call<br/>(structured JSON out)"]
-        E6 --> E7["image model call<br/>gpt-image-1"]
+        E6 --> E7["image model call<br/>gpt-image-1.5 (per data_models)"]
         E7 --> E8{"api_status?"}
         E8 -->|"200"| E9["upload image to storage<br/>write to target record<br/>record token_usage"]
         E9 --> E10["image_jobs: status = complete<br/>release lease"]

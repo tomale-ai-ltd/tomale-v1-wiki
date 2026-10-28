@@ -27,7 +27,7 @@ One row per layer: what's used, what for, where its rules live, and its status o
 | HTTP | Axios 1.9 + types generated from OpenAPI (`openapi-typescript`) | Calls to the `app` group | [[generate-data-model-and-api-contract-from-xano]], [[use-axios-401-interceptor-for-client-auth-session-handling]] | Client on `wip/` (006); 401 interceptor to build (M1) |
 | Auth (client) | Xano JWE access token (1 h) + rotating refresh token | Session; never decode the token; `auth/me` gives profile context | [[security-model]] | Login and magic link screens exist |
 | Backend | Xano (`tomale.ai` workspace, Launch plan) | API, database, auth, background tasks | [[backend-xano]] | Phase 1 signed off |
-| AI | OpenAI: text and moderation (model per `data_models` record, e.g. `gpt-4o-mini`), images `gpt-image-1`, TTS `gpt-4o-mini-tts` | Stories, moderation, images, read-aloud audio | [[backend-xano]] | In use; throughput work later on Bedrock |
+| AI | OpenAI: text and moderation (model per `data_models` record, e.g. `gpt-4o-mini`), images `gpt-image-1.5` (character consistency across pages is a known weakness), TTS `gpt-4o-mini-tts` | Stories, moderation, images, read-aloud audio | [[backend-xano]] | In use; throughput work later on Bedrock |
 | Media storage | Xano file storage (public URLs) | Story, character and profile images; PDFs | [[migrate-image-storage-to-aws-s3-signed-urls]] | S3 + CloudFront signed URLs decided, not built |
 | Payments | Stripe Checkout (books); in-app purchase for subscriptions (planned) | Book orders, refunds | [[backend-xano]] §4 | Books built; subscriptions not started |
 | Print | HP Brand Centre / Pureprint, Papermill PDFs | Printed books | [[order-fulfilment-flow]] | Built (test SKU) |

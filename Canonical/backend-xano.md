@@ -73,7 +73,7 @@ Flows with diagrams: [[story-creation-flow]], [[image-generation-flow]], [[order
 
 | Service | Used for | Where | Notes |
 |---|---|---|---|
-| OpenAI | Story text, moderation, images (`gpt-image-1`) | `ai_pipeline/` | Image responses are always `b64_json` |
+| OpenAI | Story text, moderation, images (`gpt-image-1.5`, model set in `data_models`) | `ai_pipeline/` | Image responses are always `b64_json` |
 | Stripe | Book checkout, refunds, customers | `ecommerce/`, `payments/`, webhook | Test/live chosen per user by `test_mode`; subscriptions not built |
 | HP Brand Centre / Pureprint | Print fulfilment | `print on demand/`, 2 callbacks | Bearer-token callbacks; 6 customer-facing statuses ([[scope-hpbc-callbacks-to-six-customer-facing-statuses]]) |
 | Papermill | Cover and inner print PDFs | `docgen/` | Request history 0 |
@@ -88,7 +88,7 @@ Flows with diagrams: [[story-creation-flow]], [[image-generation-flow]], [[order
 - `regex_match` is deprecated: use `regex_matches`. `lambda_map` needs a quoted string and a timeout.
 - Error and terminal-state handling must sit outside success conditionals, or failed jobs stay stuck.
 - Counters like `images_remaining` are recounts, never decrements (race conditions).
-- `gpt-image-1` returns `b64_json`: decode before Create File Resource, which re-encodes; double encoding corrupts the file.
+- OpenAI image models (`gpt-image-1`, `gpt-image-1.5`) return `b64_json`: decode before Create File Resource, which re-encodes; double encoding corrupts the file.
 - A blank `hpbc_order_id` was stored as `""`, not null, and blocked submission. Test for empty, not just null.
 - A column-named input silently overwrote `created_at` and `message`. Hence the naming rule in §3.
 - Xano JWE tokens can't be decoded client-side; track expiry by time.
