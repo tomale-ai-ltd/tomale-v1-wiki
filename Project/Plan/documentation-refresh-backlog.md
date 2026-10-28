@@ -135,15 +135,15 @@ The single checklist for the documentation refresh. The refresh runs **after Pha
 
 Source: [[v1-audit]]. Items are grouped by the stage that closes them.
 
-**B8 (canonical docs and roadmap)**
-- [ ] `v1-feature-map`: formalise the feature ids from [[v1-audit]] §1.
-- [ ] Roadmap: entitlement and subscription system as launch-critical backend work ([[gate-image-generation-with-entitlements-at-story-creation]]); parental PIN gate and approve/reject flow (P8); rate limiting and backend observability (P7); phonics in V1 (P4, open); backend prep for Slice 100 ([[scope-characters-per-profile-with-soft-delete]]).
-- [ ] `pre-launch-checklist`: the 14 stray `error = 422` precondition messages; suffixed dev/prod env vars checked ([[use-xano-branches-for-dev-and-prod]]); Universal Links; backend-generated links using the per-environment scheme ([[use-per-build-variant-url-schemes]]).
-- [ ] `security-model`: repoint decision `affects` that still name the retired `api-spec` (D3).
-- [ ] `backend-xano`: confirm `mark-order-error-on-hpbc-rejection-and-clear-lock` is built (D4); record the live HPBC SKU field names (D5); email verification pattern (G11); order number format (G15).
-- [ ] `stack.md`: current client auth model, superseding the 11/05 token-overwrite pattern (G10); EAS env in `eas.json` (G12).
-- [ ] `test-suite`: staging HPBC terminal status is Order Confirmed (G13).
-- [ ] Data-model preamble: Key Conventions §3 still says references are inferred from `_id` fields; the generator now takes them from the API.
+**B8 (canonical docs and roadmap)**: done 28/10 except where noted.
+- [x] `v1-feature-map`: formalise the feature ids from [[v1-audit]] §1.
+- [x] Roadmap: entitlement and subscription system as launch-critical backend work ([[gate-image-generation-with-entitlements-at-story-creation]]); parental PIN gate and approve/reject flow (P8); rate limiting and backend observability (P7); phonics in V1 (P4, open); backend prep for Slice 100 ([[scope-characters-per-profile-with-soft-delete]]).
+- [x] `pre-launch-checklist`: the 14 stray `error = 422` precondition messages; suffixed dev/prod env vars checked ([[use-xano-branches-for-dev-and-prod]]); Universal Links; backend-generated links using the per-environment scheme ([[use-per-build-variant-url-schemes]]).
+- [x] `security-model`: repoint decision `affects` that still name the retired `api-spec` (D3).
+- [x] `backend-xano`: confirm `mark-order-error-on-hpbc-rejection-and-clear-lock` is built (D4); record the live HPBC SKU field names (D5); email verification pattern (G11); order number format (G15).
+- [x] `stack.md`: current client auth model, superseding the 11/05 token-overwrite pattern (G10); EAS env in `eas.json` (G12).
+- [x] `test-suite`: staging HPBC terminal status is Order Confirmed (G13).
+- [ ] (moved to repo-sync RS-2026-10-28-02, B10) Data-model preamble: Key Conventions §3 still says references are inferred from `_id` fields; the generator now takes them from the API.
 
 **B9 (PRD reconciliation, per [[v1-audit]] §5)**
 - [ ] All ten PRDs, plus a new short profiles PRD from G1–G6 (P3).

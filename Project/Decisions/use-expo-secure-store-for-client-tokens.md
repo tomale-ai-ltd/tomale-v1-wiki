@@ -37,5 +37,5 @@ Docs need updating: `9. AsyncStorage.md` describes the on-hold frontend branch, 
 - [[return-401-invalid-refresh-token-from-auth-refresh]]
 - [[place-frontend-development-on-hold]]
 - [[documentation-refresh-backlog]]
-- [[6-api-security-model]]
+- [[security-model]]
 - [[2026-10-21-001]]

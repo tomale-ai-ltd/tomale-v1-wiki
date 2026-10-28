@@ -3,9 +3,9 @@ type: plan
 title: operating-model
 project: tomale-rn-v1
 status: current
-version: 1.0
+version: 1.1
 date: 2026-10-24
-last_verified: 2026-10-24
+last_verified: 2026-10-28
 owner: vault
 related:
   - "[[knowledge-architecture]]"
@@ -111,11 +111,15 @@ Backend rules live in `Canonical/backend-xano.md` and are copied into the Xano K
 
 ### 3.3 Frontend slice (speckit, in Cursor)
 
-1. Check that the feature's PRD in `Canonical/prd/` is current and linked in `v1-feature-map`.
-2. `/speckit.specify` → `/speckit.clarify` → `/speckit.plan` → `/speckit.tasks` → `/speckit.analyze` → `/speckit.implement`.
-3. Branching, CI, Constitution Check and review follow the constitution's *Development Workflow & Quality Gates*; they aren't restated here. Kyle reviews and merges.
-4. If implementation reveals a needed backend change, stop and raise it as a backend change (§3.2). Agents don't work around the API.
-5. The raw session note goes to the vault (§3.1).
+1. Check that the feature's PRD in `Canonical/prd/` is current and linked in [[v1-feature-map]].
+2. Write the feature's micro-PRD in the repo at `.docs/prd/NNN-slicename.md` (template `000-example-prd.md`), drawn from the vault PRD. One per speckit feature, as for 001–006.
+3. `/speckit.specify` (referencing the micro-PRD; it creates the `NNN-…` branch) → `/speckit.clarify` → `/speckit.plan` → `/speckit.tasks` → `/speckit.analyze` → `/speckit.implement`. After `specify`, check the spec against the micro-PRD and the constitution. `analyze` is read-only: changes go back through specify, plan or tasks.
+4. `/speckit.implement` also writes `specs/NNN-…/checklists/validation.md`; Kyle and the agent work through it before the PR.
+5. Branching, CI, Constitution Check and review follow the constitution's *Development Workflow & Quality Gates*; they aren't restated here. Kyle reviews, squash-merges and deletes the branch ([[name-branches-by-speckit-feature-number]]).
+6. If implementation reveals a needed backend change, stop and raise it as a backend change (§3.2). Agents don't work around the API.
+7. The raw session note goes to the vault (§3.1).
+
+This replaces the April process notes `sdd-process-overview` and `sdd-flow` (archived in `Project/_archive/cursor/`).
 
 ### 3.4 Decision
 

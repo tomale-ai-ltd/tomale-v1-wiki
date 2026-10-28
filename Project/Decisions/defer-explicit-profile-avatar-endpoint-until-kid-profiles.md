@@ -59,7 +59,7 @@ deferral does not block other `users`-group work.
 
 - [[Sessions/2026-05-21-001|2026-05-21-001]]
 - [[5-cto-implementation-plan|5-cto-implementation-plan]]
-- [[6-api-security-model|6-api-security-model]]
+- [[security-model|6-api-security-model]]
 - [[migrate-image-storage-to-aws-s3-signed-urls|migrate-image-storage-to-aws-s3-signed-urls]]
 - [[enforce-server-side-image-validation|enforce-server-side-image-validation]]
 - [[collapse-bool-preference-endpoints-into-users-me|collapse-bool-preference-endpoints-into-users-me]]

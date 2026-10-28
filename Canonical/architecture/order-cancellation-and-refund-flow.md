@@ -3,9 +3,9 @@ type: architecture
 title: order-cancellation-and-refund-flow
 project: tomale-rn-v1
 status: current
-version: 1.0
+version: 1.1
 date: 2026-10-14
-last_verified: 2026-10-14
+last_verified: 2026-10-28
 owner: vault
 tags:
   - store-orders
@@ -128,7 +128,7 @@ flowchart TD
 
 ## Rules
 
-- **Cancellable window:** from payment until `hpbc_submit_due_orders` claims the order: `submit_after` (30 min, or 1 min for test users) plus up to one 2-minute task interval. After submission, cancellation is closed. Personalised goods are exempt from the 14-day cancellation right (Consumer Contracts Regulations 2013, reg. 28(1)(b)); confirm the wording in the terms.
+- **Cancellable window:** from payment until `hpbc_submit_due_orders` claims the order: `submit_after` (30 min, or 1 min for test users) plus up to one 60-second task interval. After submission, cancellation is closed. Personalised goods are exempt from the 14-day cancellation right (Consumer Contracts Regulations 2013, reg. 28(1)(b)); confirm the wording in the terms.
 - **Order before money:** the order is set to Cancelled before the refund is attempted, so a failed refund can never let a cancelled order print.
 - **Full refunds only** on this path, for the amount in `refundable_amount` on the original `transactions` row (type `physical-product`).
 - **Idempotency key** `refund_{store_orders_id}_{refund_attempt_count}`. A network retry reuses the key and Stripe returns the same refund. After a confirmed failure the count increases, so the next attempt is a fresh refund. Stripe keeps a key's result for 24 h.

@@ -68,4 +68,4 @@ Endpoint shapes agreed during the `users` group session (`PATCH /users/me/image`
 
 - [[3-cto-tech-review]]
 - [[5-cto-implementation-plan]]
-- [[6-api-security-model]]
+- [[security-model]]

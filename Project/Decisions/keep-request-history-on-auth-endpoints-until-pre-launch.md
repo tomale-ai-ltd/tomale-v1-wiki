@@ -40,4 +40,4 @@ Issued tokens are kept in Xano request history until the pre-launch change. Acce
 - [[disable-request-history-on-credential-functions]]
 - [[defer-workspace-hidden-fields-setting-to-pre-launch-sweep]]
 - [[add-per-endpoint-rate-limiting-in-xano]]
-- [[6-api-security-model]]
+- [[security-model]]

@@ -49,7 +49,7 @@ fixed to `data.reason?.includes('expired')`, since Xano returns the string
 ## Related notes
 
 - [[Sessions/2026-05-21-001|2026-05-21-001]]
-- [[6-api-security-model|6-api-security-model]]
+- [[security-model|6-api-security-model]]
 - [[use-https-web-intermediary-for-magic-link-redirect|use-https-web-intermediary-for-magic-link-redirect]]
 - [[collapse-bool-preference-endpoints-into-users-me|collapse-bool-preference-endpoints-into-users-me]]
 - [[defer-explicit-profile-avatar-endpoint-until-kid-profiles|defer-explicit-profile-avatar-endpoint-until-kid-profiles]]

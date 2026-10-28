@@ -39,5 +39,5 @@ The payment gate is no longer manual, so the collection can run unattended in th
 - [[run-real-fulfilment-cascade-against-staging-sku]]
 - [[authenticate-hpbc-webhooks-with-shared-secret-bearer-token]]
 - [[order-fulfilment-flow]]
-- [[6-api-security-model]]
+- [[security-model]]
 - [[2026-10-09-001]]

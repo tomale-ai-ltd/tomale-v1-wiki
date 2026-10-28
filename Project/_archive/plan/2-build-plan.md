@@ -2,12 +2,15 @@
 type: plan
 title: 2-build-plan
 project: tomale-rn-v1
-status: current
+status: historical
 version: 1.0
 date: 2026-04-15
 last_verified: 2026-04-15
 owner: vault
+superseded_by: "[[roadmap]]"
 ---
+
+> **Archived 28/10/2026 (B8).** Superseded by [[roadmap]], which carries every open item from this plan.
 
 ## Build Plan
 

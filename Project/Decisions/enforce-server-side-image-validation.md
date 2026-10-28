@@ -52,7 +52,7 @@ when CloudFront Functions / Lambda@Edge become available.
 ## Related notes
 
 - [[Sessions/2026-05-21-001|2026-05-21-001]]
-- [[6-api-security-model|6-api-security-model]]
+- [[security-model|6-api-security-model]]
 - [[migrate-image-storage-to-aws-s3-signed-urls|migrate-image-storage-to-aws-s3-signed-urls]]
 - [[defer-explicit-profile-avatar-endpoint-until-kid-profiles|defer-explicit-profile-avatar-endpoint-until-kid-profiles]]
 - [[collapse-bool-preference-endpoints-into-users-me|collapse-bool-preference-endpoints-into-users-me]]

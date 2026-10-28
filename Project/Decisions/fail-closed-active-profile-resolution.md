@@ -17,7 +17,7 @@ When `active_profile` cannot be resolved from `$auth.extras`, the endpoint fails
 
 ## Why
 
-Silent privilege escalation is explicitly prohibited by [[6-api-security-model]]. A token missing extras is in an indeterminate state; treating it as a lesser-privileged default still grants access it may not be entitled to. Failing closed forces re-authentication, which restores a known-good token state.
+Silent privilege escalation is explicitly prohibited by [[security-model]]. A token missing extras is in an indeterminate state; treating it as a lesser-privileged default still grants access it may not be entitled to. Failing closed forces re-authentication, which restores a known-good token state.
 
 ## Alternatives considered
 
@@ -33,5 +33,5 @@ Implemented in Xano using `|get` to safely read `active_profile` from extras wit
 
 ## Related notes
 
-- [[6-api-security-model]]
+- [[security-model]]
 - [[per-child-story-visibility]]

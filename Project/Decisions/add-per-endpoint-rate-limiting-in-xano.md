@@ -32,6 +32,6 @@ Added to the Xano pre-launch checklist (Phase 2: endpoint inventory, rate-limit 
 
 ## Related notes
 
-- [[6-api-security-model]]
+- [[security-model]]
 - [[adopt-rebac-auth-model]]
 - [[2026-10-21-001]]

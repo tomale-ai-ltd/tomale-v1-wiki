@@ -35,6 +35,6 @@ Moderation fail-open was re-rated normal priority because the child-visibility a
 - [[Sessions/2026-10-12-001]]
 - [[story-creation-flow]]
 - [[PRD-Chatbot-Story-Conversations]]
-- [[6-api-security-model]]
+- [[security-model]]
 - [[verify-stripe-checkout-totals-against-xano-prices]]
 - [[replace-long-done-poll-with-stuck-story-check]]

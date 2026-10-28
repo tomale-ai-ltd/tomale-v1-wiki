@@ -34,6 +34,6 @@ Postman 1A saves `refreshToken` for the 1D/1E tests. `6-api-security-model` is t
 
 - [[use-axios-401-interceptor-for-client-auth-session-handling]]
 - [[use-expo-secure-store-for-client-tokens]]
-- [[6-api-security-model]]
+- [[security-model]]
 - [[7. Auth - Xano]]
 - [[2026-10-21-001]]

@@ -2,12 +2,15 @@
 type: plan
 title: 5-cto-implementation-plan
 project: tomale-rn-v1
-status: current
+status: historical
 version: 1.1
 date: 2026-04-14
 last_verified: 2026-10-24
 owner: vault
+superseded_by: "[[roadmap]]"
 ---
+
+> **Archived 28/10/2026 (B8).** Superseded by [[roadmap]], which carries every open item from this plan.
 
 ---
 
@@ -94,7 +97,7 @@ owner: vault
 
 > **TO DO**: Create spreadsheet listing all Xano tables as rows with columns:
 > `table | used by app | exposure type | C | R | U | D | endpoint type | should exist?`
-[[6-api-security-model]]
+[[security-model]]
 
 - API endpoints should represent application capabilities, not database tables
 - Do NOT expose CRUD endpoints for all tables by default
@@ -357,7 +360,7 @@ Include in every event:
 
 > **✅ Phase 1 signed off — 2026-10-23.** Items 5–9 closed 2026-07-16; items 1–4 closed 2026-10-14; close-out fixes (money in integer pence, parental-approval order gate, hidden-fields fixes) completed 2026-10-22/23.
 > Evidence: final `_tests` regression run 2026-10-23, **86/86 passed** (auth and refresh, cross-user and invalid-input negatives, full order flow to Shipped, cancel and refund).
-> Full record: the close-out section in [[6-api-security-model]]. Session notes: [[2026-10-22-001]], [[2026-10-23-001]].
+> Full record: the close-out section in [[security-model]]. Session notes: [[2026-10-22-001]], [[2026-10-23-001]].
 > Carried forward: pre-launch items (hidden-fields sweep, rate limiting, parental PIN, request history off on token-issuing auth endpoints) and Phase 2 below.
 > Already done from later phases: #13 MFA on Xano (2FA); #14 secrets in env vars; much of Phase 4's backend journey coverage now exists as the Postman `_tests` suite (frontend tests still to do).
 

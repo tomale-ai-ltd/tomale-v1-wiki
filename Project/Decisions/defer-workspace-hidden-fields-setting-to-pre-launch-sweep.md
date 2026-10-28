@@ -35,5 +35,5 @@ Fixes are applied one at a time and reviewed against the published version befor
 [[replace-dblink-inputs-with-explicit-allowlists]]
 [[add-per-endpoint-rate-limiting-in-xano]]
 [[avoid-column-named-function-inputs-in-xano]]
-[[6-api-security-model]]
+[[security-model]]
 [[5-cto-implementation-plan]]

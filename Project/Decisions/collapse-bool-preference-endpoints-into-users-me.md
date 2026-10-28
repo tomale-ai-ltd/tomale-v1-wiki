@@ -61,7 +61,7 @@ carryover item #6.
 - [[Sessions/2026-05-21-001|2026-05-21-001]]
 - [[api-spec|api-spec]]
 - [[5-cto-implementation-plan|5-cto-implementation-plan]]
-- [[6-api-security-model|6-api-security-model]]
+- [[security-model|6-api-security-model]]
 - [[make-username-user-editable|make-username-user-editable]]
 - [[defer-explicit-profile-avatar-endpoint-until-kid-profiles|defer-explicit-profile-avatar-endpoint-until-kid-profiles]]
 - [[enforce-server-side-image-validation|enforce-server-side-image-validation]]

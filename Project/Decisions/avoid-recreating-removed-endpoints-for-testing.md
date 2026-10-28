@@ -37,5 +37,5 @@ The `_tests` collection contains no requests against removed endpoints, and the 
 - [[replace-manual-test-gates-with-bounded-polling]]
 - [[remove-user-activities-endpoint]]
 - [[adopt-unique-index-dedup-for-webhook-ingest]]
-- [[6-api-security-model]]
+- [[security-model]]
 - [[2026-10-09-001]]

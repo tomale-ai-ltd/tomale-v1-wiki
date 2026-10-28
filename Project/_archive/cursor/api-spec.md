@@ -13,11 +13,11 @@ date: 2026-04-14
 ## Summary
 
 > ⚠️ MID-CTO-CHANGES BASELINE — This spec reflects the API as it existed part way through the CTO implementation plan.
-> It is intentionally incomplete from a security perspective. Most endpoints listed as "auth: not required" will require authentication after Phase 1 is complete as per the [[6-api-security-model|6-api-security-model]]
+> It is intentionally incomplete from a security perspective. Most endpoints listed as "auth: not required" will require authentication after Phase 1 is complete as per the [[security-model|6-api-security-model]]
 > 
 > Note: Replace this file with a fresh export once Phase 1 and Phase 2 are done.
 >
-> See [[6-api-security-model|6-api-security-model]] for the target state and [[5-cto-implementation-plan]] for the task breakdown and order of execution.
+> See [[security-model|6-api-security-model]] for the target state and [[5-cto-implementation-plan]] for the task breakdown and order of execution.
 
 ---
 ## auth
@@ -336,7 +336,7 @@ for authenticated users, no write endpoints exposed.
 
 ## Related notes
 
-- [[6-api-security-model|6-api-security-model]]
+- [[security-model|6-api-security-model]]
 - [[5-cto-implementation-plan|5-cto-implementation-plan]]
 - [[3-cto-tech-review|3-cto-tech-review]]
 - [[6. Backend - Xano|6. Backend - Xano]]

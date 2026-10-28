@@ -34,4 +34,4 @@ Not yet built as of 2026-06-22 — this is a committed design decision pending i
 
 - [[sessions/2026-06-22-001]]
 - [[per-child-story-visibility]]
-- [[6-api-security-model]]
+- [[security-model]]

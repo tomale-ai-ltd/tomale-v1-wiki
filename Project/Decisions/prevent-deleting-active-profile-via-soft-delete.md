@@ -37,4 +37,4 @@ Implemented as a precondition inside the soft-delete endpoint (`deleted_at = now
 
 - [[Sessions/2026-06-30-001]]
 - [[fail-closed-active-profile-resolution]]
-- [[6-api-security-model]]
+- [[security-model]]

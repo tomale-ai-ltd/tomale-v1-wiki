@@ -3,9 +3,9 @@ type: architecture
 title: order-fulfilment-flow
 project: tomale-rn-v1
 status: current
-version: 1.0
+version: 1.1
 date: 2026-10-14
-last_verified: 2026-10-15
+last_verified: 2026-10-28
 owner: vault
 tags:
   - store-orders
@@ -60,7 +60,7 @@ flowchart TD
     G --> H["🔄 PDF worker tick<br/>Papermill renders cover + inner"]
     H --> I["💾 store_order<br/>cover_pdf + inner_pdf"]
 
-    T0["⏱ hpbc_submit_due_orders<br/>every 2 min, max 20 orders"] --> J{{"❓ Due for submission?<br/>payment_status Confirmed<br/>status not Cancelled / Error<br/>cover_pdf AND inner_pdf<br/>hpbc_order_id empty, hpbc_lock false<br/>submit_after ≤ now"}}
+    T0["⏱ hpbc_submit_due_orders<br/>every 60 s, max 20 orders"] --> J{{"❓ Due for submission?<br/>payment_status Confirmed<br/>status not Cancelled / Error<br/>cover_pdf AND inner_pdf<br/>hpbc_order_id empty, hpbc_lock false<br/>submit_after ≤ now"}}
     I -.-> J
     F -.-> J
 
@@ -165,12 +165,13 @@ flowchart TD
 - **Lock is not a single atomic check-and-set.** Reconcile sets `hpbc_lock` and then re-reads the order. With one background task submitting orders one at a time, a double submission is very unlikely but not impossible.
 - **A timeout may hide a successful submission.** If the HPBC request times out after Pureprint accepted the order, the order is marked Error for a manual check rather than retried. Waiting for Alex: does Pureprint reject a repeated `sourceOrderId`? If it does, timeouts can retry automatically.
 - **Cancel vs submit race.** A cancel can land in the milliseconds between the lock re-read and the HPBC request, so the order is printed and also refunded. Accepted risk.
-- **Approval is based on the web view, not the PDF.** The printed book could differ from what the customer approved (text overflow, cropping). Mitigated by Papermill template checks and Pureprint's PDF/X-4 preflight.
-- **`store_orders.created_at` is being overwritten.** Under investigation with the `audit_store_orders` trigger.
-- **Money units drift.** `store_orders.subtotal` / `shipping_amount` are decimal pounds, while `transactions.amount_minor` is integer pence ([[store-money-as-integer-minor-units]]).
-- **`hpbc/webhook_order_submission` may be dead.** Confirm and remove it in the cleanup sweep.
+- **Approval is based on the e-reader preview, not the PDF** ([[use-e-reader-preview-before-order-payment]]). The printed book could differ from what the customer approved (text overflow, cropping). Mitigated by Papermill template checks and Pureprint's PDF/X-4 preflight.
 
 Resolved since the 2026-07-14 version:
+
+- `store_orders.created_at` overwrite: caused by column-named inputs, fixed 15/10 ([[avoid-column-named-function-inputs-in-xano]]).
+- Money units: `subtotal` and `shipping_amount` are integer pence since 22/10 ([[migrate-store-orders-money-fields-to-integer-pence]]).
+- `hpbc/webhook_order_submission` removed (Phase 1).
 
 - The synchronous HPBC call inside the DB trigger is gone; submission runs from a background task.
 - `check_order_paid` is now authenticated and scoped to the owner.

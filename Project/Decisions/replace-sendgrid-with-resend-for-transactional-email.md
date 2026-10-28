@@ -63,4 +63,4 @@ Once the SendGrid endpoints are retired, the endpoint group will be renamed from
 ## Related notes
 
 - [[5-cto-implementation-plan|5-cto-implementation-plan]]
-- [[6-api-security-model|6-api-security-model]]
+- [[security-model|6-api-security-model]]

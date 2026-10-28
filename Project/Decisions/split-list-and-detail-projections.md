@@ -33,4 +33,4 @@ GET all card projection excludes heavy pages/reviews addons and long text fields
 ## Related notes
 
 - [[per-child-story-visibility]]
-- [[6-api-security-model]]
+- [[security-model]]

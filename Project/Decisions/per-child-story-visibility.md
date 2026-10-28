@@ -36,6 +36,6 @@ On POST `instant_stories`, `user_profiles_id` is populated from `$auth.extras.ac
 
 - [[2-build-plan]] — original sharing model that this deviates from
 - [[5-cto-implementation-plan]] — Phase 1 checklist
-- [[6-api-security-model]]
+- [[security-model]]
 - [[fail-closed-active-profile-resolution]]
 - [[parental-gate-on-profile-switch]]

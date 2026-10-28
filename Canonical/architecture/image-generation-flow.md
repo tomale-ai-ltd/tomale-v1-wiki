@@ -5,9 +5,9 @@ aliases:
   - Image Generation Flow
 project: tomale-rn-v1
 status: draft
-version: 1.0
+version: 1.1
 date: 2026-08-04
-last_verified: 2026-08-04
+last_verified: 2026-10-28
 owner: vault
 related:
   - "[[story-creation-flow]]"
@@ -57,7 +57,7 @@ flowchart TD
             D8 -->|"cover-image"| DC["dispatch executor_cover_image<br/>async-shared"]
             D8 -->|"page-image"| DP["dispatch executor_page_image<br/>async-shared"]
             D8 -->|"character-image"| DCH["dispatch executor_character_image<br/>async-shared"]
-            DC --> D9["add executor_runs row<br/>status = queued<br/>async_job_id, created_at"]
+            DC --> D9["executor_runs row added before dispatch<br/>status = queued; its id passed to the executor<br/>async_job_id stored after dispatch"]
             DP --> D9
             DCH --> D9
         end
@@ -75,7 +75,7 @@ flowchart TD
 
     subgraph EXEC["Async executors (one per job_type)"]
         direction TB
-        E1["get image_jobs row"] --> E2["find own executor_runs row<br/>by image_jobs_id + created_at"]
+        E1["get image_jobs row"] --> E2["get own executor_runs row<br/>by executor_runs_id"]
         E2 --> E3["set started_at<br/>extend locked_until = now + lease_seconds"]
         E3 --> E4["load data_models<br/>(default active, by type)"]
         E4 --> E5["prompt compiler<br/>build prompt from story,<br/>page or character, characters"]
@@ -84,7 +84,7 @@ flowchart TD
         E7 --> E8{"api_status?"}
         E8 -->|"200"| E9["upload image to storage<br/>write to target record<br/>record token_usage"]
         E9 --> E10["image_jobs: status = complete<br/>release lease"]
-        E10 --> E11["executor_runs: status = success<br/>whitelisted api_request/response"]
+        E10 --> E11["executor_runs: status = success<br/>small status fields only"]
         E8 -->|"retryable<br/>429, 5xx, 408"| E12["image_jobs: status = error_retry<br/>priority +10, retry_at backoff"]
         E8 -->|"fatal<br/>4xx"| E13["image_jobs: status = error_terminal"]
         E12 --> E14["executor_runs: status = error"]
@@ -113,7 +113,7 @@ Blue bordered nodes dispatch the async executors. Dashed black bordered nodes ar
 
 ## The correlation key
 
-The executor finds its own `executor_runs` row using `image_jobs_id` plus `created_at` as a compound key (step E2). This depends on `created_at` being immutable. If anything rewrites `created_at` after the row is created, this lookup can match the wrong row or match ambiguously, which is a live suspect in the duplication investigation.
+**Updated 2026-10-28.** The worker tick creates the `executor_runs` row before dispatching and passes its `id` to the executor, which looks the row up by `id` (step E2) ([[find-executor-runs-by-id-not-timestamp]]). The earlier compound key (`image_jobs_id` + `created_at`) broke when `created_at` was overwritten. Runs log small status fields only (url, method, status), never payloads ([[log-only-small-status-fields-in-executor-runs]]).
 
 ## Lease lifecycle
 
@@ -126,9 +126,9 @@ The lease (`locked_until`) is the mechanism that stops two ticks claiming the sa
 
 The claim query only selects jobs where `locked_until <= now`, so a validly leased job is invisible to it. Duplication occurs when a job becomes visible to the claim query while it should still be leased, for example when the lease value is written incorrectly (the epoch/1970 bug) or when the lease has genuinely expired because execution started far later than claim.
 
-## Known issues under investigation
+## Known issues
 
-- **created_at overwrite.** `created_at` values on jobs or runs have been observed changing after creation (for example 15:07 to 15:11). Since `created_at` is the executor's correlation key, this must be found and stopped. Check every `db.edit` in the tick and executors for any that writes `created_at`.
+- **created_at overwrite: resolved (15/10).** Caused by an input named after the column it wrote ([[avoid-column-named-function-inputs-in-xano]]); runs are now found by `id` anyway.
 - **Lease value integrity.** `lease_seconds` from the env var must be cast to int before `add_secs_to_timestamp`, or `locked_until` is written as epoch (1970), making the job permanently claimable. Confirmed and fixed in `claim_image_jobs`.
 - **Intra-tick re-claim.** The drain loop calls `claim_image_jobs` up to `max_loops` times per tick. If a claim's `processing` write is not visible to the next loop's query, the same job could be claimed twice within one tick.
 - **Duplicate cost.** Every duplicate claim results in a second full image generation, incurring OpenAI cost and consuming an async pool slot.

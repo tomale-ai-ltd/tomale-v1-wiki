@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.0
 date: 2026-10-24
-last_verified: 2026-10-24
+last_verified: 2026-10-28
 owner: vault
 ---
 
@@ -31,7 +31,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: none (the global data model isn't read by speckit commands; the constitution points to it)
 - Process: Cursor builds and runs it; PR
 - Verify: output matches live Xano tables (spot-check `store_orders` int pence, `user_profiles.is_primary`)
-- Status: queued
+- Status: **done** 28/10 (B6, PR #9 into `wip/pre-restructure-2026-10-24`, spot-checked by Kyle)
 
 ### RS-2026-10-24-03: pnpm migration and dependency audit
 - Class: B
@@ -72,3 +72,23 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Process: Kyle decides; then Cursor
 - Verify: `/speckit.plan` logs that the constitution was read
 - Status: queued (needs decision)
+
+### RS-2026-10-28-01: `eas.json` API base URL
+- Class: B
+- Target: `eas.json` (all three build profiles)
+- Change: `EXPO_PUBLIC_API_BASE_URL` points at the old `api:T6T6tF5a` group; change it to the `app` group `https://api.tomale.ai/api:1pgd39RE` (as in `.env`). Fold into the per-build-variant set-up when `app.config.js` arrives ([[use-per-build-variant-url-schemes]]).
+- Source: B8 stack check (28/10), [[consolidate-xano-api-groups-into-app-and-webhooks]]
+- Speckit impact: none
+- Process: Cursor; PR
+- Verify: a development build calls `/api:1pgd39RE`
+- Status: queued
+
+### RS-2026-10-28-02: Data-model preamble wording
+- Class: C (generator script; the output is regenerated)
+- Target: `scripts/update-data-model.mjs` (fixed preamble)
+- Change: Key Conventions §3 says relationships are inferred from `_id` fields; the generator takes references from the API ([[skip-reference-inference-from-id-fields-in-data-model]]). Reword §3 and review the rest of the preamble against [[backend-xano]] §3.
+- Source: B6 review, [[documentation-refresh-backlog]] §9
+- Speckit impact: none
+- Process: Cursor edits the script, reruns `npm run update:datamodel`; PR
+- Verify: second run gives no diff
+- Status: queued

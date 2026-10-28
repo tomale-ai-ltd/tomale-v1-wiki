@@ -8,7 +8,7 @@ related:
   - "[[2026-10-23-001]]"
   - "[[block-ordering-of-stories-awaiting-parental-approval]]"
 affects:
-  - "[[api-spec]]"
+  - "[[security-model]]"
   - stripe/create_checkout_session
 features:
   - F-store
@@ -43,4 +43,4 @@ Built 23/10 in the same change as the `STORY_AWAITING_APPROVAL` gate on checkout
 - [[block-ordering-of-stories-awaiting-parental-approval]]
 - [[verify-stripe-checkout-totals-against-xano-prices]]
 - [[order-fulfilment-flow]]
-- [[6-api-security-model]]
+- [[security-model]]
