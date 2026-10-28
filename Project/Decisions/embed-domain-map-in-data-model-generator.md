@@ -2,7 +2,7 @@
 type: decision
 title: embed-domain-map-in-data-model-generator
 project: tomale-rn-v1
-status: proposed
+status: accepted
 date: 2026-10-28
 related:
   - "[[2026-10-28-001]]"
