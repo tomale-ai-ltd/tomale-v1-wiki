@@ -23,19 +23,15 @@ Start here. One page, updated whenever the phase or the next step changes. Last 
 - **App:** foundations 001–005 merged; 006 (HTTP client) on `wip/pre-restructure-2026-10-24`. No feature screens yet.
 - **Knowledge restructure:** B0–B7 done; B8 (canonical docs) in review; then B9 PRD reconciliation → B10 repo sync → B11 automations → B12 close-out ([[knowledge-architecture]] §13).
 
-## Decision needed: the launch plan
+## Launch plan
 
-Target: public App Store release in the UK by the end of November. The full V1 is about 37–56 days of work against about 20–25 available, so it doesn't fit. Options in [[roadmap]] §3:
-- **A.** Move the date (full V1 around late January).
-- **B.** Closed beta by end of November, then a public launch with subscriptions in January. **Recommended.**
-- **C.** Public launch at the end of November without subscriptions, with cuts.
+**Decided 28/10: option A.** Public UK App Store release of the full V1, including subscriptions, targeted for **late January 2027** ([[move-v1-public-launch-to-late-january]]). A velocity checkpoint after Slice 100 decides whether an earlier closed beta is worth it ([[roadmap]] §3, §7).
 
 ## Next
 
-1. Choose A, B or C. The roadmap's milestones and the [[pre-launch-checklist]] follow from it.
-2. Finish the restructure (B9–B12, about a day).
-3. App foundations rework (M1): pnpm, SecureStore and the 401 interceptor, fix `eas.json` (it points at the old API group), per-build schemes, CI security stage.
-4. Backend prep for Characters, then **Slice 100 = speckit 007** ([[scope-characters-per-profile-with-soft-delete]]).
+1. Finish the restructure (B9–B12, about a day).
+2. App foundations rework (M1): pnpm, SecureStore and the 401 interceptor, fix `eas.json` (it points at the old API group), per-build schemes, CI security stage.
+3. Backend prep for Characters, then **Slice 100 = speckit 007** ([[scope-characters-per-profile-with-soft-delete]]).
 
 ## Known risks
 

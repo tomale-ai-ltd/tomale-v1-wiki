@@ -20,7 +20,7 @@ related:
 
 Replaces [[2-build-plan]] (slice order) and the open phases 2–5 of the fractional CTO's [[5-cto-implementation-plan]]. Both originals are archived unchanged. Every outstanding CTO task is listed by its original number in §5 and placed in a milestone below, tagged **CTO #n**.
 
-**Target (Kyle, 28/10):** public App Store release in the UK by the end of November 2026. Google Play at the same time is unconfirmed.
+**Target:** public App Store release in the UK of the full V1, **late January 2027** (moved from the end of November on 28/10, [[move-v1-public-launch-to-late-january]]). Google Play at the same time is unconfirmed.
 
 ## 1. Where we are (28/10)
 
@@ -35,7 +35,9 @@ The estimates are rough: one person working with Cursor agents, in working days.
 
 **The full V1 does not fit by the end of November.** The largest items are story creation (M4) and entitlements with in-app purchase (M8). Apple requires in-app purchase for digital subscriptions, so it can't be Stripe. Printed books are physical goods and can keep using Stripe.
 
-## 3. Options (Kyle decides)
+## 3. Options
+
+> **Decided 28/10: option A** ([[move-v1-public-launch-to-late-january]]). Public UK release of the full V1 targeted for late January 2027. Velocity checkpoint after M2 (Slice 100): if actual effort runs at roughly 60% of the estimates or less, an earlier closed beta (option B) is reconsidered. Record actual days per milestone below as they finish.
 
 | Option | What ships by end of November | Then | Risk |
 |---|---|---|---|
@@ -132,3 +134,13 @@ Requirements outside the phase tables that are still open: rate limiting (§4.1)
 ## 6. After V1
 
 Push notifications, Universal Links, the image pipeline off Xano (Bedrock, Phase 2 throughput), story sharing, the public library, AI character creation if it isn't in V1, phonics (scope undecided: depends on how complex revealing it during text generation is).
+
+## 7. Velocity log
+
+Actual working days per milestone, against the estimate, for the checkpoint after M2.
+
+| Milestone | Estimate (days) | Actual (days) | Finished |
+|---|---|---|---|
+| M0 Finish restructure | ~1 | | |
+| M1 App foundations rework | 2–3 | | |
+| M2 Characters (007) | 3–4 | | |
