@@ -73,6 +73,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Verify: `/speckit.plan` logs that the constitution was read
 - Decision (Kyle, 29/10): targeted fix now, speckit upgrade later (after launch or between slices). The fix also corrects `speckit.constitution.md`, which points at a non-existent `.specify/templates/commands/` instead of `.cursor/commands/` (needed before RS-01 runs `/speckit.constitution`).
 - Local customisation log: these are edits to speckit tool files. A future upgrade must re-apply them or confirm upstream fixed them.
+- Note (29/10): `.cursor/` was entirely gitignored, so the speckit commands and Cursor rules weren't versioned. This PR un-ignores it: commit A tracks `.cursor/commands/` (8) and `.cursor/rules/` unchanged, commit B is the 3-line fix. Merge with rebase, not squash, to keep commit B visible. RS-04 and RS-05 depend on `.cursor/` being tracked.
 - Status: in progress (Cursor, `repo-sync/2026-10-29`, 29/10)
 
 ### RS-2026-10-28-01: `eas.json` API base URL
@@ -113,4 +114,14 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: `/speckit.plan` writes a clean rules file
 - Process: repo-sync batch (B10); PR
 - Verify: next `/speckit.plan` writes `npm test && npm run lint` correctly
+- Status: queued
+
+### RS-2026-10-29-03: `.gitignore` hardening
+- Class: B
+- Target: `.gitignore`
+- Change: replace `.env` + `.env*.local` with `.env*` and `!.env.example` (today `.env.production` or `.env.development` would be committed); add `.cursor/mcp.json` (may hold tokens) now that `.cursor/` is tracked; add `coverage/`; add build outputs `*.ipa`, `*.apk`, `*.aab`; add Sentry CLI credentials `.sentryclirc` and `sentry.properties` (source-map upload is planned); anchor `ios`/`android` to the root (`/ios`, `/android`). After pnpm (RS-03): drop `package-lock.json` from the repo and keep `pnpm-lock.yaml`.
+- Source: Kyle's question (29/10); review of the current `.gitignore`
+- Speckit impact: none
+- Process: repo-sync batch (B10); PR
+- Verify: `git status --ignored` shows `.env` ignored, `.env.example` tracked; no previously tracked file becomes ignored
 - Status: queued
