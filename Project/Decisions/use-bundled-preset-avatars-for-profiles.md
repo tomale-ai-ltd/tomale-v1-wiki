@@ -35,6 +35,9 @@ Data minimisation under the ICO Children's Code, no upload moderation surface, a
 
 A dedicated `PATCH /user_profiles/{id}/avatar` upload endpoint (the earlier deferral): rejected.
 
+
+**Amendment (2026-10-29, B9 review with Kyle):** avatar options are simple presets (adult and child, with colour options) plus any of the household's character images (`avatar_key` = `preset:<key>` or `character:<id>`). See [[PRD-Profiles]].
+
 ## Related notes
 
 - [[2026-06-29-001]] (backfilled in B7)

@@ -30,6 +30,9 @@ A single account-level PIN means that any parent-level user on the account share
 
 Not yet built as of 2026-06-22 — this is a committed design decision pending implementation. The gate will live server-side in `select_profile`. Open implementation questions (PIN length, lockout, force-on-open) are tracked as blockers in [[sessions/2026-06-22-001]].
 
+
+**Amendment (2026-10-29, B9 review with Kyle):** the PIN is 4 digits, set during onboarding after email verification. Five wrong attempts lock it; unlocking needs a password reset, which also sets a new PIN. Parent-only areas are also refused by the backend for child profiles. See [[PRD-Profiles]].
+
 ## Related notes
 
 - [[sessions/2026-06-22-001]]

@@ -21,7 +21,7 @@ How the Xano API is protected, and what every endpoint does about access. Rename
 
 1. **Default deny.** Every `app` endpoint requires a signed-in user (`auth = "users"`) except the auth flow itself. Webhooks have no user auth but verify the caller in the stack.
 2. **Identity comes from the token, never from inputs.** Ownership is checked against `$auth.id`; profile context comes from `$auth.extras.active_profile` ([[carry-active-profile-in-token-extras]], [[fail-closed-active-profile-resolution]]).
-3. **Ownership field:** `users_id` ([[ratify-users-id-as-ownership-field-standard]]). Stories are also scoped to the creating profile ([[per-child-story-visibility]]); characters will be ([[scope-characters-per-profile-with-soft-delete]]).
+3. **Ownership field:** `users_id` ([[ratify-users-id-as-ownership-field-standard]]). Stories are also scoped to the creating profile ([[per-child-story-visibility]]); characters are shared across the household, with delete and archive limited to parent profiles ([[share-characters-across-the-household]]).
 4. **Fail closed.** Preconditions reject anything not explicitly allowed; another user's record returns `notfound`.
 5. **Errors:** 400 (`inputerror`) with a `code` in the payload (e.g. `STORY_AWAITING_APPROVAL`, `ORDER_NOT_PAYABLE`, `CANNOT_DELETE_ACTIVE`). Xano has no 422.
 6. **Webhooks:** verify (Stripe signature, HPBC bearer token) → ingest → dedup → complete ([[adopt-unique-index-dedup-for-webhook-ingest]], [[authenticate-hpbc-webhooks-with-shared-secret-bearer-token]]).

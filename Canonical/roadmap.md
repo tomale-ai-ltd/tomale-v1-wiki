@@ -20,7 +20,7 @@ related:
 
 Replaces [[2-build-plan]] (slice order) and the open phases 2–5 of the fractional CTO's [[5-cto-implementation-plan]]. Both originals are archived unchanged. Every outstanding CTO task is listed by its original number in §5 and placed in a milestone below, tagged **CTO #n**.
 
-**Target:** public App Store release in the UK of the full V1, **late January 2027** (moved from the end of November on 28/10, [[move-v1-public-launch-to-late-january]]). Google Play at the same time is unconfirmed.
+**Target:** public App Store release in the UK of the full V1, **late January 2027** (moved from the end of November on 28/10, [[move-v1-public-launch-to-late-january]]). Google Play at the same time (confirmed 29/10).
 
 ## 1. Where we are (28/10)
 
@@ -31,7 +31,7 @@ Replaces [[2-build-plan]] (slice order) and the open phases 2–5 of the fractio
 
 ## 2. Feasibility of the end-of-November date
 
-The estimates are rough: one person working with Cursor agents, in working days. The milestones in §4 add up to about **37–56 days** without AI character creation. From 29/10 to a submission around 23/11 (leaving about a week for App Store review and one rejection round), there are roughly **20–25 working days**.
+The estimates are rough: one person working with Cursor agents, in working days. The milestones in §4 add up to about **37–56 days** without AI character creation (**40–61 days** with it, added to V1 on 29/10). From 29/10 to a submission around 23/11 (leaving about a week for App Store review and one rejection round), there are roughly **20–25 working days**.
 
 **The full V1 does not fit by the end of November.** The largest items are story creation (M4) and entitlements with in-app purchase (M8). Apple requires in-app purchase for digital subscriptions, so it can't be Stripe. Printed books are physical goods and can keep using Stripe.
 
@@ -61,10 +61,11 @@ B9 PRD reconciliation → B10 repo sync → B11 agent access and automations →
 - `app.config.js` with per-build schemes ([[use-per-build-variant-url-schemes]]).
 - CI security stage: Gitleaks (**CTO #18**), Semgrep (**#21**), audit (**#20**); CI checks required for merges into `main` (**#22**).
 - Frontend Sentry already exists (004); add the user and profile context to events (**CTO #16**).
+- **Choose the UI component library** before Slice 100: the constitution names NativeBase, which isn't installed and is, as far as we know, no longer maintained (successor: gluestack-ui). Candidates: gluestack-ui, Tamagui, React Native Paper, custom on Reanimated. The choice goes into the constitution amendment (RS-01).
 
 ### M2. Characters, Slice 100 / speckit 007 (3–4 days)
-- Backend prep: `user_profiles_id` on `characters` with a backfill, scoped like stories; soft delete via `deleted_at` only; drop `instant_stories_id` ([[scope-characters-per-profile-with-soft-delete]]).
-- App: 101 index, 102 detail, 103 create (form, names moderated on create), 104 carousel. 105 becomes soft delete instead of archive.
+- Backend prep: characters stay household-wide (no schema change for visibility); parent-only delete/archive; `is_favourite`; endpoints to link existing characters to a story, re-create an image, and set archive/favourite ([[PRD-Characters]] §4, [[share-characters-across-the-household]]).
+- App: 101 index, 102 detail, 103 create (form, names moderated on create), 104 carousel, 105 quick actions (favourite, archive, delete) and re-create image. "Create a story with this character" ships with Slice 200.
 
 ### M3. Profiles and parental controls (4–6 days)
 - Profile picker, create child profile, preset avatars ([[use-bundled-preset-avatars-for-profiles]]).
@@ -84,13 +85,18 @@ B9 PRD reconciliation → B10 repo sync → B11 agent access and automations →
 ### M6. Store, Slice 400 / speckit 010 (4–6 days)
 - 401 index, 402 checkout with the e-reader preview ([[use-e-reader-preview-before-order-payment]]) and the in-app browser return ([[return-from-stripe-checkout-via-in-app-browser-sheet]]), 403 order history and tracking, 404 failure/retry and cancel within the 30-minute window.
 
+### M6a. AI character creation, Slice 500 / expected speckit 011 (3–5 days)
+- **In V1 (Kyle, 29/10, [[include-ai-character-creation-in-v1]]).** 501 chatbot create-character, reusing the chat UI from M4 and the `conversations` endpoints ([[PRD-Chatbot-Create-Character]]).
+- Backend: `character-chat` prompt record and the character message handler.
+- 502 voice input stays behind a feature flag and is the first thing cut if the date is at risk.
+
 ### M7. Account, onboarding, notifications (3–4 days)
 - Settings and preferences, onboarding walkthrough, alerts inbox.
 - **Account deletion** (App Store guideline 5.1.1(v)): a new backend endpoint plus UI.
 
 ### M8. Entitlements and subscriptions (6–10 days)
 - Backend: entitlement gate before story and image-job creation, usage counters, `GET /me/entitlements`, subscription state ([[PRD-Subscription-Entitlement-System]]).
-- In-app purchase (Apple and Google) with server-side validation and webhooks; Stripe webhook branching by `mode` ([[defer-stripe-webhook-mode-branching-to-phase-2]]).
+- In-app purchase (Apple and Google) through RevenueCat: the subscription mirror, sync endpoint, RevenueCat webhook and daily reconciliation ([[use-revenuecat-for-in-app-subscriptions]]). Stripe subscriptions are V2 with Club.
 - Locked art-style tiles become live ([[return-full-artwork-catalogue-with-locked-tiles]]).
 
 ### M9. Launch hardening (4–6 days)
@@ -100,10 +106,10 @@ B9 PRD reconciliation → B10 repo sync → B11 agent access and automations →
 - Signed URLs for user images (CTO §2.9, [[migrate-image-storage-to-aws-s3-signed-urls]]): decide whether this happens before launch or straight after (children's images are public URLs today).
 
 ### M10. Store submission (2–3 days, plus review)
-App Store Connect listing, privacy policy and nutrition labels, age rating and category, screenshots, TestFlight round, submission. Google Play if in scope.
+App Store Connect listing, privacy policy and nutrition labels, age rating and category, screenshots, TestFlight round, submission. Google Play listing, data safety form, internal testing track and submission at the same time.
 
-### Later. AI character creation, Slice 500
-501 chatbot create-character, 502 voice input. Post-launch unless time allows.
+### Later
+502 voice input for character creation, if it doesn't make M6a. Everything else deferred is in [[v2-backlog]].
 
 ## 5. CTO implementation plan: outstanding tasks
 
@@ -137,7 +143,7 @@ Raised by Kyle on 28/10. The goal is **cost**, not only speed: moving generation
 
 - **Inputs (Kyle, 28/10):** £25k GCP and £10k AWS credits, both expiring 30/06/2027 (about five months after launch). Character consistency across pages is already a problem with `gpt-image-1.5`. Preferred shape: storage on AWS, images from Google models, keeping the Xano orchestrator → worker tick → executor cycle with new `data_models` records and minimal infrastructure.
 - **Working assumption to test:** Google's image models (Gemini image, Imagen) are API-only on Vertex AI, not models you can host on your own VMs, so credits apply when Vertex is called and billed on GCP. The simplest version then needs no VMs: the Xano executors call Vertex AI instead of OpenAI, and write images to S3. Throughput stays Xano-bound until a later step moves the executor to Cloud Run or Lambda.
-- **Now (background, off the critical path):** a research note covering cost per story today vs on Vertex; which Vertex models handle character consistency (multi-image reference input); whether the credit terms cover Vertex AI; Vertex auth from Xano (a service-account token signed with RS256); S3 uploads and signed URLs from Xano; and what happens to costs after June 2027. Added by Kyle, 28/10:
+- **Now (background, off the critical path):** a research note covering cost per story today vs on Vertex; which Vertex models handle character consistency (multi-image reference input); whether the credit terms cover Vertex AI; Vertex auth from Xano (a service-account token signed with RS256); S3 uploads and signed URLs from Xano (note: Xano already authenticates to Google Cloud with a service account and uploads to a GCS bucket in `create_tts_audio`, so Google-side storage is also an option); and what happens to costs after June 2027. Added by Kyle, 28/10:
   - **Other credit-eligible models:** on Vertex AI, Imagen, Gemini image and the open models in Model Garden (e.g. FLUX, SDXL) deployed to Vertex endpoints; on Bedrock, the Stability and Amazon image models currently offered (check what's still available).
   - **Concurrency and speed:** several GPU workers in parallel (GCP or AWS), scale-to-zero vs always-on (idle GPUs burn credits), cold starts. The real limit today is Xano dispatching one job at a time, so parallel workers need a hand-off: Xano queues the job externally and the worker posts the result back to a webhook, like the HPBC callbacks.
   - **LoRA pipelines:** start from the **SDXL + LoRA + IP-Adapter pipeline in the CfI "Boosting Fathers' Engagement" application** (`Project/Research/Research Proposals/CFI Boosting Fathers Engagement/`: project plan, cost model and draft). It covers LoRA training per art style on SageMaker, IP-Adapter for character conditioning, and evaluation against a golden dataset for multi-character bleed. Earlier background, imported 28/10: [[bedrock-image-migration-plan-2026-04]] (Bedrock → self-hosted ComfyUI on GPU for LoRA → two-stage img2img, with a cost model) and [[latent-preserving-regeneration-2026-05]]. Product idea on record: trained per-character LoRAs as a premium upsell.

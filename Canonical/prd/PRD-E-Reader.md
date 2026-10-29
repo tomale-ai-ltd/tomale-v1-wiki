@@ -3,111 +3,125 @@ type: prd
 title: PRD-E-Reader
 project: tomale-rn-v1
 status: current
-version: 1.0
+version: 2.0
 date: 2026-04-14
-last_verified: 2026-04-14
+last_verified: 2026-10-29
 owner: vault
 features:
   - F-bookshelf
+related:
+  - "[[v1-feature-map]]"
+  - "[[PRD-Store-Orders]]"
 ---
 
 # 📘 PRD: Immersive E-Reader Experience
 
-## 1. Overview
-The current story-view (6.2.1.1) is a static text/image display. For V1, we will deliver a **premium, immersive e-reader experience** with swipe-based navigation, fullscreen mode, text-to-speech narration, and autoplay.
+> **Changes in 2.0 (B9, 29/10/2026, reviewed with Kyle):**
+> - Two reading layouts: a single-page view and a book-spread view with right-to-left page turns.
+> - "Read to me" uses generated audio (`gpt-4o-mini-tts`), not device speech.
+> - Reading is landscape-only; a story is marked read on reaching the last page.
+> - Progress and read status are stored on the device.
+> - No downloads or PDFs.
+> - Child locked card for stories awaiting approval.
+> - The reader doubles as the pre-payment order preview.
+> - Backend prep listed.
+>
+> Slice 300 / expected speckit 009 ([[roadmap]] M5).
 
-This feature transforms story consumption from a simple list into an engaging, multimedia reading experience aligned with Tomale’s mission.
+## 1. Overview
+The current story view (6.2.1.1) is a static text/image display. For V1, we will deliver a **premium, immersive e-reader** that feels like a real book: fullscreen landscape reading, page-turn navigation, generated read-aloud narration and autoplay. The same reader previews a book before a printed copy is ordered.
 
 ## 2. Goals
-- ✅ Deliver fullscreen immersive reading (landscape orientation, minimal UI).
-- ✅ Introduce page-by-page navigation (vertical swipe with parallax).
-- ✅ Support read-aloud (TTS baseline) + optional autoplay with auto-scroll.
-- ✅ Provide progress tracking so users can resume where they left off.
-- ✅ Lay groundwork for future features (highlighting, synced narration, Toniebox).
+- ✅ Fullscreen, landscape-only reading with minimal UI.
+- ✅ Two layouts the reader can switch between: **single page** (image and text on one screen) and **book spread** (image left, text right).
+- ✅ Page turns that feel like a book: swipe right-to-left, with a page-turn animation.
+- ✅ Natural-sounding read-aloud with autoplay.
+- ✅ Resume where you left off, and mark stories as read.
+- ✅ Preview mode for orders (cover, pages, gift message).
+- ✅ Groundwork for later features (word highlighting, synced narration, Toniebox).
 
 ## 3. Scope
-
 ### In-Scope
-- New `read.tsx` screen under bookshelf routes.
+- Bookshelf index (the profile's visible stories, with a "Read" badge) and story detail.
+- `read.tsx` under the bookshelf routes.
+- **Landscape lock:** the reader opens only in landscape; a rotation prompt blocks until the device is turned. No portrait fallback.
 - Fullscreen cover page (title, subtitle, play button).
-- Page navigation: vertical swipe with parallax scroll animation.
-- Orientation lock to landscape with pre-launch rotation prompt.
-- Text-to-speech (expo-speech) with autoplay mode.
-- Basic UI overlays: progress indicator, sound/autoplay toggles, close button.
-- Progress persistence (`PATCH /reading_logs`).
+- **Layouts:**
+  - *Single page:* the page image with its text block on the same screen.
+  - *Book spread:* image on the left half, text on the right, like an open book.
+  - The reader toggles between them from the controls; the last choice is remembered on the device.
+- **Navigation:** horizontal swipe right-to-left to go forward (left-to-right back), with a page-turn (curl/flip) animation. Tapping the page edge also turns the page.
+- **Read to me:** plays the page's generated audio; autoplay turns the page when narration ends.
+- Overlays: progress indicator, layout toggle, sound/autoplay toggles, close button.
+- **Progress and read status** on the device, per profile: last page, and "read" once the last page is reached.
+- **Preview mode** for the store: same reader, with the gift message shown on the first page (where it's printed), opened from checkout.
+- Locked "Waiting for a grown-up" card for stories awaiting approval (child profiles).
 
 ### Out-of-Scope (V1)
+- Downloads, PDFs or offline audio files.
 - Word-level highlighting/sync with narration.
 - Custom fonts / advanced accessibility options.
 - Toniebox or external device integration.
-- Offline audio file downloads.
+- Server-side reading progress and reading stats (`reading_logs`).
+- The public Library and story sharing.
 
 ## 4. Data Model
+### **instant_stories** (live)
+`id`, `title`, `subtitle`, `cover_image`, `status`, `status_moderation`, `parental_approval_required`, `parent_approved`, `completed_at`
 
-### **instant_stories** (existing)
-- id, title, subtitle, cover_image
+### **instant_story_pages** (live)
+`id`, `instant_stories_id`, `page_number`, `text`, `image`, timestamps. **To add:** `audio` (file) for the narration.
 
-### **instant_story_pages** (existing)
-- id
-- story_id (FK → instant_stories)
-- page_number
-- text
-- image_url
-- characters[] (contextual, read-only)
+### On the device (per profile)
+`{story_id: {last_page, read: bool}}` and the preferred layout, in Zustand persist.
 
-### **reading_logs** (new)
-- id
-- user_id (FK → users)
-- story_id (FK → instant_stories)
-- last_page_read
-- completed: boolean
-- updated_at
+## 5. API Endpoints (`app` group)
+- `GET /instant_stories` → bookshelf cards (lightweight projection, [[split-list-and-detail-projections]]).
+- `GET /instant_stories/{id}` → full story with ordered pages (detail projection); **to add:** each page's `audio` URL.
+- `DELETE /instant_stories/{id}` → soft delete (parent or owner).
 
-## 5. API Endpoints
+## 5a. Backend prep (from the generated [[Repos/tomale-rn-test/memory/data-model|data-model]] and the live code)
+**Live:** story list and detail endpoints; `ai_pipeline/create_tts_audio`, a prototype that calls OpenAI `gpt-4o-mini-tts` (voice "fable") and uploads the MP3 to a Google Cloud Storage bucket.
 
-### `GET /instant_stories/{id}?include=pages`
-- Fetch full story with ordered pages.
-
-### `PATCH /reading_logs`
-- Input: `{ story_id, last_page_read, completed }`
-- Output: `{ success: true }`
-
-### `GET /audio/{story_id}` *(optional for future pre-generated narration)*
-- Not required in V1.
+**To build:**
+1. **`instant_story_pages.audio`** (file field).
+2. **Narration jobs:** after the page text passes moderation, queue one narration job per page (a new `page-audio` job type on the existing job queue, so retries and logging come free). The executor calls TTS and saves the file to the page (not Google Drive). Narration is ready by the time the story is.
+3. **`data_models` record** of type `page-audio`: voice, model and speaking instructions (warm, slow, child-friendly), so the voice can change without code.
+4. **Detail projection** includes `audio` per page.
+5. **Costs** recorded in `token_usage` like other AI calls; narration counts within the story's generation (no separate limit).
+6. **Backfill:** a manual function to narrate existing finished stories.
+7. **Postman `_tests`:** story detail returns audio for every page once Done.
 
 ## 6. Frontend Requirements
-
 **Route:**
 ```
 app/(tabs)/bookshelf/[id]/read.tsx
 ```
-
 **Components:**
-- **RotationPrompt**: modal with blurred background, animated “rotate to landscape” prompt.
+- **RotationPrompt**: blocking modal with blurred background, animated "turn your device" prompt.
 - **CoverScreen**: fullscreen cover image + title/subtitle + play button + close button.
-- **ReaderPager**: vertical swipe container for pages (react-native-pager-view / reanimated carousel).
-- **PageCard**: image (zoomable) + text block.
-- **ControlsOverlay**: hidden by default, tap to reveal; contains progress indicator, autoplay toggle, sound toggle, close button.
+- **ReaderPager**: horizontal pager, right-to-left forward, with a page-turn animation.
+- **PageSingle** / **PageSpread**: the two layouts.
+- **ControlsOverlay**: hidden by default, tap to reveal; progress, layout toggle, autoplay, sound, close.
+- **AudioPlayer**: plays the page audio (`expo-audio`), drives autoplay.
+- **PreviewBanner** (preview mode): "Looks good → continue to payment"; the gift message appears on the first page.
 
-**Libraries:**
-- expo-speech (TTS)
-- expo-screen-orientation (lock/rotate)
-- expo-blur (rotation prompt background)
-- react-native-reanimated + react-native-pager-view (animated swipe/parallax)
-- zustand (reading state)
+**Libraries:** expo-screen-orientation, expo-blur, expo-audio, react-native-reanimated + react-native-gesture-handler (page-turn), zustand. A page-curl library to evaluate in the 009 plan.
 
 ## 7. User Flow
-1. User taps **“Read”** on story-detail.
-2. **RotationPrompt** appears (blurred background).
-3. Once rotated to landscape, load **CoverScreen**.
-4. Cover shows image + title/subtitle + large “Play” button.
-5. On Play → **ReaderPager** opens, starting at Page 1.
-6. User swipes up/down to navigate pages; progress indicator shows on tap.
-7. Optional: user taps autoplay → TTS reads page → auto-scrolls when narration ends.
-8. Exit via close button → return to story-detail.
-9. Reading progress auto-saved (`PATCH /reading_logs`).
+1. User taps **"Read"** on story detail.
+2. If the device is in portrait, **RotationPrompt** blocks until it's turned; then **CoverScreen** loads.
+3. On Play → **ReaderPager** opens at page 1 (or the saved page), in the last-used layout.
+4. Swipe right-to-left (or tap the right edge) to turn the page; tap the middle to show controls.
+5. Read to me: narration plays; with autoplay on, the page turns when it ends.
+6. Reaching the last page marks the story read; the Bookshelf shows the badge.
+7. Close → back to story detail; position saved.
+
+**Preview mode:** from checkout, the same reader opens with the gift message; continuing returns to payment.
 
 ## 8. Open Questions
-- Should users be able to manually mark story complete, or only when last page is reached?
-- Do we want to support portrait fallback if device rotation is locked, or block reading until landscape?
-- Should stories cached offline (downloaded) include narration/audio, or just text/images for V1?
+- Default layout: single page or book spread? (Spread may need a larger screen; on small phones single page may suit better.)
+- Page-curl animation library vs a custom Reanimated turn: decide in the 009 plan after a quick prototype.
+- Voice choice and speaking style for narration (test a few with children).
+
+Resolved 29/10: generated audio for read-aloud; landscape only, no portrait fallback; read is marked on the last page; progress on the device.

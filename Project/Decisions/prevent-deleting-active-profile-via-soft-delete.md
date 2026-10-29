@@ -33,6 +33,9 @@ Implemented as a precondition inside the soft-delete endpoint (`deleted_at = now
 
 **Amendment (2026-10-28, B7 audit):** Xano has no 422. The live precondition returns 400 (`inputerror`) with code `CANNOT_DELETE_ACTIVE`; its message field reads `422`, one of 14 such stray messages queued for the pre-launch sweep.
 
+
+**Amendment (2026-10-29, B9 review with Kyle):** deleting a profile also moves its stories to the primary profile; a parent can reassign a story from its detail page. No restore. See [[PRD-Profiles]].
+
 ## Related notes
 
 - [[Sessions/2026-06-30-001]]

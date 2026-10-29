@@ -2,7 +2,7 @@
 type: decision
 title: scope-characters-per-profile-with-soft-delete
 project: tomale-rn-v1
-status: accepted
+status: superseded
 date: 2026-10-28
 related:
   - "[[v1-audit]]"
@@ -14,6 +14,7 @@ affects:
 features:
   - F-characters
   - F-profiles
+superseded_by: "[[share-characters-across-the-household]]"
 ---
 
 # Decision: scope-characters-per-profile-with-soft-delete
@@ -37,6 +38,15 @@ Simplicity, and consistency with per-child story visibility.
 ## Trade-offs accepted
 
 Household members can't share characters in V1.
+
+
+**Amendment (2026-10-29, B9 review with Kyle):**
+- `user_profiles_id` is nullable: `null` means household-wide, so a parent can create a character for themselves, a child, or everyone. Single value, no array.
+- `status`, `is_deleted` and `deleted_at` are kept as built (archive plus soft delete).
+- `instant_stories_id` is kept as "created in", but story links use the many-to-many `instant_story_characters`. Existing characters join a story through a new `POST /instant_stories/{id}/characters`.
+- Re-create image (image-to-image) and favourites are added; text edit stays out of V1.
+
+See [[PRD-Characters]].
 
 ## Related notes
 

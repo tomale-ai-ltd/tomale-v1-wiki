@@ -24,6 +24,9 @@ Login always starts on the account's primary (adult) profile. A parent who usual
 
 The safer default, and simpler logic.
 
+
+**Amendment (2026-10-29, B9 review with Kyle):** a fresh login with the password still lands on the primary profile. A restored session (reopening the app) opens the profile picker when the account has child profiles, and the parent profile needs the PIN; the same after 15 minutes in the background. See [[PRD-Profiles]].
+
 ## Related notes
 
 - [[2026-05-11-001]] (backfilled in B7)

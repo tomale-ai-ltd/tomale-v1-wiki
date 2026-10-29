@@ -31,7 +31,7 @@ Start here. One page, updated whenever the phase or the next step changes. Last 
 
 1. Finish the restructure (B9–B12, about a day).
 2. App foundations rework (M1): pnpm, SecureStore and the 401 interceptor, fix `eas.json` (it points at the old API group), per-build schemes, CI security stage.
-3. Backend prep for Characters, then **Slice 100 = speckit 007** ([[scope-characters-per-profile-with-soft-delete]]).
+3. Backend prep for Characters, then **Slice 100 = speckit 007** ([[share-characters-across-the-household]], [[PRD-Characters]]).
 
 ## Known risks
 

@@ -49,7 +49,7 @@ What is tested, how to run it, and what isn't covered yet. The backend is tested
 
 ### Known maintenance
 
-- **2A-2 will break with the Slice 100 backend prep:** it asserts `instant_stories_id`, `status = 'active'` and `is_deleted = false` on new characters, all of which are being removed ([[scope-characters-per-profile-with-soft-delete]]). Update it in the same change.
+- **Slice 100 backend prep:** 2A-2 stays valid; add tests for the new character endpoints and for a child profile being refused delete/archive ([[PRD-Characters]]).
 - 3C-2 has no assertions (it only stores `hpbc_order_id`).
 
 ## 2. Not covered yet

@@ -48,3 +48,7 @@ Phase 2 replaces `stripe/webhook_payment_confirmation` with `POST /webhooks/stri
 - [[5-cto-implementation-plan]]
 - [[PRD-Subscription-Entitlement-System]]
 - [[PRD-transaction-webhooks-micro-prd]]
+
+## Amendment (29/10/2026)
+
+Stripe subscriptions move to V2 with Club; V1 subscriptions go through Apple and Google via RevenueCat ([[use-revenuecat-for-in-app-subscriptions]]). The `mode` branching isn't needed in V1.

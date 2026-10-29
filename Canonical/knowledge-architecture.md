@@ -204,6 +204,7 @@ A conflict between levels is a defect. Either the lower source gets corrected, o
 - `pre-launch-checklist.md`
 - `roadmap.md`
 - `v1-feature-map.md` (feature → PRD → slice → speckit spec → backend endpoints → status)
+- `v2-backlog.md` (everything deferred from V1, with the reason; added in B9)
 - `repo-sync.md`
 - `pending-updates.md`
 
@@ -314,7 +315,7 @@ Whether a scheduled task can write to Claude Project knowledge is checked in B11
 
 ## 13. Migration stages
 
-**Progress (2026-10-28):** B0 ✅ · B1 ✅ · B2 ✅ · B3 ✅ ([[knowledge-inventory]]) · B4 ✅ (merged 25/10) · B5 ✅ (merged 25/10) · B6 ✅ (generator built and run, PR #9 merged into `wip/pre-restructure-2026-10-24` 28/10) · B7 ✅ (merged 28/10, [[v1-audit]]) · B8 ✅ canonical docs written 28/10 on branch `b8-canonical-docs`, pending Kyle's review and merge ([[CURRENT]]) · Next: B9.
+**Progress (2026-10-29):** B0 ✅ · B1 ✅ · B2 ✅ · B3 ✅ ([[knowledge-inventory]]) · B4 ✅ (merged 25/10) · B5 ✅ (merged 25/10) · B6 ✅ (generator built and run, PR #9 merged into `wip/pre-restructure-2026-10-24` 28/10) · B7 ✅ (merged 28/10, [[v1-audit]]) · B8 ✅ (merged 28/10, [[CURRENT]]) · B9 ✅ all 11 PRDs approved 29/10 on `b9-prd-reconciliation`, new [[v2-backlog]] · Next: B10.
 
 Each stage runs on a git branch → diff reviewed → merged. Each stage has a check, and a failed stage is reverted.
 
