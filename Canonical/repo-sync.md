@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.0
 date: 2026-10-24
-last_verified: 2026-10-28
+last_verified: 2026-10-29
 owner: vault
 ---
 
@@ -16,7 +16,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 ### RS-2026-10-24-01: Constitution amendment (V1 rules after Phase 1)
 - Class: A
 - Target: `.specify/memory/constitution.md`
-- Change: client tokens in `expo-secure-store`, not AsyncStorage; a single Axios 401 interceptor (shared refresh, one retry, never for `/auth/*`; log out on `invalid_refresh_token`; network errors don't log out; proactive refresh on foreground); money in integer minor units (pence); error-code conventions (`STORY_AWAITING_APPROVAL`, `ORDER_NOT_PAYABLE`, `ORDER_NOT_CANCELLABLE`, 400 as Xano has no 422); backend schema procedure says `data-model.md` is generated (`npm run update:datamodel`), not hand-edited; "≥1 review" defined for a solo maintainer (Kyle's PR review); package manager is pnpm (after RS-03); `main` merges by squash or rebase (linear history ruleset)
+- Change: client tokens in `expo-secure-store`, not AsyncStorage; a single Axios 401 interceptor (shared refresh, one retry, never for `/auth/*`; log out on `invalid_refresh_token`; network errors don't log out; proactive refresh on foreground); money in integer minor units (pence); error-code conventions (`STORY_AWAITING_APPROVAL`, `ORDER_NOT_PAYABLE`, `ORDER_NOT_CANCELLABLE`, 400 as Xano has no 422); backend schema procedure says `data-model.md` is generated (`npm run update:datamodel`), not hand-edited; "≥1 review" defined for a solo maintainer (Kyle's PR review); package manager is pnpm (after RS-03); `main` merges by squash or rebase (linear history ruleset); fix the typo `/speckit.spec` → `/speckit.specify` in the Development Workflow section (Cursor review, 29/10)
 - Source: [[use-expo-secure-store-for-client-tokens]], [[use-axios-401-interceptor-for-client-auth-session-handling]], [[store-money-as-integer-minor-units]], [[generate-data-model-and-api-contract-from-xano]], [[promote-pnpm-migration-ahead-of-slice-100]]
 - Speckit impact: Constitution Check in every new plan; `/speckit.analyze` against any active spec (none active)
 - Process: `/speckit.constitution` (Sync Impact Report, semver MINOR → 1.5.0), PR with migration notes
@@ -71,7 +71,9 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: `/speckit.plan` and `/speckit.tasks` load the constitution and the tasks template reliably
 - Process: Kyle decides; then Cursor
 - Verify: `/speckit.plan` logs that the constitution was read
-- Status: queued (needs decision)
+- Decision (Kyle, 29/10): targeted fix now, speckit upgrade later (after launch or between slices). The fix also corrects `speckit.constitution.md`, which points at a non-existent `.specify/templates/commands/` instead of `.cursor/commands/` (needed before RS-01 runs `/speckit.constitution`).
+- Local customisation log: these are edits to speckit tool files. A future upgrade must re-apply them or confirm upstream fixed them.
+- Status: in progress (Cursor, `repo-sync/2026-10-29`, 29/10)
 
 ### RS-2026-10-28-01: `eas.json` API base URL
 - Class: B
@@ -91,4 +93,24 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: none
 - Process: Cursor edits the script, reruns `npm run update:datamodel`; PR
 - Verify: second run gives no diff
+- Status: queued
+
+### RS-2026-10-29-01: Optional micro-PRD input for `/speckit.specify`
+- Class: B (speckit command file, recorded customisation) + template
+- Target: `.cursor/commands/speckit.specify.md`, `.specify/templates/spec-template.md`
+- Change: if the user names a `.docs/prd/*.md` file, read it and use its goal, scope, out of scope, flow and acceptance sections as the feature description; pass only a short slug (filename without number and extension) to `create-new-feature.sh`; record the source on the spec's Input line. No PRD given → unchanged behaviour. No new gate, artefact or command. Template: one line noting a `.docs/prd/` path is an allowed source.
+- Source: Cursor `.specify` review (29/10); [[operating-model]] §3.3
+- Speckit impact: `/speckit.specify` only; first used by 007
+- Process: repo-sync batch (B10); PR
+- Verify: `/speckit.specify` for 007 reads the micro-PRD and creates a sensible `007-…` branch
+- Status: queued
+
+### RS-2026-10-29-02: `update-agent-context.sh` sed escaping
+- Class: B (speckit script, recorded customisation)
+- Target: `.specify/scripts/bash/update-agent-context.sh`
+- Change: escape `&`, `\` and the delimiter in `sed` replacement strings. An unescaped `&` produced the garbled commands line in `specify-rules.mdc`. Pair with RS-2026-10-24-05 (one-off cleanup of that file).
+- Source: Cursor `.specify` review (29/10)
+- Speckit impact: `/speckit.plan` writes a clean rules file
+- Process: repo-sync batch (B10); PR
+- Verify: next `/speckit.plan` writes `npm test && npm run lint` correctly
 - Status: queued
