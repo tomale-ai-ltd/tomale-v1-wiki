@@ -21,7 +21,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: Constitution Check in every new plan; `/speckit.analyze` against any active spec (none active)
 - Process: `/speckit.constitution` (Sync Impact Report, semver MINOR → 1.5.0), PR with migration notes
 - Verify: Sync Impact Report present; templates consistent; `/speckit.analyze` clean on the first 007 spec
-- Status: queued
+- Status: **done** 29/10 (B10 PR #11, rebase-merged into `wip/pre-restructure-2026-10-24`) as constitution 1.5.0. The pnpm line follows as 1.5.1 in the RS-03 PR.
 
 ### RS-2026-10-24-02: Data-model generator script
 - Class: C (new script) / B (`package.json` script entry)
@@ -51,7 +51,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: none
 - Process: Cursor edit; PR
 - Verify: rules visible in Cursor settings with the right attach mode
-- Status: queued
+- Status: **done** 29/10 (B10 PR #11, rebase-merged into `wip/pre-restructure-2026-10-24`). Rules checked in Cursor Settings by Kyle.
 
 ### RS-2026-10-24-05: `specify-rules.mdc` one-off cleanup
 - Class: B (one-off; the file is otherwise never edited)
@@ -61,7 +61,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: none
 - Process: Cursor edit; PR
 - Verify: next `/speckit.plan` appends cleanly
-- Status: queued
+- Status: **done** 29/10 (B10 PR #11, rebase-merged into `wip/pre-restructure-2026-10-24`). Also changed the two field lines in `specs/002-foundations-auth/plan.md` (with a dated note quoting the old lines), because the script reads only those lines. `specify-rules.mdc` stays without frontmatter, so Cursor doesn't load it; `tomale-project.mdc` is the always-on rule.
 
 ### RS-2026-10-24-06: speckit `.specify.specify/` path bug
 - Class: decision needed (speckit tool files)
@@ -84,7 +84,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: none
 - Process: Cursor; PR
 - Verify: a development build calls `/api:1pgd39RE`
-- Status: queued
+- Status: **done** 29/10 (B10 PR #11, rebase-merged into `wip/pre-restructure-2026-10-24`). `.env.example` updated too.
 
 ### RS-2026-10-28-02: Data-model preamble wording
 - Class: C (generator script; the output is regenerated)
@@ -94,7 +94,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: none
 - Process: Cursor edits the script, reruns `npm run update:datamodel`; PR
 - Verify: second run gives no diff
-- Status: queued
+- Status: **done** 29/10 (B10 PR #11, rebase-merged into `wip/pre-restructure-2026-10-24`). Also §2 reworded, and `products` / `shipping_options` moved to a new `system_or_reference` group, Commerce Catalogues. Labels only; a second run gave no diff.
 
 ### RS-2026-10-29-01: Optional micro-PRD input for `/speckit.specify`
 - Class: B (speckit command file, recorded customisation) + template
@@ -104,7 +104,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: `/speckit.specify` only; first used by 007
 - Process: repo-sync batch (B10); PR
 - Verify: `/speckit.specify` for 007 reads the micro-PRD and creates a sensible `007-…` branch
-- Status: queued
+- Status: **done** 29/10 (B10 PR #11, rebase-merged into `wip/pre-restructure-2026-10-24`). The template note is an HTML comment. Recorded as a speckit customisation in the PR body.
 
 ### RS-2026-10-29-02: `update-agent-context.sh` sed escaping
 - Class: B (speckit script, recorded customisation)
@@ -114,7 +114,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: `/speckit.plan` writes a clean rules file
 - Process: repo-sync batch (B10); PR
 - Verify: next `/speckit.plan` writes `npm test && npm run lint` correctly
-- Status: queued
+- Status: **done** 29/10 (B10 PR #11, rebase-merged into `wip/pre-restructure-2026-10-24`). Also fixed the `\n` → newline pass, which deleted the marker instead of inserting a newline. Recorded as a speckit customisation in the PR body.
 
 ### RS-2026-10-29-03: `.gitignore` hardening
 - Class: B
