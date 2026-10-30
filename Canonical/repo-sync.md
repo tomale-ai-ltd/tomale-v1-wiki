@@ -135,3 +135,23 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Process: separate commit in PR #12 (Kyle, 30/10)
 - Verify: `pnpm start` survives a plain request to `localhost:8081`; `pnpm ios` reaches the first screen
 - Status: in progress
+
+### RS-2026-10-30-02: Typecheck errors surfaced by CI
+- Class: B (app code, smallest fix)
+- Target: `app/_layout.tsx` (line 17, tuple index), `store/AuthStore.ts` (lines 159–160, `global`)
+- Change: fix the three `tsc --noEmit` errors (TS2493, TS2304). Use `globalThis` or add the missing Node types; fix the tuple access.
+- Source: CI on PR #12 (30/10). CI previously ran only on PRs into `main`, so the wip branch had never been type-checked in CI; likely pre-existing (baseline check requested).
+- Speckit impact: none
+- Process: separate commit in PR #12
+- Verify: CI typecheck green on a clean install
+- Status: in progress
+
+### RS-2026-10-30-03: Node 22 LTS
+- Class: B
+- Target: `.nvmrc`, CI, `package.json` engines if present
+- Change: move from Node 20.19.4 (end of life April 2026) to the current Node 22 LTS. Unlocks pnpm 11 later.
+- Source: GitHub Actions deprecation warning on PR #12 (30/10)
+- Speckit impact: none
+- Process: M1 foundations rework
+- Verify: CI green; Expo app builds
+- Status: queued (M1)
