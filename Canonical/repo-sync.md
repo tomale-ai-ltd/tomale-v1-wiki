@@ -176,3 +176,13 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: none
 - Process: M1 or straight after launch
 - Status: queued
+
+### RS-2026-10-30-06: Cursor raw session notes
+- Class: B
+- Target: `.cursor/rules/tomale-project.mdc`
+- Change: replace the raw-notes bullet with: "At the end of a session that changed code, specs or repo settings (or when Kyle asks), write one raw note to `_raw/Chat Sessions/YYYY-MM-DD-cursor-<slug>.md` in the tomale-v1-wiki workspace folder, following `Templates/cursor-raw-note.md`. Never edit anything else in the vault." Keep the rule short.
+- Source: B11 (30/10), [[knowledge-architecture]] §10–11
+- Speckit impact: none
+- Process: Cursor edit; PR into `wip/pre-restructure-2026-10-24`
+- Verify: rule shows as Always; a test note lands in `_raw/Chat Sessions/` and the daily pipeline turns it into a session note
+- Status: queued
