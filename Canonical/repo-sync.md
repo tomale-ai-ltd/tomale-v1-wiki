@@ -125,3 +125,13 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Process: repo-sync batch (B10); PR
 - Verify: `git status --ignored` shows `.env` ignored, `.env.example` tracked; no previously tracked file becomes ignored
 - Status: **done** 29/10 (PR #10, `a9e674a`), except the pnpm lockfile step, which moves with RS-03
+
+### RS-2026-10-30-01: `app.json` web output
+- Class: B
+- Target: `app.json` (`web.output`)
+- Change: `"static"` → `"single"`. With static output, any browser-like request to Metro (no `expo-platform` header) runs expo-router's server renderer in Node; `AuthStore` hydration then calls AsyncStorage and throws `window is not defined`, which crashes Metro. V1 has no web build. The underlying store issue goes away with the secure-store migration in M1.
+- Source: B10 PR #12 smoke test (30/10); the crash reproduced on `wip` with npm, so it predates pnpm
+- Speckit impact: none
+- Process: separate commit in PR #12 (Kyle, 30/10)
+- Verify: `pnpm start` survives a plain request to `localhost:8081`; `pnpm ios` reaches the first screen
+- Status: in progress
