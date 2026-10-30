@@ -115,25 +115,25 @@ App Store Connect listing, privacy policy and nutrition labels, age rating and c
 
 From [[5-cto-implementation-plan]] (archived). Phase 1 (#1–#9) was signed off on 23/10.
 
-| CTO # | Task | Status (28/10) | Where |
-|---|---|---|---|
-| 10 | Create dev + prod environments | Not done. Now dev/prod Xano branches ([[use-xano-branches-for-dev-and-prod]]) | M9 |
-| 11 | Separate API keys and services per environment | Partly done (`test_mode` drives Stripe and HPBC; suffixed env vars) | M9 |
-| 12 | Manual dev → prod promotion flow | Defined in [[knowledge-architecture]] §9, not yet exercised | M9 |
-| 13 | MFA on all critical services | Xano done; GitHub, Stripe, Resend, AWS and OpenAI to confirm | M9 |
-| 14 | Secrets in environment variables | Done | — |
-| 15 | Sentry (frontend minimum) | Frontend done (004). Elevated: backend reporting is now a launch requirement | M1 (context), M9 (backend) |
-| 16 | user id + profile id in logs and events | Not done | M1 |
-| 17 | Basic error alerting (email) | Not done | M9 |
-| 18 | Gitleaks in CI | Repo scanned once (B0, 24/10); not yet in CI | M1 |
-| 19 | Initial secret scan and key rotation | Done (B0 scan; LLM-wiki keys, HPBC token and docs token rotated) | — |
-| 20 | Dependency audit | Not in CI. 49 npm audit findings on 24/10 | M1 (with pnpm) |
-| 21 | Semgrep (SAST, high only) | Not done | M1 |
-| 22 | CI blocking for merges | Partly: `main` needs a PR (ruleset); status checks not yet required | M1 |
-| 23–26 | Map journeys; auth, story/ownership, moderation and payment tests | Backend journeys covered by Postman `_tests` ([[test-suite]]); frontend tests and the moderation/approval journey outstanding | M3, then per slice |
-| 27 | Migrate to pnpm | Promoted ahead of Slice 100 | M1 |
-| 28 | Naming conventions across the schema | Closed: `users_id` ratified ([[ratify-users-id-as-ownership-field-standard]]) | — |
-| 29 | Join tables for child visibility | Not for V1: single `user_profiles_id` per story ([[per-child-story-visibility]]); revisit with sharing | Post-V1 |
+| CTO # | Task                                                              | Status (28/10)                                                                                                                | Where                      |
+| ----- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| 10    | Create dev + prod environments                                    | Not done. Now dev/prod Xano branches ([[use-xano-branches-for-dev-and-prod]])                                                 | M9                         |
+| 11    | Separate API keys and services per environment                    | Partly done (`test_mode` drives Stripe and HPBC; suffixed env vars)                                                           | M9                         |
+| 12    | Manual dev → prod promotion flow                                  | Defined in [[knowledge-architecture]] §9, not yet exercised                                                                   | M9                         |
+| 13    | MFA on all critical services                                      | Xano done; GitHub, Stripe, Resend, AWS and OpenAI to confirm                                                                  | M9                         |
+| 14    | Secrets in environment variables                                  | Done                                                                                                                          | —                          |
+| 15    | Sentry (frontend minimum)                                         | Frontend done (004). Elevated: backend reporting is now a launch requirement                                                  | M1 (context), M9 (backend) |
+| 16    | user id + profile id in logs and events                           | Not done                                                                                                                      | M1                         |
+| 17    | Basic error alerting (email)                                      | Not done                                                                                                                      | M9                         |
+| 18    | Gitleaks in CI                                                    | Repo scanned once (B0, 24/10); not yet in CI                                                                                  | M1                         |
+| 19    | Initial secret scan and key rotation                              | Done (B0 scan; LLM-wiki keys, HPBC token and docs token rotated)                                                              | —                          |
+| 20    | Dependency audit                                                  | **Done 30/10**: `pnpm audit` (high) in CI, five documented exceptions (repo-sync RS-2026-10-24-03)                            | —                          |
+| 21    | Semgrep (SAST, high only)                                         | Not done                                                                                                                      | M1                         |
+| 22    | CI blocking for merges                                            | Partly: `main` needs a PR (ruleset); CI now green on pnpm and runs on wip PRs; make the CI check required on `main` at B12    | B12 / M1                   |
+| 23–26 | Map journeys; auth, story/ownership, moderation and payment tests | Backend journeys covered by Postman `_tests` ([[test-suite]]); frontend tests and the moderation/approval journey outstanding | M3, then per slice         |
+| 27    | Migrate to pnpm                                                   | **Done 30/10** (B10, PR #12)                                                                                                  | —                          |
+| 28    | Naming conventions across the schema                              | Closed: `users_id` ratified ([[ratify-users-id-as-ownership-field-standard]])                                                 | —                          |
+| 29    | Join tables for child visibility                                  | Not for V1: single `user_profiles_id` per story ([[per-child-story-visibility]]); revisit with sharing                        | Post-V1                    |
 
 Requirements outside the phase tables that are still open: rate limiting (§4.1), sensitive data flagging and the hidden-fields sweep (§4.6), signed URLs for files (§2.9), Sentry context and backend event logging (§8.2, §8.4), and the dependency policy (§5.4–5.5, applied from M1). Each is placed in M1 or M9 above.
 

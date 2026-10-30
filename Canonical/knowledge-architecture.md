@@ -315,7 +315,7 @@ Whether a scheduled task can write to Claude Project knowledge is checked in B11
 
 ## 13. Migration stages
 
-**Progress (2026-10-29):** B0 ✅ · B1 ✅ · B2 ✅ · B3 ✅ ([[knowledge-inventory]]) · B4 ✅ (merged 25/10) · B5 ✅ (merged 25/10) · B6 ✅ (generator built and run, PR #9 merged into `wip/pre-restructure-2026-10-24` 28/10) · B7 ✅ (merged 28/10, [[v1-audit]]) · B8 ✅ (merged 28/10, [[CURRENT]]) · B9 ✅ all 11 PRDs approved 29/10 on `b9-prd-reconciliation`, new [[v2-backlog]] · Next: B10.
+**Progress (2026-10-30):** B0 ✅ · B1 ✅ · B2 ✅ · B3 ✅ ([[knowledge-inventory]]) · B4 ✅ (merged 25/10) · B5 ✅ (merged 25/10) · B6 ✅ (generator built and run, PR #9 merged into `wip/pre-restructure-2026-10-24` 28/10) · B7 ✅ (merged 28/10, [[v1-audit]]) · B8 ✅ (merged 28/10, [[CURRENT]]) · B9 ✅ all 11 PRDs approved 29/10, new [[v2-backlog]] · B10 ✅ repo sync 30/10 (PR #11 batch, PR #12 pnpm, both into `wip/pre-restructure-2026-10-24`) · Next: B11.
 
 Each stage runs on a git branch → diff reviewed → merged. Each stage has a check, and a failed stage is reverted.
 

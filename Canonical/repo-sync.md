@@ -41,7 +41,10 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: none
 - Process: Cursor on its own branch; PR
 - Verify: `pnpm install` clean; CI green; Expo app builds and runs
-- Status: queued
+- Status: **done** 30/10 (B10 PR #12, rebase-merged into `wip/pre-restructure-2026-10-24`). pnpm 10.34.7; constitution 1.5.1.
+- Outcome: direct dependencies pinned to the npm-lock versions except axios (1.9.0 → 1.20.0); transitive dependencies freshly resolved (a `pnpm import` of the old npm lock brought back 96 highs and 3 criticals, so it was replaced). Allowed build scripts: `@sentry/cli`, `unrs-resolver`. Overrides: `nanoid` 3.3.20 (runtime), `postcss` 8.5.31. CI runs audit (high), lint, typecheck, tests; also on PRs into the wip branch. iOS 26.5 simulator reached Sign in.
+- Concessions against the CTO plan: (1) `node-linker=hoisted` (Jest couldn't run under the isolated layout; loses phantom-dependency protection, not the script blocking or release delay); (2) five accepted highs in `ignoreGhsas`: node-forge (no patch, Expo CLI), image-size ×2 (major bump under Metro), zod (major bump under Expo CLI), and **decode-uri-component `GHSA-qr28-fpjm-wq7f`, the only runtime exception** (the fix 0.5.1 is ESM-only and breaks `query-string` 7 used by expo-router; crafted-URL DoS only).
+- Ongoing rules: review `ignoreGhsas` and overrides at every Expo SDK upgrade and at the monthly dependency review (CTO §5.4); remove decode-uri-component's ignore when expo-router moves off `query-string` 7. For an urgent security fix younger than 7 days, add a one-off `minimumReleaseAgeExclude` entry and remove it afterwards.
 
 ### RS-2026-10-24-04: Cursor rule files
 - Class: B
@@ -124,7 +127,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: none
 - Process: repo-sync batch (B10); PR
 - Verify: `git status --ignored` shows `.env` ignored, `.env.example` tracked; no previously tracked file becomes ignored
-- Status: **done** 29/10 (PR #10, `a9e674a`), except the pnpm lockfile step, which moves with RS-03
+- Status: **done** 29/10 (PR #10, `a9e674a`); the lockfile step done 30/10 with RS-03 (PR #12)
 
 ### RS-2026-10-30-01: `app.json` web output
 - Class: B
@@ -134,7 +137,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: none
 - Process: separate commit in PR #12 (Kyle, 30/10)
 - Verify: `pnpm start` survives a plain request to `localhost:8081`; `pnpm ios` reaches the first screen
-- Status: in progress
+- Status: **done** 30/10 (PR #12, `ff6fba8`)
 
 ### RS-2026-10-30-02: Typecheck errors surfaced by CI
 - Class: B (app code, smallest fix)
@@ -144,7 +147,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: none
 - Process: separate commit in PR #12
 - Verify: CI typecheck green on a clean install
-- Status: in progress
+- Status: **done** 30/10 (PR #12, `17679f5`). Pre-existing: reproduced on wip with npm. `useSegments()` typed as `readonly string[]`; `globalThis` for the dev-only guard. Typecheck needs `.expo/types` absent-safe; it passes either way.
 
 ### RS-2026-10-30-03: Node 22 LTS
 - Class: B
@@ -155,3 +158,21 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Process: M1 foundations rework
 - Verify: CI green; Expo app builds
 - Status: queued (M1)
+
+### RS-2026-10-30-04: Constitution wording: pnpm commands
+- Class: A (constitution, PATCH)
+- Target: `.specify/memory/constitution.md`
+- Change: schema procedure and gates say `npm run update:datamodel` / `npm run update:openapi`; change to `pnpm`. Fold into the next constitution amendment (e.g. the UI component library choice in M1).
+- Source: B10 PR #12 review (30/10)
+- Speckit impact: none
+- Process: `/speckit.constitution`
+- Status: queued
+
+### RS-2026-10-30-05: Dependency update bot
+- Class: B
+- Target: `.github/renovate.json` (or Dependabot config)
+- Change: monthly grouped update PRs, respecting the 7-day release age, security updates as they arrive; Expo SDK packages grouped and upgraded deliberately.
+- Source: process review (30/10); CTO §5.4
+- Speckit impact: none
+- Process: M1 or straight after launch
+- Status: queued
