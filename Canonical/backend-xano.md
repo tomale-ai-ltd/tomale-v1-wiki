@@ -3,14 +3,15 @@ type: living-doc
 title: backend-xano
 project: tomale-rn-v1
 status: current
-version: 1.0
+version: 1.1
 date: 2026-10-28
-last_verified: 2026-10-28
+last_verified: 2026-10-30
 owner: vault
 related:
   - "[[security-model]]"
   - "[[test-suite]]"
   - "[[stack]]"
+  - "[[agent-context-sync]]"
 ---
 
 # Backend: Xano
@@ -47,18 +48,54 @@ How the Xano backend is organised, the conventions every change follows, and the
 
 **Background tasks:** `image_worker_tick`, `pdf_worker_tick`, `hpbc_submit_due_orders` (every 60 s, up to 20 orders), `reconcile_order_refunds`, `reconcile_stripe_customers`, `check_session_expiry`, story/theme/art-style counters, `update_instant_stories_data_model`, `mapping_phonics_stage_exceptions`.
 
-## 3. Conventions
+## 3. Rules for agents (mirrored to Xano AGENTS.md)
 
-- **Ownership:** `users_id` on user-owned rows; identity always from `$auth.id`, profile from `$auth.extras.active_profile` ([[security-model]] §1).
-- **Errors:** `error_type = "inputerror"` (400) with a `code` in the payload. Xano has no 422. 14 preconditions still put `422` in the message field; it's on the pre-launch list.
-- **Money:** integer minor units (pence). `store_orders.subtotal` / `shipping_amount`, `products.amount`, `shipping_options.amount`, `transactions.amount_minor` + `currency`. HPBC is sent pounds (`subtotal / 100.0`) ([[store-money-as-integer-minor-units]], [[migrate-store-orders-money-fields-to-integer-pence]]).
-- **Writes:** `db.add` / `db.edit` map columns explicitly and should enforce hidden fields. In XanoScript an omitted `enforce_hidden_fields` means enforced, and only `= false` is written out. 199 statements still say `false`; the sweep is pre-launch ([[defer-workspace-hidden-fields-setting-to-pre-launch-sweep]]).
-- **Inputs:** explicit allowlists, no `dblink` ([[replace-dblink-inputs-with-explicit-allowlists]]). Never name an input or variable after a column the function writes ([[avoid-column-named-function-inputs-in-xano]]). Test switches are `bool x?` (optional), not `bool? x` (nullable but required) ([[make-simulate-test-switch-inputs-optional]]).
-- **Soft delete:** `deleted_at` is the standard for user content and profiles. `characters` also keeps `status` (archive) and `is_deleted` alongside `deleted_at`, by choice ([[share-characters-across-the-household]]).
-- **Logging:** `executor_runs` keeps small status fields only (url, method, status) ([[log-only-small-status-fields-in-executor-runs]]). Request history is 0 on functions that send API keys (`hpbc_create_order`, `reconcile_order_fulfilment`, both Papermill functions, the refund) ([[disable-request-history-on-credential-functions]]). The workspace default is 100.
-- **Lookups:** executor runs are found by `id`, never by timestamp ([[find-executor-runs-by-id-not-timestamp]]).
+The block below is copied **verbatim** into Xano → Knowledge → AGENTS.md (locked with Enforcement). Edit it here only; the daily pipeline flags a re-paste when it changes ([[agent-context-sync]]). Keep it short: Xano loads it with every prompt.
+
+<!-- xano-agents:start -->
+# Tomale backend rules
+
+Backend for Tomale, a children's personalised storybook app (iOS and Android). API groups: `app` (everything the app calls) and `webhooks` (Stripe, HPBC/Pureprint). You draft; Kyle reviews and publishes.
+
+## Identity and access
+- Identity comes from `$auth.id`, the active profile from `$auth.extras.active_profile`. Never take user or profile ids from inputs.
+- Fail closed: no `active_profile` in the token means refuse (re-login). A missing segment in `$auth.extras.a.b` is a fatal error, so the path must exist.
+- User-owned rows carry `users_id`, and every read and write filters on it.
+- Parent-only actions (store, orders, subscriptions, approvals, profile create/delete, character archive/delete) require `active_profile.is_child = false`, else error code `PARENT_PROFILE_REQUIRED`.
+- A child sees only their own stories (`user_profiles_id`); characters are shared by the household.
+
+## Errors and data
+- Domain errors are `inputerror` (HTTP 400) with a machine-readable `code` in the payload, e.g. `ORDER_NOT_PAYABLE`. Never 422.
+- Money is integer minor units (pence) everywhere. Only HPBC is sent pounds.
+- Inputs are explicit allowlists; no `dblink`. Never name an input or variable after a column the function writes. Test switches are `bool x?` (optional).
+- `db.add` / `db.edit` map columns explicitly. Never write `enforce_hidden_fields = false`.
+- Soft delete with `deleted_at` for user content and profiles.
+- Counters such as `images_remaining` are recounted, never decremented.
+- Check for empty, not only null: blank values are stored as `""`.
+- Env vars used as numbers are cast to integer.
+
+## Jobs and integrations
+- Error and terminal-state handling sits outside success conditionals, so failed jobs never stay stuck.
+- `executor_runs` stores small status fields only (url, method, status). Look runs up by `id`, never by timestamp.
+- Request history is 0 on any function that sends an API key.
+- OpenAI image responses are `b64_json`: decode once before Create File Resource (it re-encodes).
+
+## Guardrails
+- Never delete or rename tables, fields, endpoints or data without asking.
+- Suggest a manual snapshot before structural changes.
+- Prefer fail-closed preconditions. Never reveal whether an account exists.
+- Test failure paths, not only the happy path.
+- After a schema change, remind Kyle to run `pnpm update:datamodel` (a new table must also be added to the generator's domain map). After an `app` endpoint change, `pnpm update:openapi` and the Postman `_tests`.
+<!-- xano-agents:end -->
+
+**Sources:** [[security-model]] §1, [[fail-closed-active-profile-resolution]], [[ratify-users-id-as-ownership-field-standard]], [[share-characters-across-the-household]], [[per-child-story-visibility]], [[store-money-as-integer-minor-units]], [[replace-dblink-inputs-with-explicit-allowlists]], [[avoid-column-named-function-inputs-in-xano]], [[make-simulate-test-switch-inputs-optional]], [[defer-workspace-hidden-fields-setting-to-pre-launch-sweep]], [[log-only-small-status-fields-in-executor-runs]], [[find-executor-runs-by-id-not-timestamp]], [[disable-request-history-on-credential-functions]], [[keep-agents-out-of-xano-no-mcp]].
+
+**Known exceptions (pre-launch clean-up):** 14 preconditions still put `422` in the message; 199 statements still say `enforce_hidden_fields = false` ([[pre-launch-checklist]]).
+
+**Other conventions:**
 - **Order numbers:** `{id}-{yyyymmdd}-{users_id}-{instant_stories_id}`, built in a Lambda step (the expression `format_timestamp:"Ymd"` failed).
 - **Email verification:** single-use UUID token, 1-hour expiry, landing page on Squarespace (`/verify-email`), back into the app by deep link ([[separate-verify-email-deeplink-from-magic-link-path]]).
+- `characters` keeps `status` (archive) and `is_deleted` alongside `deleted_at`, by choice.
 
 ## 4. Pipelines
 
@@ -82,21 +119,9 @@ Flows with diagrams: [[story-creation-flow]], [[image-generation-flow]], [[order
 
 ## 6. XanoScript gotchas
 
-- `$auth.extras.a.b` throws a fatal error if any segment is missing; `first_notempty` doesn't help. The path must exist.
+Rules that follow from gotchas are in the §3 block. These are the remaining traps:
 - An `object { schema }` with an empty schema block serialises as `[]`, not `{}`, when values are set with `|set`.
-- Env vars used as numbers must be cast to integer; read as text, `locked_until` became 1970.
 - `regex_match` is deprecated: use `regex_matches`. `lambda_map` needs a quoted string and a timeout.
-- Error and terminal-state handling must sit outside success conditionals, or failed jobs stay stuck.
-- Counters like `images_remaining` are recounts, never decrements (race conditions).
-- OpenAI image models (`gpt-image-1`, `gpt-image-1.5`) return `b64_json`: decode before Create File Resource, which re-encodes; double encoding corrupts the file.
-- A blank `hpbc_order_id` was stored as `""`, not null, and blocked submission. Test for empty, not just null.
-- A column-named input silently overwrote `created_at` and `message`. Hence the naming rule in §3.
 - Xano JWE tokens can't be decoded client-side; track expiry by time.
 - Metadata API filters are query-string parameters on GET; in a JSON body they're silently ignored.
-
-## 7. Working rules
-
-- Take a manual snapshot before structural changes (group deletes, bulk moves, schema changes).
-- Test failure paths explicitly; a passing happy path proves little. Run `_tests` after backend changes ([[test-suite]]).
-- Prefer fail-closed preconditions; Xano AI suggestions have introduced fail-open logic and user enumeration before.
-- After a schema change: `npm run update:datamodel`. After an `app` endpoint change: `npm run update:openapi` (both in Cursor).
+- A column-named input once silently overwrote `created_at` and `message` (hence the naming rule).

@@ -277,7 +277,7 @@ All automations run on Kyle's Mac (they need the vault), so only when it's awake
 
 | Task | When | Steps |
 |---|---|---|
-| **Daily knowledge pipeline** (replaces the two current tasks) | 17:00 weekdays | 1. `git pull` the `tomale-xano` clone. 2. Session notes from unprocessed `_raw/Chat Sessions` files (Claude and Cursor), archive the raw files. 3. Decision notes from new session notes (new schema). 4. **Reconcile:** proposed canonical edits → `pending-updates.md`; repo-owned changes → `repo-sync.md`. 5. Sync changed `Canonical/` docs and new decisions to Claude Project knowledge. 6. One-line summary of what it did. Never edits canonical docs or repos. |
+| **Daily knowledge pipeline** (replaces the two current tasks) | 17:00 weekdays | 1. `git pull` the `tomale-xano` clone. 2. Session notes from unprocessed `_raw/Chat Sessions` files (Claude and Cursor), archive the raw files. 3. Decision notes from new session notes (new schema). 4. **Reconcile:** proposed canonical edits → `pending-updates.md`; repo-owned changes → `repo-sync.md`. 5. Sync changed `Canonical/` docs and new decisions to Claude Project knowledge. 6. **Context-sync check:** compare source fingerprints with [[agent-context-sync]]; raise a `pending-updates.md` item when a hand-maintained copy (Xano AGENTS.md, Cursor `tomale-api.mdc`) is out of date, and record the fingerprint when Kyle ticks it. 7. One-line summary of what it did. Never edits canonical docs or repos. |
 | **Weekly staleness check** | Monday morning | Canonical docs whose `last_verified` is older than 30 days, broken links, decisions still `proposed` after 14 days → `pending-updates.md` |
 
 Whether a scheduled task can write to Claude Project knowledge is checked in B11. If it can't, step 5 becomes a "sync project knowledge" step at the start of each Claude session.
@@ -289,7 +289,7 @@ Whether a scheduled task can write to Claude Project knowledge is checked in B11
 | **Claude chat** (Project, desktop link) | Project knowledge (Canonical + Decisions); whole vault and `Repos/` on demand | Vault: Canonical (after approval), Decisions, `_raw`, `repo-sync`, `pending-updates` | The app repo, Xano |
 | **Claude pipeline** | `_raw`, Sessions, Decisions, Canonical | Sessions, Decisions, `pending-updates`, `repo-sync`, `_raw/_archive`, Project knowledge | Canonical docs, repos, Xano |
 | **Cursor agents** | Repo; vault `Canonical/` (second workspace folder); `tomale-project.mdc` (always), `tomale-api.mdc` (`api/**`) | Repo (speckit and `repo-sync` processes); vault `_raw/Chat Sessions/` (raw notes only); tick `repo-sync` items | Vault canonical docs or decisions; Xano; protected docs outside their process |
-| **Xano AI** | Workspace + Knowledge tab (fed from `Canonical/backend-xano.md`) | Drafts only | Publishing without Kyle's review against the published version in the `tomale-xano` mirror |
+| **Xano AI** | Workspace + Knowledge → AGENTS.md only (locked; a verbatim copy of [[backend-xano]] §3, re-pasted when the pipeline flags it, [[agent-context-sync]]). No Knowledge docs or skills unless a repeated mistake justifies one | Drafts only | Publishing without Kyle's review against the published version in the `tomale-xano` mirror |
 
 **Context guidance (no hard cap).** `CURRENT.md` is the entry point: phase, next tasks, open questions and links. It links out rather than repeating. Keep always-loaded Cursor rules short, because they're paid for on every request. Anything that's history stays out of default context.
 
