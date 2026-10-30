@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.0
 date: 2026-10-28
-last_verified: 2026-10-28
+last_verified: 2026-10-30
 owner: vault
 supersedes:
   - "[[2-build-plan]]"
@@ -55,10 +55,10 @@ Dependency order follows the original build plan: foundations → characters →
 B9 PRD reconciliation → B10 repo sync → B11 agent access and automations → B12 close-out ([[knowledge-architecture]] §13).
 
 ### M1. App foundations rework (2–3 days)
-- pnpm migration with install scripts blocked, `minimumReleaseAge: 7` and an audit in CI (**CTO #27**, **#20**; [[promote-pnpm-migration-ahead-of-slice-100]]; repo-sync RS-03).
+- ~~pnpm migration and audit in CI~~ **done 30/10 in B10** (**CTO #27**, **#20**; RS-2026-10-24-03). ~~`eas.json` API group~~ done (RS-2026-10-28-01).
 - Tokens in `expo-secure-store` and a single Axios 401 interceptor (repo-sync RS-01; [[use-expo-secure-store-for-client-tokens]]).
-- `eas.json` still points every build at the old `api:T6T6tF5a` group; it must point at the `app` group `api:1pgd39RE`.
-- `app.config.js` with per-build schemes ([[use-per-build-variant-url-schemes]]).
+- Node 22 LTS (RS-2026-10-30-03); constitution pnpm wording (RS-2026-10-30-04); Renovate for monthly grouped updates (RS-2026-10-30-05).
+- `app.config.js` with per-build schemes ([[use-per-build-variant-url-schemes]], RS-2026-10-30-07).
 - CI security stage: Gitleaks (**CTO #18**), Semgrep (**#21**), audit (**#20**); CI checks required for merges into `main` (**#22**).
 - Frontend Sentry already exists (004); add the user and profile context to events (**CTO #16**).
 - **Choose the UI component library** before Slice 100: the constitution names NativeBase, which isn't installed and is, as far as we know, no longer maintained (successor: gluestack-ui). Candidates: gluestack-ui, Tamagui, React Native Paper, custom on Reanimated. The choice goes into the constitution amendment (RS-01).

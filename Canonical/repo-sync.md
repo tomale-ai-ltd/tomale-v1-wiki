@@ -5,13 +5,13 @@ project: tomale-rn-v1
 status: current
 version: 1.0
 date: 2026-10-24
-last_verified: 2026-10-29
+last_verified: 2026-10-30
 owner: vault
 ---
 
 # Repo sync queue
 
-Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only once approved**, in batches between slices, on a `repo-sync/YYYY-MM-DD` branch with one PR per batch. Process and classes: [[operating-model]] §3.5. Protected documents: [[knowledge-architecture]] §6.
+Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only once approved**, in batches between slices, on a `repo-sync/YYYY-MM-DD` branch with one PR per batch. **From 30/10 all PRs target `main`** (the wip branch was merged in B12 and deleted; CI must pass). Process and classes: [[operating-model]] §3.5. Protected documents: [[knowledge-architecture]] §6.
 
 ### RS-2026-10-24-01: Constitution amendment (V1 rules after Phase 1)
 - Class: A
@@ -183,7 +183,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Change: replace the raw-notes bullet with: "At the end of a session that changed code, specs or repo settings (or when Kyle asks), write one raw note to `_raw/Chat Sessions/YYYY-MM-DD-cursor-<slug>.md` in the tomale-v1-wiki workspace folder, following `Templates/cursor-raw-note.md`. Never edit anything else in the vault." Keep the rule short.
 - Source: B11 (30/10), [[knowledge-architecture]] §10–11
 - Speckit impact: none
-- Process: Cursor edit; PR into `wip/pre-restructure-2026-10-24`
+- Process: Cursor edit; PR into `wip/pre-restructure-2026-10-24` (merged into `main` 30/10)
 - Verify: rule shows as Always; a test note lands in `_raw/Chat Sessions/` and the daily pipeline turns it into a session note
 - Status: queued
 

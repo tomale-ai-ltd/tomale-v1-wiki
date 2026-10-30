@@ -15,7 +15,7 @@ related:
 
 # Knowledge architecture: vault, repos, Xano and agents
 
-> **Status: approved 2026-10-24 (v1.0).** Decision notes accepted; the migration stages are in progress.
+> **Status: approved 2026-10-24 (v1.0).** Decision notes accepted; all migration stages complete (30/10).
 >
 > **Scope.** This document covers *where knowledge lives, who may change it, and how it moves*. *Who does what, and how work gets done* (roles, workflows, release, testing) is in [[operating-model]]. The two overlap on permissions; where they do, this document defines the permission and the operating model defines the process that uses it.
 
@@ -315,7 +315,7 @@ Both tasks log one line per run to `Project/Automation/pipeline-log.md`. B11 (30
 
 ## 13. Migration stages
 
-**Progress (2026-10-30):** B0 ✅ · B1 ✅ · B2 ✅ · B3 ✅ ([[knowledge-inventory]]) · B4 ✅ (merged 25/10) · B5 ✅ (merged 25/10) · B6 ✅ (generator built and run, PR #9 merged into `wip/pre-restructure-2026-10-24` 28/10) · B7 ✅ (merged 28/10, [[v1-audit]]) · B8 ✅ (merged 28/10, [[CURRENT]]) · B9 ✅ all 11 PRDs approved 29/10, new [[v2-backlog]] · B10 ✅ repo sync 30/10 (PR #11 batch, PR #12 pnpm, both into `wip/pre-restructure-2026-10-24`) · B11 ✅ 30/10 (Project knowledge replaced and auto-synced; Cursor workspace and raw-note rule, PR #13; Xano AGENTS.md; daily pipeline and weekly check live; test questions answered correctly by Claude, Cursor and Xano) · Next: B12.
+**Progress (2026-10-30):** B0 ✅ · B1 ✅ · B2 ✅ · B3 ✅ ([[knowledge-inventory]]) · B4 ✅ (merged 25/10) · B5 ✅ (merged 25/10) · B6 ✅ (generator built and run, PR #9 merged into `wip/pre-restructure-2026-10-24` 28/10) · B7 ✅ (merged 28/10, [[v1-audit]]) · B8 ✅ (merged 28/10, [[CURRENT]]) · B9 ✅ all 11 PRDs approved 29/10, new [[v2-backlog]] · B10 ✅ repo sync 30/10 (PR #11 batch, PR #12 pnpm, both into `wip/pre-restructure-2026-10-24`) · B11 ✅ 30/10 (Project knowledge replaced and auto-synced; Cursor workspace and raw-note rule, PR #13; Xano AGENTS.md; daily pipeline and weekly check live; test questions answered correctly by Claude, Cursor and Xano) · B12 ✅ 30/10 (wip merged into `main` via PR #14; stale branches deleted with `archive/*` tags; documentation backlog closed and archived; [[resume-frontend-at-slice-100]]) · **Restructure complete.**
 
 Each stage runs on a git branch → diff reviewed → merged. Each stage has a check, and a failed stage is reverted.
 
