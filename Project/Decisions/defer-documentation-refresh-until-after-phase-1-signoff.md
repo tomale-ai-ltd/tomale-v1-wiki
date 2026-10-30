@@ -35,3 +35,7 @@ Sign-off steps: update `6-api-security-model`, decide the fate of `/admin/upload
 - [[adopt-openapi-import-for-postman-collection-sync]]
 - [[place-frontend-development-on-hold]]
 - [[2026-10-14-001]]
+
+## Amendment (30/10/2026)
+
+Done. The refresh ran as the knowledge restructure (B6–B12, [[knowledge-architecture]] §13); [[documentation-refresh-backlog]] was closed and archived on 30/10.

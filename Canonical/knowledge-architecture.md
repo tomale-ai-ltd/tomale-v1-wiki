@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.1
 date: 2026-10-23
-last_verified: 2026-10-28
+last_verified: 2026-10-30
 owner: vault
 related:
   - "[[operating-model]]"
@@ -34,7 +34,7 @@ related:
 - every existing folder mapped
 - Xano and its GitHub mirror added as sources
 - Cursor writes raw session notes
-- one 17:00 automation pipeline
+- one 17:40 automation pipeline
 - Claude Project keeps decisions and syncs automatically
 - word cap removed
 - snapshots stage and V1 audit added
@@ -178,7 +178,7 @@ A conflict between levels is a defect. Either the lower source gets corrected, o
 | `Project/Plan/3-cto-tech-review`, `4-cto-improvements-list` | Dec 2025 review | 3 | `Project/_archive/` | Archive (historical record) |
 | `Project/Plan/5-cto-implementation-plan` | Phases 1–5 | 1 → 3 | Remaining phases into `roadmap.md`; original to `_archive/` | Split |
 | `Project/Plan/6-api-security-model` | Security model | 1 | `Canonical/security-model.md` | Move; rebuild the matrix from OpenAPI |
-| `Project/Plan/documentation-refresh-backlog` | Refresh checklist | 1 (temporary) | Stays until B12, then archived | Becomes the work list for B8/B9 |
+| `Project/Plan/documentation-refresh-backlog` | Refresh checklist | 1 (temporary) | Archived 30/10 (B12) to `Project/_archive/plan/` | Becomes the work list for B8/B9 |
 | `Project/Plan/knowledge-architecture`, `operating-model` | These plans | 1 | `Canonical/` | Move on approval |
 | `Project/Plan/Feature PRDs/*` (9) | Feature PRDs | 1 | `Canonical/prd/` | Move; reconcile in B9 |
 | `Project/Architecture/*` (4 flows + `.bak` files) | System flows | 1 | `Canonical/architecture/` | Move; delete `.bak` files after the git baseline |
@@ -277,16 +277,16 @@ All automations run on Kyle's Mac (they need the vault), so only when it's awake
 
 | Task | When | Steps |
 |---|---|---|
-| **Daily knowledge pipeline** (replaces the two current tasks) | 17:00 weekdays | 1. `git pull` the `tomale-xano` clone. 2. Session notes from unprocessed `_raw/Chat Sessions` files (Claude and Cursor), archive the raw files. 3. Decision notes from new session notes (new schema). 4. **Reconcile:** proposed canonical edits → `pending-updates.md`; repo-owned changes → `repo-sync.md`. 5. Sync changed `Canonical/` docs and new decisions to Claude Project knowledge. 6. **Context-sync check:** compare source fingerprints with [[agent-context-sync]]; raise a `pending-updates.md` item when a hand-maintained copy (Xano AGENTS.md, Cursor `tomale-api.mdc`) is out of date, and record the fingerprint when Kyle ticks it. 7. One-line summary of what it did. Never edits canonical docs or repos. |
-| **Weekly staleness check** | Monday morning | Canonical docs whose `last_verified` is older than 30 days, broken links, decisions still `proposed` after 14 days → `pending-updates.md` |
+| **Daily knowledge pipeline** ("Daily knowledge pipeline (vault v3)", replaced the two v2 tasks on 30/10) | 17:40 weekdays | 1. `git pull` the `tomale-xano` clone. 2. Session notes from unprocessed `_raw/Chat Sessions` files (Claude and Cursor), archive the raw files. 3. Decision notes from new session notes (new schema). 4. **Reconcile:** proposed canonical edits → `pending-updates.md`; repo-owned changes → `repo-sync.md`. 5. Sync `Canonical/`, all decisions, the constitution and the data model to Claude Project knowledge, uploading only files whose hash differs from `Project/Automation/project-sync-manifest.json` ([[sync-project-knowledge-by-hash-manifest]]). 6. **Context-sync check:** compare source fingerprints with [[agent-context-sync]]; raise a `pending-updates.md` item when a hand-maintained copy (Xano AGENTS.md, Cursor `tomale-api.mdc`) is out of date, and record the fingerprint when Kyle ticks it. 7. One-line summary of what it did. Never edits canonical docs or repos. |
+| **Weekly staleness check** ("Weekly staleness check (vault v3)") | Mondays 10:17 | Canonical docs whose `last_verified` is older than 30 days, broken links, decisions still `proposed` after 14 days → `pending-updates.md` |
 
-Whether a scheduled task can write to Claude Project knowledge is checked in B11. If it can't, step 5 becomes a "sync project knowledge" step at the start of each Claude session.
+Both tasks log one line per run to `Project/Automation/pipeline-log.md`. B11 (30/10) confirmed a scheduled task can write Claude Project knowledge. The pipeline's shell has no GitHub credentials, so step 1 doesn't refresh the Xano mirror: Kyle runs `git pull` in `tomale-xano` when fresh backend code is needed.
 
 ## 11. Agent access
 
 | Agent | Reads by default | May write | Never |
 |---|---|---|---|
-| **Claude chat** (Project, desktop link) | Project knowledge (Canonical + Decisions); whole vault and `Repos/` on demand | Vault: Canonical (after approval), Decisions, `_raw`, `repo-sync`, `pending-updates` | The app repo, Xano |
+| **Claude chat** (Project, desktop link) | Project knowledge (Canonical, all decisions, the constitution and the data model); whole vault and `Repos/` on demand | Vault: Canonical (after approval), Decisions, `_raw`, `repo-sync`, `pending-updates` | The app repo, Xano |
 | **Claude pipeline** | `_raw`, Sessions, Decisions, Canonical | Sessions, Decisions, `pending-updates`, `repo-sync`, `_raw/_archive`, Project knowledge | Canonical docs, repos, Xano |
 | **Cursor agents** | Repo; vault `Canonical/` (second workspace folder); `tomale-project.mdc` (always), `tomale-api.mdc` (`api/**`) | Repo (speckit and `repo-sync` processes); vault `_raw/Chat Sessions/` (raw notes only); tick `repo-sync` items | Vault canonical docs or decisions; Xano; protected docs outside their process |
 | **Xano AI** | Workspace + Knowledge → AGENTS.md only (locked; a verbatim copy of [[backend-xano]] §3, re-pasted when the pipeline flags it, [[agent-context-sync]]). No Knowledge docs or skills unless a repeated mistake justifies one | Drafts only | Publishing without Kyle's review against the published version in the `tomale-xano` mirror |
@@ -315,7 +315,7 @@ Whether a scheduled task can write to Claude Project knowledge is checked in B11
 
 ## 13. Migration stages
 
-**Progress (2026-10-30):** B0 ✅ · B1 ✅ · B2 ✅ · B3 ✅ ([[knowledge-inventory]]) · B4 ✅ (merged 25/10) · B5 ✅ (merged 25/10) · B6 ✅ (generator built and run, PR #9 merged into `wip/pre-restructure-2026-10-24` 28/10) · B7 ✅ (merged 28/10, [[v1-audit]]) · B8 ✅ (merged 28/10, [[CURRENT]]) · B9 ✅ all 11 PRDs approved 29/10, new [[v2-backlog]] · B10 ✅ repo sync 30/10 (PR #11 batch, PR #12 pnpm, both into `wip/pre-restructure-2026-10-24`) · Next: B11.
+**Progress (2026-10-30):** B0 ✅ · B1 ✅ · B2 ✅ · B3 ✅ ([[knowledge-inventory]]) · B4 ✅ (merged 25/10) · B5 ✅ (merged 25/10) · B6 ✅ (generator built and run, PR #9 merged into `wip/pre-restructure-2026-10-24` 28/10) · B7 ✅ (merged 28/10, [[v1-audit]]) · B8 ✅ (merged 28/10, [[CURRENT]]) · B9 ✅ all 11 PRDs approved 29/10, new [[v2-backlog]] · B10 ✅ repo sync 30/10 (PR #11 batch, PR #12 pnpm, both into `wip/pre-restructure-2026-10-24`) · B11 ✅ 30/10 (Project knowledge replaced and auto-synced; Cursor workspace and raw-note rule, PR #13; Xano AGENTS.md; daily pipeline and weekly check live; test questions answered correctly by Claude, Cursor and Xano) · Next: B12.
 
 Each stage runs on a git branch → diff reviewed → merged. Each stage has a check, and a failed stage is reverted.
 
@@ -346,7 +346,7 @@ Then: resume the frontend at Slice 100 (Characters).
 
 ## 15. Open questions
 
-1. Can a scheduled task write Claude Project knowledge (§10 step 5)? Checked in B11. Kyle doesn't know; assume the fallback until tested.
+1. ~~Can a scheduled task write Claude Project knowledge (§10 step 5)?~~ Yes, tested in B11 (30/10).
 
 **Resolved 2026-10-24:**
 - iCloud sync is on → relocate (§12).

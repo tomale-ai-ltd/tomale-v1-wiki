@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.0
 date: 2026-10-28
-last_verified: 2026-10-28
+last_verified: 2026-10-30
 owner: vault
 related:
   - "[[roadmap]]"
@@ -29,6 +29,10 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] **CORS** settings reviewed for both groups.
 - [ ] **Signed URLs for user images:** decide before launch or immediately after; all images are public URLs today ([[migrate-image-storage-to-aws-s3-signed-urls]]; CTO §2.9).
 - [ ] **MFA** on GitHub, Stripe, Resend, AWS and OpenAI (Xano done) (CTO #13).
+- [ ] **Xano quick settings:** Swagger/API docs set to private for both groups; Sensitive Data flags on credential and PII fields; unused Metadata API tokens removed (keep the read-only `cursor-read` token).
+- [ ] **Response trimming:** `products` responses expose internal config (Stripe price and product ids, HPBC SKUs, Papermill template ids); return only what the app shows.
+- [ ] **`utilities/upload_image`** still appears in the `app` spec: confirm external access is disabled, or remove it.
+- [ ] **Postman collection re-synced** from the Xano OpenAPI export ([[adopt-openapi-import-for-postman-collection-sync]]), then `_tests` run green.
 
 ## 2. Environments and money
 

@@ -19,7 +19,7 @@ Each rule has one home. Other agents get a copy of it, or a pointer to it, never
 
 | Copy | Source (single home) | How it's updated | Fingerprint method |
 |---|---|---|---|
-| Claude Project knowledge | `Canonical/`, `Project/Decisions/`, constitution, data model | Automatically by the daily pipeline (or at session start if a scheduled task can't write Project knowledge) | n/a |
+| Claude Project knowledge | `Canonical/`, `Project/Decisions/`, constitution, data model | Automatically by the daily pipeline, using the hash manifest `Project/Automation/project-sync-manifest.json` ([[sync-project-knowledge-by-hash-manifest]]) | n/a |
 | Xano Knowledge → AGENTS.md (locked) | [[backend-xano]] §3, the block between `<!-- xano-agents:start -->` and `<!-- xano-agents:end -->` | Kyle pastes the block verbatim | `sed -n '/xano-agents:start/,/xano-agents:end/p' Canonical/backend-xano.md \| sha256sum`, first 12 characters |
 | Cursor `.cursor/rules/tomale-api.mdc` | Constitution (app-side rules: secure storage, 401 interceptor, error codes, pence) | Cursor via a repo-sync item | `sha256sum` of `~/Developer/tomale/tomale-rn-test/.specify/memory/constitution.md`, first 12 characters |
 | Cursor `.cursor/rules/tomale-project.mdc` | [[knowledge-architecture]] §11 (Cursor row) | Cursor via a repo-sync item | Not tracked (rarely changes) |

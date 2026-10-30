@@ -154,7 +154,7 @@ Per [[5-cto-implementation-plan]], Phase 1 items 5–9 closed on 2026-07-16 and 
 - **Users and profiles:** `PATCH /users/me` (boolean preferences folded in), `complete_onboarding`, the image endpoint. `user_profiles` is one table with `is_child` and `is_primary`: parent-only create and delete, household scope, soft delete, profanity list plus AI moderation.
 - **Stories and characters:** owner-scoped `instant_stories` with per-child visibility and the moderation and parental-approval flags. `conversations/{id}/message` and `API/character_edit` take explicit input lists, no `dblink` (2026-10-23).
 - **System:** activities, `artwork_style`, `fact/random` (with an `is_child` gate), themes; phonics reduced to two nested read endpoints.
-- **Engagement:** `user_alerts`, an account-level inbox (list, get, mark read, `POST /user_alerts/mark-all-read`).
+- **Engagement:** `user_alerts`, an account-level inbox (list, get, mark read, `PATCH /users/user_alerts/mark-all-read`).
 - **Commerce:**
   - `store_orders` owned through `$auth.id`; a 30-minute self-service cancel window with automatic refund; ordering blocked while a story awaits parental approval (`STORY_AWAITING_APPROVAL`); money stored in integer pence.
   - `stripe/create_checkout_session`: owner-scoped; never returns the raw Stripe response; checks the Stripe total against Xano prices; parental-approval gate; order-status guard (`ORDER_NOT_PAYABLE`).

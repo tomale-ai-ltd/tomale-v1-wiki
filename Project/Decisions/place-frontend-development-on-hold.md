@@ -2,7 +2,9 @@
 type: decision
 title: place-frontend-development-on-hold
 project: tomale-rn-v1
-status: accepted
+status: superseded
+superseded_by:
+  - "[[resume-frontend-at-slice-100]]"
 date: 2025-12-27
 features:
   - X-process
@@ -49,3 +51,7 @@ The CTO tech review identified several critical issues that, if left unresolved,
 - [[5-cto-implementation-plan|5-cto-implementation-plan]]
 - [[12. CICD - EAS, GitHub|12. CICD - EAS, GitHub]]
 - [[6. Backend - Xano|6. Backend - Xano]]
+
+## Amendment (30/10/2026)
+
+Superseded by [[resume-frontend-at-slice-100]]: Phase 1 and the knowledge restructure are complete.

@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.1
 date: 2026-10-24
-last_verified: 2026-10-28
+last_verified: 2026-10-30
 owner: vault
 related:
   - "[[knowledge-architecture]]"
@@ -26,7 +26,7 @@ This document must never conflict with the repo's governing documents. If it did
 - **This document governs collaboration:** roles, decision rights, how work and knowledge move between Kyle, Claude, Cursor, Xano and the vault.
 - **Cursor's collaboration rules are defined once, here,** and carried into the repo only through `.cursor/rules/tomale-project.mdc`. That rule file is a faithful, short copy of §1.2 (Cursor row), §1.3, §3.1 and §3.5, changed only through a `repo-sync` item.
 - **When either changes, the other is checked.** The weekly staleness check compares `tomale-project.mdc` with this document's Cursor sections and flags any divergence. A change here that affects Cursor always comes with a `repo-sync` item.
-- **Known conflict to resolve in B10:** the constitution's backend schema change procedure says to update `data-model.md` by hand; under [[knowledge-architecture]] it is generated (`npm run update:datamodel`). This is fixed by constitution amendment (§3.5), not by this document.
+- **Resolved (29/10/2026):** the constitution used to say `data-model.md` was edited by hand; constitution 1.5.0 (RS-2026-10-24-01, PR #11) now says it is generated (`pnpm run update:datamodel`).
 
 ## 1. The team
 
@@ -104,7 +104,7 @@ R = does the work · A = approves · C = consulted · I = informed
 4. **Snapshot** before structural changes (schema, group moves, deletions).
 5. **Publish on dev** (Kyle). GitHub sync records the commit on the dev git branch. Until the dev/prod split exists, publish on the live branch.
 6. **Test.** Run the relevant Postman folder; a full `_tests` run for anything touching auth, orders or payments.
-7. **Regenerate.** If an `app` endpoint changed: `npm run update:openapi`. If the schema changed: `npm run update:datamodel` (both in Cursor).
+7. **Regenerate.** If an `app` endpoint changed: `pnpm run update:openapi`. If the schema changed: `pnpm run update:datamodel` (both in Cursor).
 8. **Record** in the session note, with the mirror commit link.
 
 Backend rules live in `Canonical/backend-xano.md` and are copied into the Xano Knowledge tab.
