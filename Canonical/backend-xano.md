@@ -66,6 +66,8 @@ Backend for Tomale, a children's personalised storybook app (iOS and Android). A
 
 ## Errors and data
 - Domain errors are `inputerror` (HTTP 400) with a machine-readable `code` in the payload, e.g. `ORDER_NOT_PAYABLE`. Never 422.
+- Other error types: `notfound` for a missing record and for another user's record (never reveal it exists); `unauthorized` when not logged in; `accessdenied` for a feature that is switched off.
+- The `error` field is a short human-readable message, never a status number (the status comes from `error_type`).
 - Money is integer minor units (pence) everywhere. Only HPBC is sent pounds.
 - Inputs are explicit allowlists; no `dblink`. Never name an input or variable after a column the function writes. Test switches are `bool x?` (optional).
 - `db.add` / `db.edit` map columns explicitly. Never write `enforce_hidden_fields = false`.
@@ -85,12 +87,13 @@ Backend for Tomale, a children's personalised storybook app (iOS and Android). A
 - Suggest a manual snapshot before structural changes.
 - Prefer fail-closed preconditions. Never reveal whether an account exists.
 - Test failure paths, not only the happy path.
-- After a schema change, remind Kyle to run `pnpm update:datamodel` (a new table must also be added to the generator's domain map). After an `app` endpoint change, `pnpm update:openapi` and the Postman `_tests`.
+- For tables, endpoints and functions, read the live workspace rather than relying on a summary.
+- After a schema change, remind Kyle to run `pnpm run update:datamodel` (a new table must also be added to the generator's domain map). After an `app` endpoint change, `pnpm run update:openapi` and the Postman `_tests`.
 <!-- xano-agents:end -->
 
 **Sources:** [[security-model]] §1, [[fail-closed-active-profile-resolution]], [[ratify-users-id-as-ownership-field-standard]], [[share-characters-across-the-household]], [[per-child-story-visibility]], [[store-money-as-integer-minor-units]], [[replace-dblink-inputs-with-explicit-allowlists]], [[avoid-column-named-function-inputs-in-xano]], [[make-simulate-test-switch-inputs-optional]], [[defer-workspace-hidden-fields-setting-to-pre-launch-sweep]], [[log-only-small-status-fields-in-executor-runs]], [[find-executor-runs-by-id-not-timestamp]], [[disable-request-history-on-credential-functions]], [[keep-agents-out-of-xano-no-mcp]].
 
-**Known exceptions (pre-launch clean-up):** 14 preconditions still put `422` in the message; 199 statements still say `enforce_hidden_fields = false` ([[pre-launch-checklist]]).
+**Known exceptions (pre-launch clean-up):** 14 preconditions still put `422` in the message, and about 20 more put a status number (`404`, `401`, `500`, `413`, `415`) in `error` (mirror, 30/10); 199 statements still say `enforce_hidden_fields = false` ([[pre-launch-checklist]]).
 
 **Other conventions:**
 - **Order numbers:** `{id}-{yyyymmdd}-{users_id}-{instant_stories_id}`, built in a Lambda step (the expression `format_timestamp:"Ymd"` failed).
