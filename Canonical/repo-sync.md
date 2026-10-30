@@ -186,3 +186,14 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Process: Cursor edit; PR into `wip/pre-restructure-2026-10-24`
 - Verify: rule shows as Always; a test note lands in `_raw/Chat Sessions/` and the daily pipeline turns it into a session note
 - Status: queued
+
+### RS-2026-10-30-07: Per-build-variant URL scheme in `app.config.js`
+- Class: B
+- Target: `app.json` → `app.config.js`, `eas.json` (build profiles set `APP_VARIANT`)
+- Change: `app.config.js` reads the EAS build profile and sets the scheme (`tomalerntest://` for development builds, `tomale://` for production), app name and bundle identifier, so both builds can sit on one device. Fold in the API base URL per variant (see RS-2026-10-28-01). Backend-generated links moving to a per-branch setting is Xano work with the dev/prod split, not part of this item.
+- Source: [[use-per-build-variant-url-schemes]]
+- Speckit impact: none
+- Process: M1 foundations rework
+- Verify: development and production builds install side by side; deep links open the matching build
+- Status: queued (M1)
+
