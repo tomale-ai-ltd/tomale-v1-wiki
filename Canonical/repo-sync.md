@@ -185,7 +185,7 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Speckit impact: none
 - Process: Cursor edit; PR into `wip/pre-restructure-2026-10-24` (merged into `main` 30/10)
 - Verify: rule shows as Always; a test note lands in `_raw/Chat Sessions/` and the daily pipeline turns it into a session note
-- Status: queued
+- Status: applied (`b548399`, on `main`); verify step still to confirm
 
 ### RS-2026-10-30-07: Per-build-variant URL scheme in `app.config.js`
 - Class: B
@@ -196,4 +196,34 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Process: M1 foundations rework
 - Verify: development and production builds install side by side; deep links open the matching build
 - Status: queued (M1)
+
+### RS-2026-11-01-01: Constitution amendment: gluestack-ui v3 (1.6.0)
+- Class: A (constitution, MINOR)
+- Target: `.specify/memory/constitution.md`
+- Change: Technology Constraints "UI Components" line: NativeBase → gluestack-ui v3 (major pinned, components copied into `components/ui/`, styled with NativeWind); Lucide React Native stays for icons. Fold in RS-2026-10-30-04 (pnpm command wording). Sync Impact Report: no active spec affected (no feature screens yet); Slice 100 onwards builds on gluestack.
+- Source: gluestack-ui v3 decision (Kyle, 01/11; decision note to follow from raw note `2026-11-01-001`)
+- Speckit impact: none on 001–006; 007 onwards
+- Process: `/speckit.constitution`
+- Verify: version 1.6.0 with Sync Impact Report; no "NativeBase" left in the repo (`grep -ri nativebase`)
+- Status: queued (M1, PR A)
+
+### RS-2026-11-01-02: CI security stage (Gitleaks, Semgrep)
+- Class: B
+- Target: `.github/workflows/ci.yaml`
+- Change: add steps to the existing `test` job (so the required `test` check covers them, no ruleset change): Gitleaks via the CLI (not `gitleaks-action`, which needs a licence for organisations), scanning the PR's commits; Semgrep OSS (`semgrep scan`, no token) with TypeScript/React rulesets, failing on ERROR severity only. Drop the deleted `wip/pre-restructure-2026-10-24` branch from the trigger. Optional `.gitleaksignore` / `.semgrepignore` for `node_modules`, `ios/`, `dist/`, `api/client.ts`.
+- Source: CTO #18, #21; [[roadmap]] M1
+- Speckit impact: none
+- Process: edit
+- Verify: CI green on the PR; a throwaway commit with a fake AWS key fails the `test` check (then dropped)
+- Status: queued (M1, PR A)
+
+### RS-2026-11-01-03: Install gluestack-ui v3 and NativeWind
+- Class: B
+- Target: `package.json`, `babel.config.js`, `metro.config.js`, `tailwind.config.js`, `global.css`, `app/_layout.tsx`, `components/ui/`
+- Change: install gluestack-ui v3 with NativeWind per the gluestack v3 Expo guide (pin exact versions, 7-day release age); wrap the root in `GluestackUIProvider`; add only the primitives Slice 100 needs (Box, Text, Heading, Button, Input, Pressable, Image). No visual redesign of existing screens.
+- Source: RS-2026-11-01-01
+- Speckit impact: none
+- Process: edit
+- Verify: CI green; dev build starts to Sign in unchanged; a sample `Button` renders on iOS and web
+- Status: queued (M1, PR B)
 
