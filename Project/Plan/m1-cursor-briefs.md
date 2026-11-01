@@ -33,11 +33,11 @@ Prompt for Cursor:
 
 ## PR B: Expo SDK 58 and constitution 1.6.0 (`repo-sync/2026-11-0X-expo-58`)
 
-Items: RS-2026-11-01-04 (Expo SDK 54 → 58), RS-2026-11-01-01 (constitution 1.6.0, folds in RS-2026-10-30-04). Needs PR A merged (Node 22.13+).
+Items: RS-2026-11-01-04 (Expo SDK 54 → 58), RS-2026-11-01-01 (constitution 1.6.0, folds in RS-2026-10-30-04), RS-2026-11-01-06 (remove PR A's one-off audit exceptions). Needs PR A merged (Node 22.13+).
 
 Prompt for Cursor:
 
-> Apply RS-2026-11-01-04 then RS-2026-11-01-01.
+> Apply RS-2026-11-01-04, then RS-2026-11-01-01, then RS-2026-11-01-06 (last).
 > - Upgrade Expo one SDK at a time: 55, 56, 57, 58. For each: `npx expo install expo@^5X --fix`, read that SDK's release notes and apply the breaking changes, run `npx expo-doctor`, `pnpm typecheck`, `pnpm test`; one commit per SDK. Keep `newArchEnabled`. Let Expo pick React Native, Reanimated, worklets, expo-router, `@sentry/react-native` and `jest-expo` versions; don't hand-pin newer ones.
 > - If an SDK step breaks something you can't fix cleanly, stop at the last green SDK and report.
 > - Then run `/speckit.constitution` for 1.6.0 with a Sync Impact Report: Expo SDK 54 → 58; UI components NativeBase → gluestack-ui v5 with UniWind (Tailwind CSS v4); Lucide stays; `npm run` → `pnpm` in the schema procedure and gates, and in `package.json` scripts.
