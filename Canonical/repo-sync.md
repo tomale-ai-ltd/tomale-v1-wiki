@@ -236,3 +236,13 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Process: edit
 - Verify: `expo-doctor` clean; CI green; an EAS development build installs and reaches Sign in on iOS and Android; magic-link sign-in still works; a Sentry test event arrives
 - Status: queued (M1, PR B)
+
+### RS-2026-11-01-05: Cursor rule: how to apply repo-sync items
+- Class: B
+- Target: `.cursor/rules/tomale-project.mdc`
+- Change: add one bullet: "Apply repo-sync items only when Kyle asks and only those marked `approved` in `Canonical/repo-sync.md` (vault): one branch `repo-sync/YYYY-MM-DD` and one PR per batch, one commit per item prefixed with its id, run each item's Verify step, then report the commit hashes (Kyle or Claude updates the item's status; Cursor never edits the vault beyond raw notes). Class A items go through `/speckit.constitution` only." Also update the Stack line when SDK 58 lands (PR B).
+- Source: operating-model §1 (rule file must carry §3.5), gap found 01/11
+- Speckit impact: none
+- Process: edit (PR A)
+- Verify: rule shows as Always; Cursor can explain the repo-sync process when asked
+- Status: queued (M1, PR A)

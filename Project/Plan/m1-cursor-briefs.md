@@ -17,11 +17,11 @@ Four PRs into `main`, in order. Each must pass the required `test` check. Cursor
 
 ## PR A: tooling and CI (`repo-sync/2026-11-01-tooling`)
 
-Items: RS-2026-10-30-03 (Node 22), RS-2026-10-30-05 (Renovate), RS-2026-11-01-02 (CI security stage).
+Items: RS-2026-10-30-03 (Node 22), RS-2026-10-30-05 (Renovate), RS-2026-11-01-02 (CI security stage), RS-2026-11-01-05 (Cursor rule: repo-sync process).
 
 Prompt for Cursor:
 
-> Apply repo-sync items RS-2026-10-30-03, RS-2026-10-30-05 and RS-2026-11-01-02 from `Canonical/repo-sync.md` in the tomale-v1-wiki folder, on branch `repo-sync/2026-11-01-tooling`, one commit per item, prefixed with the item id.
+> Apply repo-sync items RS-2026-10-30-03, RS-2026-10-30-05, RS-2026-11-01-02 and RS-2026-11-01-05 from `Canonical/repo-sync.md` in the tomale-v1-wiki folder, on branch `repo-sync/2026-11-01-tooling`, one commit per item, prefixed with the item id.
 > - Node 22: `.nvmrc` → latest Node 22 LTS (at least 22.13, which Expo SDK 58 needs); `package.json` engines → `>=22.13 <23`. Confirm the current app and pnpm 10.34.7 work on it.
 > - Renovate: `renovate.json` with monthly grouped updates, `minimumReleaseAge` 7 days, security updates immediately, Expo SDK packages (`expo`, `expo-*`, `react-native`, `react`, `react-native-reanimated`, `react-native-worklets`) in one group that is never auto-merged. No auto-merge anywhere.
 > - CI: add Gitleaks (CLI) and Semgrep OSS (ERROR severity only) as steps inside the existing `test` job; remove the wip branch from the trigger.
