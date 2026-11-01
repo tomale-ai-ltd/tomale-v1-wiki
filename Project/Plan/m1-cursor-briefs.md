@@ -60,7 +60,7 @@ Prompt for Cursor:
 
 ---
 
-## PR D: client session handling (speckit; number to confirm)
+## PR D: client session handling (speckit; becomes 007 automatically)
 
 Implements [[use-expo-secure-store-for-client-tokens]] and [[use-axios-401-interceptor-for-client-auth-session-handling]] (constitution 1.5.0 rules), plus CTO #16 (Sentry user and profile context).
 
