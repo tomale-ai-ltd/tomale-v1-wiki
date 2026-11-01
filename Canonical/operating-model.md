@@ -3,9 +3,9 @@ type: plan
 title: operating-model
 project: tomale-rn-v1
 status: current
-version: 1.1
+version: 1.2
 date: 2026-10-24
-last_verified: 2026-10-30
+last_verified: 2026-11-01
 owner: vault
 related:
   - "[[knowledge-architecture]]"
@@ -89,7 +89,7 @@ R = does the work · A = approves · C = consulted · I = informed
 
 ### 3.1 Every working session (Claude or Cursor)
 
-1. **Start.** Read `Canonical/CURRENT.md` and the latest session note. Review `pending-updates.md` and open `repo-sync` items if any. Don't ask Kyle to re-explain anything that's documented.
+1. **Start.** Read `Canonical/CURRENT.md` and the latest session note. Review open items in [[pending-updates]] and [[repo-sync]] (one note per item, shown as tables). Don't ask Kyle to re-explain anything that's documented.
 2. **Work.** Keep a task list. Ask clarifying questions up front. Record decisions as they're made, in plain words.
 3. **End.** Write a raw note into `_raw/Chat Sessions/`.
    - **Claude** writes it in session-note template form, named `YYYY-MM-DD-NNN.md`.
@@ -125,7 +125,7 @@ This replaces the April process notes `sdd-process-overview` and `sdd-flow` (arc
 
 1. A choice is made in session and recorded in the raw note as a decision, with why, the alternatives and the trade-offs.
 2. The pipeline drafts the decision note (`proposed`, or `accepted` if Kyle explicitly decided in session) and fills in **`features`** and **`affects`** (see below).
-3. Reconcile proposes edits to every doc in `affects`: vault docs → `pending-updates.md`, repo specs → `repo-sync.md`.
+3. Reconcile proposes edits to every doc in `affects`: vault docs → a new note in `Canonical/pending-updates/`, repo specs → a new note in `Canonical/repo-sync/`.
 4. Kyle approves; Claude applies vault edits; a Cursor agent applies repo items.
 5. If the decision replaces an earlier one, set `superseded_by` on the old note and `supersedes` on the new one.
 
@@ -134,7 +134,7 @@ This replaces the April process notes `sdd-process-overview` and `sdd-flow` (arc
   - a canonical index: the list of `Canonical/` docs, plus the backend objects and features each one covers, kept in `CURRENT.md`;
   - an exact search for those identifiers across `Canonical/` and `Repos/`.
 - **Inverse view for free:** because `affects` holds links, each canonical doc's backlinks show every decision that touches it.
-- **Weekly check:** any accepted decision whose `affects` doc has a `last_verified` older than the decision is flagged in `pending-updates.md`. That catches promotions that never happened.
+- **Weekly check:** any accepted decision whose `affects` doc has a `last_verified` older than the decision is flagged as a `PU-` item. That catches promotions that never happened.
 - **Escalation:** if the pipeline can't map a decision to anything, it flags it for Kyle rather than guessing.
 
 ### 3.5 Repo sync (vault → protected specs)
@@ -150,24 +150,13 @@ Changes to protected specs can change how speckit works and how Cursor builds, s
 | **C: generated** | `data-model.md`, `xano.yaml`, `client.ts` | Mechanical | Run the script; PR (can go with the backend change that caused it) |
 | **Never** | `specify-rules.mdc`, `.specify/templates`, `.specify/scripts`, `.cursor/commands/speckit.*` | Breaks speckit | Not changed by repo sync (only a speckit upgrade, as its own planned task) |
 
-**Item format** (one block per item in `Canonical/repo-sync.md`):
-```
-### RS-YYYY-MM-DD-NN: <short title>
-- Class: A | B | C
-- Target: <file(s)>
-- Change: <exact intent, not wording>
-- Source: [[decision-note]]
-- Speckit impact: <templates/specs/active features affected, or "none">
-- Process: </speckit.constitution | edit | npm run …>
-- Verify: <how we know it worked, e.g. "/speckit.analyze clean on spec 006">
-- Status: queued | approved | applied (<commit>) | rejected
-```
+**Item format:** one note per item in `Canonical/repo-sync/`, named by its id, from `Templates/repo-sync-item.md`. Properties: `id`, `title`, `status` (`queued` | `approved` | `applied` | `rejected`), `class` (A | B | C), `batch`, `target`, `source` (decision note), `date`. Body: Change (exact intent, not wording), Speckit impact, Process (`/speckit.constitution` | edit | `pnpm run …`), Verify. [[repo-sync]] shows them as a table (Obsidian Base); Kyle approves by changing the Status cell. Since 01/11/2026; the single-file list before that is in git history.
 
 **Rules**
 1. **Approve before applying.** Kyle moves an item to `approved`; Cursor applies only approved items.
 2. **Batch between slices.** Apply on a dedicated branch (`repo-sync/YYYY-MM-DD`) when no feature branch is mid-implementation, so the rules don't change under an in-flight slice. Class C can go any time.
 3. **One PR per batch**, listing the item ids. CI must pass. For class A, the PR includes the Sync Impact Report.
-4. **Verify, then tick:** Cursor records the commit hash and runs each item's check. Failures go back to `queued`, with a note.
+4. **Verify, then tick:** Cursor runs each item's check and reports the commit hashes; Kyle or Claude sets the item note's Status to `applied` with the hash (Cursor edits nothing in the vault except raw notes). Failures go back to `queued`, with a note.
 5. **Close the loop:** the source decision's `affects` docs get `last_verified` updated by the pipeline on its next run.
 
 ### 3.6 Testing

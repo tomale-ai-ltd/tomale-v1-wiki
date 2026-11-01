@@ -1,0 +1,44 @@
+filters:
+  and:
+    - file.inFolder("Canonical/pending-updates")
+    - type == "pending-update"
+properties:
+  file.name:
+    displayName: Item
+  title:
+    displayName: Title
+  status:
+    displayName: Status
+  target:
+    displayName: Target
+  source:
+    displayName: Source
+views:
+  - type: table
+    name: Open
+    filters:
+      and:
+        - status != "applied"
+        - status != "rejected"
+    order:
+      - file.name
+      - title
+      - status
+      - target
+    sort:
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: Done
+    filters:
+      or:
+        - status == "applied"
+        - status == "rejected"
+    order:
+      - file.name
+      - title
+      - status
+      - target
+    sort:
+      - property: file.name
+        direction: DESC

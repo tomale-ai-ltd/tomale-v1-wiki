@@ -1,0 +1,64 @@
+filters:
+  and:
+    - file.inFolder("Canonical/repo-sync")
+    - type == "repo-sync-item"
+properties:
+  file.name:
+    displayName: Item
+  title:
+    displayName: Title
+  status:
+    displayName: Status
+  class:
+    displayName: Class
+  batch:
+    displayName: Batch
+  target:
+    displayName: Target
+views:
+  - type: table
+    name: Open
+    filters:
+      and:
+        - status != "applied"
+        - status != "rejected"
+    order:
+      - file.name
+      - title
+      - status
+      - batch
+      - class
+      - target
+    sort:
+      - property: status
+        direction: DESC
+      - property: batch
+        direction: ASC
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: Done
+    filters:
+      or:
+        - status == "applied"
+        - status == "rejected"
+    order:
+      - file.name
+      - title
+      - status
+      - class
+      - target
+    sort:
+      - property: file.name
+        direction: DESC
+  - type: table
+    name: All
+    order:
+      - file.name
+      - title
+      - status
+      - batch
+      - class
+    sort:
+      - property: file.name
+        direction: DESC

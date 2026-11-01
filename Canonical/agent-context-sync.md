@@ -3,9 +3,9 @@ type: living-doc
 title: agent-context-sync
 project: tomale-rn-v1
 status: current
-version: 1.0
+version: 1.1
 date: 2026-10-30
-last_verified: 2026-10-30
+last_verified: 2026-11-01
 owner: vault
 related:
   - "[[knowledge-architecture]]"
@@ -33,4 +33,4 @@ Each rule has one home. Other agents get a copy of it, or a pointer to it, never
 
 ## Pipeline rule
 
-For each tracked copy: compute the source fingerprint. If it differs from the recorded one and [[pending-updates]] has no open item for that copy, add a `PU-` item (Target: the copy; Proposed change: "source changed, fingerprint <new>" plus the action; Status: proposed). Actions: Xano: "paste the §3 block of backend-xano.md into Xano Knowledge → AGENTS.md"; Cursor: "queue a repo-sync item to review tomale-api.mdc against the constitution". When Kyle sets the item's Status to `applied`, the pipeline records that fingerprint and date in the table above. Recording fingerprints here is the one edit the pipeline may make to this note.
+For each tracked copy: compute the source fingerprint. If it differs from the recorded one and [[pending-updates]] has no open item for that copy, add a `PU-` note in `Canonical/pending-updates/` (Target: the copy; Proposed change: "source changed, fingerprint <new>" plus the action; Status: proposed). Actions: Xano: "paste the §3 block of backend-xano.md into Xano Knowledge → AGENTS.md"; Cursor: "queue a repo-sync item to review tomale-api.mdc against the constitution". When Kyle sets the item's Status to `applied`, the pipeline records that fingerprint and date in the table above. Recording fingerprints here is the one edit the pipeline may make to this note.
