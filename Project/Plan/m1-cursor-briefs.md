@@ -11,30 +11,43 @@ related:
 
 # M1 app foundations rework: Cursor briefs
 
-Three PRs into `main`, in order. Each must pass the required `test` check. Cursor applies only items Kyle has marked `approved` in [[repo-sync]], and writes a raw note to `_raw/Chat Sessions/` at the end.
+Four PRs into `main`, in order. Each must pass the required `test` check. Cursor applies only items Kyle has marked `approved` in [[repo-sync]], and writes a raw note to `_raw/Chat Sessions/` at the end.
 
 ---
 
 ## PR A: tooling and CI (`repo-sync/2026-11-01-tooling`)
 
-Items: RS-2026-10-30-03 (Node 22), RS-2026-10-30-05 (Renovate), RS-2026-11-01-01 (constitution 1.6.0, folds in RS-2026-10-30-04), RS-2026-11-01-02 (CI security stage).
+Items: RS-2026-10-30-03 (Node 22), RS-2026-10-30-05 (Renovate), RS-2026-11-01-02 (CI security stage).
 
 Prompt for Cursor:
 
-> Apply repo-sync items RS-2026-10-30-03, RS-2026-10-30-05, RS-2026-11-01-01 and RS-2026-11-01-02 from `Canonical/repo-sync.md` in the tomale-v1-wiki folder, on branch `repo-sync/2026-11-01-tooling`, one commit per item, prefixed with the item id.
-> - Node 22: `.nvmrc` → current Node 22 LTS; `package.json` engines → `>=22 <23`. Confirm Expo SDK 54 and pnpm 10.34.7 work on it.
-> - Renovate: `renovate.json` with monthly grouped updates, `minimumReleaseAge` 7 days, security updates immediately, Expo SDK packages (`expo`, `expo-*`, `react-native`, `react`) in one group that is never auto-merged. No auto-merge anywhere.
-> - Constitution: run `/speckit.constitution` for 1.6.0 with a Sync Impact Report (UI line → gluestack-ui v3 + NativeWind; Lucide stays; `npm run` → `pnpm` in the schema procedure and gates). Also switch the `package.json` scripts that call `npm run` to `pnpm`.
+> Apply repo-sync items RS-2026-10-30-03, RS-2026-10-30-05 and RS-2026-11-01-02 from `Canonical/repo-sync.md` in the tomale-v1-wiki folder, on branch `repo-sync/2026-11-01-tooling`, one commit per item, prefixed with the item id.
+> - Node 22: `.nvmrc` → latest Node 22 LTS (at least 22.13, which Expo SDK 58 needs); `package.json` engines → `>=22.13 <23`. Confirm the current app and pnpm 10.34.7 work on it.
+> - Renovate: `renovate.json` with monthly grouped updates, `minimumReleaseAge` 7 days, security updates immediately, Expo SDK packages (`expo`, `expo-*`, `react-native`, `react`, `react-native-reanimated`, `react-native-worklets`) in one group that is never auto-merged. No auto-merge anywhere.
 > - CI: add Gitleaks (CLI) and Semgrep OSS (ERROR severity only) as steps inside the existing `test` job; remove the wip branch from the trigger.
-> Don't touch app code, Xano files, `api/openapi`, `data-model.md` or anything under `.specify/templates`, `.specify/scripts` or `.cursor/commands/speckit.*`. Merge by rebase. Record commit hashes against each item.
+> Don't touch app code, Xano files, `api/openapi`, `data-model.md`, the constitution, or anything under `.specify/templates`, `.specify/scripts` or `.cursor/commands/speckit.*`. Merge by rebase. Record commit hashes against each item.
 
 **Kyle, after merge:** install the Renovate GitHub App on `tomale-ai-ltd/tomale-rn-test` only.
 
 ---
 
-## PR B: build variants and UI library (`repo-sync/2026-11-0X-config`)
+## PR B: Expo SDK 58 and constitution 1.6.0 (`repo-sync/2026-11-0X-expo-58`)
 
-Items: RS-2026-10-30-07 (`app.config.js`), RS-2026-11-01-03 (gluestack-ui v3 + NativeWind).
+Items: RS-2026-11-01-04 (Expo SDK 54 → 58), RS-2026-11-01-01 (constitution 1.6.0, folds in RS-2026-10-30-04). Needs PR A merged (Node 22.13+).
+
+Prompt for Cursor:
+
+> Apply RS-2026-11-01-04 then RS-2026-11-01-01.
+> - Upgrade Expo one SDK at a time: 55, 56, 57, 58. For each: `npx expo install expo@^5X --fix`, read that SDK's release notes and apply the breaking changes, run `npx expo-doctor`, `pnpm typecheck`, `pnpm test`; one commit per SDK. Keep `newArchEnabled`. Let Expo pick React Native, Reanimated, worklets, expo-router, `@sentry/react-native` and `jest-expo` versions; don't hand-pin newer ones.
+> - If an SDK step breaks something you can't fix cleanly, stop at the last green SDK and report.
+> - Then run `/speckit.constitution` for 1.6.0 with a Sync Impact Report: Expo SDK 54 → 58; UI components NativeBase → gluestack-ui v5 with UniWind (Tailwind CSS v4); Lucide stays; `npm run` → `pnpm` in the schema procedure and gates, and in `package.json` scripts.
+> Verify: `expo-doctor` clean; CI green. Kyle checks an EAS development build on iOS and Android: reaches Sign in, magic-link sign-in works, a Sentry test event arrives.
+
+---
+
+## PR C: build variants and UI library (`repo-sync/2026-11-0X-config`)
+
+Items: RS-2026-10-30-07 (`app.config.js`), RS-2026-11-01-03 (gluestack-ui v5 + UniWind).
 
 **Blocked on:** the production bundle identifier and Android package name (see open questions).
 
@@ -42,12 +55,12 @@ Prompt for Cursor:
 
 > Apply RS-2026-10-30-07 and RS-2026-11-01-03.
 > - Replace `app.json` with `app.config.js` driven by `APP_VARIANT`, set in each `eas.json` build profile: `development` → name "Tomale Dev", scheme `tomalerntest`, iOS bundle id and Android package `com.tomaleai.tomalerntest`; `preview` and `production` → name "Tomale", scheme `tomale`, bundle id / package `<PROD_ID>`. Default to `development` when `APP_VARIANT` is unset (local `expo start`). Keep every other `app.json` setting as it is (Sentry plugin, splash, icons, `web.output`, `newArchEnabled`). Keep `EXPO_PUBLIC_API_BASE_URL` per profile in `eas.json`.
-> - Install gluestack-ui v3 with NativeWind per the official Expo guide; exact versions; wrap the root layout in `GluestackUIProvider`; add only Box, Text, Heading, Button, Input, Pressable, Image under `components/ui/`. No restyling of existing screens.
-> Verify: `pnpm typecheck`, `pnpm test`, the dev client starts to Sign in, and `npx expo config --type public` shows the right scheme for `APP_VARIANT=development` and `production`.
+> - Install gluestack-ui v5 (stable 5.x, not alpha) with UniWind and Tailwind CSS v4 per the official gluestack v5 UniWind guide; exact versions; no `nativewind` packages; wrap the root layout in `GluestackUIProvider`; add only Box, Text, Heading, Button, Input, Pressable, Image, Modal, Actionsheet under `components/ui/`. No restyling of existing screens.
+> Verify: `pnpm typecheck`, `pnpm test`, the dev client starts to Sign in, `npx expo config --type public` shows the right scheme for `APP_VARIANT=development` and `production`, and a test Modal and Actionsheet open and animate on an iOS dev build.
 
 ---
 
-## PR C: client session handling (speckit; number to confirm)
+## PR D: client session handling (speckit; number to confirm)
 
 Implements [[use-expo-secure-store-for-client-tokens]] and [[use-axios-401-interceptor-for-client-auth-session-handling]] (constitution 1.5.0 rules), plus CTO #16 (Sentry user and profile context).
 

@@ -197,15 +197,15 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Verify: development and production builds install side by side; deep links open the matching build
 - Status: queued (M1)
 
-### RS-2026-11-01-01: Constitution amendment: gluestack-ui v3 (1.6.0)
+### RS-2026-11-01-01: Constitution amendment: Expo SDK 58 and gluestack-ui v5 (1.6.0)
 - Class: A (constitution, MINOR)
 - Target: `.specify/memory/constitution.md`
-- Change: Technology Constraints "UI Components" line: NativeBase → gluestack-ui v3 (major pinned, components copied into `components/ui/`, styled with NativeWind); Lucide React Native stays for icons. Fold in RS-2026-10-30-04 (pnpm command wording). Sync Impact Report: no active spec affected (no feature screens yet); Slice 100 onwards builds on gluestack.
-- Source: gluestack-ui v3 decision (Kyle, 01/11; decision note to follow from raw note `2026-11-01-001`)
+- Change: Technology Constraints: Expo SDK 54 → SDK 58; "UI Components" NativeBase → gluestack-ui v5 (components copied into `components/ui/`) styled with UniWind on Tailwind CSS v4; Lucide React Native stays for icons. Fold in RS-2026-10-30-04 (pnpm command wording). Sync Impact Report: specs 001–006 reference SDK 54 only as context (note, don't rewrite); Slice 100 onwards builds on gluestack v5.
+- Source: Expo SDK upgrade and gluestack-ui v5 decision (Kyle, 01/11; raw note `2026-11-01-001`)
 - Speckit impact: none on 001–006; 007 onwards
 - Process: `/speckit.constitution`
-- Verify: version 1.6.0 with Sync Impact Report; no "NativeBase" left in the repo (`grep -ri nativebase`)
-- Status: queued (M1, PR A)
+- Verify: version 1.6.0 with Sync Impact Report; no "NativeBase" or "SDK 54" left as a rule (`grep -ri`)
+- Status: queued (M1, PR B)
 
 ### RS-2026-11-01-02: CI security stage (Gitleaks, Semgrep)
 - Class: B
@@ -217,13 +217,22 @@ Changes to protected specs in `tomale-rn-test`, applied by a Cursor agent **only
 - Verify: CI green on the PR; a throwaway commit with a fake AWS key fails the `test` check (then dropped)
 - Status: queued (M1, PR A)
 
-### RS-2026-11-01-03: Install gluestack-ui v3 and NativeWind
+### RS-2026-11-01-03: Install gluestack-ui v5 with UniWind
 - Class: B
-- Target: `package.json`, `babel.config.js`, `metro.config.js`, `tailwind.config.js`, `global.css`, `app/_layout.tsx`, `components/ui/`
-- Change: install gluestack-ui v3 with NativeWind per the gluestack v3 Expo guide (pin exact versions, 7-day release age); wrap the root in `GluestackUIProvider`; add only the primitives Slice 100 needs (Box, Text, Heading, Button, Input, Pressable, Image). No visual redesign of existing screens.
+- Target: `package.json`, `babel.config.js`, `metro.config.js`, `global.css`, `app/_layout.tsx`, `components/ui/`
+- Change: install gluestack-ui v5 (`@gluestack-ui/core` / `utils` 5.x stable, not alpha) with UniWind and Tailwind CSS v4 per the gluestack v5 Expo/UniWind guide; exact versions, 7-day release age; no `nativewind` packages; wrap the root in `GluestackUIProvider`; add only the primitives Slice 100 needs (Box, Text, Heading, Button, Input, Pressable, Image, Modal, Actionsheet). No visual redesign of existing screens.
 - Source: RS-2026-11-01-01
 - Speckit impact: none
-- Process: edit
-- Verify: CI green; dev build starts to Sign in unchanged; a sample `Button` renders on iOS and web
-- Status: queued (M1, PR B)
+- Process: edit (`npx gluestack-ui@latest init` / `add`)
+- Verify: CI green; dev build starts to Sign in unchanged; a sample `Button`, `Modal` and `Actionsheet` open and animate on an iOS dev build and on web
+- Status: queued (M1, PR C)
 
+### RS-2026-11-01-04: Expo SDK 54 → 58
+- Class: B
+- Target: `package.json`, `pnpm-lock.yaml`, `app.json`, `babel.config.js`, `metro.config.js`, `eas.json`, Jest config
+- Change: upgrade one SDK at a time (55, 56, 57, 58), each a commit: `npx expo install expo@^5X --fix`, apply that SDK's changelog breaking changes, then `npx expo-doctor`. Includes React Native, Reanimated/worklets, expo-router, `@sentry/react-native` and `jest-expo` to the SDK-matched versions. Remove `@react-native-async-storage/async-storage` only if nothing still needs it (session work moves tokens out). Needs Node ≥ 22.13 (RS-2026-10-30-03 first).
+- Source: Expo SDK upgrade decision (Kyle, 01/11)
+- Speckit impact: none
+- Process: edit
+- Verify: `expo-doctor` clean; CI green; an EAS development build installs and reaches Sign in on iOS and Android; magic-link sign-in still works; a Sentry test event arrives
+- Status: queued (M1, PR B)
