@@ -3,7 +3,7 @@ type: plan
 title: knowledge-architecture
 project: tomale-rn-v1
 status: current
-version: 1.2
+version: 1.3
 date: 2026-10-23
 last_verified: 2026-11-01
 owner: vault
@@ -280,7 +280,7 @@ All automations run on Kyle's Mac (they need the vault), so only when it's awake
 | **Daily knowledge pipeline** ("Daily knowledge pipeline (vault v3)", replaced the two v2 tasks on 30/10) | 17:40 weekdays | 1. `git pull` the `tomale-xano` clone. 2. Session notes from unprocessed `_raw/Chat Sessions` files (Claude and Cursor), archive the raw files. 3. Decision notes from new session notes (new schema). 4. **Reconcile:** proposed canonical edits → new notes in `Canonical/pending-updates/`; repo-owned changes → new notes in `Canonical/repo-sync/`. 5. Sync `Canonical/`, all decisions, the constitution and the data model to Claude Project knowledge, uploading only files whose hash differs from `Project/Automation/project-sync-manifest.json` ([[sync-project-knowledge-by-hash-manifest]]). 6. **Context-sync check:** compare source fingerprints with [[agent-context-sync]]; raise a `PU-` item when a hand-maintained copy (Xano AGENTS.md, Cursor `tomale-api.mdc`) is out of date, and record the fingerprint when Kyle ticks it. 7. One-line summary of what it did. Never edits canonical docs or repos. |
 | **Weekly staleness check** ("Weekly staleness check (vault v3)") | Mondays 10:17 | Canonical docs whose `last_verified` is older than 30 days, broken links, decisions still `proposed` after 14 days → new `PU-` notes in `Canonical/pending-updates/` |
 
-Both tasks log one line per run to `Project/Automation/pipeline-log.md`. B11 (30/10) confirmed a scheduled task can write Claude Project knowledge. The pipeline's shell has no GitHub credentials, so step 1 doesn't refresh the Xano mirror: Kyle runs `git pull` in `tomale-xano` when fresh backend code is needed.
+Both tasks log one line per run to `Project/Automation/pipeline-log.md`. B11 (30/10) confirmed a scheduled task can write Claude Project knowledge. The pipeline's shell has no GitHub credentials, so step 1 doesn't refresh the Xano mirror. Instead a launchd job on Kyle's Mac (`ai.tomale.xano-pull`, source `Project/Automation/ai.tomale.xano-pull.plist`, since 03/11) runs `git pull --ff-only` in `tomale-xano` at 17:30 on weekdays with Kyle's own GitHub access, logging to `~/Library/Logs/tomale-xano-pull.log`; no credentials are given to an agent. Before a backend review, still `git pull` by hand if Xano was published since 17:30.
 
 ## 11. Agent access
 

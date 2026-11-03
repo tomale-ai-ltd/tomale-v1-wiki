@@ -41,7 +41,10 @@ Prompt for Cursor:
 > - Upgrade Expo one SDK at a time: 55, 56, 57, 58. For each: `npx expo install expo@^5X --fix`, read that SDK's release notes and apply the breaking changes, run `npx expo-doctor`, `pnpm typecheck`, `pnpm test`; one commit per SDK. Keep `newArchEnabled`. Let Expo pick React Native, Reanimated, worklets, expo-router, `@sentry/react-native` and `jest-expo` versions; don't hand-pin newer ones.
 > - If an SDK step breaks something you can't fix cleanly, stop at the last green SDK and report.
 > - Then run `/speckit.constitution` for 1.6.0 with a Sync Impact Report: Expo SDK 54 → 58; UI components NativeBase → gluestack-ui v5 with UniWind (Tailwind CSS v4); Lucide stays; `npm run` → `pnpm` in the schema procedure and gates, and in `package.json` scripts.
-> Verify: `expo-doctor` clean; CI green. Kyle checks an EAS development build on iOS and Android: reaches Sign in, magic-link sign-in works, a Sentry test event arrives.
+> - Also update the Stack line in `.cursor/rules/tomale-project.mdc` to Expo SDK 58 and gluestack-ui v5 (UniWind), in the RS-2026-11-01-01 commit (left for PR B by RS-2026-11-01-05).
+> - Branch from the latest `main` after any open Renovate security PRs are merged or closed, so the lockfile doesn't conflict.
+> - Stop at a green `test` check with the PR open; Kyle merges. Raw note records the PR number; Claude records `main` hashes.
+> Verify: `expo-doctor` clean; CI green. Kyle checks an EAS development build on iOS (Android build optional until a device or emulator is set up): reaches Sign in, magic-link sign-in works, a Sentry test event arrives.
 
 ---
 
