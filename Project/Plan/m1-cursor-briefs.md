@@ -28,7 +28,6 @@ Prompt for Cursor:
 > Don't touch app code, Xano files, `api/openapi`, `data-model.md`, the constitution, or anything under `.specify/templates`, `.specify/scripts` or `.cursor/commands/speckit.*`. Merge by rebase. Record commit hashes against each item.
 
 **Kyle, after merge:** install the Renovate GitHub App on `tomale-ai-ltd/tomale-rn-test` only.
-
 ---
 
 ## PR B: Expo SDK 58 and constitution 1.6.0 (`repo-sync/2026-11-0X-expo-58`)
