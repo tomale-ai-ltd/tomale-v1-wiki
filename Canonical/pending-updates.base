@@ -28,6 +28,8 @@ views:
     sort:
       - property: file.name
         direction: ASC
+    columnSize:
+      note.title: 539
   - type: table
     name: Done
     filters:
