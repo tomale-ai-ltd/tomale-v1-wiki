@@ -58,6 +58,7 @@ Prompt for Cursor:
 > Apply RS-2026-10-30-07 and RS-2026-11-01-03.
 > - Replace `app.json` with `app.config.js` driven by `APP_VARIANT`, set in each `eas.json` build profile: `development` → name "Tomale Dev", scheme `tomalerntest`, iOS bundle id and Android package `com.tomaleai.tomalerntest`; `preview` and `production` → name "Tomale", scheme `tomale`, bundle id / package `ai.tomale.app`. Default to `development` when `APP_VARIANT` is unset (local `expo start`). Keep every other `app.json` setting as it is (Sentry plugin, splash, icons, `web.output`, `newArchEnabled`). Keep `EXPO_PUBLIC_API_BASE_URL` per profile in `eas.json`.
 > - Install gluestack-ui v5 (stable 5.x, not alpha) with UniWind and Tailwind CSS v4 per the official gluestack v5 UniWind guide; exact versions; no `nativewind` packages; wrap the root layout in `GluestackUIProvider`; add only Box, Text, Heading, Button, Input, Pressable, Image, Modal, Actionsheet under `components/ui/`. No restyling of existing screens.
+> - `.github/workflows/release.yaml` reads the version with `require('./app.json')`; switch it to `npx expo config --json` (or read `app.config.js`) so releases keep working after `app.json` is removed.
 > Verify: `pnpm typecheck`, `pnpm test`, the dev client starts to Sign in, `npx expo config --type public` shows the right scheme for `APP_VARIANT=development` and `production`, and a test Modal and Actionsheet open and animate on an iOS dev build.
 
 ---
