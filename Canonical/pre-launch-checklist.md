@@ -66,9 +66,9 @@ Everything that must be true before the public release, in one place. Items were
 ## 5. App Store and Google Play (both in scope: [[CURRENT]] launch plan)
 
 - [x] Production bundle id / Android package `ai.tomale.app`: iOS App ID registered 01/11. Permanent once the first store build is uploaded ([[use-ai-tomale-app-as-production-bundle-id]]).
-- [ ] App Store app record (App Store Connect).
+- [x] App Store app record (App Store Connect): created 03/11, name "Tomale", English (U.K.), bundle ID `ai.tomale.app`, SKU `tomale-ios`.
 - [x] Google Play organisation developer account for Tomale.ai Ltd: created and paid 01/11 (old account closed for inactivity, disclosed); contact verification done and kyle@tomale.ai added as admin 03/11. Owner account has 2-Step Verification.
-- [ ] Play app record (Play Console).
+- [x] Play app record (Play Console): created 03/11, name "Tomale", free, English (UK), package `ai.tomale.app`. The "Set up your app" tasks (privacy policy, app access, content rating, target audience under the Families policy, data safety) come later in this checklist.
 - [ ] Privacy policy and terms published; privacy nutrition labels (and Google Data safety) completed.
 - [ ] Age rating and category decided (children are users; parents hold the account and pay).
 - [ ] In-app purchase products configured, if subscriptions are in the launch ([[roadmap]] §3).
