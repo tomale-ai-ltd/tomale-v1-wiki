@@ -3,9 +3,9 @@ type: living-doc
 title: pre-launch-checklist
 project: tomale-rn-v1
 status: current
-version: 1.0
+version: 1.1
 date: 2026-10-28
-last_verified: 2026-10-30
+last_verified: 2026-11-03
 owner: vault
 related:
   - "[[roadmap]]"
@@ -63,9 +63,12 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] **CI security stage** (Gitleaks, Semgrep, audit) required on `main` (CTO #18, #21, #22).
 - [ ] **Avatar licence credit** in the app if the avatar set needs attribution ([[use-bundled-preset-avatars-for-profiles]]).
 
-## 5. App Store (and Google Play if in scope)
+## 5. App Store and Google Play (both in scope: [[CURRENT]] launch plan)
 
-- [ ] Developer accounts in the company's name; bundle ID and app record created.
+- [x] Production bundle id / Android package `ai.tomale.app`: iOS App ID registered 01/11. Permanent once the first store build is uploaded ([[use-ai-tomale-app-as-production-bundle-id]]).
+- [ ] App Store app record (App Store Connect).
+- [x] Google Play organisation developer account for Tomale.ai Ltd: created and paid 01/11 (old account closed for inactivity, disclosed); contact verification done and kyle@tomale.ai added as admin 03/11. Owner account has 2-Step Verification.
+- [ ] Play app record (Play Console).
 - [ ] Privacy policy and terms published; privacy nutrition labels (and Google Data safety) completed.
 - [ ] Age rating and category decided (children are users; parents hold the account and pay).
 - [ ] In-app purchase products configured, if subscriptions are in the launch ([[roadmap]] §3).

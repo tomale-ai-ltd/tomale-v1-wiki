@@ -3,9 +3,9 @@ type: living-doc
 title: roadmap
 project: tomale-rn-v1
 status: current
-version: 1.0
+version: 1.1
 date: 2026-10-28
-last_verified: 2026-10-30
+last_verified: 2026-11-03
 owner: vault
 supersedes:
   - "[[2-build-plan]]"
@@ -54,16 +54,18 @@ Dependency order follows the original build plan: foundations → characters →
 ### M0. Finish the knowledge restructure (about 1 day)
 B9 PRD reconciliation → B10 repo sync → B11 agent access and automations → B12 close-out ([[knowledge-architecture]] §13).
 
-### M1. App foundations rework (2–3 days)
-- ~~pnpm migration and audit in CI~~ **done 30/10 in B10** (**CTO #27**, **#20**; RS-2026-10-24-03). ~~`eas.json` API group~~ done (RS-2026-10-28-01).
-- Tokens in `expo-secure-store` and a single Axios 401 interceptor (repo-sync RS-01; [[use-expo-secure-store-for-client-tokens]]).
-- Node 22 LTS (RS-2026-10-30-03); constitution pnpm wording (RS-2026-10-30-04); Renovate for monthly grouped updates (RS-2026-10-30-05).
-- `app.config.js` with per-build schemes ([[use-per-build-variant-url-schemes]], RS-2026-10-30-07).
-- CI security stage: Gitleaks (**CTO #18**), Semgrep (**#21**), audit (**#20**); CI checks required for merges into `main` (**#22**).
-- Frontend Sentry already exists (004); add the user and profile context to events (**CTO #16**).
-- **Choose the UI component library** before Slice 100: the constitution names NativeBase, which isn't installed and is, as far as we know, no longer maintained (successor: gluestack-ui). Candidates: gluestack-ui, Tamagui, React Native Paper, custom on Reanimated. The choice goes into the constitution amendment (RS-01).
+### M1. App foundations rework (4–5 days; was 2–3 before the SDK upgrade)
+Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]], [[m1-cursor-briefs]]): A tooling/CI **done 01/11 (#15)**; B Expo SDK 58 + constitution 1.6.0; C `app.config.js` + gluestack v5; D session handling (speckit 007).
 
-### M2. Characters, Slice 100 / speckit 007 (3–4 days)
+- ~~pnpm migration and audit in CI~~ **done 30/10 in B10** (**CTO #27**, **#20**; RS-2026-10-24-03). ~~`eas.json` API group~~ done (RS-2026-10-28-01).
+- Tokens in `expo-secure-store` and a single Axios 401 interceptor ([[use-expo-secure-store-for-client-tokens]]): **PR D = speckit 007** ([[number-session-handling-spec-007-before-characters]]).
+- ~~Node 22 LTS (RS-2026-10-30-03)~~ done 01/11; constitution pnpm wording (RS-2026-10-30-04, PR B); ~~Renovate for monthly grouped updates (RS-2026-10-30-05)~~ done 01/11.
+- `app.config.js` with per-build schemes ([[use-per-build-variant-url-schemes]], RS-2026-10-30-07).
+- ~~CI security stage: Gitleaks (**CTO #18**), Semgrep (**#21**), audit (**#20**); CI checks required for merges into `main` (**#22**)~~ done 01/11 (#15; `test` required on `main`).
+- Frontend Sentry already exists (004); add the user and profile context to events (**CTO #16**).
+- **UI library decided 01/11:** Expo SDK 54 → 58 first (PR B), then gluestack-ui v5 with UniWind (PR C) ([[upgrade-expo-to-sdk-58-and-use-gluestack-v5-with-uniwind]]). gluestack v3 was dropped: its overlays break on SDK 54 with Reanimated 4. Adds 1–2 days to M1.
+
+### M2. Characters, Slice 100 / speckit 008 (3–4 days)
 - Backend prep: characters stay household-wide (no schema change for visibility); parent-only delete/archive; `is_favourite`; endpoints to link existing characters to a story, re-create an image, and set archive/favourite ([[PRD-Characters]] §4, [[share-characters-across-the-household]]).
 - App: 101 index, 102 detail, 103 create (form, names moderated on create), 104 carousel, 105 quick actions (favourite, archive, delete) and re-create image. "Create a story with this character" ships with Slice 200.
 
@@ -73,19 +75,19 @@ B9 PRD reconciliation → B10 repo sync → B11 agent access and automations →
 - **Approve/reject flow** for flagged stories, with the channel (profile switch, email, push with PIN) decided in the B9 PRD ([[PRD-Parental-Oversight-Content-Approval]]).
 - Child-experience tests (**CTO #23–#26**, moderation and approval journey).
 
-### M4. Story creation, Slice 200 / speckit 008 (5–8 days)
+### M4. Story creation, Slice 200 / speckit 009 (5–8 days)
 - 201 draft bootstrap → 202 conversation → 203 suggestion cards → 204 complete. Uses the live `conversations` endpoints and the Draft → Preparing → In Queue → Done lifecycle ([[formalise-story-status-lifecycle]]).
 - "Limit reached" error handled from day one (§3).
 - Generation takes 10–15 minutes per story, so the UI must handle waiting and the completion alert ([[defer-image-pipeline-throughput-to-phase-2]]).
 
-### M5. Bookshelf and e-reader, Slice 300 / speckit 009 (3–5 days)
+### M5. Bookshelf and e-reader, Slice 300 / speckit 010 (3–5 days)
 - 301 bookshelf, 302 e-reader (cover, pager, read-to-me). 303 reading progress only if it needs no major backend change ([[drop-library-and-pdf-download-from-v1]]).
 - Child locked state for stories awaiting approval.
 
-### M6. Store, Slice 400 / speckit 010 (4–6 days)
+### M6. Store, Slice 400 / speckit 011 (4–6 days)
 - 401 index, 402 checkout with the e-reader preview ([[use-e-reader-preview-before-order-payment]]) and the in-app browser return ([[return-from-stripe-checkout-via-in-app-browser-sheet]]), 403 order history and tracking, 404 failure/retry and cancel within the 30-minute window.
 
-### M6a. AI character creation, Slice 500 / expected speckit 011 (3–5 days)
+### M6a. AI character creation, Slice 500 / expected speckit 012 (3–5 days)
 - **In V1 (Kyle, 29/10, [[include-ai-character-creation-in-v1]]).** 501 chatbot create-character, reusing the chat UI from M4 and the `conversations` endpoints ([[PRD-Chatbot-Create-Character]]).
 - Backend: `character-chat` prompt record and the character message handler.
 - 502 voice input stays behind a feature flag and is the first thing cut if the date is at risk.
@@ -162,4 +164,4 @@ Actual working days per milestone, against the estimate, for the checkpoint afte
 |---|---|---|---|
 | M0 Finish restructure | ~1 | | |
 | M1 App foundations rework | 2–3 | | |
-| M2 Characters (007) | 3–4 | | |
+| M2 Characters (008) | 3–4 | | |
