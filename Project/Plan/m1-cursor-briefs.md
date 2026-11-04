@@ -79,7 +79,8 @@ Scope:
 2. **HTTP client.** Rebuild `api/http.ts` on an Axios instance, keeping the current error shape (`err.response.{status,data}`, `err.normalized`) and adding the payload `code`. A request interceptor attaches the bearer token; remove the hand-written `Authorization` headers.
 3. **401 interceptor** (constitution 1.5.0): on a 401 from a non-`/auth/*` request, one shared in-flight `POST /auth/refresh` (`users_id`, `refreshToken`), store the rotated tokens, retry the original request once. A 401 `invalid_refresh_token` → log out and go to Sign in. Network errors or 5xx on refresh → no logout; surface the error. On app foreground, refresh first if the token is older than 50 minutes (JWE, 1 h life, can't be decoded client-side).
 4. **Deep link.** Remove the `authToken` URL-param path from `auth/complete.tsx`; only `token` → `complete_magic_link`. If any documented flow still sends `authToken`, stop and report instead.
-5. **Sentry.** `Sentry.setUser({ id })` on sign-in, `null` on logout; tag `profile_id` when a profile is selected. `beforeSend` keeps `user.id` but strips email, username and IP.
+5. **Sentry** (SDK moved 7 → 8 in PR B; no event verified yet, so this PR must prove one arrives). `Sentry.setUser({ id })` on sign-in, `null` on logout; tag `profile_id` when a profile is selected. `beforeSend` keeps `user.id` but strips email, username and IP.
+5a. **Sentry check (manual, dev build):** a temporary dev-only "Send test error" action (removed before merge, or `__DEV__`-gated) produces an event in Sentry with `user.id` and the `profile_id` tag, environment `development`.
 6. **Tests (Jest):** concurrent 401s trigger one refresh; retry happens once; `/auth/*` is never retried; `invalid_refresh_token` logs out; a network error doesn't; legacy AsyncStorage tokens are migrated and deleted.
 
 Don't change: Xano, `api/openapi`, `api/client.ts`, `data-model.md`, the auth screens' UX copy.

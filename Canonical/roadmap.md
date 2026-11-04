@@ -3,7 +3,7 @@ type: living-doc
 title: roadmap
 project: tomale-rn-v1
 status: current
-version: 1.1
+version: 1.2
 date: 2026-10-28
 last_verified: 2026-11-03
 owner: vault
@@ -55,7 +55,7 @@ Dependency order follows the original build plan: foundations → characters →
 B9 PRD reconciliation → B10 repo sync → B11 agent access and automations → B12 close-out ([[knowledge-architecture]] §13).
 
 ### M1. App foundations rework (4–5 days; was 2–3 before the SDK upgrade)
-Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]], [[m1-cursor-briefs]]): A tooling/CI **done 01/11 (#15)**; B Expo SDK 58 + constitution 1.6.0; C `app.config.js` + gluestack v5; D session handling (speckit 007).
+Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]], [[m1-cursor-briefs]]): A tooling/CI **done 01/11 (#15)**; B Expo SDK 58 + constitution 1.6.0 **done 03/11 (#19)**; C `app.config.js` + gluestack v5; D session handling (speckit 007).
 
 - ~~pnpm migration and audit in CI~~ **done 30/10 in B10** (**CTO #27**, **#20**; RS-2026-10-24-03). ~~`eas.json` API group~~ done (RS-2026-10-28-01).
 - Tokens in `expo-secure-store` and a single Axios 401 interceptor ([[use-expo-secure-store-for-client-tokens]]): **PR D = speckit 007** ([[number-session-handling-spec-007-before-characters]]).
