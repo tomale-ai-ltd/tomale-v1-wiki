@@ -34,6 +34,8 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] **`utilities/upload_image`** still appears in the `app` spec: confirm external access is disabled, or remove it.
 - [ ] **Postman collection re-synced** from the Xano OpenAPI export ([[adopt-openapi-import-for-postman-collection-sync]]), then `_tests` run green.
 
+- [ ] Server-side sign-out: add `auth/logout` in Xano that revokes the session's refresh token (`user_sessions`), and call it from the app's logout. Today sign-out is client-only, so a signed-out refresh token stays valid until it expires (found 04/11 reviewing speckit 007).
+
 ## 2. Environments and money
 
 - [ ] **Dev/prod Xano branches** set up, env vars duplicated with suffixes where they differ, one dev → prod merge and publish rehearsed ([[use-xano-branches-for-dev-and-prod]]; CTO #10–#12).
