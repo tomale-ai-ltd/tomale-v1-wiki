@@ -63,6 +63,13 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] **CI security stage** (Gitleaks, Semgrep, audit) required on `main` (CTO #18, #21, #22).
 - [ ] **Avatar licence credit** in the app if the avatar set needs attribution ([[use-bundled-preset-avatars-for-profiles]]).
 
+## 4a. App build and release hygiene (added 04/11)
+
+- [ ] Sentry source maps: remove `SENTRY_DISABLE_AUTO_UPLOAD` / `SENTRY_SKIP_AUTO_UPLOAD` in the EAS environments for production builds and confirm a readable stack trace in Sentry.
+- [ ] Delete the five old EAS updates on the `production` branch (runtime `1.0.0`, ~Nov 2025 test updates). Harmless since the runtime version moved to `fingerprint`, but clutter.
+- [ ] Remove the "OTA UPDATE APPLIED" test marker from the Home screen (goes with the real Home screen).
+- [ ] Backend-generated links (alert `action_url`, magic-link redirect) use the production scheme `tomale://` for production ([[use-per-build-variant-url-schemes]], Xano dev/prod split).
+
 ## 5. App Store and Google Play (both in scope: [[CURRENT]] launch plan)
 
 - [x] Production bundle id / Android package `ai.tomale.app`: iOS App ID registered 01/11. Permanent once the first store build is uploaded ([[use-ai-tomale-app-as-production-bundle-id]]).

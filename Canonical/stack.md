@@ -3,9 +3,9 @@ type: living-doc
 title: stack
 project: tomale-rn-v1
 status: current
-version: 1.2
+version: 1.3
 date: 2026-10-24
-last_verified: 2026-11-03
+last_verified: 2026-11-04
 owner: vault
 related:
   - "[[backend-xano]]"
@@ -21,7 +21,7 @@ One row per layer: what's used, what for, where its rules live, and its status o
 |---|---|---|---|---|
 | App framework | Expo SDK 58 (`expo` 58.0.23), React Native 0.88.1, React 19.3, Hermes v1, New Architecture (mandatory), managed workflow | iOS and Android app | constitution 1.6.0 | In use since 03/11 (PR #19; [[upgrade-expo-to-sdk-58-and-use-gluestack-v5-with-uniwind]]) |
 | Routing | Expo Router 6 (file-based) | `(auth)`, `(onboarding)`, `(main)/(tabs)` route groups | constitution | In use (001) |
-| UI | gluestack-ui v5 (components copied into `components/ui/`) styled with UniWind on Tailwind CSS v4; Lucide icons, Reanimated 4, `expo-image` | Primitives, icons, animation, cached images | constitution 1.6.0 | Decided 01/11; installed in M1 PR C (RS-2026-11-01-03) |
+| UI | gluestack-ui v5 (components copied into `components/ui/`) styled with UniWind on Tailwind CSS v4; Lucide icons, Reanimated 4, `expo-image` | Primitives, icons, animation, cached images | constitution 1.6.0 | In use since 04/11 (PR #20): core 5.0.15, UniWind 1.13.0, Tailwind 4.3.3; `.pnpmfile.cjs` drops the unused nativewind peer of `@legendapp/motion` |
 | State | Zustand 5 with persist middleware | Auth, characters, stories stores | constitution | Scaffolding in place (005) |
 | Client storage | AsyncStorage for persisted state; **`expo-secure-store` for tokens** | Tokens out of AsyncStorage | [[use-expo-secure-store-for-client-tokens]] | SecureStore **not yet installed**; constitution amendment queued (RS-01) |
 | HTTP | Axios 1.9 + types generated from OpenAPI (`openapi-typescript`) | Calls to the `app` group | [[generate-data-model-and-api-contract-from-xano]], [[use-axios-401-interceptor-for-client-auth-session-handling]] | Client on `wip/` (006); 401 interceptor to build (M1) |
