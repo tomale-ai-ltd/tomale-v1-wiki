@@ -31,3 +31,7 @@ feature: 007-foundations-session
 - package.json and the lockfile were left unchanged. The earlier secure-store line was reverted.
 - Session store now has refreshToken, sessionId, issuedAt, profileId, applySession, and signOut. The HTTP client is Axios, attaches the bearer, and shares one refresh. Login, magic-link completion, the home screen, and foreground resume use that path. Bookshelf was already correct.
 - `.tests/session-refresh.test.ts` and `.tests/smoke.test.ts`: 7 passed. Sign-out on a bad refresh is still T012–T013. SecureStore is still T001 then T014.
+- Commits on 007-foundations-session, not pushed: `76dadd1` docs, `d637138` User Story 1 code and tests.
+- User Story 2: refresh 400/401/403/404, a 200 missing credentials, and a protected 401 with no refresh credentials sign out once and clear Sentry. Network, timeout, 429, and 5xx stay signed in. Requests time out at 20s, refresh at 10s, and refresh sends no bearer. A stale 401 retries the current token without refreshing. Foreground refresh applies those rules and does not reject unhandled. Session tests plus smoke: 19 passed.
+- Committed User Story 2 locally as `b340b27`. Not pushed.
+- User Story 4 without secure storage: Sentry beforeSend keeps `user.id` and drops email, username, IP, and an Authorization header. `readActiveProfileId` reads `active_profile.id`. Sign-in and bootstrap store that id, or clear it when the response has none. T021 still waits on T016. T023 waits on T017, not on secure storage. Not committed.
