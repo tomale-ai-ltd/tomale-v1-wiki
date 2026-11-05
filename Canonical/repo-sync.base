@@ -36,6 +36,8 @@ views:
         direction: ASC
       - property: file.name
         direction: ASC
+    columnSize:
+      note.title: 445
   - type: table
     name: Done
     filters:
