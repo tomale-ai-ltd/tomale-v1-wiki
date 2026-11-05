@@ -3,9 +3,9 @@ type: living-doc
 title: roadmap
 project: tomale-rn-v1
 status: current
-version: 1.3
+version: 1.4
 date: 2026-10-28
-last_verified: 2026-11-04
+last_verified: 2026-11-05
 owner: vault
 supersedes:
   - "[[2-build-plan]]"
@@ -64,6 +64,10 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 - ~~CI security stage: Gitleaks (**CTO #18**), Semgrep (**#21**), audit (**#20**); CI checks required for merges into `main` (**#22**)~~ done 01/11 (#15; `test` required on `main`).
 - Frontend Sentry already exists (004); add the user and profile context to events (**CTO #16**).
 - **UI library decided 01/11:** Expo SDK 54 → 58 first (PR B), then gluestack-ui v5 with UniWind (PR C) ([[upgrade-expo-to-sdk-58-and-use-gluestack-v5-with-uniwind]]). gluestack v3 was dropped: its overlays break on SDK 54 with Reanimated 4. Adds 1–2 days to M1.
+
+### M1a. Design system and Characters design (1–2 days, before M2)
+- First pass done 05/11: Tomale design system artifact from the brand guidelines (colour roles with checked contrast in light and dark, Glacial Indifference type scale, spacing, radii, logos, brand icons; Button, TextField, CharacterCard, ActionSheet, TabBar).
+- Next: richer, picture-book component styling and mock-ups of the Characters screens (101–105); then RS-2026-11-05-01 loads tokens, fonts and icons into the app theme before `/speckit.specify` for 008.
 
 ### M2. Characters, Slice 100 / speckit 008 (3–4 days)
 - Backend prep: characters stay household-wide (no schema change for visibility); parent-only delete/archive; `is_favourite`; endpoints to link existing characters to a story, re-create an image, and set archive/favourite ([[PRD-Characters]] §4, [[share-characters-across-the-household]]).
