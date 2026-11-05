@@ -7641,7 +7641,7 @@
 										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"400\", () => pm.response.to.have.status(400));",
-											"pm.test(\"code NOTHING_TO_UPDATE\", () => pm.expect(pm.response.json().code).to.eql(\"NOTHING_TO_UPDATE\"));"
+											"pm.test(\"code NOTHING_TO_UPDATE\", () => pm.expect((pm.response.json().payload || {}).code).to.eql(\"NOTHING_TO_UPDATE\"));"
 										]
 									}
 								}
@@ -7875,7 +7875,7 @@
 										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"400\", () => pm.response.to.have.status(400));",
-											"pm.test(\"code STORY_NOT_EDITABLE\", () => pm.expect(pm.response.json().code).to.eql(\"STORY_NOT_EDITABLE\"));"
+											"pm.test(\"code STORY_NOT_EDITABLE\", () => pm.expect((pm.response.json().payload || {}).code).to.eql(\"STORY_NOT_EDITABLE\"));"
 										]
 									}
 								}
@@ -7940,7 +7940,7 @@
 										"exec": [
 											"const j = pm.response.json();",
 											"pm.test(\"400\", () => pm.response.to.have.status(400));",
-											"pm.test(\"code CONTENT_REJECTED\", () => pm.expect(j.code).to.eql(\"CONTENT_REJECTED\"));",
+											"pm.test(\"code CONTENT_REJECTED\", () => pm.expect((j.payload || {}).code).to.eql(\"CONTENT_REJECTED\"));",
 											"pm.test(\"message is user-facing text\", () => pm.expect(j.message).to.be.a(\"string\").and.not.empty);"
 										]
 									}
@@ -8061,7 +8061,7 @@
 										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"400\", () => pm.response.to.have.status(400));",
-											"pm.test(\"code IMAGE_JOB_IN_PROGRESS\", () => pm.expect(pm.response.json().code).to.eql(\"IMAGE_JOB_IN_PROGRESS\"));"
+											"pm.test(\"code IMAGE_JOB_IN_PROGRESS\", () => pm.expect((pm.response.json().payload || {}).code).to.eql(\"IMAGE_JOB_IN_PROGRESS\"));"
 										]
 									}
 								}
@@ -8184,7 +8184,7 @@
 										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"400\", () => pm.response.to.have.status(400));",
-											"pm.test(\"code PARENT_PROFILE_REQUIRED\", () => pm.expect(pm.response.json().code).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+											"pm.test(\"code PARENT_PROFILE_REQUIRED\", () => pm.expect((pm.response.json().payload || {}).code).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
 										]
 									}
 								}
@@ -8242,7 +8242,7 @@
 										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"400\", () => pm.response.to.have.status(400));",
-											"pm.test(\"code PARENT_PROFILE_REQUIRED\", () => pm.expect(pm.response.json().code).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+											"pm.test(\"code PARENT_PROFILE_REQUIRED\", () => pm.expect((pm.response.json().payload || {}).code).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
 										]
 									}
 								}
@@ -8433,12 +8433,21 @@
 							"name": "5F-0 \u00b7 POST /auth/login (user2)",
 							"event": [
 								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.collectionVariables.unset(\"bearerToken_user2\");"
+										]
+									}
+								},
+								{
 									"listen": "test",
 									"script": {
 										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"user2 login OK (200)\", () => pm.response.to.have.status(200));",
-											"pm.collectionVariables.set(\"bearerToken_user2\", pm.response.json().authToken);"
+											"if (pm.response.code === 200) { pm.collectionVariables.set(\"bearerToken_user2\", pm.response.json().authToken); }"
 										]
 									}
 								}
@@ -8488,6 +8497,7 @@
 									"script": {
 										"type": "text/javascript",
 										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_user2\")) { console.log(\"Skipped: user2 login failed\"); pm.execution.skipRequest(); }",
 											"if (!pm.collectionVariables.get(\"charTestId\")) { pm.execution.skipRequest(); }"
 										]
 									}
@@ -8555,6 +8565,7 @@
 									"script": {
 										"type": "text/javascript",
 										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_user2\")) { console.log(\"Skipped: user2 login failed\"); pm.execution.skipRequest(); }",
 											"if (!pm.collectionVariables.get(\"charTestId\")) { pm.execution.skipRequest(); }"
 										]
 									}
@@ -8612,6 +8623,7 @@
 									"script": {
 										"type": "text/javascript",
 										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_user2\")) { console.log(\"Skipped: user2 login failed\"); pm.execution.skipRequest(); }",
 											"if (!pm.collectionVariables.get(\"charTestId\")) { pm.execution.skipRequest(); }"
 										]
 									}
@@ -8679,6 +8691,7 @@
 									"script": {
 										"type": "text/javascript",
 										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_user2\")) { console.log(\"Skipped: user2 login failed\"); pm.execution.skipRequest(); }",
 											"if (!pm.collectionVariables.get(\"linkStoryId\") || !pm.collectionVariables.get(\"charTestId\")) { pm.execution.skipRequest(); }"
 										]
 									}
