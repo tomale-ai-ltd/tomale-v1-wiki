@@ -2,7 +2,7 @@
 type: brief
 title: characters-backend-prep-brief
 project: tomale-rn-v1
-status: draft
+status: done
 date: 2026-11-05
 related:
   - "[[PRD-Characters]]"
