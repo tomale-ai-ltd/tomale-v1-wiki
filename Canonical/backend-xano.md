@@ -4,7 +4,7 @@ title: backend-xano
 project: tomale-rn-v1
 status: current
 version: 1.1
-date: 2026-10-28
+date: 2026-11-05
 last_verified: 2026-10-30
 owner: vault
 related:
@@ -74,6 +74,7 @@ Backend for Tomale, a children's personalised storybook app (iOS and Android). A
 - Soft delete with `deleted_at` for user content and profiles.
 - Counters such as `images_remaining` are recounted, never decremented.
 - Check for empty, not only null: blank values are stored as `""`.
+- An optional input whose `false` or empty value is meaningful (a flag that can be turned off, a partial update) is nullable (`bool? x?`, `enum? x? {…}`) and checked with `!== null`.
 - Env vars used as numbers are cast to integer.
 
 ## Jobs and integrations
@@ -128,3 +129,4 @@ Rules that follow from gotchas are in the §3 block. These are the remaining tra
 - Xano JWE tokens can't be decoded client-side; track expiry by time.
 - Metadata API filters are query-string parameters on GET; in a JSON body they're silently ignored.
 - A column-named input once silently overwrote `created_at` and `message` (hence the naming rule).
+- Omitted optional inputs aren't null unless declared nullable: `bool x?` arrives as `false`, `enum x?` as `""`, and a loose `!= null` treats `false` as null. On 05/11 this first stopped anyone unfavouriting a character, then (after a switch to `!==`) blanked `status` on every flags PATCH; fixed with `bool? is_favourite?` and `enum? status?` (hence the nullable-inputs rule).
