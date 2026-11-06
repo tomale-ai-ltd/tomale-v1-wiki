@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.1
 date: 2026-10-28
-last_verified: 2026-11-03
+last_verified: 2026-11-06
 owner: vault
 related:
   - "[[roadmap]]"
@@ -52,7 +52,8 @@ Everything that must be true before the public release, in one place. Items were
 
 - [ ] **Backend errors to Sentry** (try/catch + External API Request) on webhooks, executors, fulfilment and refunds ([[elevate-backend-observability-to-launch-requirement]]; CTO #15).
 - [ ] **Email alerting** on repeated errors and crash spikes (CTO #17).
-- [ ] **App Sentry events** carry user and active-profile context (CTO #16).
+- [x] **App Sentry events** carry user and active-profile context (CTO #16): done 06/11 in 007 (account id and active profile id only; checked on a device).
+- [ ] **Sentry location:** events carry `user.geo` down to city, derived by Sentry from the ingest IP (the SDK sends none). Turn on Project → Security & Privacy → "Prevent Storing of IP Addresses"; if `user.geo` still appears on a new event, add an Advanced Data Scrubbing rule removing the user's geo fields (ICO Children's Code).
 - [ ] **Postman daily monitor** under the 10-minute limit ([[defer-postman-monitor-until-launch]]).
 
 ## 4. App and build
@@ -67,6 +68,7 @@ Everything that must be true before the public release, in one place. Items were
 
 ## 4a. App build and release hygiene (added 04/11)
 
+- [ ] Remove the stray `?user_id=` param from `GET /instant_stories` in `hooks/useBookshelf.ts` (Xano ignores it; it leaks the account id into URLs and breadcrumbs). Do it in Slice 300.
 - [ ] Sentry source maps: remove `SENTRY_DISABLE_AUTO_UPLOAD` / `SENTRY_SKIP_AUTO_UPLOAD` in the EAS environments for production builds and confirm a readable stack trace in Sentry.
 - [ ] Delete the five old EAS updates on the `production` branch (runtime `1.0.0`, ~Nov 2025 test updates). Harmless since the runtime version moved to `fingerprint`, but clutter.
 - [ ] Remove the "OTA UPDATE APPLIED" test marker from the Home screen (goes with the real Home screen).

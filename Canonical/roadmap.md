@@ -3,9 +3,9 @@ type: living-doc
 title: roadmap
 project: tomale-rn-v1
 status: current
-version: 1.5
+version: 1.6
 date: 2026-10-28
-last_verified: 2026-11-05
+last_verified: 2026-11-06
 owner: vault
 supersedes:
   - "[[2-build-plan]]"
@@ -55,14 +55,14 @@ Dependency order follows the original build plan: foundations → characters →
 B9 PRD reconciliation → B10 repo sync → B11 agent access and automations → B12 close-out ([[knowledge-architecture]] §13).
 
 ### M1. App foundations rework (4–5 days; was 2–3 before the SDK upgrade)
-Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]], [[m1-cursor-briefs]]): A tooling/CI **done 01/11 (#15)**; B Expo SDK 58 + constitution 1.6.0 **done 03/11 (#19)**; C `app.config.js` + gluestack v5 **done 04/11 (#20)**; D session handling (speckit 007).
+Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]], [[m1-cursor-briefs]]): A tooling/CI **done 01/11 (#15)**; B Expo SDK 58 + constitution 1.6.0 **done 03/11 (#19)**; C `app.config.js` + gluestack v5 **done 04/11 (#20)**; D session handling (speckit 007) **done 06/11 (PR D, `4ab4281`…`b3251b8`)**. **M1 complete 06/11.**
 
 - ~~pnpm migration and audit in CI~~ **done 30/10 in B10** (**CTO #27**, **#20**; RS-2026-10-24-03). ~~`eas.json` API group~~ done (RS-2026-10-28-01).
-- Tokens in `expo-secure-store` and a single Axios 401 interceptor ([[use-expo-secure-store-for-client-tokens]]): **PR D = speckit 007** ([[number-session-handling-spec-007-before-characters]]).
+- ~~Tokens in `expo-secure-store` and a single Axios 401 interceptor ([[use-expo-secure-store-for-client-tokens]]): PR D = speckit 007 ([[number-session-handling-spec-007-before-characters]])~~ done 06/11.
 - ~~Node 22 LTS (RS-2026-10-30-03)~~ done 01/11; constitution pnpm wording (RS-2026-10-30-04, PR B); ~~Renovate for monthly grouped updates (RS-2026-10-30-05)~~ done 01/11.
 - `app.config.js` with per-build schemes ([[use-per-build-variant-url-schemes]], RS-2026-10-30-07).
 - ~~CI security stage: Gitleaks (**CTO #18**), Semgrep (**#21**), audit (**#20**); CI checks required for merges into `main` (**#22**)~~ done 01/11 (#15; `test` required on `main`).
-- Frontend Sentry already exists (004); add the user and profile context to events (**CTO #16**).
+- ~~Frontend Sentry already exists (004); add the user and profile context to events (**CTO #16**)~~ done 06/11 in 007 (account id and active profile id only).
 - **UI library decided 01/11:** Expo SDK 54 → 58 first (PR B), then gluestack-ui v5 with UniWind (PR C) ([[upgrade-expo-to-sdk-58-and-use-gluestack-v5-with-uniwind]]). gluestack v3 was dropped: its overlays break on SDK 54 with Reanimated 4. Adds 1–2 days to M1.
 
 ### M1a. Design system and Characters design (1–2 days, before M2)
@@ -172,6 +172,6 @@ Actual working days per milestone, against the estimate, for the checkpoint afte
 
 | Milestone | Estimate (days) | Actual (days) | Finished |
 |---|---|---|---|
-| M0 Finish restructure | ~1 | | |
-| M1 App foundations rework | 2–3 | | |
+| M0 Finish restructure | ~1 | 3 | 30/10 |
+| M1 App foundations rework | 4–5 (was 2–3) | ~5 | 06/11 |
 | M2 Characters (008) | 3–4 | | |

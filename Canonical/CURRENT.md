@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 2.4
 date: 2026-10-24
-last_verified: 2026-11-05
+last_verified: 2026-11-06
 owner: vault
 related:
   - "[[roadmap]]"
@@ -15,13 +15,13 @@ related:
 
 # CURRENT: where Tomale V1 stands
 
-Start here. One page, updated whenever the phase or the next step changes. Last updated 30/10/2026.
+Start here. One page, updated whenever the phase or the next step changes. Last updated 06/11/2026.
 
 ## Now
 
 - **Phase:** frontend development resumes ([[resume-frontend-at-slice-100]]). The knowledge restructure (B0–B12) finished on 30/10.
 - **Backend:** Phase 1 (security and data integrity) signed off on 23/10, 86/86 `_tests` passing. Auth, profiles, stories and generation, store, payments and print fulfilment are built. Every PRD now has a backend prep list for what's still to build ([[v1-feature-map]]).
-- **App repo:** everything is on `main` (foundations 001–006, Expo SDK 58, constitution 1.6.0, Node 22, pnpm; CI `test` runs Gitleaks, Semgrep, audit, lint, typecheck, tests; Renovate for updates). PRs go into `main` and must pass CI; Kyle merges by rebase. No feature screens yet; the app starts to Sign in, and password and magic-link sign-in work on an EAS development build (03/11).
+- **App repo:** everything is on `main` (foundations 001–006, Expo SDK 58, constitution 1.6.0, Node 22, pnpm; CI `test` runs Gitleaks, Semgrep, audit, lint, typecheck, tests; Renovate for updates). PRs go into `main` and must pass CI; Kyle merges by rebase. No feature screens yet; the app starts to Sign in, and password and magic-link sign-in work on an EAS development build. **007 merged 06/11:** the session lives in `expo-secure-store` (memory only on web), one shared refresh with retry, sign-out only when refresh is rejected, and crash reports carry the account id and active profile id only.
 - **Agents:** Claude Project knowledge auto-syncs from the vault; Cursor writes raw session notes; Xano's agent reads a locked AGENTS.md ([[agent-context-sync]]). Daily pipeline 17:40 weekdays, weekly check Mondays ([[knowledge-architecture]] §10).
 
 ## Launch plan
@@ -30,7 +30,7 @@ Public UK release on the App Store **and Google Play**, full V1 including subscr
 
 ## Next
 
-1. **M1 app foundations rework** ([[roadmap]] M1), four Cursor PRs ([[m1-cursor-briefs]]): ~~A Node 22, Renovate, CI security stage~~ done 01/11 (#15); ~~B Expo SDK 54 → 58 + constitution 1.6.0~~ done 03/11 (#19, device-tested); ~~C `app.config.js` (dev `com.tomaleai.tomalerntest`, prod `ai.tomale.app`) + gluestack-ui v5 with UniWind~~ done 04/11 (#20; also fixed a release-build startup crash in `config/env.ts` and set runtime version to `fingerprint`); **D** session handling (SecureStore, 401 interceptor, Sentry context) = speckit 007.
+1. **M1 app foundations rework** ([[roadmap]] M1), four Cursor PRs ([[m1-cursor-briefs]]): ~~A Node 22, Renovate, CI security stage~~ done 01/11 (#15); ~~B Expo SDK 54 → 58 + constitution 1.6.0~~ done 03/11 (#19, device-tested); ~~C `app.config.js` (dev `com.tomaleai.tomalerntest`, prod `ai.tomale.app`) + gluestack-ui v5 with UniWind~~ done 04/11 (#20; also fixed a release-build startup crash in `config/env.ts` and set runtime version to `fingerprint`); ~~D session handling (SecureStore, 401 interceptor, Sentry context) = speckit 007~~ done 06/11 (PR D). **M1 complete.** Next: the repo-sync batch (OpenAPI regen, constitution PATCH, Cursor rules, design system theme, profile-aware tabs), mock-up round 2, then 008.
 2. **Design system and Characters design** (before 008): review the Tomale design system (Claude artifact, first pass 05/11: tokens, Glacial Indifference, brand icons, core components), mock up the Characters screens with it, then a repo-sync item loads the tokens, fonts and icons into the app's gluestack/UniWind theme (RS-2026-11-05-01). **Brand icons needed for the Home and Characters tabs**, in the same illustrated style as Create, Bookshelf and Store (Kyle, 05/11); the mock-ups use placeholders until then.
 3. **Characters backend prep** ([[PRD-Characters]] §4), then **Slice 100 = speckit 008**.
 4. Then Profiles and parental controls (M3), story creation (M4).

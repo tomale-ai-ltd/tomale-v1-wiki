@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.2
 date: 2026-10-28
-last_verified: 2026-11-05
+last_verified: 2026-11-06
 owner: vault
 related:
   - "[[roadmap]]"
@@ -25,7 +25,7 @@ One row per V1 feature: where it is specified, which slice builds it, which back
 
 | Id | Feature | PRD | Slice / spec | Backend (endpoints in `app` unless noted) | Status | Key decisions |
 |---|---|---|---|---|---|---|
-| F-auth | Sign-up, login, verify email, magic link, refresh, logout | [[1-prd-tomale-react-native-app-v1]] | 000 (002 auth baseline, 006 HTTP client, expected **007** session handling, M1 PR D) | `auth/signup`, `auth/login`, `auth/me`, `auth/refresh`, `auth/verify_email`, `auth/request_magic_link`, `auth/complete_magic_link`, `auth/reset_password` | Backend built and tested. App: login and magic-link screens exist; SecureStore and the 401 interceptor not yet built | [[use-expo-secure-store-for-client-tokens]], [[use-axios-401-interceptor-for-client-auth-session-handling]], [[return-401-invalid-refresh-token-from-auth-refresh]], [[use-https-web-intermediary-for-magic-link-redirect]] |
+| F-auth | Sign-up, login, verify email, magic link, refresh, logout | [[1-prd-tomale-react-native-app-v1]] | 000 (002 auth baseline, 006 HTTP client, expected **007** session handling, M1 PR D) | `auth/signup`, `auth/login`, `auth/me`, `auth/refresh`, `auth/verify_email`, `auth/request_magic_link`, `auth/complete_magic_link`, `auth/reset_password` | Built and tested: backend (Postman `_tests`; `auth/login` and `auth/signup` return `session_id` since 05/11); app session handling in speckit 007 (06/11): SecureStore, one Axios 401 interceptor with a shared refresh, sign-out rules, Sentry account and profile id | [[use-expo-secure-store-for-client-tokens]], [[use-axios-401-interceptor-for-client-auth-session-handling]], [[return-401-invalid-refresh-token-from-auth-refresh]], [[use-https-web-intermediary-for-magic-link-redirect]] |
 | F-onboarding | Walkthrough, account creation | umbrella | not slotted | `users/me/complete_onboarding` | Backend only (app has an `(onboarding)` route stub) | — |
 | F-account | Settings, preferences, username, support | umbrella | not slotted | `users/me` PATCH, `users/me/image`, `utilities/upload_image` | Backend only. **No account-deletion endpoint** (App Store requirement) | [[collapse-bool-preference-endpoints-into-users-me]], [[make-username-user-editable]], [[replace-support-requests-endpoint-with-mailto-ops-inbox]] |
 | F-profiles | Household profiles, child profiles, avatars, PIN gate on switching | [[PRD-Profiles]] | not slotted | `users/user_profiles` GET/POST, `users/user_profiles/{id}` PATCH/DELETE, `auth/select_profile` | Partial: profiles built; **PIN gate not built** | [[adopt-unified-user-profiles-table]], [[carry-active-profile-in-token-extras]], [[cap-profiles-at-one-adult-and-six-children]], [[use-bundled-preset-avatars-for-profiles]], [[parental-gate-on-profile-switch]] |
