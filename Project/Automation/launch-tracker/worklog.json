@@ -43,5 +43,20 @@
   "date": "2026-11-05",
   "milestone": "M2",
   "what": "Characters backend prep published, Postman green"
+ },
+ {
+  "date": "2026-11-06",
+  "milestone": "M1",
+  "what": "Speckit 007 finished: secure storage, device and Sentry checks; PR D merged, M1 done"
+ },
+ {
+  "date": "2026-11-06",
+  "milestone": "M1a",
+  "what": "Design-system theme, fonts, brand icons and profile-aware tabs loaded into the app (PR #23)"
+ },
+ {
+  "date": "2026-11-06",
+  "milestone": "M2",
+  "what": "API contract and data model regenerated with the Characters endpoints"
  }
 ]
