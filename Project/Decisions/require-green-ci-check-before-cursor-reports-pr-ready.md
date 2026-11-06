@@ -2,7 +2,7 @@
 type: decision
 title: "require-green-ci-check-before-cursor-reports-pr-ready"
 project: tomale-rn-v1
-status: proposed
+status: accepted
 date: "2026-11-04"
 related:
   - "[[2026-11-04-001]]"

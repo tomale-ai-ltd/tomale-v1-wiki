@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.0
 date: 2026-10-24
-last_verified: 2026-10-28
+last_verified: 2026-11-05
 owner: vault
 related:
   - "[[stack]]"
@@ -23,7 +23,7 @@ How we find out that something broke, across the app and the backend. The decisi
 |---|---|---|
 | Crashes, runtime errors, failed API calls | `@sentry/react-native`, DSN from `EXPO_PUBLIC_SENTRY_DSN`, environment `development` / `production` | Built (004) |
 | PII scrubbing | `beforeSend` hook; root `Sentry.ErrorBoundary` with a friendly fallback (constitution, Principle 5) | Built |
-| Context on events | User id, active profile id, feature, entity id (CTO §8.2, **CTO #16**) | To do (M1) |
+| Context on events | User id plus the active profile **id only** from `GET /auth/me` `auth.active_profile.id` (never the profile name or `is_child`; omitted when absent), feature, entity id (CTO §8.2, **CTO #16**, [[tag-crash-reports-with-active-profile-id-only]]). `EXPO_PUBLIC_SENTRY_DSN` set in all three EAS environments since 04/11 | In progress: speckit 007 (M1 PR D), verified by a dev-only test error |
 | Source maps | Uploaded by CI for production releases (release `<version>+<shortsha>`) | To do with release setup |
 | OTA updates | `expo-updates` with EAS channels | Configured (004) |
 

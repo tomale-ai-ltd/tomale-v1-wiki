@@ -37,6 +37,8 @@ The session stays in AsyncStorage until T016, so the User Story 1 checkpoint is 
 
 `package.json` and the lockfile were left unchanged and an earlier secure-store line was reverted. Cursor reorders the task list rather than bypassing the gate; the repo setting `minimumReleaseAge: 7` ([[promote-pnpm-migration-ahead-of-slice-100]], [[stack]]) is unchanged.
 
+**Amendment (2026-11-05 evening, Kyle):** the "after 2026-11-06" date was wrong: the locked SDK 58 packages were published 03/11 and clear on 10/11. Kyle chose a narrow exception instead of waiting: [[exclude-locked-expo-sdk-versions-from-release-age-gate]]. The rule against blanket `minimumReleaseAge=0` installs stands.
+
 ## Related notes
 
 - [[2026-11-05-002]]

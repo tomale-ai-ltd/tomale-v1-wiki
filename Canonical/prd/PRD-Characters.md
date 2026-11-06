@@ -3,9 +3,9 @@ type: prd
 title: PRD-Characters
 project: tomale-rn-v1
 status: current
-version: 2.0
+version: 2.1
 date: 2026-04-14
-last_verified: 2026-10-29
+last_verified: 2026-11-05
 owner: vault
 features:
   - F-characters
@@ -27,10 +27,12 @@ related:
 > - Endpoints match the live `app` group.
 > - AI-assisted creation is its own feature, [[PRD-Chatbot-Create-Character]] (Slice 500).
 >
-> Built as **Slice 100 / speckit 007** ([[roadmap]] M2).
+> **Changes in 2.1 (05/11/2026):** backend prep built and tested; draw-again instruction moderation; carousel is parallax cards with tap to reveal (was a circular slider with a blurred background).
+>
+> Built as **Slice 100 / speckit 008** ([[roadmap]] M2).
 
 ## 1. Overview
-The current Characters screen is a static list in Adalo with basic search/filter and a create button. For V1, we will deliver an **animated, avatar-first experience** using a carousel/circular slider. The background dynamically updates with the active character image, and metadata (name, attributes) is displayed interactively. This screen becomes as engaging as the Bookshelf while staying performant with up to 50+ characters.
+The current Characters screen is a static list in Adalo with basic search/filter and a create button. For V1, we will deliver an **animated, avatar-first experience** using parallax cards: swipe sideways between characters, tap a card to reveal its details and actions. This screen becomes as engaging as the Bookshelf while staying performant with up to 50+ characters.
 
 Characters are **shared by the whole household** ([[share-characters-across-the-household]]): every profile sees every character on the account. Names and descriptions are moderated on create. Only parent profiles can archive or delete a character.
 
@@ -53,7 +55,7 @@ A character can appear in **any number of stories**: the link lives in `instant_
 - **Favourite** a character (pinned first in the carousel).
 - Richer cards: "used in X stories" (from `instant_story_characters`) and created date.
 - **Create a story with this character:** a quick action that starts the story chat with the character already selected (needs Slice 200; the button ships with 200).
-- **Re-create image:** regenerate the character image, optionally with a short instruction, using the current image as a reference (image-to-image). Counts against plan limits.
+- **Re-create image:** regenerate the character image, optionally with a short instruction, using the current image as a reference (image-to-image). Counts against plan limits. The instruction is moderated with the `moderation-text` policy through `ai pipeline/content_moderation_text`; anything but `enforcement: none` is refused with `CONTENT_REJECTED` (parental oversight cannot gate a household-wide image), and `flag_account` writes `moderation_flags`. Uses the same image model as generation ([[moderate-free-text-instructions-with-moderation-text-policy]]).
 - Search/filter screen.
 - Local/global caching for offline metadata.
 - A "picture on its way" state while the character image is generated (image jobs run in the background).
@@ -83,7 +85,7 @@ A character can appear in **any number of stories**: the link lives in `instant_
 2. Delete and archive check that the active profile is a parent (`is_child = false`); a child gets 400 `PARENT_PROFILE_REQUIRED`.
 3. Add `is_favourite` (bool).
 4. New endpoint to link existing characters to a story: `POST /instant_stories/{id}/characters` (`characters_ids[]`; each must be visible to the caller). Used by the story chat and the quick action, so no character record is ever patched to join a story.
-5. New endpoint `POST /characters/{id}/regenerate_image` (optional `instruction`; uses the current image as a reference; entitlement-gated).
+5. New endpoint `POST /characters/{id}/regenerate_image` (optional `instruction`, moderated as above; uses the current image as a reference; entitlement-gated).
 6. Archive and favourite need a small update endpoint, limited to `status` and `is_favourite` (no text fields, so no moderation needed).
 7. Postman `_tests`: add tests for the new endpoints and for a child profile being refused delete/archive ([[test-suite]]).
 
@@ -93,7 +95,7 @@ A character can appear in **any number of stories**: the link lives in `instant_
 - `POST /characters` → create; runs name moderation; queues the character image job.
 - `DELETE /characters/{characters_id}` → soft delete.
 - `POST /characters/{id}/model` → turns a free-text description into the structured attribute model (used by create).
-- **To build:** `PATCH /characters/{id}/flags` (`status`, `is_favourite` only), `POST /characters/{id}/regenerate_image`, `POST /instant_stories/{id}/characters`.
+- **Built 05/11 (published, Postman folder 5 green):** `PATCH /characters/{id}/flags` (`status`, `is_favourite` only), `POST /characters/{id}/regenerate_image`, `POST /instant_stories/{id}/characters`.
 
 ## 6. Frontend Requirements
 **Route:**
@@ -101,11 +103,11 @@ A character can appear in **any number of stories**: the link lives in `instant_
 app/(tabs)/characters/index.tsx
 ```
 **Components:**
-- **CharacterCarousel** (adapted from demo):  
-  - Circular slider with avatars.  
-  - Active character enlarged + white border.  
-  - Background = full-screen blurred version of active character image.  
+- **CharacterCarousel** (parallax cards, Kyle 05/11; based on AnimateReactNative's parallax carousel):  
+  - One tall card centred, neighbours peeking in at the sides; the picture shifts inside the card as you swipe.  
+  - **Horizontal swipe** moves between characters; **tap the card to reveal** a panel with the description, Make a story / Draw again / More, and "Stories with [name]".  
   - Prefetch next/prev character images.  
+  - Mock-up: "104 Chosen · parallax cards, tap to reveal" on the Tomale Characters screens canvas.  
 - **CharacterCard**:  
   - Circular thumbnail + name; a placeholder while the image is pending.  
   - Tap → `(tabs)/characters/[id].tsx`.  
@@ -135,8 +137,8 @@ app/(tabs)/characters/index.tsx
 ## 8. User Flow
 1. User opens Characters tab.  
 2. Cached metadata loads instantly; API fetch updates list.  
-3. Carousel displays circular avatars; background updates dynamically.  
-4. User scrolls horizontally → activeIndex updates, background prefetches ±1 image.  
+3. The carousel shows one large card with its neighbours peeking in.  
+4. User swipes horizontally → activeIndex updates, ±1 images prefetched; tapping the card reveals details and actions.  
 5. User taps a character → navigates to `[id].tsx` detail page.  
 6. User taps FAB → create form → name moderated → character saved; the image appears when its job completes.  
 7. Optional: search/filter used for narrowing list.  

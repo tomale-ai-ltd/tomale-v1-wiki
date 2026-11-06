@@ -7,7 +7,7 @@ project: tomale-rn-v1
 status: current
 version: 2.0
 date: 2025-06-01
-last_verified: 2026-10-29
+last_verified: 2026-11-05
 owner: vault
 features:
   - F-auth
@@ -105,13 +105,17 @@ iOS and Android, launched together in the UK ([[roadmap]] M10).
 ### Navigation
 | Feature | Version | Priority |
 |---|---|---|
-| Quick create menu | MVP | Must Have |
+| Home dashboard ([[PRD-Home-Dashboard]]) | V1 | Must Have |
+| Quick create menu (the Create tab) | MVP | Must Have |
 | Subpage navigation | MVP | Must Have |
 | Characters | MVP | Must Have |
 | Bookshelf | MVP | Must Have |
 | Store | V1 | Must Have |
 | Settings / Help | MVP | Must Have |
 | Library (public story library) | V2 | — |
+| Rewards: celebrations and badges; first-month onboarding tasks ([[PRD-Rewards-Onboarding-Tasks]]) | V1 | Must Have |
+
+Tabs depend on the profile: parent Home · Create · Bookshelf · Characters · Store; child Home · Create · Bookshelf · Characters; Settings and Help behind the avatar ([[use-profile-aware-bottom-tabs-with-home-dashboard]]).
 
 ### Stories
 | Feature | Version | Priority | PRD / note |

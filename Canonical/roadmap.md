@@ -3,7 +3,7 @@ type: living-doc
 title: roadmap
 project: tomale-rn-v1
 status: current
-version: 1.4
+version: 1.5
 date: 2026-10-28
 last_verified: 2026-11-05
 owner: vault
@@ -67,7 +67,8 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 
 ### M1a. Design system and Characters design (1–2 days, before M2)
 - First pass done 05/11: Tomale design system artifact from the brand guidelines (colour roles with checked contrast in light and dark, Glacial Indifference type scale, spacing, radii, logos, brand icons; Button, TextField, CharacterCard, ActionSheet, TabBar).
-- Next: richer, picture-book component styling and mock-ups of the Characters screens (101–105); then RS-2026-11-05-01 loads tokens, fonts and icons into the app theme before `/speckit.specify` for 008.
+- **Navigation decided 05/11:** profile-aware bottom tabs with a Home dashboard ([[use-profile-aware-bottom-tabs-with-home-dashboard]]). Mock-ups of Home and the Characters screens (incl. carousel and the 501 chat) on the Tomale Characters screens canvas; brand icons for Home and Characters still to draw.
+- Next: richer, picture-book component styling and mock-up review; then RS-2026-11-05-01 loads tokens, fonts and icons into the app theme before `/speckit.specify` for 008.
 
 ### M2. Characters, Slice 100 / speckit 008 (3–4 days)
 - Backend prep: characters stay household-wide (no schema change for visibility); parent-only delete/archive; `is_favourite`; endpoints to link existing characters to a story, re-create an image, and set archive/favourite ([[PRD-Characters]] §4, [[share-characters-across-the-household]]).
@@ -87,6 +88,7 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 ### M5. Bookshelf and e-reader, Slice 300 / speckit 010 (3–5 days)
 - 301 bookshelf, 302 e-reader (cover, pager, read-to-me). 303 reading progress only if it needs no major backend change ([[drop-library-and-pdf-download-from-v1]]).
 - Child locked state for stories awaiting approval.
+- Home dashboard ([[PRD-Home-Dashboard]]) once Bookshelf and Characters exist (estimate when specified).
 
 ### M6. Store, Slice 400 / speckit 011 (4–6 days)
 - 401 index, 402 checkout with the e-reader preview ([[use-e-reader-preview-before-order-payment]]) and the in-app browser return ([[return-from-stripe-checkout-via-in-app-browser-sheet]]), 403 order history and tracking, 404 failure/retry and cancel within the 30-minute window.
@@ -104,6 +106,10 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 - Backend: entitlement gate before story and image-job creation, usage counters, `GET /me/entitlements`, subscription state ([[PRD-Subscription-Entitlement-System]]).
 - In-app purchase (Apple and Google) through RevenueCat: the subscription mirror, sync endpoint, RevenueCat webhook and daily reconciliation ([[use-revenuecat-for-in-app-subscriptions]]). Stripe subscriptions are V2 with Club.
 - Locked art-style tiles become live ([[return-full-artwork-catalogue-with-locked-tiles]]).
+
+### M8a. Rewards: onboarding tasks (estimate when specified)
+- First-month onboarding tasks with rewards (book discount via Stripe, Creator trial via RevenueCat), after M6 and M8 ([[split-rewards-into-celebrations-and-onboarding-tasks]], [[PRD-Rewards-Onboarding-Tasks]]). Child celebrations and badges land with each creation flow (M2, M4, M6a).
+- **Re-check the January date** once Home and rewards are estimated.
 
 ### M9. Launch hardening (4–6 days)
 - Dev/prod Xano branches with suffixed env vars, and a dev → prod promotion run once end to end (**CTO #10, #11, #12**; [[use-xano-branches-for-dev-and-prod]]).

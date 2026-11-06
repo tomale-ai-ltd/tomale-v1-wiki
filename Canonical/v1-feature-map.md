@@ -3,9 +3,9 @@ type: living-doc
 title: v1-feature-map
 project: tomale-rn-v1
 status: current
-version: 1.1
+version: 1.2
 date: 2026-10-28
-last_verified: 2026-11-03
+last_verified: 2026-11-05
 owner: vault
 related:
   - "[[roadmap]]"
@@ -41,6 +41,8 @@ One row per V1 feature: where it is specified, which slice builds it, which back
 | F-print-fulfilment | Print PDFs (Papermill), HPBC/Pureprint submission and callbacks | [[PRD-Order-PoD-System]] | background for 400 | `webhooks`: `hpbc/webhook_statusCallbackUrl`, `…_Error`; task `hpbc_submit_due_orders` | Built and tested (staging SKU) | [[make-hpbc-create-order-a-single-fail-closed-request]], [[enforce-forward-only-hpbc-callback-status-transitions]] |
 | F-payments | Stripe payments, transactions, refunds, webhooks | [[PRD-transaction-webhooks-micro-prd]] | background for 400 | `webhooks`: `stripe/webhook_payment_confirmation`; tasks `reconcile_order_refunds`, `reconcile_stripe_customers` | Built for book orders; subscription events not handled | [[store-money-as-integer-minor-units]], [[split-refund-model-into-self-service-and-support-paths]], [[defer-stripe-webhook-mode-branching-to-phase-2]] |
 | F-subscriptions | Tiers, entitlements, usage limits, in-app purchase | [[PRD-Subscription-Entitlement-System]] | not slotted (backend track, [[roadmap]]) | `subscriptions` GET (+ `{id}`) only | Not started. Free and Creator only (Club V2); Apple and Google through RevenueCat | [[gate-image-generation-with-entitlements-at-story-creation]], [[use-revenuecat-for-in-app-subscriptions]] |
+| F-home | Home dashboard: greeting, recent stories, favourite characters, announcements (offers parent-only), onboarding-task card, badges | [[PRD-Home-Dashboard]] (stub) | not slotted (after Bookshelf) | `activities` and `fact/random` to decide; announcements source to build | Not started | [[use-profile-aware-bottom-tabs-with-home-dashboard]] |
+| F-rewards | Celebrations and badges (children); first-month onboarding tasks with rewards (parents) | [[PRD-Rewards-Onboarding-Tasks]] (stub) | not slotted (celebrations with each creation flow; tasks after M6 and M8) | None yet: task definitions, progress, rewards ledger, Stripe coupons, RevenueCat offers | Not started | [[split-rewards-into-celebrations-and-onboarding-tasks]] |
 | F-phonics | Optional phonics focus in story creation (scheme, phase, stage → graphemes and tricky words in the generation prompt) | [[PRD-Chatbot-Story-Conversations]] §5c | 200 → expected **009** | `phonics/phonics_schemes` GET, `…/{id}/stages` GET; up-to-stage functions | Backend data and endpoints live; prompt wiring and `instant_stories.phonics_phase_stage_id` to build. Progress tracking is V2 | [[add-phonics-focus-to-story-creation]] |
 
 ## Not in V1
@@ -53,4 +55,4 @@ The full list of deferred items, with reasons, is [[v2-backlog]].
 
 ## Endpoints with no feature
 
-`activities` GET and `fact/random` GET (home-screen content) belong to no PRD. They stay as small extras until a PRD claims them or they're removed.
+`activities` GET and `fact/random` GET (home-screen content) belong to no PRD. They stay as small extras until a PRD claims them or they're removed; [[PRD-Home-Dashboard]] may claim them.

@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.0
 date: 2026-10-29
-last_verified: 2026-10-29
+last_verified: 2026-11-05
 owner: vault
 related:
   - "[[v1-feature-map]]"
@@ -31,6 +31,11 @@ Grouped by feature id from [[v1-feature-map]]. **Why later** gives the reason or
 | Vector search over large libraries | F-story-chatbot | Context injected by Xano is enough for V1 | [[PRD-Chatbot-Story-Conversations]] |
 | Public Library and story sharing, ratings | F-bookshelf | [[drop-library-and-pdf-download-from-v1]], [[remove-instant-story-reviews-endpoint]] | [[v1-feature-map]] |
 | Join tables for per-child story visibility | F-bookshelf | Single `user_profiles_id` per story; revisit with sharing | [[roadmap]] §5 (CTO #29) |
+
+## Rewards
+| Item | Feature | Why later | Source |
+|---|---|---|---|
+| Tomale currency | F-rewards | Virtual currency in a children's app draws Apple and UK consumer-law scrutiny, especially if it can be bought; V1 uses plain discounts and trials | [[split-rewards-into-celebrations-and-onboarding-tasks]] |
 
 ## Reader
 | Item | Feature | Why later | Source |

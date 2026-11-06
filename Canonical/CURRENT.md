@@ -31,7 +31,7 @@ Public UK release on the App Store **and Google Play**, full V1 including subscr
 ## Next
 
 1. **M1 app foundations rework** ([[roadmap]] M1), four Cursor PRs ([[m1-cursor-briefs]]): ~~A Node 22, Renovate, CI security stage~~ done 01/11 (#15); ~~B Expo SDK 54 → 58 + constitution 1.6.0~~ done 03/11 (#19, device-tested); ~~C `app.config.js` (dev `com.tomaleai.tomalerntest`, prod `ai.tomale.app`) + gluestack-ui v5 with UniWind~~ done 04/11 (#20; also fixed a release-build startup crash in `config/env.ts` and set runtime version to `fingerprint`); **D** session handling (SecureStore, 401 interceptor, Sentry context) = speckit 007.
-2. **Design system and Characters design** (before 008): review the Tomale design system (Claude artifact, first pass 05/11: tokens, Glacial Indifference, brand icons, core components), mock up the Characters screens with it, then a repo-sync item loads the tokens, fonts and icons into the app's gluestack/UniWind theme (RS-2026-11-05-01).
+2. **Design system and Characters design** (before 008): review the Tomale design system (Claude artifact, first pass 05/11: tokens, Glacial Indifference, brand icons, core components), mock up the Characters screens with it, then a repo-sync item loads the tokens, fonts and icons into the app's gluestack/UniWind theme (RS-2026-11-05-01). **Brand icons needed for the Home and Characters tabs**, in the same illustrated style as Create, Bookshelf and Store (Kyle, 05/11); the mock-ups use placeholders until then.
 3. **Characters backend prep** ([[PRD-Characters]] §4), then **Slice 100 = speckit 008**.
 4. Then Profiles and parental controls (M3), story creation (M4).
 

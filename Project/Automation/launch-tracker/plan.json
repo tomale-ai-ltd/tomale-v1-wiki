@@ -1,0 +1,11 @@
+[
+ {
+  "as_of": "2026-11-05",
+  "target_date": "2027-01-29",
+  "target_label": "Late January 2027",
+  "target_assumed": true,
+  "review_buffer_days": 5,
+  "break_start": "2026-12-24",
+  "break_end": "2027-01-01"
+ }
+]

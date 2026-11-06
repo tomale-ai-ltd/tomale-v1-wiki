@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.2
 date: 2026-10-24
-last_verified: 2026-11-01
+last_verified: 2026-11-06
 owner: vault
 related:
   - "[[knowledge-architecture]]"
@@ -61,6 +61,8 @@ Tomale is built by one human founder working with several AI collaborators. Each
 | **Regression evidence** | Postman `_tests` | Prove the backend behaves | n/a | n/a |
 | **System of record** | GitHub | History, diffs, rollback for the app repo, the Xano mirror and the vault | n/a | n/a |
 
+**Cursor's limits are enforced in the repo,** not only by instruction: the committed `.cursor/permissions.json` allowlist (exact prefixes; replaces the Settings list) and the fail-closed `.cursor/hooks/guard.sh` hook. Denied: `gh pr merge`, force pushes, pushes to `main`, remote branch deletes, `eas submit`/`eas update`. Asks Kyle: dependency changes, other pushes, `gh pr create`, `eas build`, destructive commands ([[enforce-cursor-permissions-with-repo-allowlist-and-guard-hook]]).
+
 ### 1.3 Escalate to Kyle immediately
 
 - Anything irreversible: data deletion, schema type changes, live-mode payments, real print orders, token rotation.
@@ -115,8 +117,10 @@ Backend rules live in `Canonical/backend-xano.md` and are copied into the Xano K
 2. Write the feature's micro-PRD in the repo at `.docs/prd/NNN-slicename.md` (template `000-example-prd.md`), drawn from the vault PRD. One per speckit feature, as for 001–006.
 3. `/speckit.specify` (referencing the micro-PRD; it creates the `NNN-…` branch) → `/speckit.clarify` → `/speckit.plan` → `/speckit.tasks` → `/speckit.analyze` → `/speckit.implement`. After `specify`, check the spec against the micro-PRD and the constitution. `analyze` is read-only: changes go back through specify, plan or tasks.
 4. `/speckit.implement` also writes `specs/NNN-…/checklists/validation.md`; Kyle and the agent work through it before the PR.
-5. Branching, CI, Constitution Check and review follow the constitution's *Development Workflow & Quality Gates*; they aren't restated here. Kyle reviews, squash-merges and deletes the branch ([[name-branches-by-speckit-feature-number]]).
+5. Branching, CI, Constitution Check and review follow the constitution's *Development Workflow & Quality Gates*; they aren't restated here. Cursor confirms the GitHub `test` check is green (`gh pr checks`) before reporting a PR ready; local typecheck is not enough ([[require-green-ci-check-before-cursor-reports-pr-ready]]). Kyle reviews, squash-merges and deletes the branch ([[name-branches-by-speckit-feature-number]]).
 6. If implementation reveals a needed backend change, stop and raise it as a backend change (§3.2). Agents don't work around the API.
+
+**Briefing a fix (Claude):** before writing Cursor's prompt for a failed test or device check, Claude checks the cause against the source of truth (Xano mirror, app repo, Postman), then states the cause first, the exact expected data shape, and the fix, with limits on approach where a simpler route exists ([[diagnose-before-briefing-and-use-contract-fixtures]]).
 7. The raw session note goes to the vault (§3.1).
 
 This replaces the April process notes `sdd-process-overview` and `sdd-flow` (archived in `Project/_archive/cursor/`).
@@ -155,7 +159,7 @@ Changes to protected specs can change how speckit works and how Cursor builds, s
 **Rules**
 1. **Approve before applying.** Kyle moves an item to `approved`; Cursor applies only approved items.
 2. **Batch between slices.** Apply on a dedicated branch (`repo-sync/YYYY-MM-DD`) when no feature branch is mid-implementation, so the rules don't change under an in-flight slice. Class C can go any time.
-3. **One PR per batch**, listing the item ids. CI must pass. For class A, the PR includes the Sync Impact Report.
+3. **One PR per batch**, listing the item ids. CI must pass: Cursor confirms the GitHub `test` check is green (`gh pr checks`) before reporting the PR ready; local typecheck is not enough ([[require-green-ci-check-before-cursor-reports-pr-ready]]). For class A, the PR includes the Sync Impact Report.
 4. **Verify, then tick:** Cursor runs each item's check and reports the commit hashes; Kyle or Claude sets the item note's Status to `applied` with the hash (Cursor edits nothing in the vault except raw notes). Failures go back to `queued`, with a note.
 5. **Close the loop:** the source decision's `affects` docs get `last_verified` updated by the pipeline on its next run.
 

@@ -30,11 +30,11 @@ views:
       - class
       - target
     sort:
+      - property: file.name
+        direction: DESC
       - property: status
         direction: DESC
       - property: batch
-        direction: ASC
-      - property: file.name
         direction: ASC
     columnSize:
       note.title: 445

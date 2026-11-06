@@ -1,0 +1,47 @@
+[
+ {
+  "date": "2026-10-28",
+  "milestone": "M0",
+  "what": "Restructure B8: roadmap and CURRENT"
+ },
+ {
+  "date": "2026-10-29",
+  "milestone": "M0",
+  "what": "B9 PRD review with Kyle"
+ },
+ {
+  "date": "2026-10-30",
+  "milestone": "M0",
+  "what": "B10–B12: repo sync, agents, close-out"
+ },
+ {
+  "date": "2026-11-01",
+  "milestone": "M1",
+  "what": "PR A merged; UI library decided"
+ },
+ {
+  "date": "2026-11-03",
+  "milestone": "M1",
+  "what": "PR B merged: Expo SDK 58"
+ },
+ {
+  "date": "2026-11-04",
+  "milestone": "M1",
+  "what": "PR C merged: app.config.js, gluestack v5; speckit 007 started"
+ },
+ {
+  "date": "2026-11-05",
+  "milestone": "M1",
+  "what": "Speckit 007: US1, US2, US4 committed"
+ },
+ {
+  "date": "2026-11-05",
+  "milestone": "M1a",
+  "what": "Design system, navigation decision, Characters mock-ups"
+ },
+ {
+  "date": "2026-11-05",
+  "milestone": "M2",
+  "what": "Characters backend prep published, Postman green"
+ }
+]
