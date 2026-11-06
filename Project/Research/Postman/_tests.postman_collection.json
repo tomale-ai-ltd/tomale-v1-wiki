@@ -835,6 +835,95 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "1F. POST /auth/logout - logout current session",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"1F: logout OK (200)\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"1F: success true\", () => pm.expect(pm.response.json().success).to.eql(true));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\"session_id\": {{sessionId}}\n}"
+            },
+            "url": {
+              "raw": "{{auth_base_url}}/auth/logout",
+              "host": [
+                "{{auth_base_url}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "1G. POST /auth/refresh - refresh after logout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"1G: refresh after logout rejected (401)\", () => pm.response.to.have.status(401));",
+                  "pm.test(\"1G: reason is invalid_refresh_token\", () => pm.expect(pm.response.json().payload).to.eql(\"invalid_refresh_token\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"users_id\": {{users_id}},\n    \"refreshToken\": \"{{refreshToken}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth_base_url}}/auth/refresh",
+              "host": [
+                "{{auth_base_url}}"
+              ],
+              "path": [
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "response": []
         }
       ],
       "description": "Authenticates the test user and confirms the token is valid. Must run before any other folder.\n\n| Step | Request | Sets |\n|---|---|---|\n| 1A | POST /auth/login | `bearerToken`, `users_id` (environment) |\n| 1B | GET /auth/me | — (confirms token valid, refreshes `users_id`) |"

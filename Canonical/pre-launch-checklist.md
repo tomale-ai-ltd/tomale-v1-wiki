@@ -34,12 +34,12 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] **`utilities/upload_image`** still appears in the `app` spec: confirm external access is disabled, or remove it.
 - [ ] **Postman collection re-synced** from the Xano OpenAPI export ([[adopt-openapi-import-for-postman-collection-sync]]), then `_tests` run green.
 
-- [ ] Server-side sign-out: add `auth/logout` in Xano that revokes the session's refresh token (`user_sessions`), and call it from the app's logout. Today sign-out is client-only, so a signed-out refresh token stays valid until it expires (found 04/11 reviewing speckit 007).
+- [x] Server-side sign-out (done 06/11: Xano `auth/logout` revokes the session; the app calls it on a user sign-out, PR #24; Postman 1F/1G): add `auth/logout` in Xano that revokes the session's refresh token (`user_sessions`), and call it from the app's logout. Today sign-out is client-only, so a signed-out refresh token stays valid until it expires (found 04/11 reviewing speckit 007).
 
 ## 2. Environments and money
 
 - [ ] **Dev/prod Xano branches** set up, env vars duplicated with suffixes where they differ, one dev → prod merge and publish rehearsed ([[use-xano-branches-for-dev-and-prod]]; CTO #10–#12).
-- [ ] **New sign-ups get `test_mode = false`.** `auth/signup` writes `test_mode: ""` today. Stripe and the HPBC SKU are chosen from it and fail closed to test, so real customers' orders would go to test keys and the test SKU.
+- [x] **New sign-ups get `test_mode = false`** (fixed in Xano 06/11). Before the fix, `auth/signup` wrote `test_mode: ""`. Stripe and the HPBC SKU are chosen from it and fail closed to test, so real customers' orders would go to test keys and the test SKU.
 - [ ] **Stripe live:** live keys and live webhook secret in the prod branch; the live webhook endpoint registered.
 - [ ] **HPBC live:** `hpbc_sku_live` set on every product; live callback URLs and bearer token registered with HPBC.
 - [ ] **Papermill and OpenAI** production keys in prod.
