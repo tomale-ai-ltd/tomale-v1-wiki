@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.0
 date: 2026-10-28
-last_verified: 2026-10-28
+last_verified: 2026-11-10
 owner: vault
 related:
   - "[[backend-xano]]"
@@ -23,7 +23,7 @@ What is tested, how to run it, and what isn't covered yet. The backend is tested
 
 | Folder | Requests | What it proves |
 |---|---|---|
-| **1. Login & Auth.me** | 1A login, 1B `auth/me`, 1C no stuck stories, 1D refresh, 1E reused refresh | Login returns `userid`, `authToken`, `refreshToken`; `auth/me` carries `active_profile`; refresh rotates the token; a reused refresh token gets 401 `invalid_refresh_token`; no story has sat in a non-terminal state longer than `stuckStoryMaxAgeMin` (45 min) ([[replace-long-done-poll-with-stuck-story-check]]) |
+| **1. Login & Auth.me** | 1A login, 1B `auth/me`, 1C no stuck stories, 1D refresh, 1E reused refresh, 1F logout, 1G refresh after logout | Login returns `userid`, `authToken`, `refreshToken`; `auth/me` carries `active_profile`; refresh rotates the token; a reused refresh token gets 401 `invalid_refresh_token`; after `auth/logout` the session's refresh token gets 401 too; no story has sat in a non-terminal state longer than `stuckStoryMaxAgeMin` (45 min) ([[replace-long-done-poll-with-stuck-story-check]]) |
 | **2. Story Generation** | 2A-1 story, 2A-2 character, 2A-3 character model, 2B-1 story model | Creation endpoints and the LLM model calls; image jobs are queued. **Not in the monitor-sized run**: generation takes 10–15 minutes, so this folder runs on its own ([[use-fixture-story-for-order-flow-test]]) |
 | **3A-NEG. User 2** | log in as user 2; order a story awaiting approval | `STORY_AWAITING_APPROVAL` (400) ([[block-ordering-of-stories-awaiting-parental-approval]]) |
 | **3. Orders** | 3A create → patch → checkout (+ negative ownership) · 3B signed payment webhook, `check_order_paid` · 3C PDF poll · 3D HPBC confirm, Shipped callback, Error callback | Server-derived totals; no secrets in the checkout response; Stripe amount equals the order total in pence; user 2 gets 404 on user 1's checkout; payment confirmed; both PDFs attached; HPBC accepts the order; tracking stored on Shipped; an Error after Shipped is ignored and tracking kept |

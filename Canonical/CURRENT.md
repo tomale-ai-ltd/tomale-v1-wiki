@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 2.4
 date: 2026-10-24
-last_verified: 2026-11-06
+last_verified: 2026-11-10
 owner: vault
 related:
   - "[[roadmap]]"
@@ -38,7 +38,6 @@ Public UK release on the App Store **and Google Play**, full V1 including subscr
 ## Known risks
 
 - **Schedule is tight:** 40–61 days of estimated work against late January.
-- **New sign-ups get `test_mode: ""`.** Stripe and the print SKU fail closed to test, so real customers' orders would use test keys. Fix before launch ([[pre-launch-checklist]]).
 - **Not built yet:** entitlements and in-app purchase (RevenueCat), the parental PIN gate, the approval flow, account deletion (App Store requirement), backend error reporting, rate limiting, the dev/prod Xano split.
 - **Club and an Apple-approved bundle** are V2 ([[v2-backlog]]).
 - **Google Play:** new organisation developer account for Tomale.ai Ltd (01/11; contact verification and admin user done 03/11). App record and first build still to do before an Android release ([[pre-launch-checklist]] §5).

@@ -1,6 +1,6 @@
 {
   "note": "Project knowledge sync manifest: vault-relative path (project doc path) -> first 16 hex of sha256 at last upload. Maintained by the daily pipeline.",
-  "updated": "2026-11-06",
+  "updated": "2026-11-10",
   "files": {
     "Canonical/CURRENT.md": "c23e600de2034693",
     "Canonical/agent-context-sync.md": "efd97d473eba2835",
@@ -252,6 +252,8 @@
     "Canonical/repo-sync/RS-2026-11-06-02.md": "53b44012308d619a",
     "Canonical/repo-sync/RS-2026-11-06-03.md": "4fc05ad9447df625",
     "Project/Decisions/diagnose-before-briefing-and-use-contract-fixtures.md": "180a1543d499778a",
-    "Project/Decisions/exclude-locked-expo-sdk-versions-from-release-age-gate.md": "ccf43d05d2eb5ce3"
+    "Project/Decisions/exclude-locked-expo-sdk-versions-from-release-age-gate.md": "ccf43d05d2eb5ce3",
+    "Canonical/pending-updates/PU-2026-11-10-01.md": "aadbd2edc592c234",
+    "Project/Decisions/add-character-story-count-and-story-filter.md": "96c6715c218d778a"
   }
 }

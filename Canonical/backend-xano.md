@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.1
 date: 2026-11-05
-last_verified: 2026-10-30
+last_verified: 2026-11-10
 owner: vault
 related:
   - "[[security-model]]"
@@ -129,4 +129,5 @@ Rules that follow from gotchas are in the §3 block. These are the remaining tra
 - Xano JWE tokens can't be decoded client-side; track expiry by time.
 - Metadata API filters are query-string parameters on GET; in a JSON body they're silently ignored.
 - A column-named input once silently overwrote `created_at` and `message` (hence the naming rule).
+- An object built from `$auth.extras` in a response is exported to OpenAPI as a string (`auth/me`, 06/11), so the generated type can't describe it; the app parses it with a tested reader instead.
 - Omitted optional inputs aren't null unless declared nullable: `bool x?` arrives as `false`, `enum x?` as `""`, and a loose `!= null` treats `false` as null. On 05/11 this first stopped anyone unfavouriting a character, then (after a switch to `!==`) blanked `status` on every flags PATCH; fixed with `bool? is_favourite?` and `enum? status?` (hence the nullable-inputs rule).

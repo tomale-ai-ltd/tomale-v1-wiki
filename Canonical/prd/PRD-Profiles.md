@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.0
 date: 2026-10-29
-last_verified: 2026-10-29
+last_verified: 2026-11-10
 owner: vault
 features:
   - F-profiles
@@ -69,6 +69,7 @@ One Tomale account is a household. The account (`users`) holds login, billing an
 10. **Postman `_tests`:** PIN set, wrong PIN, lock-out, reset; child refused on parent-only endpoints; delete moves stories; assign.
 
 ## 6. Frontend Requirements
+- **Header avatar:** every profile shows its avatar in the header. A child's avatar opens "switch profile" (the PIN pad when choosing a parent profile), so a child is never stuck in their profile; a parent's also opens Settings and Help ([[use-profile-aware-bottom-tabs-with-home-dashboard]]). Until M3 the child header has no avatar (PR #23, 06/11).
 - **Profile picker:** full-screen avatars and names; shown on app reopen (with children) and after 15 minutes in the background; tapping a parent profile opens the PIN pad.
 - **Onboarding:** verify email → name the adult profile → set PIN → optionally add children.
 - **Add child:** name + avatar (presets with colour options, or a household character image); no adult/child toggle.

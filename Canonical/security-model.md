@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 2.0
 date: 2026-10-28
-last_verified: 2026-10-28
+last_verified: 2026-11-10
 owner: vault
 related:
   - "[[backend-xano]]"
@@ -150,7 +150,7 @@ Per [[5-cto-implementation-plan]], Phase 1 items 5–9 closed on 2026-07-16 and 
 
 ### What was hardened, by area
 
-- **Auth:** magic-link login; JWE tokens (1 hour) carrying `active_profile` extras; `select_profile`; refresh with rotation, hashed refresh tokens and 401 `invalid_refresh_token`; `verify_email` through the Squarespace intermediary. `auth/login` returns a single generic "Invalid Credentials." for an unknown user or a wrong password.
+- **Auth:** magic-link login; JWE tokens (1 hour) carrying `active_profile` extras; `select_profile`; refresh with rotation, hashed refresh tokens and 401 `invalid_refresh_token`; `auth/logout` (06/11) sets the session `revoked` and `auth/refresh` accepts only `active` sessions (the 1-hour access token can't be revoked and lapses on its own); `auth/signup` writes `test_mode: false` (06/11); `verify_email` through the Squarespace intermediary. `auth/login` returns a single generic "Invalid Credentials." for an unknown user or a wrong password.
 - **Users and profiles:** `PATCH /users/me` (boolean preferences folded in), `complete_onboarding`, the image endpoint. `user_profiles` is one table with `is_child` and `is_primary`: parent-only create and delete, household scope, soft delete, profanity list plus AI moderation.
 - **Stories and characters:** owner-scoped `instant_stories` with per-child visibility and the moderation and parental-approval flags. `conversations/{id}/message` and `API/character_edit` take explicit input lists, no `dblink` (2026-10-23).
 - **System:** activities, `artwork_style`, `fact/random` (with an `is_child` gate), themes; phonics reduced to two nested read endpoints.
