@@ -2,7 +2,7 @@
 type: brief
 title: characters-008-additions-brief
 project: tomale-rn-v1
-status: draft
+status: done
 date: 2026-11-10
 related:
   - "[[PRD-Characters]]"

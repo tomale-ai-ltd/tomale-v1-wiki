@@ -2,12 +2,13 @@
 type: decision
 title: "keep-node-forge-audit-ignores-for-expo-cli"
 project: tomale-rn-v1
-status: proposed
+status: superseded
 date: "2026-11-03"
 related:
   - "[[2026-11-03-002]]"
   - "[[RS-2026-11-01-06]]"
 affects: []
+superseded_by: "[[patch-node-forge-with-same-major-override]]"
 features:
   - X-security
 ---
