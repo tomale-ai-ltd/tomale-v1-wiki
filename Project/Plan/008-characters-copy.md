@@ -24,7 +24,7 @@ Every user-facing line for speckit 008, taken from the Characters mock-ups (Desi
 ## Carousel (parent and child)
 - Card accessibility label: "[Name]. Tap to see more". Position: "Character [i] of [n]".
 - Story count: parent "In [n] stories" (1: "In 1 story"; 0 *added*: "Not in a story yet"); child "In [n] of your stories" (1: "In 1 of your stories"; 0 *added*: "Not in your stories yet").
-- Hint under the card: parent "Swipe to meet others · tap [Name] to see more"; child "Swipe to meet the others. Tap [Name] to play."
+- Hint under the card: parent "Swipe to meet others · tap [Name] to see more"; child "Swipe to meet the others. Tap [Name] to see more."
 - Panel actions: "Make a story", "Favourite", "Draw again", "More" (parent only), "See more about [Name]" *added* (opens detail), "Close".
 - Panel stories heading: "Stories with [Name]".
 - Child title: "My characters".
@@ -32,11 +32,14 @@ Every user-facing line for speckit 008, taken from the Characters mock-ups (Desi
 ## Picture states *added*
 - Drawing: "Drawing [Name]…" (accessibility: "[Name]'s picture is being drawn").
 - Failed: "We couldn't draw [Name]." with "Try again" (opens Draw again).
+- Still drawing when the check-in window ends *added*: "Still drawing. Check back soon."
 
 ## Detail
 - Back: "Back to characters". More: "More for [Name]".
 - Lines: description; story count as above; "Made [d MMM yyyy]" (e.g. "Made 12 Oct 2026").
 - Actions: "Create a story with [Name]", "Draw [Name] again". Section: "Stories with [Name]".
+- A story with no title *added*: "Untitled story".
+- Character no longer available (deleted, archived for a child, or not found) *added*: "This character isn't available." with "Back to characters". No reason given.
 
 ## More (parent)
 - "Remove from favourites" / "Add to favourites" *added*, "Create a story with [Name]", "Draw [Name] again", "Archive" with hint "Hides [Name] from your children. You can bring [Name] back.", "Unarchive" (archived character), "Delete character", "Cancel".
