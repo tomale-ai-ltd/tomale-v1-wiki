@@ -11636,6 +11636,602 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "6E · Parent-only areas (store, Stripe, subscriptions)",
+					"item": [
+						{
+							"name": "6E-1 · GET /store_orders as child — refused",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/store_orders",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"store_orders"
+									]
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_child}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6E-1: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6E-1: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6E-2 · POST /store_orders as child — refused",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/store_orders",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"store_orders"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"instant_stories_id\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_child}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6E-2: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6E-2: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6E-3 · GET /store_orders/{id} as child — refused",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/store_orders/1",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"store_orders",
+										"1"
+									]
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_child}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6E-3: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6E-3: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6E-4 · PATCH /store_orders/{id} as child — refused",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/store_orders/1",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"store_orders",
+										"1"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"store_orders_id\": 1,\n  \"message\": \"test\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_child}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6E-4: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6E-4: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6E-5 · POST /store_orders/{id}/cancel as child — refused",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/store_orders/1/cancel",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"store_orders",
+										"1",
+										"cancel"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_child}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6E-5: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6E-5: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6E-6 · GET /stripe/create_checkout_session as child — refused",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/stripe/create_checkout_session?store_orders_id=1&shipping_option_id=1",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"stripe",
+										"create_checkout_session"
+									],
+									"query": [
+										{
+											"key": "store_orders_id",
+											"value": "1"
+										},
+										{
+											"key": "shipping_option_id",
+											"value": "1"
+										}
+									]
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_child}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6E-6: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6E-6: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6E-7 · GET /stripe/check_order_paid as child — refused",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/stripe/check_order_paid?store_orders_id=1",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"stripe",
+										"check_order_paid"
+									],
+									"query": [
+										{
+											"key": "store_orders_id",
+											"value": "1"
+										}
+									]
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_child}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6E-7: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6E-7: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6E-8 · GET /subscriptions as child — refused",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/subscriptions",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"subscriptions"
+									]
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_child}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6E-8: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6E-8: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6E-9 · GET /subscriptions/{id} as child — refused",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/subscriptions/1",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"subscriptions",
+										"1"
+									]
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_child}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6E-9: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6E-9: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6E-10 · GET /store_orders as parent — allowed",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/store_orders",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"store_orders"
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6E-10: 200\", () => pm.response.to.have.status(200));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6E-11 · GET /subscriptions as parent — allowed",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/subscriptions",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"subscriptions"
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6E-11: 200\", () => pm.response.to.have.status(200));"
+										]
+									}
+								}
+							]
+						}
+					]
 				}
 			]
 		}
