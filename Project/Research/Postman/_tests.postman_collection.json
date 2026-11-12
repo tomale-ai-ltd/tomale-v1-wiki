@@ -10881,7 +10881,8 @@
 										"exec": [
 											"pm.test(\"6C-12: 200\", () => pm.response.to.have.status(200));",
 											"pm.test(\"6C-12: pin_set true\", () => pm.expect(pm.response.json().pin_set).to.eql(true));",
-											"pm.collectionVariables.unset(\"bearerToken_reset\");"
+											"pm.collectionVariables.unset(\"bearerToken_reset\");",
+											"pm.collectionVariables.set(\"pinResetDone\", \"true\");"
 										]
 									}
 								}
@@ -10933,7 +10934,7 @@
 									"script": {
 										"type": "text/javascript",
 										"exec": [
-											"if (pm.environment.get(\"runLockTests\") !== \"true\") { console.log(\"Skipped: set runLockTests=true to run the PIN lock and email reset tests.\"); pm.execution.skipRequest(); }",
+											"if (pm.collectionVariables.get(\"pinResetDone\") !== \"true\") { console.log(\"Skipped: needs 6C-11 and 6C-12 (second pass)\"); pm.execution.skipRequest(); }",
 											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
 										]
 									}
@@ -10943,7 +10944,8 @@
 									"script": {
 										"type": "text/javascript",
 										"exec": [
-											"pm.test(\"6C-13: 200\", () => pm.response.to.have.status(200));"
+											"pm.test(\"6C-13: 200\", () => pm.response.to.have.status(200));",
+											"pm.collectionVariables.unset(\"pinResetDone\");"
 										]
 									}
 								}
