@@ -51,3 +51,26 @@ Add an index on `image_jobs.characters_id` if none exists.
 
 ## Conventions and tests
 Strict `=== false` parent checks where any appear; guard `$list.field` with a count check; no `enforce_hidden_fields = false` on new writes (the existing `db.add` lines keep it until the pre-launch sweep). Postman folder 5: 5A-1 still passes; add a blocked name (`NAME_NOT_ALLOWED`), a blocked description (`CONTENT_REJECTED`), user2's story id (404), a non-Draft story (`STORY_NOT_EDITABLE`, skips without `completedStoryId`), and `picture_status` = `drawing` straight after 5A-1 create, then `ready` or `drawing` on later reads (never missing).
+
+## Xano AI prompt: change set 5 on the two GETs (12/11)
+Found on 12/11 that change set 5 had only reached `POST /characters`; both GETs were missing `picture_status` (Postman 5H-1, 5I-1). Prompt used:
+
+```
+Add a derived field picture_status to two endpoints in the app API group: GET /characters and GET /characters/{characters_id}. Do not change anything else in either endpoint.
+
+picture_status is one of "drawing", "ready", "failed", worked out per character from that character's LATEST image_jobs row (job_type == "character-image", highest created_at):
+1. latest job status is "queued", "processing" or "error_retry"  -> "drawing"
+2. otherwise, cover_image is not null                             -> "ready"
+3. otherwise, latest job status is "error_terminal"               -> "failed"
+4. otherwise (no job, or a finished job but no cover_image): "drawing" if the character's created_at is less than 15 minutes ago, else "failed"
+
+GET /characters (list):
+- After $characters is fetched, run ONE db.query on image_jobs for all returned characters (characters_id in $characters.id, job_type == "character-image", is_deleted not relevant), sorted by created_at desc, output ["characters_id","status","created_at"]. Only run it inside a conditional when ($characters|count) > 0; initialise $jobs to [] first. Do not query per character.
+- In the existing foreach that builds $characters_with_count, find that character's latest job with ($jobs|filter:($$.characters_id == $character.id))|first (guard: it may be null), apply the rules above, and set "picture_status" on the character alongside "stories_count".
+
+GET /characters/{characters_id} (detail):
+- After the ownership/archived preconditions, query image_jobs for this character (job_type == "character-image"), sorted created_at desc, return a single row (or first of list, guarded for empty).
+- Apply the rules above and add picture_status to $response_character after stories_count.
+
+Use strict comparisons (=== / !==), guard every list before reading a field from it (an empty list makes $list.field a fatal error), and keep the existing outputs and response shapes otherwise identical.
+```
