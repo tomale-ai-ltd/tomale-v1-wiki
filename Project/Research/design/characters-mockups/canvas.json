@@ -1,0 +1,59 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-11-05T17:10:00Z"},
+  "title": "Tomale Characters screens",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 390, "h": 1180, "title": "Home · parent"},
+    "HomeChild.dc.html": {"x": 470, "y": 0, "w": 390, "h": 1180, "title": "Home · child"},
+    "Characters.dc.html": {"x": 0, "y": 1600, "w": 390, "h": 1120, "title": "101 Characters · parent"},
+    "CharacterDetail.dc.html": {"x": 470, "y": 1600, "w": 390, "h": 1120, "title": "102 Character detail · parent"},
+    "QuickActions.dc.html": {"x": 940, "y": 1600, "w": 390, "h": 844, "title": "105 Quick actions · parent"},
+    "DeleteConfirm.dc.html": {"x": 1410, "y": 1600, "w": 390, "h": 844, "title": "105 Delete confirmation"},
+    "DrawAgain.dc.html": {"x": 1880, "y": 1600, "w": 390, "h": 844, "title": "105 Draw again"},
+    "CreateCharacter.dc.html": {"x": 2350, "y": 1600, "w": 390, "h": 844, "title": "103 New character (form, fallback)"},
+    "CarouselCircular.dc.html": {"x": 0, "y": 3140, "w": 390, "h": 844, "title": "104 Option A · not chosen"},
+    "CarouselParallax.dc.html": {"x": 470, "y": 3140, "w": 390, "h": 844, "title": "104 Chosen · parent, opens first (grid toggle)", "is_interactive": true},
+    "CarouselWallpaper.dc.html": {"x": 940, "y": 3140, "w": 390, "h": 844, "title": "104 Option C · not chosen"},
+    "CharactersChild.dc.html": {"x": 1410, "y": 3140, "w": 390, "h": 844, "title": "104 Child view · tap to play", "is_interactive": true},
+    "CharactersEmpty.dc.html": {"x": 1880, "y": 3140, "w": 390, "h": 844, "title": "101 Empty state"},
+    "CreateSheet.dc.html": {"x": 2350, "y": 3140, "w": 390, "h": 844, "title": "Create tab · quick menu"},
+    "ChatCreate.dc.html": {"x": 0, "y": 4440, "w": 390, "h": 844, "title": "501 Create with help · chat"},
+    "ChatPreview.dc.html": {"x": 470, "y": 4440, "w": 390, "h": 844, "title": "501 Preview before drawing"},
+    "Reveal.dc.html": {"x": 940, "y": 4440, "w": 390, "h": 844, "title": "501 Reveal"},
+    "TabBar.dc.html": {"x": 0, "y": 5740, "w": 390, "h": 98, "title": "TabBar (profile-aware)"},
+    "Art.dc.html": {"x": 470, "y": 5740, "w": 200, "h": 200, "title": "Placeholder character art"}
+  },
+  "order": [
+    "Main.dc.html",
+    "HomeChild.dc.html",
+    "Characters.dc.html",
+    "CharacterDetail.dc.html",
+    "QuickActions.dc.html",
+    "DeleteConfirm.dc.html",
+    "DrawAgain.dc.html",
+    "CreateCharacter.dc.html",
+    "CarouselCircular.dc.html",
+    "CarouselParallax.dc.html",
+    "CarouselWallpaper.dc.html",
+    "CharactersChild.dc.html",
+    "CharactersEmpty.dc.html",
+    "CreateSheet.dc.html",
+    "ChatCreate.dc.html",
+    "ChatPreview.dc.html",
+    "Reveal.dc.html",
+    "TabBar.dc.html",
+    "Art.dc.html"
+  ],
+  "notes": {
+    "home": {"x": 0, "y": -300, "text": "Home dashboard", "kind": "title1", "maxW": 860},
+    "chars": {"x": 0, "y": 1300, "text": "Characters (101–105)", "kind": "title1", "maxW": 2740},
+    "carousel": {"x": 0, "y": 2840, "text": "104 Carousel, child view, empty state, Create menu (round 2)", "kind": "title1", "maxW": 2740},
+    "chat": {"x": 0, "y": 4140, "text": "Create a character with help (501)", "kind": "title1", "maxW": 1330},
+    "parts": {"x": 0, "y": 5440, "text": "Shared parts", "kind": "title1", "maxW": 860}
+  },
+  "designSystems": [
+    {"title": "Tomale", "namespace": "tomale", "artifact": "https://claude.ai/artifact/HXEoAA9PXachmzk8csGkrr", "version": null, "copiedAt": "2026-11-05T17:10:00Z"}
+  ]
+}

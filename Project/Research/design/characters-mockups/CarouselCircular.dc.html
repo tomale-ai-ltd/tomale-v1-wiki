@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Characters carousel, circular slider</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #d7f3f2; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+<div aria-hidden="true" style="position: absolute; left: -60px; top: -60px; width: 510px; height: 760px; filter: blur(28px); opacity: 0.9"><dc-import name="Art" kind="dragon" hint-size="510px,760px"></dc-import></div>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(255,255,255,0.25)"></div>
+
+<div style="position: absolute; left: 16px; right: 16px; top: 54px; display: flex; align-items: center; justify-content: space-between">
+<h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700; padding: 0 14px; border-radius: 999px; background: #ffffff">Characters</h1>
+<div style="display: flex; gap: 8px">
+<button type="button" aria-label="Search characters" style="width: 48px; height: 48px; border: 0; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+<a href="Characters.dc.html" aria-label="Show as a grid" style="width: 48px; height: 48px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></a>
+</div>
+</div>
+
+<a href="CharacterDetail.dc.html" aria-label="Open Pip" style="position: absolute; left: 50%; top: 140px; width: 260px; height: 260px; margin-left: -130px; border-radius: 999px; overflow: hidden; border: 8px solid #ffffff; box-shadow: 0 12px 32px rgba(43,31,28,0.18); display: block">
+<dc-import name="Art" kind="dragon" hint-size="260px,260px"></dc-import>
+</a>
+
+<div style="position: absolute; left: 24px; right: 24px; top: 424px; padding: 16px; border-radius: 24px; background: #ffffff; box-shadow: 0 2px 8px rgba(43,31,28,0.08); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="display: flex; align-items: center; gap: 8px">
+<h2 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">Pip</h2>
+<svg viewBox="0 0 24 24" width="26" height="26" role="img" aria-label="Favourite"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" fill="#fcca37" stroke="#2b1f1c" stroke-width="1.6" stroke-linejoin="round"/></svg>
+</div>
+<p style="margin: 0; font-size: 16px; line-height: 22px">A small, friendly green dragon with round glasses.</p>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57">In 3 stories</p>
+</div>
+
+<div role="listbox" aria-label="Characters" style="position: absolute; left: 0; right: 0; bottom: 118px; height: 110px; display: flex; align-items: center; justify-content: center; gap: 12px">
+<sc-for list="{{ring}}" as="r" hint-placeholder-count="5">
+<span role="option" aria-selected="{{r.sel}}" aria-label="{{r.name}}" style="{{r.style}}"><dc-import name="Art" kind="{{r.kind}}" hint-size="100%,100%"></dc-import></span>
+</sc-for>
+</div>
+
+<div style="position: absolute; left: 0; right: 0; bottom: 0">
+<dc-import name="TabBar" profile="parent" selected="characters" hint-size="100%,98px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const items = [
+      { name: 'Bolt', kind: 'robot', size: 52, op: 0.7 },
+      { name: 'Rosie', kind: 'fox', size: 66, op: 0.9 },
+      { name: 'Pip', kind: 'dragon', size: 92, op: 1, sel: true },
+      { name: 'Ava', kind: 'girl', size: 66, op: 0.9 },
+      { name: 'Barnaby', kind: 'bear', size: 52, op: 0.7 }
+    ];
+    return {
+      ring: items.map((i) => ({
+        name: i.name, kind: i.kind, sel: i.sel ? 'true' : 'false',
+        style: 'width: ' + i.size + 'px; height: ' + i.size + 'px; border-radius: 999px; overflow: hidden; display: block; flex: none; opacity: ' + i.op + '; border: ' + (i.sel ? '5px solid #ffffff; box-shadow: 0 6px 16px rgba(43,31,28,0.2)' : '3px solid rgba(255,255,255,0.8)')
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

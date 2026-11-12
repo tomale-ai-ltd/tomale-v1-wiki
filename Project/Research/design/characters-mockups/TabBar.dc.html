@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tab bar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+</style>
+</helmet>
+<nav aria-label="Main" style="width: 100%; height: 98px; box-sizing: border-box; padding: 6px 4px 34px; background: #ffffff; box-shadow: 0 -8px 24px rgba(43,31,28,0.12); display: flex; justify-content: space-around; align-items: flex-start; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
+<a href="#" aria-current="{{t.current}}" style="flex: 1 1 0; min-width: 0; height: 58px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none">
+<span style="{{t.pillStyle}}">
+<sc-if value="{{t.isHome}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path d="M4 15 L16 5 L28 15 L28 28 L4 28 Z" fill="#ff6666"/><path d="M2 16 L16 4 L30 16" stroke="#2b1f1c" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="12" y="18" width="8" height="10" rx="2" fill="#fcca37"/><circle cx="22" cy="12" r="0" fill="none"/></svg>
+</sc-if>
+<sc-if value="{{t.isCreate}}" hint-placeholder-val="{{ false }}">
+<img src="/_blob/6f885f744f4472a79b15545ebdbdd778" alt="" width="30" height="30" style="display: block; object-fit: contain">
+</sc-if>
+<sc-if value="{{t.isBookshelf}}" hint-placeholder-val="{{ false }}">
+<img src="/_blob/fd1ccb6a9daf0988f4a4617b437903d2" alt="" width="30" height="30" style="display: block; object-fit: contain">
+</sc-if>
+<sc-if value="{{t.isCharacters}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><circle cx="11" cy="14" r="8" fill="#39c2c1"/><circle cx="22" cy="16" r="8" fill="#fcca37"/><circle cx="9" cy="13" r="1.6" fill="#2b1f1c"/><circle cx="13.5" cy="13" r="1.6" fill="#2b1f1c"/><circle cx="20" cy="15" r="1.6" fill="#2b1f1c"/><circle cx="24.5" cy="15" r="1.6" fill="#2b1f1c"/><path d="M19.5 19 Q22 21 24.5 19" stroke="#2b1f1c" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M8.5 17 Q11 19 13.5 17" stroke="#2b1f1c" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M6 7 L5 3 L9 6 Z M16 7 L17 3 L13 6 Z" fill="#ff6666"/><path d="M14 30 Q22 22 30 30 Z" fill="#ff914d"/></svg>
+</sc-if>
+<sc-if value="{{t.isStore}}" hint-placeholder-val="{{ false }}">
+<img src="/_blob/7f3e3ee2b515b221c243cb28f24ebc06" alt="" width="30" height="30" style="display: block; object-fit: contain">
+</sc-if>
+</span>
+<span style="{{t.labelStyle}}">{{t.label}}</span>
+</a>
+</sc-for>
+</nav>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"profile":{"editor":"enum","options":["parent","child"],"default":"parent"},"selected":{"editor":"enum","options":["home","create","bookshelf","characters","store"],"default":"home"},"$preview":{"width":390,"height":98}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const profile = this.props.profile ?? 'parent';
+    const selected = this.props.selected ?? 'home';
+    const all = [
+      { id: 'home', label: 'Home' },
+      { id: 'create', label: 'Create' },
+      { id: 'bookshelf', label: 'Bookshelf' },
+      { id: 'characters', label: 'Characters' },
+      { id: 'store', label: 'Store' }
+    ];
+    const list = profile === 'child' ? all.filter((t) => t.id !== 'store') : all;
+    const tabs = list.map((t) => {
+      const on = t.id === selected;
+      return {
+        label: t.label,
+        current: on ? 'page' : 'false',
+        isHome: t.id === 'home', isCreate: t.id === 'create', isBookshelf: t.id === 'bookshelf',
+        isCharacters: t.id === 'characters', isStore: t.id === 'store',
+        pillStyle: 'width: 56px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: ' + (on ? 'rgba(57,194,193,0.22)' : 'transparent'),
+        labelStyle: 'font-size: 14px; line-height: 18px; white-space: nowrap; color: ' + (on ? '#1b7b7a; font-weight: 700' : '#6e5c57; font-weight: 400')
+      };
+    });
+    return { tabs };
+  }
+}
+</script>
+</body>
+</html>

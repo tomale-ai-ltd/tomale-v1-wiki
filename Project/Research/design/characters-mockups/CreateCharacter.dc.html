@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>New character</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+
+<header style="box-sizing: border-box; padding: 54px 16px 20px; background: #fcca37; border-radius: 0 0 32px 32px; position: relative; overflow: hidden">
+<svg viewBox="0 0 390 290" width="390" height="290" style="position: absolute; left: 0; top: 0" aria-hidden="true"><circle cx="195" cy="190" r="130" fill="#fdd862"/><circle cx="50" cy="120" r="5" fill="#ffffff"/><circle cx="340" cy="100" r="6" fill="#ff6666"/></svg>
+<div style="position: relative; display: flex; align-items: center; gap: 12px">
+<a href="Characters.dc.html" aria-label="Close" style="width: 48px; height: 48px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex: none">
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></a>
+<h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">New character</h1>
+</div>
+<div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px">
+<span style="width: 140px; height: 140px; border-radius: 999px; overflow: hidden; border: 5px solid #ffffff; display: block"><dc-import name="Art" kind="pending" hint-size="140px,140px"></dc-import></span>
+<p style="margin: 0; font-size: 16px; line-height: 22px; text-align: center">We'll draw your character once you save.</p>
+</div>
+</header>
+
+<form style="padding: 24px 16px 0; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="nm" style="font-size: 14px; line-height: 20px; font-weight: 700">Name</label>
+<input id="nm" type="text" value="{{name}}" style="{{nameStyle}}">
+<sc-if value="{{nameOk}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57">A first name or a nickname.</p>
+</sc-if>
+<sc-if value="{{nameBad}}" hint-placeholder-val="{{ false }}">
+<p role="alert" style="margin: 0; font-size: 14px; line-height: 20px; color: #b3261e; display: flex; gap: 6px; align-items: flex-start">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b3261e" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+That name isn't allowed. Please try another.</p>
+</sc-if>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="ds" style="font-size: 14px; line-height: 20px; font-weight: 700">What do they look like?</label>
+<textarea id="ds" rows="3" style="box-sizing: border-box; width: 100%; min-height: 104px; padding: 12px; border-radius: 10px; border: 2px solid #8f7f7a; font: inherit; font-size: 16px; line-height: 24px; color: #2b1f1c; background: #ffffff; resize: none">A small, friendly green dragon with round glasses and a striped scarf.</textarea>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57">Colours, clothes, anything special about them.</p>
+</div>
+<button type="button" style="height: 48px; border-radius: 999px; border: 0; background: #d63c3c; color: #ffffff; font: inherit; font-size: 16px; font-weight: 700">Save character</button>
+</form>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"nameState":{"editor":"enum","options":["default","rejected"],"default":"default"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const bad = (this.props.nameState ?? 'default') === 'rejected';
+    return {
+      nameOk: !bad, nameBad: bad,
+      name: 'Pip',
+      nameStyle: 'box-sizing: border-box; height: 48px; padding: 0 12px; border-radius: 10px; border: 2px solid ' + (bad ? '#b3261e' : '#8f7f7a') + '; font: inherit; font-size: 16px; color: #2b1f1c; background: #ffffff'
+    };
+  }
+}
+</script>
+</body>
+</html>

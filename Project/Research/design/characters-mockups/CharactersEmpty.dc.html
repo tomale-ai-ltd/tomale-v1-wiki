@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Characters, empty state</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+<header style="box-sizing: border-box; padding: 58px 16px 24px; background: #ff6666; border-radius: 0 0 32px 32px">
+<h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">Characters</h1>
+</header>
+
+<main style="padding: 40px 24px 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px">
+<div style="position: relative; width: 240px; height: 200px">
+<svg viewBox="0 0 240 200" width="240" height="200" aria-hidden="true" style="position: absolute; left: 0; top: 0"><ellipse cx="120" cy="180" rx="100" ry="14" fill="#f1ebe8"/><circle cx="40" cy="40" r="6" fill="#fcca37"/><circle cx="210" cy="60" r="5" fill="#39c2c1"/><path d="M200 20 l4 8 9 1.2 -6.5 6 1.5 9 -8 -4 -8 4 1.5 -9 -6.5 -6 9 -1.2 Z" fill="#fcca37"/></svg>
+<span style="position: absolute; left: 20px; top: 50px; width: 110px; height: 110px; border-radius: 999px; overflow: hidden; border: 5px solid #ffffff; transform: rotate(-8deg); display: block"><dc-import name="Art" kind="pending" hint-size="110px,110px"></dc-import></span>
+<span style="position: absolute; left: 112px; top: 30px; width: 120px; height: 120px; border-radius: 999px; overflow: hidden; border: 5px solid #ffffff; transform: rotate(6deg); display: block; opacity: 0.85"><dc-import name="Art" kind="pending" hint-size="120px,120px"></dc-import></span>
+</div>
+<h2 style="margin: 0; font-size: 28px; line-height: 34px; font-weight: 700">Your characters will live here</h2>
+<p style="margin: 0; font-size: 18px; line-height: 26px; max-width: 300px">Make a dragon, a grown-up, a best friend or someone brand new. They can star in any story.</p>
+<a href="CreateCharacter.dc.html" style="margin-top: 8px; width: 100%; height: 64px; border-radius: 999px; background: #fcca37; color: #2b1f1c; font-size: 20px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 2px 8px rgba(43,31,28,0.12)">
+<img src="/_blob/6f885f744f4472a79b15545ebdbdd778" alt="" width="34" height="34" style="object-fit: contain">Make your first character</a>
+</main>
+
+<div style="position: absolute; left: 0; right: 0; bottom: 0">
+<dc-import name="TabBar" profile="parent" selected="characters" hint-size="100%,98px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

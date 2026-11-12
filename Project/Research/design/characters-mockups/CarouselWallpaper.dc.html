@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Characters carousel, wallpaper</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #2b1f1c; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+<div aria-hidden="true" style="position: absolute; left: -227px; top: 0; width: 844px; height: 844px; filter: blur(6px); transform: scale(1.05)"><dc-import name="Art" kind="dragon" hint-size="844px,844px"></dc-import></div>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(43,31,28,0.15) 0%, rgba(43,31,28,0.05) 40%, rgba(43,31,28,0.75) 78%, rgba(43,31,28,0.9) 100%)"></div>
+
+<div style="position: absolute; left: 16px; right: 16px; top: 54px; display: flex; align-items: center; justify-content: space-between">
+<h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700; padding: 0 14px; border-radius: 999px; background: #ffffff">Characters</h1>
+<button type="button" aria-label="Search characters" style="width: 48px; height: 48px; border: 0; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+</div>
+
+<div aria-hidden="true" style="position: absolute; left: -110px; top: 200px; width: 200px; height: 290px; border-radius: 24px; overflow: hidden; border: 5px solid #ffffff; transform: rotate(-10deg) scale(0.88); opacity: 0.9">
+<dc-import name="Art" kind="fox" hint-size="200px,290px"></dc-import>
+</div>
+<div aria-hidden="true" style="position: absolute; left: 300px; top: 200px; width: 200px; height: 290px; border-radius: 24px; overflow: hidden; border: 5px solid #ffffff; transform: rotate(10deg) scale(0.88); opacity: 0.9">
+<dc-import name="Art" kind="robot" hint-size="200px,290px"></dc-import>
+</div>
+<a href="CharacterDetail.dc.html" aria-label="Open Pip" style="position: absolute; left: 75px; top: 160px; width: 240px; height: 350px; border-radius: 28px; overflow: hidden; border: 6px solid #ffffff; box-shadow: 0 18px 40px rgba(0,0,0,0.35); display: block">
+<dc-import name="Art" kind="dragon" hint-size="240px,350px"></dc-import>
+</a>
+
+<div style="position: absolute; left: 24px; right: 24px; top: 548px; color: #ffffff; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px">
+<div style="display: flex; align-items: center; gap: 8px">
+<h2 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">Pip</h2>
+<svg viewBox="0 0 24 24" width="26" height="26" role="img" aria-label="Favourite"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" fill="#fcca37" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+</div>
+<p style="margin: 0; font-size: 16px; line-height: 22px">A small, friendly green dragon. In 3 stories.</p>
+<div style="display: flex; gap: 10px; margin-top: 8px">
+<a href="#" style="height: 48px; padding: 0 18px; border-radius: 999px; background: #fcca37; color: #2b1f1c; font-size: 16px; font-weight: 700; text-decoration: none; display: flex; align-items: center">Make a story</a>
+<a href="CharacterDetail.dc.html" style="height: 48px; padding: 0 18px; border-radius: 999px; background: #ffffff; color: #2b1f1c; font-size: 16px; font-weight: 700; text-decoration: none; display: flex; align-items: center">Open</a>
+</div>
+</div>
+
+<div style="position: absolute; left: 0; right: 0; bottom: 0">
+<dc-import name="TabBar" profile="parent" selected="characters" hint-size="100%,98px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

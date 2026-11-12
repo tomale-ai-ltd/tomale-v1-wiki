@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Create a character with help</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+
+<header style="box-sizing: border-box; padding: 54px 16px 14px; background: #fcca37; border-radius: 0 0 28px 28px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 12px">
+<a href="Characters.dc.html" aria-label="Close" style="width: 48px; height: 48px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex: none"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></a>
+<h1 style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700; flex: 1">New character</h1>
+<a href="CreateCharacter.dc.html" style="font-size: 16px; font-weight: 700; text-decoration: none; color: #2b1f1c; min-height: 48px; display: flex; align-items: center; text-decoration-line: underline">Use the form</a>
+</div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 16px; background: #ffffff">
+<span style="width: 44px; height: 44px; border-radius: 999px; overflow: hidden; flex: none; display: block"><dc-import name="Art" kind="pending" hint-size="44px,44px"></dc-import></span>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<span style="padding: 2px 10px; border-radius: 999px; background: #d7f3f2; font-size: 14px; line-height: 22px; font-weight: 700">Pip</span>
+<span style="padding: 2px 10px; border-radius: 999px; background: #d7f3f2; font-size: 14px; line-height: 22px">Dragon</span>
+<span style="padding: 2px 10px; border-radius: 999px; background: #d7f3f2; font-size: 14px; line-height: 22px">Small</span>
+<span style="padding: 2px 10px; border-radius: 999px; border: 2px dashed #8f7f7a; font-size: 14px; line-height: 18px; color: #6e5c57">Colour?</span>
+</div>
+</div>
+</header>
+
+<div role="log" aria-label="Conversation" style="padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; gap: 8px; align-items: flex-end; max-width: 300px">
+<span aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex: none; box-shadow: 0 2px 8px rgba(43,31,28,0.08)"><img src="/_blob/6f885f744f4472a79b15545ebdbdd778" alt="" width="26" height="26" style="object-fit: contain"></span>
+<p style="margin: 0; padding: 12px 14px; border-radius: 20px 20px 20px 6px; background: #ffffff; box-shadow: 0 2px 8px rgba(43,31,28,0.08); font-size: 18px; line-height: 26px">Let's make a new character! Who is it?</p>
+</div>
+<p style="margin: 0; align-self: flex-end; max-width: 260px; padding: 12px 14px; border-radius: 20px 20px 6px 20px; background: #39c2c1; font-size: 18px; line-height: 26px">A little dragon called Pip</p>
+<div style="display: flex; gap: 8px; align-items: flex-end; max-width: 300px">
+<span aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex: none; box-shadow: 0 2px 8px rgba(43,31,28,0.08)"><img src="/_blob/6f885f744f4472a79b15545ebdbdd778" alt="" width="26" height="26" style="object-fit: contain"></span>
+<p style="margin: 0; padding: 12px 14px; border-radius: 20px 20px 20px 6px; background: #ffffff; box-shadow: 0 2px 8px rgba(43,31,28,0.08); font-size: 18px; line-height: 26px">Pip sounds lovely! What colour is Pip?</p>
+</div>
+<div role="group" aria-label="Choose a colour" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding-left: 44px">
+<sc-for list="{{colours}}" as="c" hint-placeholder-count="4">
+<button type="button" style="height: 64px; border-radius: 16px; border: 2px solid #8f7f7a; background: #ffffff; font: inherit; font-size: 18px; font-weight: 700; color: #2b1f1c; display: flex; align-items: center; gap: 10px; padding: 0 12px">
+<span aria-hidden="true" style="{{c.dot}}"></span>{{c.label}}</button>
+</sc-for>
+</div>
+</div>
+
+<div style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 12px 16px 34px; background: #ffffff; box-shadow: 0 -8px 24px rgba(43,31,28,0.12); display: flex; gap: 10px; align-items: center">
+<label style="flex: 1; min-width: 0; height: 52px; box-sizing: border-box; padding: 0 14px; border: 2px solid #8f7f7a; border-radius: 999px; display: flex; align-items: center">
+<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Your answer</span>
+<input type="text" placeholder="Type your answer" style="flex: 1; min-width: 0; border: 0; outline: none; font: inherit; font-size: 16px; color: #2b1f1c; background: transparent">
+</label>
+<button type="button" aria-label="Speak your answer" style="width: 64px; height: 64px; border: 0; border-radius: 999px; background: #ff6666; display: flex; align-items: center; justify-content: center; flex: none">
+<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#2b1f1c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5"/></svg></button>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const dot = (c) => 'width: 28px; height: 28px; border-radius: 999px; flex: none; border: 2px solid #2b1f1c; background: ' + c;
+    return {
+      colours: [
+        { label: 'Green', dot: dot('#39c2c1') },
+        { label: 'Purple', dot: dot('#9b7fd1') },
+        { label: 'Red', dot: dot('#ff6666') },
+        { label: 'Something else', dot: dot('conic-gradient(#ff6666, #fcca37, #39c2c1, #9b7fd1, #ff6666)') }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

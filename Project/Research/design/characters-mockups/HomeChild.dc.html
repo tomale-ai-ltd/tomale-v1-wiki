@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home, child profile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}a:hover{color:#145e5d}
+</style>
+</helmet>
+<div style="width: 390px; height: 1180px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+
+<header style="height: 220px; box-sizing: border-box; padding: 58px 16px 0; background: #fcca37; border-radius: 0 0 36px 36px; position: relative; overflow: hidden">
+<svg viewBox="0 0 390 220" width="390" height="220" style="position: absolute; left: 0; top: 0" aria-hidden="true"><circle cx="340" cy="30" r="80" fill="#fdd862"/><circle cx="30" cy="200" r="46" fill="#fdd862"/><path d="M270 120 l6 12 13 2 -9 9 2 13 -12 -6 -12 6 2 -13 -9 -9 13 -2 Z" fill="#ffffff"/><circle cx="230" cy="60" r="5" fill="#ff6666"/><circle cx="80" cy="36" r="4" fill="#ffffff"/></svg>
+<div style="position: relative; display: flex; align-items: center; gap: 14px">
+<button type="button" aria-label="Mia's profile: switch profile" style="width: 80px; height: 80px; padding: 0; border: 4px solid #ffffff; border-radius: 999px; overflow: hidden; background: #ffe0e0; cursor: pointer; flex: none">
+<dc-import name="Art" kind="girl" hint-size="72px,72px"></dc-import>
+</button>
+<div style="min-width: 0">
+<h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">Hello Mia</h1>
+<p style="margin: 2px 0 0; font-size: 18px; line-height: 24px">Ready for a story?</p>
+</div>
+</div>
+</header>
+
+<main style="position: relative; margin-top: -48px; padding: 0 16px; display: flex; flex-direction: column; gap: 24px">
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<a href="#" style="min-height: 176px; box-sizing: border-box; padding: 16px; border-radius: 24px; background: #ff6666; color: #2b1f1c; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 8px rgba(43,31,28,0.08)">
+<span style="width: 72px; height: 72px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center"><img src="/_blob/6f885f744f4472a79b15545ebdbdd778" alt="" width="52" height="52" style="object-fit: contain"></span>
+<span style="font-size: 24px; line-height: 28px; font-weight: 700">Make a story</span>
+</a>
+<a href="CreateCharacter.dc.html" style="min-height: 176px; box-sizing: border-box; padding: 16px; border-radius: 24px; background: #39c2c1; color: #2b1f1c; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 8px rgba(43,31,28,0.08)">
+<span style="width: 72px; height: 72px; border-radius: 999px; overflow: hidden; background: #ffffff; display: block"><dc-import name="Art" kind="dragon" hint-size="72px,72px"></dc-import></span>
+<span style="font-size: 24px; line-height: 28px; font-weight: 700">Make a character</span>
+</a>
+</div>
+
+<section aria-labelledby="news-h" style="display: flex; gap: 14px; align-items: center; padding: 16px; border-radius: 16px; background: #ffe0e0">
+<div style="width: 76px; height: 76px; border-radius: 16px; overflow: hidden; flex: none; background: #ffffff">
+<svg viewBox="0 0 76 76" width="76" height="76" aria-hidden="true"><circle cx="26" cy="30" r="18" fill="#39c2c1" opacity="0.55"/><circle cx="46" cy="38" r="20" fill="#ff6666" opacity="0.5"/><circle cx="34" cy="50" r="16" fill="#fcca37" opacity="0.6"/><path d="M52 10 L66 24 L40 50 L30 52 L32 42 Z" fill="#a16959" stroke="#2b1f1c" stroke-width="2.5" stroke-linejoin="round"/></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6e5c57">Try this</span>
+<h2 id="news-h" style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 700">New: painted pictures!</h2>
+<p style="margin: 0; font-size: 16px; line-height: 22px">Try watercolour in your next story.</p>
+</div>
+</section>
+
+<section aria-labelledby="mine-h"style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<h2 id="mine-h" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">My stories</h2>
+<a href="#" style="font-size: 16px; font-weight: 700; text-decoration: none">See all</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<a href="#" style="display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: 16px; background: #d7f3f2; color: #2b1f1c; text-decoration: none">
+<div style="aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden"><dc-import name="Art" kind="dragon" hint-size="100%,100%"></dc-import></div>
+<span style="font-size: 18px; line-height: 22px; font-weight: 700">Pip and the Moon Kite</span>
+</a>
+<a href="#" style="display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: 16px; background: #ffe3d1; color: #2b1f1c; text-decoration: none">
+<div style="aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden"><dc-import name="Art" kind="fox" hint-size="100%,100%"></dc-import></div>
+<span style="font-size: 18px; line-height: 22px; font-weight: 700">Rosie Finds the Rainbow</span>
+</a>
+</div>
+</section>
+
+<section aria-labelledby="badges-h" style="display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 16px; background: #ffffff; box-shadow: 0 2px 8px rgba(43,31,28,0.08)">
+<h2 id="badges-h" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">My badges</h2>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{badges}}" as="b" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; opacity: {{b.opacity}}">
+<span style="{{b.discStyle}}">
+<svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><path d="M20 4 l4.6 9.4 10.4 1.5 -7.5 7.3 1.8 10.3 -9.3 -4.9 -9.3 4.9 1.8 -10.3 -7.5 -7.3 10.4 -1.5 Z" fill="#ffffff" stroke="#2b1f1c" stroke-width="2.5" stroke-linejoin="round"/></svg>
+</span>
+<span style="font-size: 14px; line-height: 18px; font-weight: 700">{{b.label}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+</main>
+
+<div style="position: absolute; left: 0; right: 0; bottom: 0">
+<dc-import name="TabBar" profile="child" selected="home" hint-size="100%,98px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const disc = (fill, earned) => 'width: 64px; height: 64px; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: ' + fill + '; border: 3px ' + (earned ? 'solid #2b1f1c' : 'dashed #8f7f7a');
+    return {
+      badges: [
+        { label: 'First story', discStyle: disc('#fcca37', true), opacity: 1 },
+        { label: '3 characters', discStyle: disc('#39c2c1', true), opacity: 1 },
+        { label: 'Read to the end', discStyle: disc('#ff6666', true), opacity: 1 },
+        { label: '5 stories', discStyle: disc('#f1ebe8', false), opacity: 0.75 }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

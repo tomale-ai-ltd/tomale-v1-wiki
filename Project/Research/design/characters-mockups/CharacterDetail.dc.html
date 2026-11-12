@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Character detail, parent profile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}a:hover{color:#145e5d}
+</style>
+</helmet>
+<div style="width: 390px; height: 1120px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+
+<header style="height: 330px; box-sizing: border-box; padding: 54px 16px 0; background: #d7f3f2; border-radius: 0 0 36px 36px; position: relative; overflow: hidden">
+<svg viewBox="0 0 390 330" width="390" height="330" style="position: absolute; left: 0; top: 0" aria-hidden="true"><circle cx="195" cy="190" r="150" fill="#bfe9e8"/><circle cx="60" cy="110" r="6" fill="#ffffff"/><circle cx="330" cy="140" r="5" fill="#fcca37"/><circle cx="310" cy="250" r="4" fill="#ffffff"/></svg>
+<div style="position: relative; display: flex; justify-content: space-between">
+<a href="Characters.dc.html" aria-label="Back to characters" style="width: 48px; height: 48px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center">
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
+<a href="QuickActions.dc.html" aria-label="More for Pip" style="width: 48px; height: 48px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center">
+<svg viewBox="0 0 24 24" width="24" height="24" fill="#2b1f1c" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></a>
+</div>
+<div style="position: relative; width: 210px; height: 210px; margin: 4px auto 0; border-radius: 999px; overflow: hidden; border: 6px solid #ffffff; box-shadow: 0 2px 8px rgba(43,31,28,0.08)">
+<dc-import name="Art" kind="dragon" hint-size="210px,210px"></dc-import>
+</div>
+</header>
+
+<main style="padding: 20px 16px 0; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">Pip</h1>
+<button type="button" aria-pressed="true" style="height: 44px; padding: 0 14px; border-radius: 999px; border: 2px solid #2b1f1c; background: #fcca37; color: #2b1f1c; font: inherit; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 6px">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" fill="#ffffff" stroke="#2b1f1c" stroke-width="1.6" stroke-linejoin="round"/></svg>Favourite</button>
+</div>
+<p style="margin: -8px 0 0; font-size: 16px; line-height: 24px">A small, friendly green dragon with round glasses and a striped scarf.</p>
+<div style="display: flex; gap: 8px; flex-wrap: wrap">
+<span style="padding: 6px 12px; border-radius: 10px; background: #ffffff; border: 1px solid #e6dedb; font-size: 14px; line-height: 20px">In 3 stories</span>
+<span style="padding: 6px 12px; border-radius: 10px; background: #ffffff; border: 1px solid #e6dedb; font-size: 14px; line-height: 20px">Made 12 Oct 2026</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<a href="#" style="height: 52px; border-radius: 999px; background: #fcca37; color: #2b1f1c; font-size: 16px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px">
+<img src="/_blob/6f885f744f4472a79b15545ebdbdd778" alt="" width="28" height="28" style="object-fit: contain">Create a story with Pip</a>
+<a href="DrawAgain.dc.html" style="height: 48px; border-radius: 999px; border: 2px solid #8f7f7a; background: #ffffff; color: #2b1f1c; font-size: 16px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Draw Pip again</a>
+</div>
+
+<section aria-labelledby="stories-h" style="display: flex; flex-direction: column; gap: 10px">
+<h2 id="stories-h" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">Stories with Pip</h2>
+<sc-for list="{{stories}}" as="s" hint-placeholder-count="3">
+<a href="#" style="display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 16px; background: #ffffff; box-shadow: 0 2px 8px rgba(43,31,28,0.08); color: #2b1f1c; text-decoration: none">
+<span style="width: 56px; height: 56px; border-radius: 10px; overflow: hidden; flex: none; display: block"><dc-import name="Art" kind="{{s.kind}}" hint-size="56px,56px"></dc-import></span>
+<span style="display: flex; flex-direction: column; min-width: 0">
+<span style="font-size: 18px; line-height: 22px; font-weight: 700">{{s.title}}</span>
+<span style="font-size: 14px; line-height: 18px; color: #6e5c57">{{s.meta}}</span>
+</span>
+</a>
+</sc-for>
+</section>
+</main>
+
+<div style="position: absolute; left: 0; right: 0; bottom: 0">
+<dc-import name="TabBar" profile="parent" selected="characters" hint-size="100%,98px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1120}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      stories: [
+        { title: 'Pip and the Moon Kite', meta: 'For Mia', kind: 'dragon' },
+        { title: 'The Great Snowball Race', meta: 'For Mia and Leo', kind: 'fox' },
+        { title: 'Pip Learns to Share', meta: 'For Leo', kind: 'bear' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

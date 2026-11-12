@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Delete character confirmation</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+<div aria-hidden="true" style="height: 170px; background: #ff6666; border-radius: 0 0 32px 32px"></div>
+<div aria-hidden="true" style="padding: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<div style="height: 230px; border-radius: 16px; background: #ffffff"></div><div style="height: 230px; border-radius: 16px; background: #ffffff"></div>
+<div style="height: 230px; border-radius: 16px; background: #ffffff"></div><div style="height: 230px; border-radius: 16px; background: #ffffff"></div>
+</div>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(43,31,28,0.4)"></div>
+
+<section role="alertdialog" aria-modal="true" aria-labelledby="del-title" aria-describedby="del-body" style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 10px 24px 40px; background: #ffffff; border-radius: 24px 24px 0 0; box-shadow: 0 -8px 24px rgba(43,31,28,0.12); display: flex; flex-direction: column; gap: 16px; align-items: stretch">
+<div aria-hidden="true" style="width: 36px; height: 4px; border-radius: 999px; background: #e6dedb; margin: 0 auto"></div>
+<div style="display: flex; justify-content: center">
+<span style="width: 96px; height: 96px; border-radius: 999px; overflow: hidden; border: 4px solid #fde8e6; display: block"><dc-import name="Art" kind="dragon" hint-size="96px,96px"></dc-import></span>
+</div>
+<h2 id="del-title" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700; text-align: center">Delete Pip?</h2>
+<p id="del-body" style="margin: 0; font-size: 16px; line-height: 24px; text-align: center">Pip will be gone for everyone in your family and can't be used in new stories. Stories Pip is already in won't change.</p>
+<div style="display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #fde8e6">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#b3261e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+<p style="margin: 0; font-size: 16px; line-height: 22px; color: #2b1f1c"><strong>This can't be undone.</strong> To hide Pip from your children instead, <a href="QuickActions.dc.html" style="font-weight: 700">archive Pip</a>.</p>
+</div>
+<button type="button" style="height: 48px; border-radius: 999px; border: 0; background: #b3261e; color: #ffffff; font: inherit; font-size: 16px; font-weight: 700">Delete Pip</button>
+<a href="QuickActions.dc.html" style="height: 48px; box-sizing: border-box; border-radius: 999px; border: 2px solid #8f7f7a; background: #ffffff; color: #2b1f1c; font-size: 16px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center">Keep Pip</a>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

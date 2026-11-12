@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Draw a character again</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+<div aria-hidden="true" style="height: 330px; background: #d7f3f2; border-radius: 0 0 36px 36px"></div>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(43,31,28,0.4)"></div>
+
+<section role="dialog" aria-modal="true" aria-labelledby="da-title" style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 10px 24px 40px; background: #ffffff; border-radius: 24px 24px 0 0; box-shadow: 0 -8px 24px rgba(43,31,28,0.12); display: flex; flex-direction: column; gap: 16px">
+<div aria-hidden="true" style="width: 36px; height: 4px; border-radius: 999px; background: #e6dedb; margin: 0 auto"></div>
+<div style="display: flex; align-items: center; gap: 14px">
+<span style="width: 80px; height: 80px; border-radius: 16px; overflow: hidden; flex: none; display: block"><dc-import name="Art" kind="dragon" hint-size="80px,80px"></dc-import></span>
+<div>
+<h2 id="da-title" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">Draw Pip again</h2>
+<p style="margin: 2px 0 0; font-size: 16px; line-height: 22px">We'll use this picture as a starting point.</p>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="instr" style="font-size: 14px; line-height: 20px; font-weight: 700">What should change? (optional)</label>
+<textarea id="instr" rows="3" maxlength="200" style="{{fieldStyle}}">{{text}}</textarea>
+<sc-if value="{{isDefault}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57">For example: "wearing a red scarf" or "on a sunny beach". Up to 200 characters.</p>
+</sc-if>
+<sc-if value="{{isRejected}}" hint-placeholder-val="{{ false }}">
+<p role="alert" style="margin: 0; font-size: 14px; line-height: 20px; color: #b3261e; display: flex; gap: 6px; align-items: flex-start">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b3261e" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+We can't draw characters from films or books. Try describing your own idea instead.</p>
+</sc-if>
+</div>
+
+<sc-if value="{{isBusy}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #fff4d1">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#8a5a00" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+<p style="margin: 0; font-size: 16px; line-height: 22px"><strong>Pip is already being drawn.</strong> Try again in a few minutes.</p>
+</div>
+</sc-if>
+
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57">The new picture replaces the old one when it's ready.</p>
+<button type="button" style="{{primaryStyle}}">Draw again</button>
+<button type="button" style="height: 48px; border-radius: 999px; border: 2px solid #8f7f7a; background: #ffffff; font: inherit; font-size: 16px; font-weight: 700; color: #2b1f1c">Cancel</button>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["default","rejected","busy"],"default":"default"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.props.state ?? 'default';
+    const err = s === 'rejected';
+    return {
+      isDefault: s === 'default', isRejected: err, isBusy: s === 'busy',
+      text: err ? "holding Elsa's ice crown" : 'wearing a red scarf',
+      fieldStyle: 'box-sizing: border-box; width: 100%; min-height: 96px; padding: 12px; border-radius: 10px; border: 2px solid ' + (err ? '#b3261e' : '#8f7f7a') + '; font: inherit; font-size: 16px; line-height: 24px; color: #2b1f1c; background: #ffffff; resize: none',
+      primaryStyle: 'height: 48px; border-radius: 999px; border: 0; background: #d63c3c; color: #ffffff; font: inherit; font-size: 16px; font-weight: 700; opacity: ' + (s === 'busy' ? '0.4' : '1')
+    };
+  }
+}
+</script>
+</body>
+</html>

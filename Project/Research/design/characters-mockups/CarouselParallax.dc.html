@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Characters carousel, parallax cards</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #ffe0e0; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+<svg viewBox="0 0 390 844" width="390" height="844" style="position: absolute; left: 0; top: 0" aria-hidden="true"><circle cx="360" cy="80" r="90" fill="#ffd0d0"/><circle cx="20" cy="560" r="70" fill="#ffd0d0"/><circle cx="90" cy="120" r="5" fill="#fcca37"/><circle cx="300" cy="620" r="4" fill="#39c2c1"/></svg>
+
+<div style="position: absolute; left: 16px; right: 16px; top: 54px; display: flex; align-items: center; justify-content: space-between">
+<h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">Characters</h1>
+<div style="display: flex; gap: 8px">
+<button type="button" aria-label="Search characters" style="width: 48px; height: 48px; border: 0; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+<a href="Characters.dc.html" aria-label="Show as a grid" style="width: 48px; height: 48px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></a>
+<a href="CreateCharacter.dc.html" aria-label="New character" style="width: 48px; height: 48px; border-radius: 999px; background: #fcca37; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></a>
+</div>
+</div>
+
+<div aria-hidden="true" style="position: absolute; left: -170px; top: 176px; width: 210px; height: 340px; border-radius: 28px; overflow: hidden; opacity: 0.85; box-shadow: 0 8px 20px rgba(43,31,28,0.12)">
+<div style="position: absolute; left: 0; top: 0; width: 300px; height: 340px"><dc-import name="Art" kind="fox" hint-size="300px,340px"></dc-import></div>
+</div>
+<button type="button" onClick="{{toggle}}" aria-expanded="{{expanded}}" aria-label="Pip. Tap to see more" style="position: absolute; left: 60px; top: 146px; width: 270px; height: 400px; padding: 0; border-radius: 28px; overflow: hidden; border: 6px solid #ffffff; box-shadow: 0 16px 36px rgba(43,31,28,0.2); background: #d7f3f2; cursor: pointer; display: block">
+<span style="position: absolute; left: -50px; top: 0; width: 370px; height: 400px; display: block"><dc-import name="Art" kind="dragon" hint-size="370px,400px"></dc-import></span>
+<span style="position: absolute; top: 14px; right: 14px; width: 44px; height: 44px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Favourite"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" fill="#fcca37" stroke="#2b1f1c" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+</button>
+<div aria-hidden="true" style="position: absolute; left: 350px; top: 176px; width: 210px; height: 340px; border-radius: 28px; overflow: hidden; opacity: 0.85; box-shadow: 0 8px 20px rgba(43,31,28,0.12)">
+<div style="position: absolute; left: -90px; top: 0; width: 300px; height: 340px"><dc-import name="Art" kind="robot" hint-size="300px,340px"></dc-import></div>
+</div>
+
+<sc-if value="{{collapsed}}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; left: 0; right: 0; top: 566px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px">
+<h2 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">Pip</h2>
+<p style="margin: 0; font-size: 16px; line-height: 22px">In 3 stories</p>
+<div role="img" aria-label="Character 2 of 8" style="display: flex; gap: 6px; margin-top: 6px">
+<span style="width: 8px; height: 8px; border-radius: 999px; background: #c9a8a3"></span><span style="width: 24px; height: 8px; border-radius: 999px; background: #2b1f1c"></span><span style="width: 8px; height: 8px; border-radius: 999px; background: #c9a8a3"></span><span style="width: 8px; height: 8px; border-radius: 999px; background: #c9a8a3"></span><span style="width: 8px; height: 8px; border-radius: 999px; background: #c9a8a3"></span>
+</div>
+<p style="margin: 10px 0 0; font-size: 14px; line-height: 20px; color: #6e5c57; display: flex; align-items: center; gap: 6px">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#6e5c57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Swipe to meet others · tap Pip to see more<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#6e5c57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></p>
+</div>
+</sc-if>
+
+<sc-if value="{{revealed}}" hint-placeholder-val="{{ false }}">
+<section aria-label="About Pip" style="position: absolute; left: 0; right: 0; bottom: 98px; box-sizing: border-box; padding: 18px 16px 16px; background: #ffffff; border-radius: 28px 28px 0 0; box-shadow: 0 -8px 24px rgba(43,31,28,0.12); display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<h2 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">Pip</h2>
+<button type="button" onClick="{{toggle}}" aria-label="Close" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #f1ebe8; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2b1f1c" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+</div>
+<p style="margin: -6px 0 0; font-size: 16px; line-height: 22px">A small, friendly green dragon with round glasses and a striped scarf. In 3 stories.</p>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<a href="#" style="min-height: 72px; border-radius: 16px; background: #fcca37; color: #2b1f1c; font-size: 14px; font-weight: 700; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center"><img src="/_blob/6f885f744f4472a79b15545ebdbdd778" alt="" width="28" height="28" style="object-fit: contain">Make a story</a>
+<a href="DrawAgain.dc.html" style="min-height: 72px; border-radius: 16px; background: #d7f3f2; color: #2b1f1c; font-size: 14px; font-weight: 700; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Draw again</a>
+<a href="QuickActions.dc.html" style="min-height: 72px; border-radius: 16px; background: #f1ebe8; color: #2b1f1c; font-size: 14px; font-weight: 700; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px"><svg viewBox="0 0 24 24" width="26" height="26" fill="#2b1f1c" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>More</a>
+</div>
+<h3 style="margin: 4px 0 0; font-size: 20px; line-height: 26px; font-weight: 700">Stories with Pip</h3>
+<div style="display: flex; gap: 10px">
+<sc-for list="{{stories}}" as="s" hint-placeholder-count="3">
+<a href="#" style="flex: 1 1 0; min-width: 0; color: #2b1f1c; text-decoration: none; display: flex; flex-direction: column; gap: 4px">
+<span style="aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; display: block"><dc-import name="Art" kind="{{s.kind}}" hint-size="100%,100%"></dc-import></span>
+<span style="font-size: 14px; line-height: 18px; font-weight: 700">{{s.title}}</span>
+</a>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<div style="position: absolute; left: 0; right: 0; bottom: 0">
+<dc-import name="TabBar" profile="parent" selected="characters" hint-size="100%,98px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startRevealed":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const open = this.state && this.state.open != null ? this.state.open : (this.props.startRevealed ?? false);
+    return {
+      revealed: open,
+      collapsed: !open,
+      expanded: open ? 'true' : 'false',
+      toggle: () => this.setState({ open: !open }),
+      stories: [
+        { title: 'Pip and the Moon Kite', kind: 'dragon' },
+        { title: 'The Great Snowball Race', kind: 'fox' },
+        { title: 'Pip Learns to Share', kind: 'bear' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

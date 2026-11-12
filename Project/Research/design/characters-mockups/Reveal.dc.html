@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>New character reveal</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #fcca37; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+<svg viewBox="0 0 390 844" width="390" height="844" style="position: absolute; left: 0; top: 0" aria-hidden="true">
+<circle cx="195" cy="330" r="190" fill="#fdd862"/><circle cx="195" cy="330" r="140" fill="#fde27f"/>
+<rect x="40" y="120" width="14" height="8" rx="2" fill="#ff6666" transform="rotate(25 47 124)"/><rect x="330" y="150" width="14" height="8" rx="2" fill="#39c2c1" transform="rotate(-30 337 154)"/>
+<rect x="70" y="520" width="14" height="8" rx="2" fill="#39c2c1" transform="rotate(40 77 524)"/><rect x="310" y="500" width="14" height="8" rx="2" fill="#ff6666" transform="rotate(-15 317 504)"/>
+<circle cx="90" cy="220" r="6" fill="#ffffff"/><circle cx="300" cy="250" r="5" fill="#ffffff"/><circle cx="60" cy="400" r="5" fill="#ff6666"/><circle cx="340" cy="420" r="6" fill="#39c2c1"/>
+<path d="M300 80 l5 10 11 1.5 -8 7.5 2 11 -10 -5 -10 5 2 -11 -8 -7.5 11 -1.5 Z" fill="#ffffff"/><path d="M60 600 l4 8 9 1.2 -6.5 6 1.5 9 -8 -4 -8 4 1.5 -9 -6.5 -6 9 -1.2 Z" fill="#ffffff"/>
+</svg>
+
+<a href="Characters.dc.html" aria-label="Close" style="position: absolute; left: 16px; top: 54px; width: 48px; height: 48px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></a>
+
+<div style="position: absolute; left: 50%; top: 190px; width: 260px; height: 260px; margin-left: -130px; border-radius: 999px; overflow: hidden; border: 8px solid #ffffff; box-shadow: 0 14px 36px rgba(43,31,28,0.2)">
+<dc-import name="Art" kind="{{artKind}}" hint-size="260px,260px"></dc-import>
+</div>
+
+<div style="position: absolute; left: 24px; right: 24px; top: 478px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px">
+<sc-if value="{{drawing}}" hint-placeholder-val="{{ false }}">
+<h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">Drawing Pip…</h1>
+<p role="status" style="margin: 0; font-size: 18px; line-height: 26px">This takes a minute or two. You can keep exploring, and we'll put Pip on your Characters page when they're ready.</p>
+<a href="Characters.dc.html" style="margin-top: 12px; height: 48px; padding: 0 24px; border-radius: 999px; background: #ffffff; color: #2b1f1c; font-size: 16px; font-weight: 700; text-decoration: none; display: flex; align-items: center">Keep exploring</a>
+</sc-if>
+<sc-if value="{{ready}}" hint-placeholder-val="{{ true }}">
+<h1 style="margin: 0; font-size: 40px; line-height: 46px; font-weight: 700">Meet Pip!</h1>
+<p style="margin: 0; font-size: 18px; line-height: 26px">Pip is ready for adventures.</p>
+<div style="display: flex; align-items: center; gap: 10px; margin-top: 4px; padding: 8px 14px 8px 8px; border-radius: 999px; background: #ffffff">
+<span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 999px; background: #39c2c1; border: 2px solid #2b1f1c; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 40 40" width="26" height="26"><path d="M20 4 l4.6 9.4 10.4 1.5 -7.5 7.3 1.8 10.3 -9.3 -4.9 -9.3 4.9 1.8 -10.3 -7.5 -7.3 10.4 -1.5 Z" fill="#ffffff" stroke="#2b1f1c" stroke-width="2.5" stroke-linejoin="round"/></svg></span>
+<span style="font-size: 16px; line-height: 22px; font-weight: 700">New badge: First character</span>
+</div>
+<a href="#" style="margin-top: 14px; width: 100%; height: 56px; border-radius: 999px; background: #d63c3c; color: #ffffff; font-size: 18px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center">Make a story with Pip</a>
+<a href="CharacterDetail.dc.html" style="width: 100%; height: 48px; border-radius: 999px; background: #ffffff; color: #2b1f1c; font-size: 16px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center">See Pip</a>
+</sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["ready","drawing"],"default":"ready"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const drawing = (this.props.state ?? 'ready') === 'drawing';
+    return { drawing, ready: !drawing, artKind: drawing ? 'pending' : 'dragon' };
+  }
+}
+</script>
+</body>
+</html>

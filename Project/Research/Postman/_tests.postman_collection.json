@@ -10952,6 +10952,690 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "6D · Profiles (create, edit, delete)",
+					"item": [
+						{
+							"name": "6D-0 · GET /characters — pick a character for the avatar test",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/characters",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"characters"
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6D-0: 200\", () => pm.response.to.have.status(200));",
+											"const l = pm.response.json();",
+											"pm.test(\"6D-0: at least one character\", () => pm.expect(l).to.be.an(\"array\").that.is.not.empty);",
+											"if (l.length) pm.collectionVariables.set(\"avatarCharId\", l[0].id);"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6D-1 · POST /users/user_profiles — two-letter name with a preset avatar",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Jo\",\n  \"avatar_key\": \"preset:fox-blue\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								}
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6D-1: 200 (if ACCOUNT_LIMIT_REACHED, delete a test child profile first)\", () => pm.response.to.have.status(200));",
+											"const j = pm.response.json();",
+											"if (pm.response.code === 200) {",
+											"  pm.collectionVariables.set(\"newProfileId\", j.id);",
+											"  pm.test(\"6D-1: child, not primary\", () => { pm.expect(j.is_child).to.eql(true); pm.expect(j.is_primary).to.eql(false); });",
+											"  pm.test(\"6D-1: avatar saved\", () => pm.expect(j.avatar_key).to.eql(\"preset:fox-blue\"));",
+											"  pm.test(\"6D-1: exact fields\", () => pm.expect(Object.keys(j).sort()).to.eql([\"avatar_key\",\"created_at\",\"id\",\"is_child\",\"is_primary\",\"name\"]));",
+											"}"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6D-2 · POST /users/user_profiles — 19-character name refused",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Abcdefghijklmnopqrs\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								}
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6D-2: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6D-2: INVALID_NAME\", () => pm.expect(code()).to.eql(\"INVALID_NAME\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6D-3 · POST /users/user_profiles — blocked name refused",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Adolf Hitler\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								}
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6D-3: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6D-3: NAME_NOT_ALLOWED\", () => pm.expect(code()).to.eql(\"NAME_NOT_ALLOWED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6D-4 · POST /users/user_profiles — bad avatar key refused",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Sam\",\n  \"avatar_key\": \"fox\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								}
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6D-4: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6D-4: INVALID_AVATAR_KEY\", () => pm.expect(code()).to.eql(\"INVALID_AVATAR_KEY\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6D-5 · PATCH profile — household character as avatar",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles/{{newProfileId}}",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles",
+										"{{newProfileId}}"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"avatar_key\": \"character:{{avatarCharId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"newProfileId\")) { console.log(\"Skipped: needs 6D-1\"); pm.execution.skipRequest(); }",
+											"if (!pm.collectionVariables.get(\"avatarCharId\")) { pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6D-5: 200\", () => pm.response.to.have.status(200));",
+											"pm.test(\"6D-5: avatar is the character\", () => pm.expect(pm.response.json().avatar_key).to.eql(\"character:\" + pm.collectionVariables.get(\"avatarCharId\")));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6D-6 · PATCH profile — another account's character refused",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles/{{newProfileId}}",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles",
+										"{{newProfileId}}"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"avatar_key\": \"character:1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"newProfileId\")) { console.log(\"Skipped: needs 6D-1\"); pm.execution.skipRequest(); }",
+											"if (String(pm.collectionVariables.get(\"avatarCharId\")) === \"1\") { pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6D-6: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6D-6: INVALID_AVATAR_KEY\", () => pm.expect(code()).to.eql(\"INVALID_AVATAR_KEY\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6D-7 · PATCH profile — empty body refused",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles/{{newProfileId}}",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles",
+										"{{newProfileId}}"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"newProfileId\")) { console.log(\"Skipped: needs 6D-1\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6D-7: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6D-7: NOTHING_TO_UPDATE\", () => pm.expect(code()).to.eql(\"NOTHING_TO_UPDATE\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6D-8 · POST /users/user_profiles as child — refused",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Kit\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_child}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6D-8: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6D-8: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6D-9 · PATCH the parent's profile as child — refused",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles/{{test_primary_profile_uuid}}",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles",
+										"{{test_primary_profile_uuid}}"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"avatar_key\": \"preset:fox-blue\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_child}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6D-9: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6D-9: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6D-10 · DELETE the primary profile — refused",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles/{{test_primary_profile_uuid}}",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles",
+										"{{test_primary_profile_uuid}}"
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6D-10: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6D-10: CANNOT_DELETE_PRIMARY\", () => pm.expect(code()).to.eql(\"CANNOT_DELETE_PRIMARY\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6D-11 · DELETE a profile as child — refused",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles/{{newProfileId}}",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles",
+										"{{newProfileId}}"
+									]
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_child}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"newProfileId\")) { console.log(\"Skipped: needs 6D-1\"); pm.execution.skipRequest(); }",
+											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6D-11: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6D-11: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6D-12 · DELETE the new profile as parent",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles/{{newProfileId}}",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles",
+										"{{newProfileId}}"
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"newProfileId\")) { console.log(\"Skipped: needs 6D-1\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6D-12: 200\", () => pm.response.to.have.status(200));",
+											"pm.collectionVariables.set(\"deletedProfileId\", pm.collectionVariables.get(\"newProfileId\"));",
+											"pm.collectionVariables.unset(\"newProfileId\");"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6D-13 · GET /users/user_profiles — primary first, deleted profile gone",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles"
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6D-13: 200\", () => pm.response.to.have.status(200));",
+											"const l = pm.response.json();",
+											"pm.test(\"6D-13: primary profile first\", () => pm.expect(l[0].is_primary).to.eql(true));",
+											"pm.test(\"6D-13: deleted profile not listed\", () => pm.expect(l.some(x => x.id === pm.collectionVariables.get(\"deletedProfileId\"))).to.be.false);"
+										]
+									}
+								}
+							]
+						}
+					]
 				}
 			]
 		}
@@ -11141,10 +11825,6 @@
 		},
 		{
 			"key": "bearerToken_child",
-			"value": ""
-		},
-		{
-			"key": "test_parent_pin",
 			"value": ""
 		}
 	]

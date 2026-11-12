@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Character preview before drawing</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+
+<header style="box-sizing: border-box; padding: 54px 16px 14px; background: #fcca37; border-radius: 0 0 28px 28px; display: flex; align-items: center; gap: 12px">
+<a href="ChatCreate.dc.html" aria-label="Back to the chat" style="width: 48px; height: 48px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex: none"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
+<h1 style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">New character</h1>
+</header>
+
+<div style="padding: 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; gap: 8px; align-items: flex-end; max-width: 320px">
+<span aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex: none; box-shadow: 0 2px 8px rgba(43,31,28,0.08)"><img src="/_blob/6f885f744f4472a79b15545ebdbdd778" alt="" width="26" height="26" style="object-fit: contain"></span>
+<p style="margin: 0; padding: 12px 14px; border-radius: 20px 20px 20px 6px; background: #ffffff; box-shadow: 0 2px 8px rgba(43,31,28,0.08); font-size: 18px; line-height: 26px">Here's Pip! Shall I draw them?</p>
+</div>
+
+<section aria-labelledby="pv-name" style="background: #ffffff; border-radius: 24px; box-shadow: 0 2px 8px rgba(43,31,28,0.08); overflow: hidden">
+<div style="height: 120px; background: #d7f3f2; display: flex; align-items: center; justify-content: center; position: relative">
+<svg viewBox="0 0 358 120" width="358" height="120" style="position: absolute; left: 0; top: 0" aria-hidden="true"><circle cx="40" cy="30" r="5" fill="#ffffff"/><circle cx="320" cy="40" r="6" fill="#fcca37"/><circle cx="300" cy="96" r="4" fill="#ffffff"/></svg>
+<span style="width: 96px; height: 96px; border-radius: 999px; overflow: hidden; border: 4px solid #ffffff; display: block; position: relative"><dc-import name="Art" kind="pending" hint-size="96px,96px"></dc-import></span>
+</div>
+<div style="padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<h2 id="pv-name" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700; text-align: center">Pip</h2>
+<dl style="margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{attrs}}" as="a" hint-placeholder-count="6">
+<div style="padding: 8px 10px; border-radius: 10px; background: #f8f8f8">
+<dt style="font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6e5c57">{{a.k}}</dt>
+<dd style="margin: 2px 0 0; font-size: 16px; line-height: 22px">{{a.v}}</dd>
+</div>
+</sc-for>
+</dl>
+</div>
+</section>
+
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57; text-align: center">Uses 1 of your 30 character pictures this month.</p>
+<a href="Reveal.dc.html" style="height: 52px; border-radius: 999px; background: #d63c3c; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center">Draw Pip</a>
+<a href="ChatCreate.dc.html" style="height: 48px; box-sizing: border-box; border-radius: 999px; border: 2px solid #8f7f7a; background: #ffffff; color: #2b1f1c; font-size: 16px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center">Change something</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      attrs: [
+        { k: 'Kind', v: 'Dragon' },
+        { k: 'Size', v: 'Small' },
+        { k: 'Colour', v: 'Green' },
+        { k: 'Eyes', v: 'Big and round' },
+        { k: 'Wearing', v: 'Striped scarf' },
+        { k: 'Special', v: 'Round glasses' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
