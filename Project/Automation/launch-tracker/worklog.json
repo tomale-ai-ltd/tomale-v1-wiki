@@ -68,5 +68,15 @@
   "date": "2026-11-11",
   "milestone": "M2",
   "what": "Characters story counts, story filter and strict parent checks published in Xano, 103 Postman tests green; create-hardening brief and 008 micro-PRD drafted"
+ },
+ {
+  "date": "2026-11-12",
+  "milestone": "M2",
+  "what": "OpenAPI overlay merged in PR #26, picture_status on character reads; 008 specified, implemented and device-checked, US6 fixes and US7 kit setup (37 of 47 tasks)"
+ },
+ {
+  "date": "2026-11-12",
+  "milestone": "M3",
+  "what": "Part A backend (profiles and PIN) published with Postman folder 6 green; part B approvals brief and Xano prompts written"
  }
 ]

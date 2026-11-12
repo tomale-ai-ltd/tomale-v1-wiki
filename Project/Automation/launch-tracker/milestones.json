@@ -45,11 +45,11 @@
   "est_min": 3,
   "est_max": 4,
   "status": "in progress",
-  "progress": 0.3,
-  "actual_days": 1.17,
+  "progress": 0.79,
+  "actual_days": 1.67,
   "finished": null,
   "estimate_assumed": false,
-  "note": "Backend additions published, 103 Postman tests green (11/11); create hardening and OpenAPI fix before speckit 008"
+  "note": "008 implemented on branch (37 of 47 tasks); US7 component kit awaiting Kyle's review; PR #26 OpenAPI overlay"
  },
  {
   "order": 5,
@@ -57,12 +57,12 @@
   "milestone": "Profiles and parental controls",
   "est_min": 4,
   "est_max": 6,
-  "status": "not started",
-  "progress": 0,
-  "actual_days": 0,
+  "status": "in progress",
+  "progress": 0.2,
+  "actual_days": 0.5,
   "finished": null,
   "estimate_assumed": false,
-  "note": "Profile picker, PIN gate, approvals"
+  "note": "Part A backend (profiles, PIN) built 12/11; part B approvals brief ready; app speckit not started"
  },
  {
   "order": 6,
