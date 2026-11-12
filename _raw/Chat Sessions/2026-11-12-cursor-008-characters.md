@@ -13,9 +13,10 @@ feature: 008-characters
 
 ## Decisions
 - Kyle asked the spec to follow the generated character types. Cursor treated `picture_status`, `stories_count`, and a nullable `cover_image` as the picture contract, including a redraw that still has the previous picture. Favourite and archive replies that omit those fields keep the picture, the drawing state, and the story count already on screen.
+- Kyle, 12/11: one detail screen for both profiles. A grid tap or "See more" on the carousel panel opens it. The parent sees More (archive and delete). The child sees the same screen without More, and favourite and Draw again work there. The carousel panel stays short: actions plus up to 2 stories.
 
 ## Open questions / blockers
-- One `[NEEDS CLARIFICATION]` remains: how someone opens the character detail screen (grid only, grid and carousel, or the carousel panel is the detail screen).
+- None left in the spec.
 
 ## Next
-- Kyle answers that question. Then `/speckit.clarify` or `/speckit.plan`. Do not push until he asks.
+- `/speckit.clarify` or `/speckit.plan` when Kyle asks. Do not push until he asks.
