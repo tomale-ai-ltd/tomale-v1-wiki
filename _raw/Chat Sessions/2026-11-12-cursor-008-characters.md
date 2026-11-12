@@ -10,7 +10,9 @@ feature: 008-characters
 ## What changed
 - Copied `Project/Plan/008-characters-micro-prd.md` unchanged to `.docs/prd/008-characters.md` and committed it as `5515ed3` on `008-characters`. Not pushed.
 - Wrote `specs/008-characters/spec.md` and the requirements checklist. Clarify finished 12/11. Plan artifacts: `plan.md`, `research.md`, `data-model.md`, `quickstart.md`, `contracts/characters.openapi.yaml`, and `tasks.md`.
-- After analyze, Kyle asked for remediation of the findings. Cursor edited `spec.md`, `plan.md`, and `tasks.md` only, and copied `Project/Plan/008-characters-copy.md` unchanged to `specs/008-characters/copy.md`. Constitution not edited. Not implemented. Not committed. Not pushed.
+- After analyze, Kyle asked for remediation. Cursor copied the vault copy file to `specs/008-characters/copy.md` and edited the spec, plan, and tasks. Commit `4123f9f` records the spec, plan, tasks, copy, research, and quickstart. Not pushed.
+- Kyle then updated the vault copy (the three missing lines, and the child hint "Tap [Name] to see more."). Cursor refreshed `specs/008-characters/copy.md` and pointed FR-023 at those lines. Research and quickstart now describe the optimistic star and archive.
+- Implemented Characters on `008-characters` through T030 and T032. T031 device checks are still for Kyle. The app code is commit `70282f4`. Not pushed. The stories share the list screen, the detail screen, and the store, so they are one commit.
 
 ## Decisions
 - Kyle asked the spec to follow the generated character types. Cursor treated `picture_status`, `stories_count`, and a nullable `cover_image` as the picture contract, including a redraw that still has the previous picture. Favourite and archive replies that omit those fields keep the picture, the drawing state, and the story count already on screen.
@@ -23,8 +25,7 @@ feature: 008-characters
 - The copy file and the spec agree that "Make a story" and "Create a story with [Name]" stay on "Coming soon" until M4. Cursor did not treat that as a conflict.
 
 ## Open questions / blockers
-- The copy file has no line for "Still drawing, check back soon", "Untitled story", or the unavailable line. Those three stay in the spec until the copy file has them.
-- The child carousel hint in the copy file says "Tap [Name] to play." The card label says "Tap to see more." Cursor kept the tap action as opening the panel.
+- None. Device checks in `specs/008-characters/quickstart.md` are still to run on a phone.
 
 ## Next
-- Analyze was re-run after the remediation. Do not implement until Kyle asks. Do not push until he asks.
+- Kyle runs the device checks, then asks for a push. Do not push until he asks.
