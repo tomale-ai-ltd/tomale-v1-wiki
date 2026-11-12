@@ -5,19 +5,19 @@ branch: 008-characters
 feature: 008-characters
 ---
 
-# Grid committed, then the new-character form
+# Create form pushed; Draw again up for review
 
 ## What changed
-- `41b48cd` restyles the character grid. A drawing tile shows "Drawing [Name]…" in the picture. Pushed to `origin/008-characters`. No pull request.
-- The new-character form is restyled to `CreateCharacter.dc.html` and is not committed. Shots are in `.screenshots/create/`.
+- `bdc208b` restyles the new-character form: 20 px between field groups and under the intro line, 8 px between the picture and that line, and the artboard's soft yellow circle as the `highlight-soft` token. Pushed to `origin/008-characters`. No pull request. Shots are in `.screenshots/create/`.
+- Draw again is restyled to `DrawAgain.dc.html`, including refused-instruction, already-drawing, and saving. Not committed. Shots are in `.screenshots/draw-again/`.
 
 ## Decisions
-- Kyle approved the grid with the drawing line added in the picture.
-- The refused-description preview uses the kit sentence "That description isn't allowed. Please try another." A real refusal still shows the server's message. The name refusal in the preview is the copy-sheet sentence.
-- Saving shows a spinner and the label "Saving", and the button ignores another press.
+- Kyle approved the create form after the spacing fix, and asked for the soft circle.
+- The refused-instruction preview uses the artboard sentence "We can't draw characters from films or books. Try describing your own idea instead." A real refusal still shows the server's message. Already-drawing uses "[Name] is already being drawn." and "Try again in a few minutes." Saving keeps the label "Draw again" with a spinner, and the button dims.
+- The refused-description preview on the create form still uses the kit sentence "That description isn't allowed. Please try another." A real refusal shows the server's message.
 
 ## Open questions / blockers
-- Kyle's review of the create form, including whether the description refusal sentence stays.
+- Kyle's review of Draw again, including whether the film-or-book sentence stays.
 
 ## Next
-- Kyle reviews `.screenshots/create/`. Do not push again until he asks. The next screen after the form is Draw again.
+- Kyle reviews `.screenshots/draw-again/`. Do not commit Draw again until he asks. After that, the delete confirmation.
