@@ -11714,7 +11714,7 @@
 								},
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"instant_stories_id\": 1\n}",
+									"raw": "{\n  \"instant_stories_id\": 1,\n  \"message\": \"test\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -11831,7 +11831,7 @@
 								},
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"store_orders_id\": 1,\n  \"message\": \"test\"\n}",
+									"raw": "{\n  \"store_orders_id\": 1,\n  \"message\": \"test\",\n  \"shipping_name\": \"Test\",\n  \"shipping_phone\": \"0\",\n  \"shipping_email\": \"test@example.invalid\",\n  \"shipping_add1\": \"1 Test St\",\n  \"shipping_town\": \"Town\",\n  \"shipping_postcode\": \"AB1 2CD\",\n  \"country\": \"GB\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
