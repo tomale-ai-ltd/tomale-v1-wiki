@@ -12232,6 +12232,487 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "6F · Story moves, assign, auth/me",
+					"item": [
+						{
+							"name": "6F-1 · POST /users/user_profiles — temporary child for the move test",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Mo\",\n  \"avatar_key\": \"preset:fox-blue\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								}
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6F-1: 200 (if ACCOUNT_LIMIT_REACHED, delete a spare test child)\", () => pm.response.to.have.status(200));",
+											"if (pm.response.code === 200) pm.collectionVariables.set(\"moveProfileId\", pm.response.json().id);"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6F-2 · POST /instant_stories — draft story (parent)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/instant_stories",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"instant_stories"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Postman move test\",\n  \"subtitle\": \"\",\n  \"user_prompt\": \"A gentle story about a dragon learning to share.\",\n  \"theme_id\": \"{{themeId}}\",\n  \"artwork_style_id\": \"{{artworkStyleId}}\",\n  \"total_pages\": \"{{totalPages}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								}
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6F-2: 200\", () => pm.response.to.have.status(200));",
+											"if (pm.response.code === 200) pm.collectionVariables.set(\"moveStoryId\", pm.response.json().instant_story.id);"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6F-3 · POST /instant_stories/{id}/assign — to the temporary child",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/instant_stories/{{moveStoryId}}/assign",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"instant_stories",
+										"{{moveStoryId}}",
+										"assign"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"instant_stories_id\": {{moveStoryId}},\n  \"user_profiles_id\": \"{{moveProfileId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"moveProfileId\")) { console.log(\"Skipped: needs 6F-1\"); pm.execution.skipRequest(); }",
+											"if (!pm.collectionVariables.get(\"moveStoryId\")) { console.log(\"Skipped: needs 6F-2\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6F-3: 200\", () => pm.response.to.have.status(200));",
+											"const j = pm.response.json();",
+											"pm.test(\"6F-3: story now belongs to the child\", () => { pm.expect(j.instant_stories_id).to.eql(Number(pm.collectionVariables.get(\"moveStoryId\"))); pm.expect(j.user_profiles_id).to.eql(pm.collectionVariables.get(\"moveProfileId\")); });"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6F-4 · assign as child — refused",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/instant_stories/{{moveStoryId}}/assign",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"instant_stories",
+										"{{moveStoryId}}",
+										"assign"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"instant_stories_id\": {{moveStoryId}},\n  \"user_profiles_id\": \"{{test_child_profile_uuid}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_child}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"moveStoryId\")) { console.log(\"Skipped: needs 6F-2\"); pm.execution.skipRequest(); }",
+											"if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (6A-0)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6F-4: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"6F-4: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6F-5 · assign a missing story — not found",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/instant_stories/999999999/assign",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"instant_stories",
+										"999999999",
+										"assign"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"instant_stories_id\": 999999999,\n  \"user_profiles_id\": \"{{test_child_profile_uuid}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								}
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6F-5: 404\", () => pm.response.to.have.status(404));",
+											"pm.test(\"6F-5: STORY_NOT_FOUND\", () => pm.expect(code()).to.eql(\"STORY_NOT_FOUND\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6F-6 · assign to an unknown profile — not found",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/instant_stories/{{moveStoryId}}/assign",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"instant_stories",
+										"{{moveStoryId}}",
+										"assign"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"instant_stories_id\": {{moveStoryId}},\n  \"user_profiles_id\": \"00000000-0000-0000-0000-000000000000\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"moveStoryId\")) { console.log(\"Skipped: needs 6F-2\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const code = () => ((pm.response.json() || {}).payload || {}).code;",
+											"pm.test(\"6F-6: 404\", () => pm.response.to.have.status(404));",
+											"pm.test(\"6F-6: PROFILE_NOT_FOUND\", () => pm.expect(code()).to.eql(\"PROFILE_NOT_FOUND\"));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6F-7 · DELETE the temporary child — its story moves to the parent",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/users/user_profiles/{{moveProfileId}}",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"users",
+										"user_profiles",
+										"{{moveProfileId}}"
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"moveProfileId\")) { console.log(\"Skipped: needs 6F-1\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6F-7: 200\", () => pm.response.to.have.status(200));",
+											"const j = pm.response.json();",
+											"pm.test(\"6F-7: deleted\", () => pm.expect(j.deleted).to.eql(true));",
+											"pm.test(\"6F-7: at least the test story moved\", () => pm.expect(j.stories_moved).to.be.at.least(1));",
+											"pm.collectionVariables.unset(\"moveProfileId\");"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6F-8 · GET /instant_stories/{id} — story is back on the parent profile",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/instant_stories/{{moveStoryId}}",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"instant_stories",
+										"{{moveStoryId}}"
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"moveStoryId\")) { console.log(\"Skipped: needs 6F-2\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6F-8: 200\", () => pm.response.to.have.status(200));",
+											"pm.test(\"6F-8: belongs to the primary profile\", () => pm.expect(pm.response.json().user_profiles_id).to.eql(pm.environment.get(\"test_primary_profile_uuid\")));"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6F-9 · DELETE /instant_stories/{id} — clean up the test story",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/instant_stories/{{moveStoryId}}",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"instant_stories",
+										"{{moveStoryId}}"
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"moveStoryId\")) { console.log(\"Skipped: needs 6F-2\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6F-9: 200\", () => pm.response.to.have.status(200));",
+											"pm.collectionVariables.unset(\"moveStoryId\");"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "6F-10 · GET /auth/me — pin_set, pin_locked, is_primary; no profile_photo",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/me",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"6F-10: 200\", () => pm.response.to.have.status(200));",
+											"const j = pm.response.json();",
+											"pm.test(\"6F-10: pin_set true\", () => pm.expect(j.user.pin_set).to.eql(true));",
+											"pm.test(\"6F-10: pin_locked false\", () => pm.expect(j.user.pin_locked).to.eql(false));",
+											"pm.test(\"6F-10: active_profile.is_primary present\", () => pm.expect(j.auth.active_profile).to.have.property(\"is_primary\"));",
+											"pm.test(\"6F-10: no profile_photo\", () => pm.expect(j.user).to.not.have.property(\"profile_photo\"));",
+											"pm.test(\"6F-10: no PIN data\", () => pm.expect(pm.response.text()).to.not.include(\"parental_pin\"));"
+										]
+									}
+								}
+							]
+						}
+					]
 				}
 			]
 		}
