@@ -15,6 +15,7 @@ feature: 008-characters
 - `a0d337f` lifts Draw again, delete, and the create form above the keyboard. Pushed to `origin/008-characters`. No pull request. T031 stays open.
 - Lint, typecheck, and tests passed (13 suites, 69 tests).
 - `0608924` applies RS-2026-11-12-05 to `.cursor/rules/ui.mdc`: no CSS variables in native colour props, keyboard avoidance, and a phone check before a screen is done. Pushed on `008-characters`, with the device-check fixes. No pull request. The item status in the vault was left for Kyle or Claude.
+- `63bd91a` makes the Create tab a page. The teal block, grey cards, scrim and sheet handle were the artboard's stand-in for the page behind the sheet. Heading, two larger tiles, and the note remain. Shots in `.screenshots/create-menu/`. S-001 and S-002 were left for a polish pass.
 
 ## Decisions
 - Kyle's device check: icons were blank because colour props received CSS variables. Cursor resolved the tokens in `constants/theme.ts` through `useThemeColor`.
