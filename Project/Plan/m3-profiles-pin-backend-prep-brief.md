@@ -2,7 +2,7 @@
 type: plan
 title: "M3 backend prep, part A: profiles and the parental PIN"
 project: tomale-rn-v1
-status: active
+status: done
 date: 2026-11-12
 related:
   - "[[PRD-Profiles]]"
@@ -83,3 +83,6 @@ Postman folder 6 (Profiles and PIN):
 ## Pre-launch notes
 - Legacy accounts with child profiles but no PIN: the app sends them to "Set a PIN" (pin_set false) before the picker.
 - A child can deliberately lock the PIN with 5 wrong tries; the parent unlocks by email. Accepted in the PRD.
+
+## Outcome (12/11)
+All eight change sets published and tested; Postman folder 6 (6A–6F) green, with 6C (lock and email reset) run manually in two passes. Fixes found in testing: missing `current_pin` gives `PIN_REQUIRED` without counting; `GET /instant_stories/{id}` stack variable renamed from the reserved `$output`; blank table names in the delete and assign endpoints; `is_primary` added to login, signup and refresh token extras. `auth/reset_password` deleted. Mirror sync stopped after 11/11 14:34, so reviews used pasted code.

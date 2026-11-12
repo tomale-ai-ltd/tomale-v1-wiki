@@ -34,4 +34,4 @@ feature: 008-characters
 - T031, the original quickstart device checks, is still open.
 
 ## Next
-- The local simulator build is not installed yet. `ios/Podfile.properties.json` has `EX_DEV_CLIENT_NETWORK_INSPECTOR` set to `false` (git-ignored). `pod install` removed the missing `RCTReconnectingWebSocket` reference. The next link failed on `facebook::react::Sealable::Sealable()` from gesture-handler, which the prebuilt React binary also does not export. An EAS development build for a device would miss `RCTReconnectingWebSocket` too, because the device slice of that binary lacks it and the inspector is on unless `EX_DEV_CLIENT_NETWORK_INSPECTOR=false` is in the build environment. Do not push until Kyle asks. Do not restyle screens before the kit is approved.
+- Kyle reviews the US7a kit at `http://localhost:8081/dev/kit` (web, 390×844, light and dark). It is not committed. Do not rebuild Characters screens until he approves the kit. Do not push. Do not change `eas.json`. The local `EX_DEV_CLIENT_NETWORK_INSPECTOR=false` stays. Simulator work is stopped. The vault `png/` folder was still empty.

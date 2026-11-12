@@ -37,7 +37,7 @@ views:
       - property: batch
         direction: ASC
     columnSize:
-      note.title: 445
+      note.title: 515
   - type: table
     name: Done
     filters:

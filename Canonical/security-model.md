@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 2.0
 date: 2026-10-28
-last_verified: 2026-11-10
+last_verified: 2026-11-12
 owner: vault
 related:
   - "[[backend-xano]]"
@@ -21,7 +21,7 @@ How the Xano API is protected, and what every endpoint does about access. Rename
 
 1. **Default deny.** Every `app` endpoint requires a signed-in user (`auth = "users"`) except the auth flow itself. Webhooks have no user auth but verify the caller in the stack.
 2. **Identity comes from the token, never from inputs.** Ownership is checked against `$auth.id`; profile context comes from `$auth.extras.active_profile` ([[carry-active-profile-in-token-extras]], [[fail-closed-active-profile-resolution]]).
-3. **Ownership field:** `users_id` ([[ratify-users-id-as-ownership-field-standard]]). Stories are also scoped to the creating profile ([[per-child-story-visibility]]); characters are shared across the household, with delete and archive limited to parent profiles ([[share-characters-across-the-household]]).
+3. **Ownership field:** `users_id` ([[ratify-users-id-as-ownership-field-standard]]). Parent checks are strict (`is_child === false`; a null is treated as a child) since 11/11. Story visibility has one definition, the function `stories/visible_story_ids` (used for character story counts); `GET /instant_stories` keeps an identical rule. Stories are also scoped to the creating profile ([[per-child-story-visibility]]); characters are shared across the household, with delete and archive limited to parent profiles ([[share-characters-across-the-household]]).
 4. **Fail closed.** Preconditions reject anything not explicitly allowed; another user's record returns `notfound`.
 5. **Errors:** 400 (`inputerror`) with a `code` in the payload (e.g. `STORY_AWAITING_APPROVAL`, `ORDER_NOT_PAYABLE`, `CANNOT_DELETE_ACTIVE`). Xano has no 422.
 6. **Webhooks:** verify (Stripe signature, HPBC bearer token) → ingest → dedup → complete ([[adopt-unique-index-dedup-for-webhook-ingest]], [[authenticate-hpbc-webhooks-with-shared-secret-bearer-token]]).
@@ -55,15 +55,13 @@ Generated on 28/10/2026 from the Xano mirror (`Repos/tomale-xano`, sync of 24/10
 | `app` | GET | `/auth/me` | users | Owner (`$auth.id`) |  |
 | `app` | POST | `/auth/refresh` | none | Public (auth flow) | `users_id` is only a lookup key; the hashed refresh token is the credential; 1× `enforce_hidden_fields = false` |
 | `app` | POST | `/auth/request_magic_link` | none | Public (auth flow) |  |
-| `app` | POST | `/auth/reset_password` | none | Public (auth flow) | 1× `enforce_hidden_fields = false` |
-| `app` | POST | `/auth/select_profile` | users | Owner (`$auth.id`) + active profile | PIN gate not built yet; 1× `enforce_hidden_fields = false` |
+| `app` | POST | `/auth/select_profile` | users | Owner (`$auth.id`) + active profile | PIN for any parent target (5 tries, then locked); session must be active and unexpired; deleted or inactive profiles refused (12/11); 1× `enforce_hidden_fields = false` |
 | `app` | POST | `/auth/signup` | none | Public (auth flow) | 5× `enforce_hidden_fields = false` |
 | `app` | GET | `/auth/verify_email` | none | Public (auth flow) | 1× `enforce_hidden_fields = false` |
 | `app` | GET | `/characters` | users | Owner (`$auth.id`) |  |
 | `app` | POST | `/characters` | users | Owner (`$auth.id`) | 2× `enforce_hidden_fields = false` |
 | `app` | DELETE | `/characters/{characters_id}` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
 | `app` | GET | `/characters/{characters_id}` | users | Owner (`$auth.id`) |  |
-| `app` | POST | `/characters/{id}/model` | users | Owner (`$auth.id`) |  |
 | `app` | GET | `/conversations` | users | Owner (`$auth.id`) |  |
 | `app` | POST | `/conversations` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
 | `app` | DELETE | `/conversations/{conversations_id}` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
@@ -73,7 +71,8 @@ Generated on 28/10/2026 from the Xano mirror (`Repos/tomale-xano`, sync of 24/10
 | `app` | GET | `/instant_stories` | users | Owner (`$auth.id`) + active profile | request history 100 |
 | `app` | POST | `/instant_stories` | users | Owner (`$auth.id`) + active profile | 2× `enforce_hidden_fields = false` |
 | `app` | DELETE | `/instant_stories/{id}` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
-| `app` | GET | `/instant_stories/{id}` | users | Owner (`$auth.id`) + active profile |  |
+| `app` | GET | `/instant_stories/{id}` | users | Owner (`$auth.id`) + active profile | Strict parent check (11/11); owner email/name no longer returned (12/11) |
+| `app` | POST | `/instant_stories/{instant_stories_id}/assign` | users | Owner (`$auth.id`), parent only | Target profile on the account, active, not deleted (12/11) |
 | `app` | POST | `/instant_stories/{id}/cover_image` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
 | `app` | POST | `/instant_stories/{id}/model` | users | Owner (`$auth.id`) |  |
 | `app` | POST | `/instant_stories/{id}/page_image` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
@@ -84,15 +83,15 @@ Generated on 28/10/2026 from the Xano mirror (`Repos/tomale-xano`, sync of 24/10
 | `app` | GET | `/products/{id}` | users | Reference (any signed-in user) |  |
 | `app` | GET | `/shipping_options` | users | Reference (any signed-in user) |  |
 | `app` | GET | `/shipping_options/{shipping_options_id}` | users | Reference (any signed-in user) |  |
-| `app` | GET | `/store_orders` | users | Owner (`$auth.id`) |  |
-| `app` | POST | `/store_orders` | users | Owner (`$auth.id`) | Parental-approval gate (`STORY_AWAITING_APPROVAL`); 1× `enforce_hidden_fields = false` |
-| `app` | GET | `/store_orders/{store_orders_id}` | users | Owner (`$auth.id`) |  |
-| `app` | PATCH | `/store_orders/{store_orders_id}` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
-| `app` | POST | `/store_orders/{store_orders_id}/cancel` | users | Owner (`$auth.id`) | 3× `enforce_hidden_fields = false` |
+| `app` | GET | `/store_orders` | users | Owner (`$auth.id`), parent only |  |
+| `app` | POST | `/store_orders` | users | Owner (`$auth.id`), parent only | Parental-approval gate (`STORY_AWAITING_APPROVAL`); 1× `enforce_hidden_fields = false` |
+| `app` | GET | `/store_orders/{store_orders_id}` | users | Owner (`$auth.id`), parent only |  |
+| `app` | PATCH | `/store_orders/{store_orders_id}` | users | Owner (`$auth.id`), parent only | 1× `enforce_hidden_fields = false` |
+| `app` | POST | `/store_orders/{store_orders_id}/cancel` | users | Owner (`$auth.id`), parent only | 3× `enforce_hidden_fields = false` |
 | `app` | GET | `/stripe/check_order_paid` | users | Owner (`$auth.id`) |  |
 | `app` | GET | `/stripe/create_checkout_session` | users | Owner (`$auth.id`) | Parental-approval gate, order-status guard, Stripe total checked against Xano prices; 1× `enforce_hidden_fields = false` |
-| `app` | GET | `/subscriptions` | users | Owner (`$auth.id`) |  |
-| `app` | GET | `/subscriptions/{subscriptions_id}` | users | Owner (`$auth.id`) |  |
+| `app` | GET | `/subscriptions` | users | Owner (`$auth.id`), parent only |  |
+| `app` | GET | `/subscriptions/{subscriptions_id}` | users | Owner (`$auth.id`), parent only |  |
 | `app` | GET | `/themes` | users | Reference (any signed-in user) |  |
 | `app` | GET | `/user_alerts` | users | Owner (`$auth.id`) |  |
 | `app` | GET | `/user_alerts/{user_alerts_id}` | users | Owner (`$auth.id`) |  |
@@ -101,10 +100,11 @@ Generated on 28/10/2026 from the Xano mirror (`Repos/tomale-xano`, sync of 24/10
 | `app` | POST | `/users/me/complete_onboarding` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
 | `app` | PATCH | `/users/me/image` | users | Owner (`$auth.id`) + active profile | 2× `enforce_hidden_fields = false` |
 | `app` | PATCH | `/users/user_alerts/mark-all-read` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
+| `app` | POST | `/users/me/pin` | users | Owner (`$auth.id`), parent only | Email verified; change needs the current PIN; failed attempts count towards the lock (12/11) |
 | `app` | GET | `/users/user_profiles` | users | Owner (`$auth.id`) |  |
-| `app` | POST | `/users/user_profiles` | users | Owner (`$auth.id`) + active profile | 1× `enforce_hidden_fields = false` |
-| `app` | DELETE | `/users/user_profiles/{user_profiles_id}` | users | Owner (`$auth.id`) + active profile | 1× `enforce_hidden_fields = false` |
-| `app` | PATCH | `/users/user_profiles/{user_profiles_id}` | users | Owner (`$auth.id`) + active profile | 1× `enforce_hidden_fields = false` |
+| `app` | POST | `/users/user_profiles` | users | Owner (`$auth.id`), parent only; PIN must be set | 1× `enforce_hidden_fields = false` |
+| `app` | DELETE | `/users/user_profiles/{user_profiles_id}` | users | Owner (`$auth.id`), parent only; moves the profile's stories to the primary profile | 1× `enforce_hidden_fields = false` |
+| `app` | PATCH | `/users/user_profiles/{user_profiles_id}` | users | Owner (`$auth.id`); parent, or a child editing their own profile | 1× `enforce_hidden_fields = false` |
 | `app` | POST | `/utilities/upload_image` | users | Disabled | `external_access = false`: not reachable from outside |
 | `webhooks` | POST | `/hpbc/webhook_statusCallbackUrl` | none (verified in stack) | Webhook: HPBC bearer token | request history 100 |
 | `webhooks` | POST | `/hpbc/webhook_statusCallbackUrl_Error` | none (verified in stack) | Webhook: HPBC bearer token | request history 100 |
@@ -133,7 +133,6 @@ Exposure by table follows the domains in the generated [[Repos/tomale-rn-test/me
 All tracked on [[pre-launch-checklist]]:
 - the `enforce_hidden_fields = true` sweep (199 statements)
 - rate limiting on auth, order and generation endpoints ([[add-per-endpoint-rate-limiting-in-xano]])
-- the parental PIN gate on `auth/select_profile` ([[parental-gate-on-profile-switch]])
 - request history off on token-issuing auth endpoints (`auth/login` keeps 100 today: accepted risk while only test accounts exist, [[keep-request-history-on-auth-endpoints-until-pre-launch]])
 - the 14 precondition messages reading `422`
 - an account-deletion endpoint (App Store requirement)
@@ -150,7 +149,7 @@ Per [[5-cto-implementation-plan]], Phase 1 items 5–9 closed on 2026-07-16 and 
 
 ### What was hardened, by area
 
-- **Auth:** magic-link login; JWE tokens (1 hour) carrying `active_profile` extras; `select_profile`; refresh with rotation, hashed refresh tokens and 401 `invalid_refresh_token`; `auth/logout` (06/11) sets the session `revoked` and `auth/refresh` accepts only `active` sessions (the 1-hour access token can't be revoked and lapses on its own); `auth/signup` writes `test_mode: false` (06/11); `verify_email` through the Squarespace intermediary. `auth/login` returns a single generic "Invalid Credentials." for an unknown user or a wrong password.
+- **Auth:** magic-link login; JWE tokens (1 hour) carrying `active_profile` extras; `select_profile`; refresh with rotation, hashed refresh tokens and 401 `invalid_refresh_token`; `auth/logout` (06/11) sets the session `revoked` and `auth/refresh` accepts only `active` sessions (the 1-hour access token can't be revoked and lapses on its own); `auth/signup` writes `test_mode: false` (06/11); `verify_email` through the Squarespace intermediary. `auth/login` returns a single generic "Invalid Credentials." for an unknown user or a wrong password. Parental PIN on every switch into a parent profile, locked after 5 wrong attempts, unlocked only by an emailed link (`purpose: reset_pin`); `auth/reset_password` deleted 12/11 (it never checked the emailed code and returned the user record).
 - **Users and profiles:** `PATCH /users/me` (boolean preferences folded in), `complete_onboarding`, the image endpoint. `user_profiles` is one table with `is_child` and `is_primary`: parent-only create and delete, household scope, soft delete, profanity list plus AI moderation.
 - **Stories and characters:** owner-scoped `instant_stories` with per-child visibility and the moderation and parental-approval flags. `conversations/{id}/message` and `API/character_edit` take explicit input lists, no `dblink` (2026-10-23).
 - **System:** activities, `artwork_style`, `fact/random` (with an `is_child` gate), themes; phonics reduced to two nested read endpoints.

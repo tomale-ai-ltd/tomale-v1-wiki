@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.1
 date: 2026-10-28
-last_verified: 2026-11-06
+last_verified: 2026-11-12
 owner: vault
 related:
   - "[[roadmap]]"
@@ -22,7 +22,12 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] **Hidden-fields sweep:** `enforce_hidden_fields` enforced on every `db.add` / `db.edit` (199 statements say `false` today), columns mapped explicitly, `output` lists added; then a full `_tests` run ([[defer-workspace-hidden-fields-setting-to-pre-launch-sweep]]).
 - [ ] **Rate limiting:** per-endpoint limits on auth, order create/cancel and story/image generation, plus an IP pre-middleware on the `app` group if `$env` allows it ([[add-per-endpoint-rate-limiting-in-xano]]; CTO §4.1).
 - [ ] **Request history off** on token-issuing auth endpoints (`auth/login` is 100 today) ([[keep-request-history-on-auth-endpoints-until-pre-launch]]).
-- [ ] **Parental PIN gate** on `auth/select_profile` ([[parental-gate-on-profile-switch]]).
+- [x] **Parental PIN gate** on `auth/select_profile` (done 12/11, Postman folder 6; [[parental-gate-on-profile-switch]], [[m3-profiles-pin-backend-prep-brief]]).
+- [x] **`user_profiles.is_child` required** (done 12/11 after checking no rows were null).
+- [x] **`GET /instant_stories/{id}`** no longer returns the account owner's email and name (users addon removed 12/11), and no longer fails on a story with no characters.
+- [x] **`POST /characters/{id}/model` deleted** (12/11): it could queue unlimited image jobs; create runs the model.
+- [x] **`auth/reset_password` deleted** (12/11): public, never checked the emailed code, returned the user record. Forgotten password = email link login.
+- [ ] **Restored session and the PIN:** a refresh returns a token for the last active profile, which may be the parent; the app must show the picker and require the PIN before using it. Server-side enforcement would need refresh to downgrade the token (not in V1; revisit before launch).
 - [ ] **Precondition messages:** replace the 14 `error = 422` messages, and about 20 others that put a status number (`404`, `401`, `500`, `413`, `415`) in `error`, with real text. The status comes from `error_type` ([[backend-xano]] §3).
 - [ ] **Account deletion endpoint** (App Store guideline 5.1.1(v)), with what happens to stories, orders and profiles defined.
 - [ ] **Endpoint inventory** against [[security-model]] §3; remove the legacy functions (`mixam_*`, `make_com_*`, `mixpanel_import_event`).
@@ -65,6 +70,8 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] **Dependency audit** clean of high/critical, with pnpm (CTO #20, #27).
 - [ ] **CI security stage** (Gitleaks, Semgrep, audit) required on `main` (CTO #18, #21, #22).
 - [ ] **Avatar licence credit** in the app if the avatar set needs attribution ([[use-bundled-preset-avatars-for-profiles]]).
+
+- [ ] **Squarespace app-link pages use the production scheme:** `/verify-email` and `/app/approvals` hard-code `tomalerntest://`; switch to `tomale://` (or Universal Links) for the production app, and set Xano `app_url_scheme` per environment ([[use-per-build-variant-url-schemes]]).
 
 ## 4a. App build and release hygiene (added 04/11)
 

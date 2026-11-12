@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.0
 date: 2026-10-29
-last_verified: 2026-11-10
+last_verified: 2026-11-12
 owner: vault
 features:
   - F-profiles
@@ -17,7 +17,7 @@ related:
 
 # PRD: Household profiles
 
-> **New in B9 (29/10/2026), reviewed with Kyle.** Written from decisions made between May and October 2026, the live backend, and Kyle's review. The backend is mostly built; the PIN and the items in §5 are not. There are no app screens yet. Milestone M3 in the [[roadmap]].
+> **New in B9 (29/10/2026), reviewed with Kyle.** Written from decisions made between May and October 2026, the live backend, and Kyle's review. The backend, including the PIN and every item in §5, is built (12/11). There are no app screens yet. Milestone M3 in the [[roadmap]].
 
 ## 1. Overview
 One Tomale account is a household. The account (`users`) holds login, billing and legal responsibility, and belongs to the parent. Each person who uses the app has a **profile** (`user_profiles`): one adult (primary) profile and up to six child profiles. Profiles carry the displayable identity (name and avatar) and decide what a person sees and can do.
@@ -56,7 +56,9 @@ One Tomale account is a household. The account (`users`) holds login, billing an
 ## 5. Backend prep (from the generated [[Repos/tomale-rn-test/memory/data-model|data-model]] and the live endpoints)
 **Live:** `user_profiles` (`id` uuid, `name`, `users_id`, `avatar_key`, `is_child`, `is_primary`, `is_active`, timestamps, `deleted_at`); endpoints `GET/POST /users/user_profiles`, `PATCH/DELETE /users/user_profiles/{id}`, `POST /auth/select_profile`.
 
-**To build:**
+**Built 12/11** (all ten items below; Postman folder 6 green; [[m3-profiles-pin-backend-prep-brief]]). As built: the PIN is needed on every switch into a parent profile, including from the picker on reopen; "Forgot PIN" and unlocking use an emailed link (`auth/request_magic_link` with `purpose: "reset_pin"`), not a password reset, and `auth/reset_password` was deleted; names are 1–18 characters with two-stage moderation; a child profile can't be created until a PIN is set (`PIN_NOT_SET`); `auth/me` has `pin_set` and `pin_locked`, and the app shows "Set a new PIN" when `pin_set` is false.
+
+**Items:**
 1. **PIN fields on `users`:** `parental_pin_hash`, `parental_pin_failed_attempts`, `parental_pin_locked_until` (or a locked flag), `parental_pin_set_at`.
 2. **Set PIN:** `POST /users/me/pin`: parent profile, email verified, PIN not yet set (onboarding). Change PIN requires the current PIN.
 3. **`auth/select_profile`:** require `pin` when the target is a parent profile and the caller isn't already on a parent profile; check the hash; count failures; lock at 5 (400 `PIN_REQUIRED`, `PIN_INVALID`, `PIN_LOCKED`).

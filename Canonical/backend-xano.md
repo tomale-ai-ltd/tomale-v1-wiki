@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.1
 date: 2026-11-05
-last_verified: 2026-11-10
+last_verified: 2026-11-12
 owner: vault
 related:
   - "[[security-model]]"
@@ -61,7 +61,8 @@ Backend for Tomale, a children's personalised storybook app (iOS and Android). A
 - Identity comes from `$auth.id`, the active profile from `$auth.extras.active_profile`. Never take user or profile ids from inputs.
 - Fail closed: no `active_profile` in the token means refuse (re-login). A missing segment in `$auth.extras.a.b` is a fatal error, so the path must exist.
 - User-owned rows carry `users_id`, and every read and write filters on it.
-- Parent-only actions (store, orders, subscriptions, approvals, profile create/delete, character archive/delete) require `active_profile.is_child = false`, else error code `PARENT_PROFILE_REQUIRED`.
+- Parent-only actions (store, orders, subscriptions, approvals, profile create/delete, character archive/delete) require `active_profile.is_child === false` (strict: a null `is_child` is a child), else error code `PARENT_PROFILE_REQUIRED`.
+- The token's `active_profile` is always `{id, name, is_child, is_primary}`. Switching into a parent profile needs the parental PIN (`auth/select_profile`).
 - A child sees only their own stories (`user_profiles_id`); characters are shared by the household.
 
 ## Errors and data
@@ -74,6 +75,7 @@ Backend for Tomale, a children's personalised storybook app (iOS and Android). A
 - Soft delete with `deleted_at` for user content and profiles.
 - Counters such as `images_remaining` are recounted, never decremented.
 - Check for empty, not only null: blank values are stored as `""`.
+- Before reading `$list.field` from a query result, check `($list|count) > 0` (an empty list makes it a fatal error).
 - An optional input whose `false` or empty value is meaningful (a flag that can be turned off, a partial update) is nullable (`bool? x?`, `enum? x? {…}`) and checked with `!== null`.
 - Env vars used as numbers are cast to integer.
 
@@ -100,6 +102,9 @@ Backend for Tomale, a children's personalised storybook app (iOS and Android). A
 - **Order numbers:** `{id}-{yyyymmdd}-{users_id}-{instant_stories_id}`, built in a Lambda step (the expression `format_timestamp:"Ymd"` failed).
 - **Email verification:** single-use UUID token, 1-hour expiry, landing page on Squarespace (`/verify-email`), back into the app by deep link ([[separate-verify-email-deeplink-from-magic-link-path]]).
 - `characters` keeps `status` (archive) and `is_deleted` alongside `deleted_at`, by choice.
+- **Parental PIN (12/11):** `users.parental_pin` (password type, internal, never output), `pin_failed_attempts`, `pin_locked`, `pin_set_at`. Set/change with `POST /users/me/pin`; checked by `auth/select_profile` for any parent target; 5 wrong attempts lock it; unlock by email link (`auth/request_magic_link` with `purpose: "reset_pin"`, which clears the PIN on completion). `auth/me` returns `pin_set` and `pin_locked`. `auth/reset_password` was deleted ([[m3-profiles-pin-backend-prep-brief]]).
+- **Magic links:** `users.magic_link` carries `issued_at` and `purpose`; a new link is refused only within 60 s of the last (`RATE_LIMITED`); unknown emails get the same reply.
+- **Story visibility** has one definition, the function `stories/visible_story_ids`, used for character story counts; `GET /instant_stories` keeps an identical rule.
 
 ## 4. Pipelines
 
@@ -129,5 +134,10 @@ Rules that follow from gotchas are in the §3 block. These are the remaining tra
 - Xano JWE tokens can't be decoded client-side; track expiry by time.
 - Metadata API filters are query-string parameters on GET; in a JSON body they're silently ignored.
 - A column-named input once silently overwrote `created_at` and `message` (hence the naming rule).
-- An object built from `$auth.extras` in a response is exported to OpenAPI as a string (`auth/me`, 06/11), so the generated type can't describe it; the app parses it with a tested reader instead.
+- An object built from `$auth.extras` in a response is exported to OpenAPI as a string (`auth/me`, 06/11); since 12/11 its shape lives in the app's OpenAPI overlay.
+- `$list.field` on an empty list is a fatal "Unable to locate var" (found 11/11 in `stories/visible_story_ids`; it broke the child Characters screen until guarded). Hence the count rule.
+- A loose `== false` is true for null: the 05/11 favourites bug and the parent checks fixed on 11/11. Hence strict parent checks.
+- Xano AI can leave a table name blank (`db.query ""`), which fails at runtime with "Invalid syntax: missing parameter - dbo" (12/11, profile delete and story assign). Check table names in every draft; the stories table is `"instant stories"`.
+- `$output` is reserved (it is the addon reference to the record being fetched); don't name a stack variable `$output` (12/11, `GET /instant_stories/{id}`).
+- XanoScript has no syntax to declare a response schema: any response built in the stack exports to OpenAPI as an empty object. The app keeps those shapes in `api/openapi/overrides.yaml` with recorded fixtures ([[RS-2026-11-12-01]]).
 - Omitted optional inputs aren't null unless declared nullable: `bool x?` arrives as `false`, `enum x?` as `""`, and a loose `!= null` treats `false` as null. On 05/11 this first stopped anyone unfavouriting a character, then (after a switch to `!==`) blanked `status` on every flags PATCH; fixed with `bool? is_favourite?` and `enum? status?` (hence the nullable-inputs rule).

@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 2.1
 date: 2026-04-14
-last_verified: 2026-11-05
+last_verified: 2026-11-12
 owner: vault
 features:
   - F-characters
@@ -61,7 +61,7 @@ A character can appear in **any number of stories**: the link lives in `instant_
 - A "picture on its way" state while the character image is generated (image jobs run in the background).
 
 ### Out-of-Scope (V1)
-- **Editing a character's name or description** (no PATCH in V1; an edit would need the moderation check). Re-create image covers the visual changes.
+- **Editing a character's name or description** (no PATCH in V1; an edit would need the moderation check). Re-create image covers the visual changes. No rename: a name is fixed once saved (Kyle, 11/11).
 - AI-assisted character creation: its own feature, [[PRD-Chatbot-Create-Character]] (Slice 500).
 - Character sharing/export, sharing characters between profiles.
 
@@ -90,11 +90,13 @@ A character can appear in **any number of stories**: the link lives in `instant_
 7. Postman `_tests`: add tests for the new endpoints and for a child profile being refused delete/archive ([[test-suite]]).
 
 ## 5. API Endpoints (`app` group)
-- `GET /characters` → the caller's visible characters (identity from the token, never from inputs).
-- `GET /characters/{characters_id}` → detail view.
-- `POST /characters` → create; runs name moderation; queues the character image job.
+- `GET /characters` → the caller's visible characters (identity from the token, never from inputs), with `created_at`, `stories_count` and `picture_status` per character. `stories_count` counts distinct stories the caller can see (a child: their own visible stories only), via the function `stories/visible_story_ids` (10–11/11).
+- `GET /characters/{characters_id}` → trimmed detail output (13 fields: the list fields plus `physical_description`), not the raw record; archived returns 404 for a child.
+- `POST /characters` → create (hardened 11/11): explicit inputs (`name` 1–40 trimmed, `physical_description` 1–500, optional `instant_stories_id` that must be the caller's Draft story); two-stage name moderation (400 `NAME_NOT_ALLOWED`); description moderation fails closed (400 `CONTENT_REJECTED`); saves, links, then **starts the picture itself** in the background (attribute model and image job), so the app makes one call. Response = detail fields with `picture_status: "drawing"`.
+- `picture_status` (derived, on all three): from the character's latest `character-image` job: queued/processing/error_retry → `drawing`; otherwise a cover image → `ready`; otherwise error_terminal → `failed`; no job → `drawing` for 15 minutes after creation, then `failed`. No `draft` character status ([[start-character-picture-on-create]]).
+- `GET /instant_stories?characters_id=` → "Stories with [name]"; inherits per-child visibility; an id with no links returns `[]`.
 - `DELETE /characters/{characters_id}` → soft delete.
-- `POST /characters/{id}/model` → turns a free-text description into the structured attribute model (used by create).
+- `POST /characters/{id}/model`: **deleted 12/11** (create now runs the model; the endpoint could queue unlimited image jobs).
 - **Built 05/11 (published, Postman folder 5 green):** `PATCH /characters/{id}/flags` (`status`, `is_favourite` only), `POST /characters/{id}/regenerate_image`, `POST /instant_stories/{id}/characters`.
 
 ## 6. Frontend Requirements

@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.6
 date: 2026-10-28
-last_verified: 2026-11-10
+last_verified: 2026-11-12
 owner: vault
 supersedes:
   - "[[2-build-plan]]"
@@ -75,6 +75,7 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 - App: 101 index, 102 detail, 103 create (form, names moderated on create), 104 carousel, 105 quick actions (favourite, archive, delete) and re-create image. "Create a story with this character" ships with Slice 200.
 
 ### M3. Profiles and parental controls (4–6 days)
+- **Backend part A (profiles and PIN) done 12/11** ([[m3-profiles-pin-backend-prep-brief]]); part B (approvals inbox, approve/reject) next. The child device checks deferred from 008 run here.
 - Profile picker, create child profile, preset avatars ([[use-bundled-preset-avatars-for-profiles]]). The child's header avatar returns here and opens switch profile (hidden since PR #23).
 - **PIN gate** on switching to a parent profile, backend and UI ([[parental-gate-on-profile-switch]]).
 - **Approve/reject flow** for flagged stories, with the channel (profile switch, email, push with PIN) decided in the B9 PRD ([[PRD-Parental-Oversight-Content-Approval]]).
