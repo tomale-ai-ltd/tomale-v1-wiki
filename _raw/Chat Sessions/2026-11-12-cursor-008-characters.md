@@ -5,19 +5,22 @@ branch: 008-characters
 feature: 008-characters
 ---
 
-# Create form pushed; Draw again up for review
+# US7b complete; ready for the on-device check
 
 ## What changed
-- `bdc208b` restyles the new-character form: 20 px between field groups and under the intro line, 8 px between the picture and that line, and the artboard's soft yellow circle as the `highlight-soft` token. Pushed to `origin/008-characters`. No pull request. Shots are in `.screenshots/create/`.
-- Draw again is restyled to `DrawAgain.dc.html`, including refused-instruction, already-drawing, and saving. Not committed. Shots are in `.screenshots/draw-again/`.
+- `1143878` lets the empty-state button wrap. The label stays at the heading size, centres on a second line at 320px, and the button grows. At a simulated 1.5× text size the label stays inside the button and the page does not scroll sideways. Pushed.
+- `4df1ab7` restyles the Create menu to the artboard. Pushed.
+- `ff65753` stubs the confirmation toast in the auth-gate test so Jest can load the main layout. Pushed.
+- `5831d0a` marks US6, US7a, and US7b done in `specs/008-characters/tasks.md`. T031 stays open. Pushed to `origin/008-characters`. No pull request.
+- Lint, typecheck, and the test suite passed (13 suites, 69 tests).
 
 ## Decisions
-- Kyle approved the create form after the spacing fix, and asked for the soft circle.
-- The refused-instruction preview uses the artboard sentence "We can't draw characters from films or books. Try describing your own idea instead." A real refusal still shows the server's message. Already-drawing uses "[Name] is already being drawn." and "Try again in a few minutes." Saving keeps the label "Draw again" with a spinner, and the button dims.
-- The refused-description preview on the create form still uses the kit sentence "That description isn't allowed. Please try another." A real refusal shows the server's message.
+- Kyle rejected the 320px font shrink. The label stays at the normal size and wraps, and the button grows in height.
+- Kyle approved the Create menu. Make a story stays Coming soon.
+- Web type is set in pixels, so Chrome's font-size setting does not change it. The large-text check multiplied computed font size and line height by 1.5, which matches Chrome's Very large setting.
 
 ## Open questions / blockers
-- Kyle's review of Draw again, including whether the film-or-book sentence stays.
+- T031 is still open. Kyle runs the device checks in `specs/008-characters/quickstart.md` with `pnpm start`.
 
 ## Next
-- Kyle reviews `.screenshots/draw-again/`. Do not commit Draw again until he asks. After that, the delete confirmation.
+- Kyle's on-device check. Do not open a pull request until he asks.
