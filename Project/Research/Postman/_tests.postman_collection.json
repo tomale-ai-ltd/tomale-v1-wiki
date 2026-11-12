@@ -12714,6 +12714,18 @@
 						}
 					]
 				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Folder guard: without the test PIN every PIN test sends a blank PIN and the wrong-PIN tests lock the account.",
+							"if (!pm.environment.get(\"test_parent_pin\")) { console.log(\"Skipped: set test_parent_pin (current value) in the environment before running folder 6\"); pm.execution.skipRequest(); }"
+						]
+					}
+				}
 			]
 		}
 	],

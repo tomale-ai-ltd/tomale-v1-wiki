@@ -34,4 +34,4 @@ feature: 008-characters
 - T031, the original quickstart device checks, is still open.
 
 ## Next
-- Kyle runs `npx expo run:ios` once so a simulator development build exists. Then Cursor re-copies `design/png/`, builds the US7a kit, and stops for review. Do not push until he asks. Do not restyle screens before the kit is approved.
+- The local simulator build is not installed yet. `ios/Podfile.properties.json` has `EX_DEV_CLIENT_NETWORK_INSPECTOR` set to `false` (git-ignored). `pod install` removed the missing `RCTReconnectingWebSocket` reference. The next link failed on `facebook::react::Sealable::Sealable()` from gesture-handler, which the prebuilt React binary also does not export. An EAS development build for a device would miss `RCTReconnectingWebSocket` too, because the device slice of that binary lacks it and the inspector is on unless `EX_DEV_CLIENT_NETWORK_INSPECTOR=false` is in the build environment. Do not push until Kyle asks. Do not restyle screens before the kit is approved.
