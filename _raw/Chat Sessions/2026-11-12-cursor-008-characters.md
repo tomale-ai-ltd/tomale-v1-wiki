@@ -5,21 +5,22 @@ branch: 008-characters
 feature: 008-characters
 ---
 
-# Carousel review fixes, then character detail
+# Carousel gap, detail Favourite, then the grid
 
 ## What changed
-- `dcf2e8b` fills the Make a character tile's art circle with white. Not pushed.
-- `55c3c98` restyles the carousel and panel, including the review fixes. Not pushed.
-- Detail is restyled to `CharacterDetail.dc.html` and is not committed. Shots are in `.screenshots/detail/`. Revised carousel shots are in `.screenshots/carousel/`.
+- `f732a57` lets the page colour show between the carousel cards. The darker strip was the card shadow filling the gaps.
+- `815e457` restyles character detail. Favourite is yellow with a filled star, or a white pill with the border token and an outline star.
+- Both commits are on `origin/008-characters`. No pull request.
+- The grid is restyled to `Characters.dc.html` and is not committed. Shots are in `.screenshots/grid/`. Revised carousel and detail shots are in `.screenshots/carousel/` and `.screenshots/detail/`.
 
 ## Decisions
-- Kyle approved the kit, with the white art circle, and approved the carousel once the five review notes were fixed.
-- Draw again's strong teal was not a contrast choice. It was a stand-in because the pale teal was not a token. It is now the artboard colour, `#d7f3f2`, in both themes, with the dark text token.
-- The caret at the panel's top corner was a card corner showing past the rounded panel. The page colour covers that corner.
-- Cursor kept "See more about [Name]" on the panel. Detail still opens from it, and from the grid.
+- Kyle asked for the page colour to run through the card row, so the carousel cards no longer carry the large drop shadow.
+- The unfavourited pill uses the border token and stays white in both themes. The label stays "Favourite".
+- The detail header buttons keep their top inset.
+- The grid search placeholder stays "Search characters", from the copy sheet.
 
 ## Open questions / blockers
-- Kyle's review of detail. A child uses the same screen without More. Story rows have no "For Mia" line because the story list has no audience field.
+- Kyle's review of the grid. A child still never sees it.
 
 ## Next
-- Kyle reviews `.screenshots/detail/`. Do not push. The next screen after detail is the grid.
+- Kyle reviews `.screenshots/grid/`. Do not push again until he asks. The next screen after the grid is the create form.
