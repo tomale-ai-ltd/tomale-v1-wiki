@@ -5,24 +5,21 @@ branch: 008-characters
 feature: 008-characters
 ---
 
-# Carousel picture shift and the first carousel screen
+# Carousel review fixes, then character detail
 
 ## What changed
-- The signed-in animation library was checked. Its parallax carousel needs Moti, a linear gradient, a demo font, and Faker. None of those were added.
-- The carousel picture now slides across the extra width from `CarouselParallax.dc.html` (the art is 370 wide inside a 270 frame). Reduce Motion leaves that picture centred. Plain Reanimated only.
-- The parent carousel and panel were restyled toward that artboard, and the child sizes toward `CharactersChild.dc.html`. The grid card was left as it is.
-- Screenshots are in `.screenshots/carousel/` (git-ignored). The kit shots from the earlier review are still in `.screenshots/kit/`. Nothing was committed or pushed. T039 is still open.
+- `dcf2e8b` fills the Make a character tile's art circle with white. Not pushed.
+- `55c3c98` restyles the carousel and panel, including the review fixes. Not pushed.
+- Detail is restyled to `CharacterDetail.dc.html` and is not committed. Shots are in `.screenshots/detail/`. Revised carousel shots are in `.screenshots/carousel/`.
 
 ## Decisions
-- Kyle: no new packages. Take only the scroll-linked picture shift, then continue the carousel and panel, then stop for review.
-- Cursor kept "See more about [Name]" on the panel because the spec still opens detail from there. The artboard has no such row.
-- The parent favourite control is 48px rather than the artboard's 44, so the target stays at least 48. The child one stays 52.
-- Search on the carousel heading opens the grid, which is where search already lives.
+- Kyle approved the kit, with the white art circle, and approved the carousel once the five review notes were fixed.
+- Draw again's strong teal was not a contrast choice. It was a stand-in because the pale teal was not a token. It is now the artboard colour, `#d7f3f2`, in both themes, with the dark text token.
+- The caret at the panel's top corner was a card corner showing past the rounded panel. The page colour covers that corner.
+- Cursor kept "See more about [Name]" on the panel. Detail still opens from it, and from the grid.
 
 ## Open questions / blockers
-- Kyle's review of the carousel and panel screenshots. The dev preview is `/dev/carousel` because the Characters tab needs a sign-in.
-- The page is the theme background, not the pink illustrated backdrop. Draw again uses the accent fill. There is no pale-mint token.
-- "Coming soon" makes the story tile taller than the 72px artboard tile.
+- Kyle's review of detail. A child uses the same screen without More. Story rows have no "For Mia" line because the story list has no audience field.
 
 ## Next
-- Kyle reviews `.screenshots/carousel/`. Do not mark T039 done and do not push until he says so. The More sheet is the screen after that.
+- Kyle reviews `.screenshots/detail/`. Do not push. The next screen after detail is the grid.

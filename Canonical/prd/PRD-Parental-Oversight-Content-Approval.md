@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 2.0
 date: 2026-04-14
-last_verified: 2026-10-29
+last_verified: 2026-11-12
 owner: vault
 features:
   - F-parental-oversight
@@ -71,7 +71,7 @@ The story-text moderation step sets `instant_stories.status_moderation`:
 4. The parent is also emailed (Resend, notification only, no approval in the email). The link opens the app at the approvals inbox (§8a).
 5. The parent switches to their profile (PIN required, [[parental-gate-on-profile-switch]]), opens the approvals inbox and taps the alert, which deep-links to the story.
 6. The parent reads the full story and approves or rejects it (no editing in V1).
-7. On approval, the child can open it. On rejection, it stays locked and the parent can delete it.
+7. On approval, the child can open it. On rejection, it is hidden from the child (the "Waiting for a grown-up" card disappears; Kyle, 12/11); the parent can delete it or move it to their own profile (assign).
 8. Ordering a print copy is blocked until approval (built: `STORY_AWAITING_APPROVAL`, [[block-ordering-of-stories-awaiting-parental-approval]]).
 
 ## 7. Backend Function Logic (Xano)
@@ -104,7 +104,7 @@ Email approval tokens (`consume_approval_token`): approval happens only in the a
 2. **Alerts for parents only:** add an audience to `user_alerts` (e.g. `audience` = all | parents, default all); alert reads filter on the active profile; the moderation step creates its alert with `audience = parents`.
 3. **`POST /instant_stories/{id}/approve`** and **`/reject`** (parent profile, same household, preconditions in §7.2–7.3); approve also marks the alert read and can alert the child.
 4. **Child's waiting card:** the story list returns a redacted card for stories awaiting approval (§7.1).
-5. **Notification email:** a Resend template sent with the parent alert, linking to the approvals inbox (§8a); no token.
+5. **Notification email:** a Resend template sent with the parent alert, linking to the approvals inbox (§8a); no token. Built with the M3 backend (Kyle, 12/11): template variable `approvals_url`, page `tomale.ai/app/approvals`, env vars `app_url_scheme`, `approvals_url`, `resend_approval_template`; sent inside a `try_catch` so it never fails moderation. Stories carry a derived `approval_state` (`none` / `awaiting` / `approved` / `rejected`), and a child's list shows redacted awaiting cards ([[m3-approvals-backend-prep-brief]]).
 6. **Backend-generated links** (`action_url`, email link) use the per-environment scheme ([[use-per-build-variant-url-schemes]]).
 7. **Postman `_tests`:** child can't open a locked story; child refused on approve; parent approves → child can open; reject keeps it locked; alert visible to parents only.
 

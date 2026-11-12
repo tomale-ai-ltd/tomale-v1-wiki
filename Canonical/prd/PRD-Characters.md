@@ -48,10 +48,11 @@ A character can appear in **any number of stories**: the link lives in `instant_
 ## 3. Scope
 ### In-Scope
 - Characters index (grid first, then the animated carousel based on the RN Reanimated demo).
-- Character detail page (read-only).
+- Character detail: one screen for both profiles (no text editing), opened by a grid tap or "See more" on the carousel panel. The parent sees More (archive, delete); the child sees the same screen without More, and favourite and Draw again work for the child.
 - Create character with a simple form (name + description). The name goes through two-stage moderation on submit ([[moderate-names-in-two-stages]]). A blocked name shows a generic message ("That name isn't allowed — please try another"); the reason is logged, never shown.
 - Fullscreen background transitions on the active character; prefetch of previous/next images.
-- Archive (hide, keep) and delete (soft delete) from the detail page or a long-press quick action, **parent profiles only**.
+- Archive (hide, keep) and delete (soft delete) from More (on the carousel panel, a grid card or detail), **parent profiles only**. After archive or delete the parent returns to the list in use, with a toast "[Name] archived" / "[Name] deleted" above the tab bar (about 3 seconds, no undo; restore is Unarchive from the Archived filter). Favourite, unfavourite, archive and unarchive are optimistic with rollback; delete is confirmed, then sent to the server.
+- No long-press actions in V1: More and the panel cover them, and a hidden gesture isn't intuitive for children (Kyle, 12/11).
 - **Favourite** a character (pinned first in the carousel).
 - Richer cards: "used in X stories" (from `instant_story_characters`) and created date.
 - **Create a story with this character:** a quick action that starts the story chat with the character already selected (needs Slice 200; the button ships with 200).
@@ -113,7 +114,6 @@ app/(tabs)/characters/index.tsx
 - **CharacterCard**:  
   - Circular thumbnail + name; a placeholder while the image is pending.  
   - Tap → `(tabs)/characters/[id].tsx`.  
-  - Long press → quick actions (favourite, create a story; parents also archive and delete, with confirmation).  
   - Shows "used in X stories".  
 - **SearchBar & Filters**:  
   - Inline at top or in separate screen `(tabs)/characters/search.tsx`.  
@@ -140,12 +140,11 @@ app/(tabs)/characters/index.tsx
 1. User opens Characters tab.  
 2. Cached metadata loads instantly; API fetch updates list.  
 3. The carousel shows one large card with its neighbours peeking in.  
-4. User swipes horizontally → activeIndex updates, ±1 images prefetched; tapping the card reveals details and actions.  
-5. User taps a character → navigates to `[id].tsx` detail page.  
+4. User swipes horizontally → activeIndex updates, ±1 images prefetched; tapping the card opens a short panel (actions and up to 2 stories), which closes by a second tap, Close, or a swipe to the next character.  
+5. "See more about [Name]" on the panel, or a tap on a grid card, opens the detail screen.  
 6. User taps FAB → create form → name moderated → character saved; the image appears when its job completes.  
-7. Optional: search/filter used for narrowing list.  
-8. User long-presses character → favourite / create a story with it (parents: archive / delete).  
-9. From detail, "Re-create image" → optional instruction → the new image replaces the old one when ready.
+7. Optional: search and the All / Favourites / Archived filters narrow the grid (the carousel always shows active characters, favourites first).  
+8. From detail, "Re-create image" → optional instruction → the new image replaces the old one when ready.
 
 ## 9. Open Questions
 - Should archived characters still be offered when creating a story?
