@@ -10,7 +10,7 @@ feature: 008-characters
 ## What changed
 - Copied `Project/Plan/008-characters-micro-prd.md` unchanged to `.docs/prd/008-characters.md` and committed it as `5515ed3` on `008-characters`. Not pushed.
 - Wrote `specs/008-characters/spec.md` and the requirements checklist. Clarify finished 12/11.
-- Plan artifacts: `plan.md`, `research.md`, `data-model.md`, `quickstart.md`, and `contracts/characters.openapi.yaml`. Cursor context updated. Not committed. Not pushed.
+- Plan artifacts: `plan.md`, `research.md`, `data-model.md`, `quickstart.md`, `contracts/characters.openapi.yaml`, and `tasks.md`. Cursor context updated. Not committed. Not pushed.
 
 ## Decisions
 - Kyle asked the spec to follow the generated character types. Cursor treated `picture_status`, `stories_count`, and a nullable `cover_image` as the picture contract, including a redraw that still has the previous picture. Favourite and archive replies that omit those fields keep the picture, the drawing state, and the story count already on screen.
@@ -24,4 +24,4 @@ feature: 008-characters
 - None.
 
 ## Next
-- `/speckit.tasks` when Kyle asks. Do not push until he asks.
+- Implement when Kyle asks, starting at US1. Do not push until he asks.
