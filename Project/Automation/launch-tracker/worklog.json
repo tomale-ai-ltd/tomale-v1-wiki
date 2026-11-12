@@ -58,5 +58,15 @@
   "date": "2026-11-06",
   "milestone": "M2",
   "what": "API contract and data model regenerated with the Characters endpoints"
+ },
+ {
+  "date": "2026-11-11",
+  "milestone": "M1a",
+  "what": "Characters mock-up round 2 decided (carousel first, child view, empty state, Create sheet) and added to the canvas"
+ },
+ {
+  "date": "2026-11-11",
+  "milestone": "M2",
+  "what": "Characters story counts, story filter and strict parent checks published in Xano, 103 Postman tests green; create-hardening brief and 008 micro-PRD drafted"
  }
 ]

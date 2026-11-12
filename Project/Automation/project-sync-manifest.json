@@ -1,6 +1,6 @@
 {
   "note": "Project knowledge sync manifest: vault-relative path (project doc path) -> first 16 hex of sha256 at last upload. Maintained by the daily pipeline.",
-  "updated": "2026-11-11",
+  "updated": "2026-11-12",
   "files": {
     "Canonical/CURRENT.md": "f36c2ec7ec539d72",
     "Canonical/agent-context-sync.md": "efd97d473eba2835",
@@ -69,7 +69,7 @@
     "Canonical/repo-sync/RS-2026-11-01-04.md": "cda86908b19b46e1",
     "Canonical/repo-sync/RS-2026-11-01-05.md": "432b2d6ca7a39931",
     "Canonical/repo-sync/RS-2026-11-01-06.md": "ca6d62ce2b28dfbf",
-    "Canonical/repo-sync/RS-2026-11-04-01.md": "7383a4fd9d87684d",
+    "Canonical/repo-sync/RS-2026-11-04-01.md": "29249ab5060b9704",
     "Canonical/repo-sync/RS-2026-11-04-02.md": "0e93b2465e4f1922",
     "Canonical/repo-sync/RS-2026-11-04-03.md": "7807d6bd0edebda6",
     "Canonical/repo-sync/RS-2026-11-04-04.md": "3772d55fed7629ff",
@@ -145,7 +145,7 @@
     "Project/Decisions/generate-data-model-and-api-contract-from-xano.md": "5d0c1f7a6bbd85f6",
     "Project/Decisions/include-ai-character-creation-in-v1.md": "bebadecfa37ef217",
     "Project/Decisions/keep-agents-out-of-xano-no-mcp.md": "2152da805b44fbef",
-    "Project/Decisions/keep-node-forge-audit-ignores-for-expo-cli.md": "043b72c7010564da",
+    "Project/Decisions/keep-node-forge-audit-ignores-for-expo-cli.md": "c2757b2d22470f93",
     "Project/Decisions/keep-release-age-gate-when-adding-packages.md": "6e569622e28ffa47",
     "Project/Decisions/keep-request-history-on-auth-endpoints-until-pre-launch.md": "556f8c0d4c3158ff",
     "Project/Decisions/key-hpbc-environment-switch-off-stripe-test-mode.md": "b176232781800c7e",
@@ -247,13 +247,19 @@
     "Canonical/pending-updates/PU-2026-11-06-03.md": "f683fcab6edb4950",
     "Canonical/pending-updates/PU-2026-11-06-04.md": "806a8a9c9c5b1d92",
     "Canonical/pending-updates/PU-2026-11-06-05.md": "c5337ed9bba0b3ec",
-    "Canonical/repo-sync/RS-2026-11-05-06.md": "5aa3375977a6935f",
+    "Canonical/repo-sync/RS-2026-11-05-06.md": "48cd511b53a3fff6",
     "Canonical/repo-sync/RS-2026-11-06-01.md": "90aa1ca7f4760723",
     "Canonical/repo-sync/RS-2026-11-06-02.md": "53b44012308d619a",
     "Canonical/repo-sync/RS-2026-11-06-03.md": "4fc05ad9447df625",
     "Project/Decisions/diagnose-before-briefing-and-use-contract-fixtures.md": "180a1543d499778a",
     "Project/Decisions/exclude-locked-expo-sdk-versions-from-release-age-gate.md": "ccf43d05d2eb5ce3",
     "Canonical/pending-updates/PU-2026-11-10-01.md": "1fd380f81c246c02",
-    "Project/Decisions/add-character-story-count-and-story-filter.md": "96c6715c218d778a"
+    "Project/Decisions/add-character-story-count-and-story-filter.md": "96c6715c218d778a",
+    "Canonical/repo-sync/RS-2026-11-12-01.md": "6326acf0ca3273d1",
+    "Canonical/repo-sync/RS-2026-11-11-01.md": "1ada63d4732dff3f",
+    "Canonical/pending-updates/PU-2026-11-11-01.md": "271c24925d617cb9",
+    "Canonical/pending-updates/PU-2026-11-12-01.md": "45b31e5e9da19a4b",
+    "Project/Decisions/patch-node-forge-with-same-major-override.md": "4e1fe152df742afc",
+    "Project/Decisions/start-character-picture-on-create.md": "cc578be280bb3fa0"
   }
 }

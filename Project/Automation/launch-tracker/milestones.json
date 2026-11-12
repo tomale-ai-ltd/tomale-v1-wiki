@@ -32,11 +32,11 @@
   "est_min": 1,
   "est_max": 2,
   "status": "in progress",
-  "progress": 0.8,
-  "actual_days": 0.67,
+  "progress": 0.9,
+  "actual_days": 1.17,
   "finished": null,
   "estimate_assumed": false,
-  "note": "Theme, fonts and tabs in the app (PR #23); carousel chosen; mock-up round 2 next"
+  "note": "Theme, fonts and tabs in the app (PR #23); mock-up round 2 decided and on the canvas 11/11"
  },
  {
   "order": 4,
@@ -45,11 +45,11 @@
   "est_min": 3,
   "est_max": 4,
   "status": "in progress",
-  "progress": 0.2,
-  "actual_days": 0.67,
+  "progress": 0.3,
+  "actual_days": 1.17,
   "finished": null,
   "estimate_assumed": false,
-  "note": "Backend prep done 05/11; contract regenerated 06/11"
+  "note": "Backend additions published, 103 Postman tests green (11/11); create hardening and OpenAPI fix before speckit 008"
  },
  {
   "order": 5,
