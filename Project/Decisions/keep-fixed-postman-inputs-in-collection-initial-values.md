@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "keep-fixed-postman-inputs-in-collection-initial-values"
+title: keep-fixed-postman-inputs-in-collection-initial-values
 project: tomale-rn-v1
-status: proposed
-date: "2026-11-12"
+status: accepted
+date: 2026-11-12
 related:
   - "[[2026-11-12-001]]"
 affects:

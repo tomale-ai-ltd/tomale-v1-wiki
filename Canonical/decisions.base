@@ -1,0 +1,70 @@
+filters:
+  and:
+    - file.inFolder("Project/Decisions")
+    - type == "decision"
+properties:
+  file.name:
+    displayName: Decision
+  status:
+    displayName: Status
+  date:
+    displayName: Date
+  features:
+    displayName: Features
+  affects:
+    displayName: Affects
+  superseded_by:
+    displayName: Superseded by
+views:
+  - type: table
+    name: Needs approval
+    filters:
+      and:
+        - status == "proposed"
+    order:
+      - file.name
+      - status
+      - date
+      - features
+      - affects
+    sort:
+      - property: date
+        direction: DESC
+  - type: table
+    name: Recent (last 14 days)
+    filters:
+      and:
+        - date >= today() - "14d"
+    order:
+      - file.name
+      - status
+      - date
+      - features
+    sort:
+      - property: date
+        direction: DESC
+  - type: table
+    name: Accepted
+    filters:
+      and:
+        - status == "accepted"
+    order:
+      - file.name
+      - date
+      - features
+      - affects
+    sort:
+      - property: date
+        direction: DESC
+  - type: table
+    name: Superseded
+    filters:
+      and:
+        - status == "superseded"
+    order:
+      - file.name
+      - date
+      - superseded_by
+    sort:
+      - property: date
+        direction: DESC
