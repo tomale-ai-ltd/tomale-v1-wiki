@@ -51,6 +51,7 @@ Goal: every backend item in [[PRD-Parental-Oversight-Content-Approval]] §7a bui
 - Strict parent check (400 `PARENT_PROFILE_REQUIRED`); story on this account, not deleted (404 `STORY_NOT_FOUND`); `parental_approval_required === true` (else 400 `NOT_AWAITING_APPROVAL`); not already approved (400 `ALREADY_APPROVED`).
 - **Approve:** `parent_approved = true`, `approved_by_profile_id` = active profile, `approved_at = now`, `approval_rejected_at = null` (a parent may change their mind after a rejection). Mark that story's `Content Moderation` alerts read. If the story is `Done`, send the creating profile "<title> is ready!" (`audience: "profile"`); otherwise the completion check sends it later. Response `{instant_stories_id, approval_state: "approved", approved_at}`.
 - **Reject:** `approval_rejected_at = now`, story stays locked; mark its alerts read. Response `{instant_stories_id, approval_state: "rejected"}`.
+- **Blocked alert (added 13/11, Kyle):** in `content_moderation_story_text`, the `blocked` branch alert gets `audience: "parents"` and `instant_stories_id`, so a child no longer sees the moderation reason. Message unchanged.
 
 ## Change set B5: story reads
 - Both story GETs add a derived `approval_state`: `none` (no approval needed), `awaiting` (required, not approved, not rejected), `approved`, `rejected`.

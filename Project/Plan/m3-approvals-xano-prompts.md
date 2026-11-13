@@ -48,6 +48,7 @@ Both, in order:
 - Mark read (is_read true, read_at now) every "user alerts" row with users_id == $auth.id && instant_stories_id == the story && type == "Content Moderation" (guard for none).
 Approve: set parent_approved = true, approved_by_profile_id = $auth.extras.active_profile.id, approved_at = now, approval_rejected_at = null, last_modified_at = now. If the story's status == "Done", run notifications/create_user_alert with type "System", message (title or "Your story") ~ " is ready!", audience "profile", user_profiles_id = the story's user_profiles_id, instant_stories_id, users_id = $auth.id, action_url = $env.app_url_scheme ~ "://stories/" ~ id, action_label "Read now". Response {instant_stories_id, approval_state: "approved", approved_at}.
 Reject: set approval_rejected_at = now, last_modified_at = now (parent_approved stays false). Response {instant_stories_id, approval_state: "rejected"}.
+Also, in function ai pipeline/content_moderation_story_text, "blocked" branch only: add audience "parents" and instant_stories_id = the story id to the notifications/create_user_alert call (keep the message, including the reason). Change nothing else in that function.
 Use the table name "instant stories" (quoted, with the space). Strict comparisons.
 ```
 
