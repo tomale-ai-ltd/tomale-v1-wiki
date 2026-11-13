@@ -71,6 +71,7 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 - Next: richer, picture-book component styling and mock-up review; then RS-2026-11-05-01 loads tokens, fonts and icons into the app theme before `/speckit.specify` for 008.
 
 ### M2. Characters, Slice 100 / speckit 008 (3–4 days)
+- **Done 12/11** (PR #27 and #28 merged): parent device checks passed; child device checks run in M3; snags S-001 and S-002 deferred to a polish pass ([[snags]]). Long-press quick actions dropped (More covers them).
 - Backend prep: characters stay household-wide (no schema change for visibility); parent-only delete/archive; `is_favourite`; endpoints to link existing characters to a story, re-create an image, and set archive/favourite ([[PRD-Characters]] §4, [[share-characters-across-the-household]]).
 - App: 101 index, 102 detail, 103 create (form, names moderated on create), 104 carousel, 105 quick actions (favourite, archive, delete) and re-create image. "Create a story with this character" ships with Slice 200.
 
@@ -175,4 +176,4 @@ Actual working days per milestone, against the estimate, for the checkpoint afte
 |---|---|---|---|
 | M0 Finish restructure | ~1 | 3 | 30/10 |
 | M1 App foundations rework | 4–5 (was 2–3) | ~5 | 06/11 |
-| M2 Characters (008) | 3–4 | | |
+| M2 Characters (008) | 3–4 | ~3.5 (backend 10–11/11, app 11–12/11; mock-ups counted in M1a) | 12/11 (PR #27, #28) |
