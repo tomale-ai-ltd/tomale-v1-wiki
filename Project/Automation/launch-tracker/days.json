@@ -1,0 +1,12 @@
+[
+ {"date": "2026-10-28", "delivered": 0.3, "milestones": "M0", "headline": "Roadmap and CURRENT rebuilt"},
+ {"date": "2026-10-29", "delivered": 0.3, "milestones": "M0", "headline": "Every PRD reviewed together (B9)"},
+ {"date": "2026-10-30", "delivered": 0.4, "milestones": "M0", "headline": "Repo sync and agents set up; vault restructure closed"},
+ {"date": "2026-11-01", "delivered": 0.8, "milestones": "M1", "headline": "PR A merged; UI library chosen"},
+ {"date": "2026-11-03", "delivered": 0.8, "milestones": "M1", "headline": "Expo SDK 58 upgrade merged"},
+ {"date": "2026-11-04", "delivered": 0.8, "milestones": "M1", "headline": "app.config.js and gluestack v5 merged; speckit 007 started"},
+ {"date": "2026-11-05", "delivered": 2.6, "milestones": "M1, M1a, M2", "headline": "Design system and mock-ups made; Characters backend live; 007 half done"},
+ {"date": "2026-11-06", "delivered": 1.6, "milestones": "M1, M1a, M2", "headline": "Speckit 007 merged, M1 done; brand theme and tabs in the app"},
+ {"date": "2026-11-11", "delivered": 1.2, "milestones": "M1a, M2", "headline": "Character story counts and filter live, 103 tests green; mock-ups round 2"},
+ {"date": "2026-11-12", "delivered": 2.9, "milestones": "M2, M3", "headline": "Characters shipped (M2 done); PIN and profiles backend live"}
+]

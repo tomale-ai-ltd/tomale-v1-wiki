@@ -3,9 +3,9 @@ type: living-doc
 title: CURRENT
 project: tomale-rn-v1
 status: current
-version: 2.4
+version: 2.5
 date: 2026-10-24
-last_verified: 2026-11-10
+last_verified: 2026-11-13
 owner: vault
 related:
   - "[[roadmap]]"
@@ -15,11 +15,11 @@ related:
 
 # CURRENT: where Tomale V1 stands
 
-Start here. One page, updated whenever the phase or the next step changes. Last updated 06/11/2026.
+Start here. One page, updated whenever the phase or the next step changes. Last updated 13/11/2026.
 
 ## Now
 
-- **Phase:** frontend development resumes ([[resume-frontend-at-slice-100]]). The knowledge restructure (B0–B12) finished on 30/10.
+- **Phase:** M3 Profiles and parental controls. **Part A (profiles and PIN backend) done 12/11; part B (approvals backend, B1–B5) in progress** ([[m3-approvals-backend-prep-brief]], prompts in [[m3-approvals-xano-prompts]]). M1a and M2 (Characters, speckit 008, PR #27/#28) done 12/11.
 - **Backend:** Phase 1 (security and data integrity) signed off on 23/10, 86/86 `_tests` passing. Auth, profiles, stories and generation, store, payments and print fulfilment are built. Every PRD now has a backend prep list for what's still to build ([[v1-feature-map]]).
 - **App repo:** everything is on `main` (foundations 001–006, Expo SDK 58, constitution 1.6.0, Node 22, pnpm; CI `test` runs Gitleaks, Semgrep, audit, lint, typecheck, tests; Renovate for updates). PRs go into `main` and must pass CI; Kyle merges by rebase. No feature screens yet; the app starts to Sign in, and password and magic-link sign-in work on an EAS development build. **007 merged 06/11:** the session lives in `expo-secure-store` (memory only on web), one shared refresh with retry, sign-out only when refresh is rejected, and crash reports carry the account id and active profile id only.
 - **Agents:** Claude Project knowledge auto-syncs from the vault; Cursor writes raw session notes; Xano's agent reads a locked AGENTS.md ([[agent-context-sync]]). Daily pipeline 17:40 weekdays, weekly check Mondays ([[knowledge-architecture]] §10).
@@ -30,10 +30,13 @@ Public UK release on the App Store **and Google Play**, full V1 including subscr
 
 ## Next
 
-1. **M1 app foundations rework** ([[roadmap]] M1), four Cursor PRs ([[m1-cursor-briefs]]): ~~A Node 22, Renovate, CI security stage~~ done 01/11 (#15); ~~B Expo SDK 54 → 58 + constitution 1.6.0~~ done 03/11 (#19, device-tested); ~~C `app.config.js` (dev `com.tomaleai.tomalerntest`, prod `ai.tomale.app`) + gluestack-ui v5 with UniWind~~ done 04/11 (#20; also fixed a release-build startup crash in `config/env.ts` and set runtime version to `fingerprint`); ~~D session handling (SecureStore, 401 interceptor, Sentry context) = speckit 007~~ done 06/11 (PR D). **M1 complete.** Next: the repo-sync batch (OpenAPI regen, constitution PATCH, Cursor rules, design system theme, profile-aware tabs), mock-up round 2, then 008.
-2. **Design system and Characters design** (before 008): review the Tomale design system (Claude artifact, first pass 05/11: tokens, Glacial Indifference, brand icons, core components), mock up the Characters screens with it, then a repo-sync item loads the tokens, fonts and icons into the app's gluestack/UniWind theme (RS-2026-11-05-01). **Brand icons needed for the Home and Characters tabs**, in the same illustrated style as Create, Bookshelf and Store (Kyle, 05/11); the mock-ups use placeholders until then.
-3. **Characters backend prep** ([[PRD-Characters]] §4), then **Slice 100 = speckit 008**.
-4. Then Profiles and parental controls (M3), story creation (M4).
+1. **M3 part B backend:** B1 live in Xano (not yet in the mirror); paste B2–B5 into the Xano AI one at a time, Claude reviews each before Kyle publishes. After B2, pull the mirror and check B1 appears.
+2. **Postman folder 7** (approvals, gated by `runApprovalTests`, fixture `approvalStoryId`), then a manual check of the approval email.
+3. **RS-2026-11-12-04** (regenerate after M3 part A, overlay entries): Kyle approves, Cursor applies.
+4. **`/speckit.specify` for M3** (app side), including the 008 child device checks.
+5. Snag polish pass S-001 to S-003 ([[snags]]) when convenient. Then M4 story creation.
+
+Handover for a new chat: the latest note in `_raw/Chat Sessions/` (or `Sessions/` once the pipeline has run). Launch tracker dashboard (live progress, pace, day ratings): https://claude.ai/artifact/XZ79NEg5XQiHphNDhAzs9i, source data in `Project/Automation/launch-tracker/`.
 
 ## Known risks
 
@@ -48,7 +51,7 @@ Public UK release on the App Store **and Google Play**, full V1 including subscr
 
 | Need | Doc |
 |---|---|
-| Plan and order of work | [[roadmap]] · [[v1-feature-map]] · [[v2-backlog]] |
+| Plan and order of work | [[roadmap]] · [[v1-feature-map]] · [[v2-backlog]] · launch tracker (link under Next) |
 | Product | `Canonical/prd/` (all approved 29/10) |
 | Backend conventions and gotchas | [[backend-xano]] |
 | Access rules and endpoint matrix | [[security-model]] |
