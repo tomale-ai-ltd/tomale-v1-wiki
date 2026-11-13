@@ -31,12 +31,12 @@
   "milestone": "Design system and Characters design",
   "est_min": 1,
   "est_max": 2,
-  "status": "in progress",
-  "progress": 0.9,
+  "status": "done",
+  "progress": 1,
   "actual_days": 1.17,
-  "finished": null,
+  "finished": "2026-11-12",
   "estimate_assumed": false,
-  "note": "Theme, fonts and tabs in the app (PR #23); mock-up round 2 decided and on the canvas 11/11"
+  "note": "Mock-ups decided 11/11; applied through the 008 component kit and screens 12/11 (PR #27)"
  },
  {
   "order": 4,
@@ -44,12 +44,12 @@
   "milestone": "Characters (008)",
   "est_min": 3,
   "est_max": 4,
-  "status": "in progress",
-  "progress": 0.79,
+  "status": "done",
+  "progress": 1,
   "actual_days": 1.67,
-  "finished": null,
+  "finished": "2026-11-12",
   "estimate_assumed": false,
-  "note": "008 implemented on branch (37 of 47 tasks); US7 component kit awaiting Kyle's review; PR #26 OpenAPI overlay"
+  "note": "PR #27 and #28 merged 12/11; parent device checks passed, child checks in M3; snags S-001 to S-003 for the polish pass"
  },
  {
   "order": 5,
@@ -58,11 +58,11 @@
   "est_min": 4,
   "est_max": 6,
   "status": "in progress",
-  "progress": 0.2,
+  "progress": 0.3,
   "actual_days": 0.5,
   "finished": null,
   "estimate_assumed": false,
-  "note": "Part A backend (profiles, PIN) built 12/11; part B approvals brief ready; app speckit not started"
+  "note": "Part A backend (profiles, PIN) done 12/11; part B: email setup and schema done, B2–B5 next; app speckit not started"
  },
  {
   "order": 6,

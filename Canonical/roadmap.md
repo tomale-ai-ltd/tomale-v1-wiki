@@ -66,6 +66,7 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 - **UI library decided 01/11:** Expo SDK 54 → 58 first (PR B), then gluestack-ui v5 with UniWind (PR C) ([[upgrade-expo-to-sdk-58-and-use-gluestack-v5-with-uniwind]]). gluestack v3 was dropped: its overlays break on SDK 54 with Reanimated 4. Adds 1–2 days to M1.
 
 ### M1a. Design system and Characters design (1–2 days, before M2)
+- **Done 12/11:** mock-ups decided 11/11 and applied through the 008 component kit and screens ([[build-ui-from-a-component-kit-with-a-screenshot-loop]]).
 - First pass done 05/11: Tomale design system artifact from the brand guidelines (colour roles with checked contrast in light and dark, Glacial Indifference type scale, spacing, radii, logos, brand icons; Button, TextField, CharacterCard, ActionSheet, TabBar).
 - **Navigation decided 05/11:** profile-aware bottom tabs with a Home dashboard ([[use-profile-aware-bottom-tabs-with-home-dashboard]]). Mock-ups of Home and the Characters screens (incl. carousel and the 501 chat) on the Tomale Characters screens canvas; brand icons for Home and Characters still to draw.
 - Next: richer, picture-book component styling and mock-up review; then RS-2026-11-05-01 loads tokens, fonts and icons into the app theme before `/speckit.specify` for 008.
@@ -176,4 +177,5 @@ Actual working days per milestone, against the estimate, for the checkpoint afte
 |---|---|---|---|
 | M0 Finish restructure | ~1 | 3 | 30/10 |
 | M1 App foundations rework | 4–5 (was 2–3) | ~5 | 06/11 |
-| M2 Characters (008) | 3–4 | ~3.5 (backend 10–11/11, app 11–12/11; mock-ups counted in M1a) | 12/11 (PR #27, #28) |
+| M1a Design system and Characters design | 1–2 | ~1.2 | 12/11 |
+| M2 Characters (008) | 3–4 | ~1.7 (session-day count as in the launch tracker; 11/11 and 12/11 were long days) | 12/11 (PR #27, #28) |
