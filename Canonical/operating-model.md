@@ -3,9 +3,9 @@ type: plan
 title: operating-model
 project: tomale-rn-v1
 status: current
-version: 1.2
+version: 1.3
 date: 2026-10-24
-last_verified: 2026-11-06
+last_verified: 2026-11-17
 owner: vault
 related:
   - "[[knowledge-architecture]]"
@@ -117,6 +117,8 @@ Backend rules live in `Canonical/backend-xano.md` and are copied into the Xano K
 2. Write the feature's micro-PRD in the repo at `.docs/prd/NNN-slicename.md` (template `000-example-prd.md`), drawn from the vault PRD. One per speckit feature, as for 001–006.
 3. `/speckit.specify` (referencing the micro-PRD; it creates the `NNN-…` branch) → `/speckit.clarify` → `/speckit.plan` → `/speckit.tasks` → `/speckit.analyze` → `/speckit.implement`. After `specify`, check the spec against the micro-PRD and the constitution. `analyze` is read-only: changes go back through specify, plan or tasks.
 4. `/speckit.implement` also writes `specs/NNN-…/checklists/validation.md`; Kyle and the agent work through it before the PR.
+   - A screen is done only after Kyle sees it on the phone; web screenshots can't prove native rendering ([[check-every-screen-on-the-phone-before-done]]). The native rules (no CSS variables in colour props, keyboard avoidance) live in `.cursor/rules/ui.mdc`.
+   - Device-check findings are bugs (wrong behaviour, broken or placeholder content, accessibility failures: fixed before merge) or cosmetic snags (logged in [[snags]] and fixed in a polish pass or with the next slice that touches the area) ([[track-cosmetic-snags-separately-from-bugs]]).
 5. Branching, CI, Constitution Check and review follow the constitution's *Development Workflow & Quality Gates*; they aren't restated here. Cursor confirms the GitHub `test` check is green (`gh pr checks`) before reporting a PR ready; local typecheck is not enough ([[require-green-ci-check-before-cursor-reports-pr-ready]]). Kyle reviews, squash-merges and deletes the branch ([[name-branches-by-speckit-feature-number]]).
 6. If implementation reveals a needed backend change, stop and raise it as a backend change (§3.2). Agents don't work around the API.
 

@@ -32,7 +32,7 @@ Goal: every backend item in [[PRD-Parental-Oversight-Content-Approval]] §7a bui
 ## Change set B0 (Kyle, before B3)
 1. **Resend template** "approval needed" with one variable `approvals_url`. Wording, no story content: "One of your children's stories needs a quick look from you before they can read it. Open Tomale to review it." Button: "Review in Tomale" → `{{approvals_url}}`.
 2. **Web page** `https://tomale.ai/app/approvals` (Squarespace, like `/verify-email`): a button that opens `tomalerntest://approvals` (dev; `tomale://approvals` in production).
-3. **Xano env vars:** `app_url_scheme` = `tomalerntest`; `approvals_url` = `https://tomale.ai/app/approvals`; `resend_approval_template` = the template id.
+3. **Xano env vars:** `app_url_scheme` = `tomalerntest`; `approvals_url` = `https://tomale.ai/app/approvals`; `resend_approvals_template` = the template id.
 
 ## Change set B1: schema
 - `instant stories`: `approved_by_profile_id` (uuid, nullable, table user_profiles), `approved_at` (timestamp, nullable), `approval_rejected_at` (timestamp, nullable).
@@ -43,7 +43,7 @@ Goal: every backend item in [[PRD-Parental-Oversight-Content-Approval]] §7a bui
 - One visibility rule on all three alert endpoints (list, single PATCH, mark all read): a row is visible when `users_id == $auth.id` and (`audience` is `all` or null, or (`audience == "parents"` and the active profile is a parent, strict), or (`audience == "profile"` and `user_profiles_id == active_profile.id`)). Not visible → 404 on the single PATCH; mark-all-read only touches visible rows.
 
 ## Change set B3: moderation and completion
-- `content_moderation_story_text`, `Parental Approval` branch: alert with `audience: "parents"`, `instant_stories_id`, message without the moderation reason ("A story needs your review before your child can read it."), `action_url` = `$env.app_url_scheme ~ "://approvals"`. Then send the email to the account's address with `admin/resend_dynamic_send` (`template_id: $env.resend_approval_template`, `variables: {approvals_url: $env.approvals_url}`) inside a `try_catch`: an email failure must never fail moderation. The reason stays in `blocked_reason` for the parent's story view.
+- `content_moderation_story_text`, `Parental Approval` branch: alert with `audience: "parents"`, `instant_stories_id`, message without the moderation reason ("A story needs your review before your child can read it."), `action_url` = `$env.app_url_scheme ~ "://approvals"`. Then send the email to the account's address with `admin/resend_dynamic_send` (`template_id: $env.resend_approvals_template`, `variables: {approvals_url: $env.approvals_url}`) inside a `try_catch`: an email failure must never fail moderation. The reason stays in `blocked_reason` for the parent's story view.
 - `story_completion_check`: the "is ready!" alert goes to the creating profile (`audience: "profile"`, `user_profiles_id`, `instant_stories_id`), and is **skipped** while the story awaits approval (`parental_approval_required === true && parent_approved !== true`). `action_url` uses `$env.app_url_scheme`.
 
 ## Change set B4: approve and reject

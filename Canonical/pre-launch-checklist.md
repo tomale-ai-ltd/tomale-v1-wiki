@@ -3,9 +3,9 @@ type: living-doc
 title: pre-launch-checklist
 project: tomale-rn-v1
 status: current
-version: 1.1
+version: 1.2
 date: 2026-10-28
-last_verified: 2026-11-12
+last_verified: 2026-11-17
 owner: vault
 related:
   - "[[roadmap]]"
@@ -25,6 +25,7 @@ Everything that must be true before the public release, in one place. Items were
 - [x] **Parental PIN gate** on `auth/select_profile` (done 12/11, Postman folder 6; [[parental-gate-on-profile-switch]], [[m3-profiles-pin-backend-prep-brief]]).
 - [x] **`user_profiles.is_child` required** (done 12/11 after checking no rows were null).
 - [x] **`GET /instant_stories/{id}`** no longer returns the account owner's email and name (users addon removed 12/11), and no longer fails on a story with no characters.
+- [ ] **Slice 300: give `GET /instant_stories/{id}` an explicit output list.** It returns the whole story record (`db.get` with no output). For a child profile, leave out `blocked_reason`, `approved_by_profile_id`, `approved_at` and `approval_rejected_at` (parent-only approval fields since M3 B5). The app doesn't show them; the server should still not send them ([[security-model]]; PU-2026-11-13-01).
 - [x] **`POST /characters/{id}/model` deleted** (12/11): it could queue unlimited image jobs; create runs the model.
 - [x] **`auth/reset_password` deleted** (12/11): public, never checked the emailed code, returned the user record. Forgotten password = email link login.
 - [ ] **Restored session and the PIN:** a refresh returns a token for the last active profile, which may be the parent; the app must show the picker and require the PIN before using it. Server-side enforcement would need refresh to downgrade the token (not in V1; revisit before launch).
@@ -80,6 +81,7 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] Delete the five old EAS updates on the `production` branch (runtime `1.0.0`, ~Nov 2025 test updates). Harmless since the runtime version moved to `fingerprint`, but clutter.
 - [ ] Remove the "OTA UPDATE APPLIED" test marker from the Home screen (goes with the real Home screen).
 - [ ] Backend-generated links (alert `action_url`, magic-link redirect) use the production scheme `tomale://` for production ([[use-per-build-variant-url-schemes]], Xano dev/prod split).
+- [ ] **Web pages open the right app.** `/app/approvals`, `/verify-email` and the magic-link page read `?app=` (allowlist `tomale` | `tomalerntest`, fallback `tomale`) and open `<app>://…`. Each Xano environment's link env vars (`approvals_url`, the verify-email and magic-link links) carry `?app=tomalerntest` (dev) or `?app=tomale` (production). Verify with both apps on one phone ([[pass-app-scheme-to-web-intermediary-pages]]; Xano dev/prod split).
 
 ## 5. App Store and Google Play (both in scope: [[CURRENT]] launch plan)
 

@@ -31,7 +31,7 @@ Strict comparisons; codes in payload.code.
 ```
 Two functions. Change only what's described.
 1. ai pipeline/content_moderation_story_text, in the branch that sets status_moderation "Parental Approval": change the notifications/create_user_alert call to: type "Content Moderation", message "A story needs your review before your child can read it.", audience "parents", instant_stories_id = the story id, users_id = the story's users_id, action_url = $env.app_url_scheme ~ "://approvals", action_label "Review story". Do not put the moderation reason in the alert (it stays in blocked_reason).
-   Then, inside a try_catch (an email failure must never stop moderation), get the story owner's users.email and run admin/resend_dynamic_send with to_email = that email, template_id = $env.resend_approval_template, variables = {approvals_url: $env.approvals_url}. In the catch, do nothing except log if a log function is already used in this function.
+   Then, inside a try_catch (an email failure must never stop moderation), get the story owner's users.email and run admin/resend_dynamic_send with to_email = that email, template_id = $env.resend_approvals_template, variables = {approvals_url: $env.approvals_url}. In the catch, do nothing except log if a log function is already used in this function.
 2. ai pipeline/story_completion_check: the "<title> is ready!" alert: skip it entirely when the story has parental_approval_required === true AND parent_approved !== true. Otherwise send it with audience "profile", user_profiles_id = the story's user_profiles_id, instant_stories_id = the story id, and action_url = $env.app_url_scheme ~ "://stories/" ~ the story id.
 Use the table name "instant stories" (quoted, with the space) wherever the stories table is used.
 ```

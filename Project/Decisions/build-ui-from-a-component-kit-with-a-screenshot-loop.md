@@ -2,7 +2,7 @@
 type: decision
 title: build-ui-from-a-component-kit-with-a-screenshot-loop
 project: tomale-rn-v1
-status: proposed
+status: accepted
 date: 2026-11-12
 related:
   - "[[RS-2026-11-12-02]]"
