@@ -40,6 +40,16 @@ A household can hand the device between parent and children safely. Anyone can s
 - Header bands run edge to edge under the status bar (fixes snag S-001 for these screens): one kit `ScreenHeader` whose height is the top safe-area inset plus its content, never a fixed height; utility screens use the compact form (back or close, title).
 - Copy follows the design-system README (sentence case, warm, no jargon).
 
+## Design notes (Kyle and Claude, 17/11; not all drawn in the mock-ups)
+
+- PIN pad submits on the fourth digit; no submit button and no success modal. Right PIN: green dots and "Welcome back, [name]" for a moment, then Home. Wrong PIN: dots clear with a short shake (none with reduce motion) and the tries-left line.
+- "Forgot PIN?" reuses the locked screen with the title "Forgot your PIN?"; same "Email me a link" button and "Check your email" result. No separate page.
+- Add child: the profile is created only when the parent taps the save button. Its label is "Add [typed name]" (never a fixed name) and it's disabled, reading "Add", while the name is empty.
+- Avatar picker "Our characters": empty state with no create button when there are none.
+- One adult and up to six children: Manage profiles says "Add a child" and "N of 6 children".
+- Header bands: kit `ScreenHeader` under the status bar, no fixed heights ([[draw-header-bands-under-the-status-bar]], RS-2026-11-17-03).
+- Mock-up states to check: 901 profile parent/child; 903 entering/correct/wrong; 904 locked/forgot/sent/just-sent; 905 first-child/confirm/mismatch/change-current; 907 add/edit, pictures/characters/characters-empty, name default/empty/rejected.
+
 ## Out of scope
 
 - Approvals inbox, review, waiting card and the email deep-link resume (010). The avatar menu's Approvals entry and badge arrive in 010.
