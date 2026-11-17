@@ -3,9 +3,9 @@ type: prd
 title: PRD-Parental-Oversight-Content-Approval
 project: tomale-rn-v1
 status: current
-version: 2.0
+version: 2.2
 date: 2026-04-14
-last_verified: 2026-11-12
+last_verified: 2026-11-17
 owner: vault
 features:
   - F-parental-oversight
@@ -57,9 +57,9 @@ The story-text moderation step sets `instant_stories.status_moderation`:
 | `parental_approval_required` (bool) | Built |
 | `parent_approved` (bool) | Built |
 | `blocked_reason` (text) | Built (used for Fail) |
-| `approved_by_profile_id` (uuid) | **To add** |
-| `approved_at` (timestamp) | **To add** |
-| `approval_rejected_at` (timestamp) | **To add** (records a rejection) |
+| `approved_by_profile_id` (uuid) | Built 13/11 |
+| `approved_at` (timestamp) | Built 13/11 |
+| `approval_rejected_at` (timestamp) | Built 13/11 (records a rejection) |
 
 **Rule:** if `parental_approval_required = true` and `parent_approved = false`, child access is locked.
 
@@ -67,7 +67,7 @@ The story-text moderation step sets `instant_stories.status_moderation`:
 
 1. A child creates a story.
 2. Moderation returns `Parental Approval`, so `parental_approval_required = true` (built).
-3. An alert is created for the household (built: `user_alerts`, type `Content Moderation`, `action_url` pointing at the story). **To change:** the alert must be shown to **parent profiles only**. `user_alerts` is account-level today, so it needs an audience field (e.g. `audience = parents`) or a target profile.
+3. An alert is created for the parents (built: `user_alerts`, type `Content Moderation`, `audience = parents`, linked to the story by `instant_stories_id`; a child never sees it).
 4. The parent is also emailed (Resend, notification only, no approval in the email). The link opens the app at the approvals inbox (§8a).
 5. The parent switches to their profile (PIN required, [[parental-gate-on-profile-switch]]), opens the approvals inbox and taps the alert, which deep-links to the story.
 6. The parent reads the full story and approves or rejects it (no editing in V1).
@@ -76,10 +76,10 @@ The story-text moderation step sets `instant_stories.status_moderation`:
 
 ## 7. Backend Function Logic (Xano)
 
-### 7.1 Story reads (built, one change)
-`GET /instant_stories` and `GET /instant_stories/{id}` use an allowlist on `status_moderation` (`Pass`, or `Parental Approval` with `parent_approved = true`). Today a child profile simply **doesn't see** a story awaiting approval ([[per-child-story-visibility]]). **To change (decided 29/10):** the list returns a redacted card for the child instead: title and "Waiting for a grown-up" only, never pages or cover. `GET /instant_stories/{id}` stays refused for the child until approval.
+### 7.1 Story reads (built)
+`GET /instant_stories` and `GET /instant_stories/{id}` use an allowlist on `status_moderation` (`Pass`, or `Parental Approval` with `parent_approved = true`) ([[per-child-story-visibility]]). A child's list also returns their own awaiting stories as redacted cards `{id, title, approval_state: "awaiting", created_at}`, never pages or cover (built 13/11); the app shows "Waiting for a grown-up". `GET /instant_stories/{id}` stays refused for the child until approval. Both reads carry a derived `approval_state`.
 
-### 7.2 Approve: `POST /instant_stories/{id}/approve` (to build)
+### 7.2 Approve: `POST /instant_stories/{id}/approve` (built 13/11)
 Preconditions:
 - Caller's active profile is a parent profile (not `is_child`)
 - Same household (`users_id` matches `$auth.id`)
@@ -88,9 +88,9 @@ Preconditions:
 Effects:
 - `parent_approved = true`, `approved_by_profile_id`, `approved_at`
 - Mark the related alert read
-- Optional: an alert to the child profile ("Your story is ready!")
+- An alert to the creating profile ("<title> is ready!") when the story is Done (built)
 
-### 7.3 Reject: `POST /instant_stories/{id}/reject` (to build)
+### 7.3 Reject: `POST /instant_stories/{id}/reject` (built 13/11)
 Same preconditions. Story stays locked; `approval_rejected_at` set; alert resolved.
 
 ### 7.4 Removed from V1
@@ -99,14 +99,14 @@ Email approval tokens (`consume_approval_token`): approval happens only in the a
 ## 7a. Backend prep (from the generated [[Repos/tomale-rn-test/memory/data-model|data-model]] and the live endpoints)
 **Live:** `instant_stories` (`status_moderation`, `parental_approval_required`, `parent_approved`, `blocked_reason`), the allowlist on story reads, `user_alerts` (`type`, `action_url`, `action_label`, `is_read`), `create_user_alert`, the ordering gate.
 
-**To build:**
-1. **`instant_stories` fields:** `approved_by_profile_id` (uuid), `approved_at`, `approval_rejected_at`.
-2. **Alerts for parents only:** add an audience to `user_alerts` (e.g. `audience` = all | parents, default all); alert reads filter on the active profile; the moderation step creates its alert with `audience = parents`.
-3. **`POST /instant_stories/{id}/approve`** and **`/reject`** (parent profile, same household, preconditions in §7.2–7.3); approve also marks the alert read and can alert the child.
-4. **Child's waiting card:** the story list returns a redacted card for stories awaiting approval (§7.1).
-5. **Notification email:** a Resend template sent with the parent alert, linking to the approvals inbox (§8a); no token. Built with the M3 backend (Kyle, 12/11): template variable `approvals_url`, page `tomale.ai/app/approvals`, env vars `app_url_scheme`, `approvals_url`, `resend_approval_template`; sent inside a `try_catch` so it never fails moderation. Stories carry a derived `approval_state` (`none` / `awaiting` / `approved` / `rejected`), and a child's list shows redacted awaiting cards ([[m3-approvals-backend-prep-brief]]).
-6. **Backend-generated links** (`action_url`, email link) use the per-environment scheme ([[use-per-build-variant-url-schemes]]).
-7. **Postman `_tests`:** child can't open a locked story; child refused on approve; parent approves → child can open; reject keeps it locked; alert visible to parents only.
+**Built 13/11, tested 17/11 (Postman folder 7)** except item 6 ([[m3-approvals-backend-prep-brief]]):
+1. **`instant_stories` fields:** (built) `approved_by_profile_id` (uuid), `approved_at`, `approval_rejected_at`.
+2. **Alerts for parents only:** (built) `user_alerts.audience` = `all` | `parents` | `profile` (default `all`), plus `user_profiles_id` and `instant_stories_id`; all alert reads filter on the active profile. The moderation step's approval and blocked alerts go to `parents`; the completion "is ready!" alert goes to the creating profile and is skipped while the story awaits approval (a story with no profile falls back to `all`).
+3. **`POST /instant_stories/{id}/approve`** and **`/reject`** (built; parent profile, same household, preconditions in §7.2–7.3): codes `PARENT_PROFILE_REQUIRED`, `STORY_NOT_FOUND`, `NOT_AWAITING_APPROVAL`, `ALREADY_APPROVED`. Both mark the story's alerts read; approve clears a rejection and, if the story is Done, alerts the creating profile.
+4. **Child's waiting card:** (built) the story list returns a redacted card for stories awaiting approval (§7.1).
+5. **Notification email:** a Resend template sent with the parent alert, linking to the approvals inbox (§8a); no token. Built with the M3 backend (Kyle, 12/11): template variable `approvals_url`, page `tomale.ai/app/approvals`, env vars `app_url_scheme`, `approvals_url`, `resend_approvals_template`; sent inside a `try_catch` so it never fails moderation. Stories carry a derived `approval_state` (`none` / `awaiting` / `approved` / `rejected`), and a child's list shows redacted awaiting cards ([[m3-approvals-backend-prep-brief]]).
+6. **Backend-generated links** (`action_url`, email link) use the per-environment scheme ([[use-per-build-variant-url-schemes]]). Open: `action_url` already uses `$env.app_url_scheme`; the web page side is done with the dev/prod split ([[pass-app-scheme-to-web-intermediary-pages]]).
+7. **Postman `_tests`:** (built, folder 7) child can't open a locked story; child refused on approve; parent approves → child can open; reject keeps it locked; alert visible to parents only.
 
 ## 8. UI Requirements
 
@@ -115,7 +115,7 @@ Child UI:
 - "Waiting for a grown-up to say yes" message
 
 Parent UI:
-- Approvals inbox (filtered alerts) with a count badge
+- Approvals inbox (filtered alerts) with a count badge, reached from a "Stories to review (N)" card on the parent Home and an Approvals entry with a badge in the avatar menu; no tab ([[surface-approvals-on-parent-home-and-avatar-menu]])
 - Full story view with Approve / Reject
 - Rejected stories listed, with Delete
 

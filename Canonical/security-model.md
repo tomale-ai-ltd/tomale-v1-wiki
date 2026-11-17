@@ -3,9 +3,9 @@ type: living-doc
 title: security-model
 project: tomale-rn-v1
 status: current
-version: 2.0
+version: 2.1
 date: 2026-10-28
-last_verified: 2026-11-12
+last_verified: 2026-11-17
 owner: vault
 related:
   - "[[backend-xano]]"
@@ -68,10 +68,12 @@ Generated on 28/10/2026 from the Xano mirror (`Repos/tomale-xano`, sync of 24/10
 | `app` | GET | `/conversations/{conversations_id}` | users | Owner (`$auth.id`) |  |
 | `app` | POST | `/conversations/{id}/message` | users | Owner (`$auth.id`) |  |
 | `app` | GET | `/fact/random` | users | Reference, profile-gated | Gated on `is_child` |
-| `app` | GET | `/instant_stories` | users | Owner (`$auth.id`) + active profile | request history 100 |
+| `app` | GET | `/instant_stories` | users | Owner (`$auth.id`) + active profile | request history 100; derived `approval_state`; a child also gets redacted awaiting cards `{id, title, approval_state, created_at}` (the one deliberate difference from `stories/visible_story_ids`); parent filter `approval_state` (17/11) |
 | `app` | POST | `/instant_stories` | users | Owner (`$auth.id`) + active profile | 2× `enforce_hidden_fields = false` |
 | `app` | DELETE | `/instant_stories/{id}` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
-| `app` | GET | `/instant_stories/{id}` | users | Owner (`$auth.id`) + active profile | Strict parent check (11/11); owner email/name no longer returned (12/11) |
+| `app` | GET | `/instant_stories/{id}` | users | Owner (`$auth.id`) + active profile | Strict parent check (11/11); owner email/name no longer returned (12/11); parent gets `approval_state`, `blocked_reason`, `approved_at`, `approval_rejected_at` (17/11; child output trim in [[pre-launch-checklist]]) |
+| `app` | POST | `/instant_stories/{instant_stories_id}/approve` | users | Owner (`$auth.id`), parent only | `NOT_AWAITING_APPROVAL`, `ALREADY_APPROVED`; marks the story's alerts read (17/11) |
+| `app` | POST | `/instant_stories/{instant_stories_id}/reject` | users | Owner (`$auth.id`), parent only | Same checks as approve; story stays locked and hidden from the child (17/11) |
 | `app` | POST | `/instant_stories/{instant_stories_id}/assign` | users | Owner (`$auth.id`), parent only | Target profile on the account, active, not deleted (12/11) |
 | `app` | POST | `/instant_stories/{id}/cover_image` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
 | `app` | POST | `/instant_stories/{id}/model` | users | Owner (`$auth.id`) |  |
@@ -93,13 +95,13 @@ Generated on 28/10/2026 from the Xano mirror (`Repos/tomale-xano`, sync of 24/10
 | `app` | GET | `/subscriptions` | users | Owner (`$auth.id`), parent only |  |
 | `app` | GET | `/subscriptions/{subscriptions_id}` | users | Owner (`$auth.id`), parent only |  |
 | `app` | GET | `/themes` | users | Reference (any signed-in user) |  |
-| `app` | GET | `/user_alerts` | users | Owner (`$auth.id`) |  |
-| `app` | GET | `/user_alerts/{user_alerts_id}` | users | Owner (`$auth.id`) |  |
-| `app` | PATCH | `/user_alerts/{user_alerts_id}` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
+| `app` | GET | `/user_alerts` | users | Owner (`$auth.id`) + active profile (audience) | Missing `active_profile` → 401 `UNAUTHORIZED` (17/11) |
+| `app` | GET | `/user_alerts/{user_alerts_id}` | users | Owner (`$auth.id`) + active profile (audience) | Not visible → 404 `ALERT_NOT_FOUND` |
+| `app` | PATCH | `/user_alerts/{user_alerts_id}` | users | Owner (`$auth.id`) + active profile (audience) | Not visible → 404 `ALERT_NOT_FOUND` |
 | `app` | PATCH | `/users/me` | users | Owner (`$auth.id`) | 2× `enforce_hidden_fields = false` |
 | `app` | POST | `/users/me/complete_onboarding` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
 | `app` | PATCH | `/users/me/image` | users | Owner (`$auth.id`) + active profile | 2× `enforce_hidden_fields = false` |
-| `app` | PATCH | `/users/user_alerts/mark-all-read` | users | Owner (`$auth.id`) | 1× `enforce_hidden_fields = false` |
+| `app` | PATCH | `/users/user_alerts/mark-all-read` | users | Owner (`$auth.id`) + active profile (audience) | Only visible rows are marked |
 | `app` | POST | `/users/me/pin` | users | Owner (`$auth.id`), parent only | Email verified; change needs the current PIN; failed attempts count towards the lock (12/11) |
 | `app` | GET | `/users/user_profiles` | users | Owner (`$auth.id`) |  |
 | `app` | POST | `/users/user_profiles` | users | Owner (`$auth.id`), parent only; PIN must be set | 1× `enforce_hidden_fields = false` |
@@ -153,7 +155,7 @@ Per [[5-cto-implementation-plan]], Phase 1 items 5–9 closed on 2026-07-16 and 
 - **Users and profiles:** `PATCH /users/me` (boolean preferences folded in), `complete_onboarding`, the image endpoint. `user_profiles` is one table with `is_child` and `is_primary`: parent-only create and delete, household scope, soft delete, profanity list plus AI moderation.
 - **Stories and characters:** owner-scoped `instant_stories` with per-child visibility and the moderation and parental-approval flags. `conversations/{id}/message` and `API/character_edit` take explicit input lists, no `dblink` (2026-10-23).
 - **System:** activities, `artwork_style`, `fact/random` (with an `is_child` gate), themes; phonics reduced to two nested read endpoints.
-- **Engagement:** `user_alerts`, an account-level inbox (list, get, mark read, `PATCH /users/user_alerts/mark-all-read`).
+- **Engagement:** `user_alerts`, an account-level inbox with an audience (`all`, `parents`, or one `profile`): list, get, mark read and `PATCH /users/user_alerts/mark-all-read` only see or touch rows visible to the active profile (17/11). Creation is internal (`notifications/create_user_alert`, explicit inputs).
 - **Commerce:**
   - `store_orders` owned through `$auth.id`; a 30-minute self-service cancel window with automatic refund; ordering blocked while a story awaits parental approval (`STORY_AWAITING_APPROVAL`); money stored in integer pence.
   - `stripe/create_checkout_session`: owner-scoped; never returns the raw Stripe response; checks the Stripe total against Xano prices; parental-approval gate; order-status guard (`ORDER_NOT_PAYABLE`).

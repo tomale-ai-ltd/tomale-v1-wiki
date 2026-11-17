@@ -3,9 +3,9 @@ type: living-doc
 title: backend-xano
 project: tomale-rn-v1
 status: current
-version: 1.1
+version: 1.2
 date: 2026-11-05
-last_verified: 2026-11-12
+last_verified: 2026-11-17
 owner: vault
 related:
   - "[[security-model]]"
@@ -104,7 +104,8 @@ Backend for Tomale, a children's personalised storybook app (iOS and Android). A
 - `characters` keeps `status` (archive) and `is_deleted` alongside `deleted_at`, by choice.
 - **Parental PIN (12/11):** `users.parental_pin` (password type, internal, never output), `pin_failed_attempts`, `pin_locked`, `pin_set_at`. Set/change with `POST /users/me/pin`; checked by `auth/select_profile` for any parent target; 5 wrong attempts lock it; unlock by email link (`auth/request_magic_link` with `purpose: "reset_pin"`, which clears the PIN on completion). `auth/me` returns `pin_set` and `pin_locked`. `auth/reset_password` was deleted ([[m3-profiles-pin-backend-prep-brief]]).
 - **Magic links:** `users.magic_link` carries `issued_at` and `purpose`; a new link is refused only within 60 s of the last (`RATE_LIMITED`); unknown emails get the same reply.
-- **Story visibility** has one definition, the function `stories/visible_story_ids`, used for character story counts; `GET /instant_stories` keeps an identical rule.
+- **Story visibility** has one definition, the function `stories/visible_story_ids`, used for character story counts; `GET /instant_stories` keeps an identical rule, except that a child also gets redacted cards for their own stories awaiting approval.
+- **Approvals (M3 part B, 13/11):** `instant stories` has `approved_by_profile_id`, `approved_at`, `approval_rejected_at`; story reads derive `approval_state` (`none` / `awaiting` / `approved` / `rejected`). `user alerts` has `audience` (`all` default, `parents`, `profile`), `user_profiles_id`, `instant_stories_id`. `notifications/create_user_alert` takes explicit inputs (no `dblink`); `audience: "profile"` requires `user_profiles_id`, so callers fall back to `all` when a story has no profile. Env vars `app_url_scheme`, `approvals_url`, `resend_approvals_template`. Emails sent from pipelines (the approval email in `content_moderation_story_text`) sit inside a `try_catch` so they never fail the pipeline ([[m3-approvals-backend-prep-brief]]).
 
 ## 4. Pipelines
 
@@ -138,6 +139,7 @@ Rules that follow from gotchas are in the §3 block. These are the remaining tra
 - `$list.field` on an empty list is a fatal "Unable to locate var" (found 11/11 in `stories/visible_story_ids`; it broke the child Characters screen until guarded). Hence the count rule.
 - A loose `== false` is true for null: the 05/11 favourites bug and the parent checks fixed on 11/11. Hence strict parent checks.
 - Xano AI can leave a table name blank (`db.query ""`), which fails at runtime with "Invalid syntax: missing parameter - dbo" (12/11, profile delete and story assign). Check table names in every draft; the stories table is `"instant stories"`.
+- On `admin/resend_dynamic_send` calls, check `variables`: on 13/11 a blanked `variables` sent the approval email with no link, and nothing failed (the send is inside a `try_catch`).
 - `$output` is reserved (it is the addon reference to the record being fetched); don't name a stack variable `$output` (12/11, `GET /instant_stories/{id}`).
 - XanoScript has no syntax to declare a response schema: any response built in the stack exports to OpenAPI as an empty object. The app keeps those shapes in `api/openapi/overrides.yaml` with recorded fixtures ([[RS-2026-11-12-01]]).
 - Omitted optional inputs aren't null unless declared nullable: `bool x?` arrives as `false`, `enum x?` as `""`, and a loose `!= null` treats `false` as null. On 05/11 this first stopped anyone unfavouriting a character, then (after a switch to `!==`) blanked `status` on every flags PATCH; fixed with `bool? is_favourite?` and `enum? status?` (hence the nullable-inputs rule).

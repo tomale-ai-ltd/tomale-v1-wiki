@@ -3,9 +3,9 @@ type: prd
 title: PRD-Profiles
 project: tomale-rn-v1
 status: current
-version: 1.0
+version: 1.1
 date: 2026-10-29
-last_verified: 2026-11-12
+last_verified: 2026-11-17
 owner: vault
 features:
   - F-profiles
@@ -38,7 +38,7 @@ One Tomale account is a household. The account (`users`) holds login, billing an
 | Primary adult | Created at sign-up with the name "default" (`is_primary = true`); renamed during onboarding; can't be deleted or demoted in V1 | [[cap-profiles-at-one-adult-and-six-children]] |
 | Fresh login | A login with the password lands on the primary profile (the person who typed the password is the parent) | [[log-in-to-the-primary-profile]] |
 | Reopening the app | If the account has child profiles, a restored session opens the **profile picker**, and the parent profile needs the PIN. The same happens after 15 minutes in the background. Accounts without children skip the picker | Kyle, 29/10 |
-| PIN | 4 digits, set during onboarding after email verification. Needed to enter a parent profile from a child profile or from the picker. 5 wrong attempts lock it; unlocking needs a password reset, which also sets a new PIN | [[parental-gate-on-profile-switch]], Kyle 29/10 |
+| PIN | 4 digits, set during onboarding after email verification. Needed to enter a parent profile from a child profile or from the picker. 5 wrong attempts lock it; unlocking (and Forgot PIN) uses an emailed link (`purpose: reset_pin`), which clears the PIN so the parent sets a new one | [[parental-gate-on-profile-switch]], Kyle 29/10 |
 | Profile context | Carried in the token (`active_profile`: id, name, is_child); a switch issues a new token | [[carry-active-profile-in-token-extras]] |
 | Fail closed | No `active_profile` in the token → re-login, never a fallback | [[fail-closed-active-profile-resolution]] |
 | Parent-only areas | Store, orders, subscriptions, approvals, profile management and character deletion are hidden or locked in the child UI **and** refused by the backend for child profiles (`PARENT_PROFILE_REQUIRED`) | Kyle 29/10 |
@@ -73,12 +73,12 @@ One Tomale account is a household. The account (`users`) holds login, billing an
 ## 6. Frontend Requirements
 - **Header avatar:** every profile shows its avatar in the header. A child's avatar opens "switch profile" (the PIN pad when choosing a parent profile), so a child is never stuck in their profile; a parent's also opens Settings and Help ([[use-profile-aware-bottom-tabs-with-home-dashboard]]). Until M3 the child header has no avatar (PR #23, 06/11).
 - **Profile picker:** full-screen avatars and names; shown on app reopen (with children) and after 15 minutes in the background; tapping a parent profile opens the PIN pad.
-- **Onboarding:** verify email → name the adult profile → set PIN → optionally add children.
-- **Add child:** name + avatar (presets with colour options, or a household character image); no adult/child toggle.
+- **Onboarding:** verify email → name the adult profile → set PIN → optionally add children. Until M7, the Set PIN screen opens when first needed (adding the first child; a child profile can't be created without a PIN, `PIN_NOT_SET`, and `auth/me` `pin_set: false` tells the app) and Change PIN sits in Manage profiles ([[ask-for-pin-when-first-needed]]).
+- **Add child:** name + avatar (presets with colour options, or the picture of an active household character; archived characters and those still drawing aren't offered, Kyle 17/11); no adult/child toggle.
 - **Manage profiles** (parent only): rename, change avatar, delete with confirmation ("their stories will move to your profile").
-- **Story detail** (parent): "Who's this story for?" to assign it to a profile.
+- **Story detail** (parent): "Who's this story for?" to assign it to a profile. Built with the bookshelf slice (012), which has the story detail screen.
 - **Child UI:** store, orders, subscriptions, approvals and settings are locked (greyed out with a lock icon) in V1. A distinct child UI is a later option.
-- **PIN lock:** after 5 failures, a "reset your password to unlock" screen.
+- **PIN lock:** after 5 failures, an "Email me a link to unlock" screen.
 - **After a switch:** clear profile-scoped caches (stories) and refetch.
 
 ## 7. User Flow

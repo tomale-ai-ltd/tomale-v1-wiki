@@ -3,9 +3,9 @@ type: living-doc
 title: roadmap
 project: tomale-rn-v1
 status: current
-version: 1.6
+version: 1.8
 date: 2026-10-28
-last_verified: 2026-11-12
+last_verified: 2026-11-17
 owner: vault
 supersedes:
   - "[[2-build-plan]]"
@@ -76,27 +76,27 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 - Backend prep: characters stay household-wide (no schema change for visibility); parent-only delete/archive; `is_favourite`; endpoints to link existing characters to a story, re-create an image, and set archive/favourite ([[PRD-Characters]] §4, [[share-characters-across-the-household]]).
 - App: 101 index, 102 detail, 103 create (form, names moderated on create), 104 carousel, 105 quick actions (favourite, archive, delete) and re-create image. "Create a story with this character" ships with Slice 200.
 
-### M3. Profiles and parental controls (4–6 days)
-- **Backend part A (profiles and PIN) done 12/11** ([[m3-profiles-pin-backend-prep-brief]]); part B (approvals inbox, approve/reject) next. The child device checks deferred from 008 run here.
+### M3. Profiles and parental controls, speckit 009 (profiles and PIN) and 010 (approvals) (4–6 days)
+- **Backend part A (profiles and PIN) done 12/11** ([[m3-profiles-pin-backend-prep-brief]]); **part B (approvals) built 13/11, tested 17/11** (Postman folder 7; [[m3-approvals-backend-prep-brief]]). Next: API client regeneration (RS-2026-11-12-04) and `/speckit.specify` for M3. The child device checks deferred from 008 run here.
 - Profile picker, create child profile, preset avatars ([[use-bundled-preset-avatars-for-profiles]]). The child's header avatar returns here and opens switch profile (hidden since PR #23).
 - **PIN gate** on switching to a parent profile, backend and UI ([[parental-gate-on-profile-switch]]).
 - **Approve/reject flow** for flagged stories, with the channel (profile switch, email, push with PIN) decided in the B9 PRD ([[PRD-Parental-Oversight-Content-Approval]]).
 - Child-experience tests (**CTO #23–#26**, moderation and approval journey).
 
-### M4. Story creation, Slice 200 / speckit 009 (5–8 days)
+### M4. Story creation, Slice 200 / speckit 011 (5–8 days)
 - 201 draft bootstrap → 202 conversation → 203 suggestion cards → 204 complete. Uses the live `conversations` endpoints and the Draft → Preparing → In Queue → Done lifecycle ([[formalise-story-status-lifecycle]]).
 - "Limit reached" error handled from day one (§3).
 - Generation takes 10–15 minutes per story, so the UI must handle waiting and the completion alert ([[defer-image-pipeline-throughput-to-phase-2]]).
 
-### M5. Bookshelf and e-reader, Slice 300 / speckit 010 (3–5 days)
+### M5. Bookshelf and e-reader, Slice 300 / speckit 012 (3–5 days)
 - 301 bookshelf, 302 e-reader (cover, pager, read-to-me). 303 reading progress only if it needs no major backend change ([[drop-library-and-pdf-download-from-v1]]).
 - Child locked state for stories awaiting approval.
 - Home dashboard ([[PRD-Home-Dashboard]]) once Bookshelf and Characters exist (estimate when specified).
 
-### M6. Store, Slice 400 / speckit 011 (4–6 days)
+### M6. Store, Slice 400 / speckit 013 (4–6 days)
 - 401 index, 402 checkout with the e-reader preview ([[use-e-reader-preview-before-order-payment]]) and the in-app browser return ([[return-from-stripe-checkout-via-in-app-browser-sheet]]), 403 order history and tracking, 404 failure/retry and cancel within the 30-minute window.
 
-### M6a. AI character creation, Slice 500 / expected speckit 012 (3–5 days)
+### M6a. AI character creation, Slice 500 / expected speckit 014 (3–5 days)
 - **In V1 (Kyle, 29/10, [[include-ai-character-creation-in-v1]]).** 501 chatbot create-character, reusing the chat UI from M4 and the `conversations` endpoints ([[PRD-Chatbot-Create-Character]]).
 - Backend: `character-chat` prompt record and the character message handler.
 - 502 voice input stays behind a feature flag and is the first thing cut if the date is at risk.
@@ -145,7 +145,7 @@ From [[5-cto-implementation-plan]] (archived). Phase 1 (#1–#9) was signed off 
 | 20    | Dependency audit                                                  | **Done 30/10**: `pnpm audit` (high) in CI, five documented exceptions (repo-sync RS-2026-10-24-03)                            | —                          |
 | 21    | Semgrep (SAST, high only)                                         | Not done                                                                                                                      | M1                         |
 | 22    | CI blocking for merges                                            | Partly: `main` needs a PR (ruleset); CI now green on pnpm and runs on wip PRs; make the CI check required on `main` at B12    | B12 / M1                   |
-| 23–26 | Map journeys; auth, story/ownership, moderation and payment tests | Backend journeys covered by Postman `_tests` ([[test-suite]]); frontend tests and the moderation/approval journey outstanding | M3, then per slice         |
+| 23–26 | Map journeys; auth, story/ownership, moderation and payment tests | Backend journeys covered by Postman `_tests` ([[test-suite]]); the moderation/approval journey covered by folder 7 (17/11); frontend tests outstanding | M3, then per slice         |
 | 27    | Migrate to pnpm                                                   | **Done 30/10** (B10, PR #12)                                                                                                  | —                          |
 | 28    | Naming conventions across the schema                              | Closed: `users_id` ratified ([[ratify-users-id-as-ownership-field-standard]])                                                 | —                          |
 | 29    | Join tables for child visibility                                  | Not for V1: single `user_profiles_id` per story ([[per-child-story-visibility]]); revisit with sharing                        | Post-V1                    |

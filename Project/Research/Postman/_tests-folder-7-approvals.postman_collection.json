@@ -1,0 +1,1851 @@
+{
+ "info": {
+  "_postman_id": "5bab582b-db42-4b8a-a2c3-bce8687b1fa5",
+  "name": "_tests folder 7 (Approvals) - move into _tests",
+  "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+ },
+ "auth": {
+  "type": "bearer",
+  "bearer": [
+   {
+    "key": "token",
+    "value": "{{bearerToken}}",
+    "type": "string"
+   }
+  ]
+ },
+ "item": [
+  {
+   "name": "7. Approvals",
+   "description": "M3 part B. Gated by env runApprovalTests = true; fixture env approvalStoryId (a Done story on the test child, awaiting approval, with a parents alert). Needs sessionId from 1A/1H; 7C-4 needs a user2 token (NEG-1A or 5F-0). The folder approves the fixture: reset it in Xano before each run (parent_approved false; approved_at, approved_by_profile_id, approval_rejected_at empty).",
+   "item": [
+    {
+     "name": "7A · Setup",
+     "item": [
+      {
+       "name": "7A-1 · POST /auth/select_profile — switch to child",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.collectionVariables.unset(\"approvalFixtureOk\"); pm.collectionVariables.unset(\"approvalAlertId\"); pm.collectionVariables.unset(\"approvalAlertReadAt\"); pm.collectionVariables.unset(\"noApprovalStoryId\"); pm.collectionVariables.unset(\"readyAlertId\");",
+           "pm.test(\"7A-1: 200\", () => pm.response.to.have.status(200));",
+           "const t = j().authToken;",
+           "pm.test(\"7A-1: child token returned\", () => pm.expect(t).to.be.a(\"string\").and.not.empty);",
+           "if (t) pm.collectionVariables.set(\"bearerToken_child\", t);"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "POST",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/auth/select_profile",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "auth",
+          "select_profile"
+         ]
+        },
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"profile_id\": \"{{test_child_profile_uuid}}\",\n  \"session_id\": {{sessionId}}\n}",
+         "options": {
+          "raw": {
+           "language": "json"
+          }
+         }
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7A-2 · GET /instant_stories/{id} (parent) — fixture is awaiting approval",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7A-2: 200\", () => pm.response.to.have.status(200));",
+           "const s = j();",
+           "const ok = s.approval_state === \"awaiting\" && s.status === \"Done\" && s.user_profiles_id === pm.environment.get(\"test_child_profile_uuid\");",
+           "pm.test(\"7A-2: fixture ready (awaiting, Done, on the test child). If this fails, reset story approvalStoryId in Xano: parent_approved false; approved_at, approved_by_profile_id, approval_rejected_at empty\", () => pm.expect(ok).to.eql(true));",
+           "pm.test(\"7A-2: parent sees blocked_reason\", () => pm.expect(s.blocked_reason).to.be.a(\"string\").and.not.empty);",
+           "pm.test(\"7A-2: not approved or rejected yet\", () => { pm.expect(empty(s.approved_at)).to.eql(true); pm.expect(empty(s.approval_rejected_at)).to.eql(true); });",
+           "pm.collectionVariables.set(\"approvalFixtureOk\", ok ? \"true\" : \"false\");"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/{{approvalStoryId}}",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "{{approvalStoryId}}"
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7A-3 · GET /user_alerts (parent) — parents alert for the fixture",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7A-3: 200\", () => pm.response.to.have.status(200));",
+           "const a = (j() || []).find(x => x.instant_stories_id === sid() && x.audience === \"parents\" && x.type === \"Content Moderation\");",
+           "pm.test(\"7A-3: parents alert exists for the fixture\", () => pm.expect(a).to.be.an(\"object\"));",
+           "pm.test(\"7A-3: alert has no moderation reason\", () => pm.expect(a && a.message).to.eql(\"A story needs your review before your child can read it.\"));",
+           "if (a) { pm.collectionVariables.set(\"approvalAlertId\", a.id); pm.collectionVariables.set(\"approvalAlertReadAt\", JSON.stringify(a.read_at)); }"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/user_alerts",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "user_alerts"
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7A-4 · GET /instant_stories (parent) — approval_state on every story",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7A-4: 200\", () => pm.response.to.have.status(200));",
+           "const list = j() || [];",
+           "pm.test(\"7A-4: every story has approval_state\", () => list.forEach(x => pm.expect([\"none\",\"awaiting\",\"approved\",\"rejected\"]).to.include(x.approval_state)));",
+           "pm.test(\"7A-4: no internal approval fields in the list\", () => list.forEach(x => { pm.expect(x).to.not.have.property(\"parental_approval_required\"); pm.expect(x).to.not.have.property(\"approval_rejected_at\"); }));",
+           "const n = list.find(x => x.approval_state === \"none\");",
+           "if (n) pm.collectionVariables.set(\"noApprovalStoryId\", n.id); else console.log(\"7A-4: no story with approval_state none; 7C-6 will skip\");"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories"
+         ]
+        }
+       },
+       "response": []
+      }
+     ]
+    },
+    {
+     "name": "7B · Child while awaiting",
+     "item": [
+      {
+       "name": "7B-1 · GET /instant_stories (child) — redacted awaiting card",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (7A-1)\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7B-1: 200\", () => pm.response.to.have.status(200));",
+           "const c = (j() || []).find(x => x.id === sid());",
+           "pm.test(\"7B-1: fixture listed\", () => pm.expect(c).to.be.an(\"object\"));",
+           "pm.test(\"7B-1: only id, title, approval_state, created_at\", () => pm.expect(Object.keys(c || {}).sort()).to.eql([\"approval_state\",\"created_at\",\"id\",\"title\"]));",
+           "pm.test(\"7B-1: approval_state awaiting\", () => pm.expect(c && c.approval_state).to.eql(\"awaiting\"));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{bearerToken_child}}",
+           "type": "string"
+          }
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7B-2 · GET /instant_stories/{id} (child) — not found while awaiting",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (7A-1)\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7B-2: 404\", () => pm.response.to.have.status(404));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/{{approvalStoryId}}",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "{{approvalStoryId}}"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{bearerToken_child}}",
+           "type": "string"
+          }
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7B-3 · GET /user_alerts (child) — no parents alerts",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (7A-1)\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7B-3: 200\", () => pm.response.to.have.status(200));",
+           "const child = pm.environment.get(\"test_child_profile_uuid\");",
+           "pm.test(\"7B-3: every alert is for all or for this child\", () => (j() || []).forEach(x => pm.expect(x.audience === \"all\" || x.audience == null || (x.audience === \"profile\" && x.user_profiles_id === child)).to.eql(true)));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/user_alerts",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "user_alerts"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{bearerToken_child}}",
+           "type": "string"
+          }
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7B-4 · GET /user_alerts/{id} (child) — parents alert not found",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (7A-1)\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"approvalAlertId\")) { console.log(\"Skipped: needs 7A-3\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7B-4: 404\", () => pm.response.to.have.status(404));",
+           "pm.test(\"7B-4: ALERT_NOT_FOUND\", () => pm.expect(code()).to.eql(\"ALERT_NOT_FOUND\"));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/user_alerts/{{approvalAlertId}}",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "user_alerts",
+          "{{approvalAlertId}}"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{bearerToken_child}}",
+           "type": "string"
+          }
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7B-5 · PATCH /user_alerts/{id} (child) — can't mark the parents alert read",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (7A-1)\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"approvalAlertId\")) { console.log(\"Skipped: needs 7A-3\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7B-5: 404\", () => pm.response.to.have.status(404));",
+           "pm.test(\"7B-5: ALERT_NOT_FOUND\", () => pm.expect(code()).to.eql(\"ALERT_NOT_FOUND\"));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "PATCH",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/user_alerts/{{approvalAlertId}}",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "user_alerts",
+          "{{approvalAlertId}}"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{bearerToken_child}}",
+           "type": "string"
+          }
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7B-6 · PATCH mark-all-read (child) — runs",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (7A-1)\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7B-6: 200\", () => pm.response.to.have.status(200));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "PATCH",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/users/user_alerts/mark-all-read",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "users",
+          "user_alerts",
+          "mark-all-read"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{bearerToken_child}}",
+           "type": "string"
+          }
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7B-7 · POST approve (child) — refused",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (7A-1)\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7B-7: 400\", () => pm.response.to.have.status(400));",
+           "pm.test(\"7B-7: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "POST",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/{{approvalStoryId}}/approve",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "{{approvalStoryId}}",
+          "approve"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{bearerToken_child}}",
+           "type": "string"
+          }
+         ]
+        },
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"instant_stories_id\": {{approvalStoryId}}\n}",
+         "options": {
+          "raw": {
+           "language": "json"
+          }
+         }
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7B-8 · POST reject (child) — refused",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (7A-1)\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7B-8: 400\", () => pm.response.to.have.status(400));",
+           "pm.test(\"7B-8: PARENT_PROFILE_REQUIRED\", () => pm.expect(code()).to.eql(\"PARENT_PROFILE_REQUIRED\"));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "POST",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/{{approvalStoryId}}/reject",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "{{approvalStoryId}}",
+          "reject"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{bearerToken_child}}",
+           "type": "string"
+          }
+         ]
+        },
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"instant_stories_id\": {{approvalStoryId}}\n}",
+         "options": {
+          "raw": {
+           "language": "json"
+          }
+         }
+        }
+       },
+       "response": []
+      }
+     ]
+    },
+    {
+     "name": "7C · Parent while awaiting",
+     "item": [
+      {
+       "name": "7C-1 · GET /user_alerts/{id} (parent) — untouched by the child's mark-all-read",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"approvalAlertId\")) { console.log(\"Skipped: needs 7A-3\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7C-1: 200\", () => pm.response.to.have.status(200));",
+           "pm.test(\"7C-1: read_at unchanged\", () => pm.expect(JSON.stringify(j().read_at)).to.eql(pm.collectionVariables.get(\"approvalAlertReadAt\")));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/user_alerts/{{approvalAlertId}}",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "user_alerts",
+          "{{approvalAlertId}}"
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7C-2 · GET /instant_stories?approval_state=awaiting (parent) — inbox",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7C-2: 200\", () => pm.response.to.have.status(200));",
+           "const list = j() || [];",
+           "pm.test(\"7C-2: fixture in the inbox\", () => pm.expect(list.some(x => x.id === sid())).to.eql(true));",
+           "pm.test(\"7C-2: only awaiting stories\", () => list.forEach(x => pm.expect(x.approval_state).to.eql(\"awaiting\")));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories?approval_state=awaiting",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories"
+         ],
+         "query": [
+          {
+           "key": "approval_state",
+           "value": "awaiting"
+          }
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7C-3 · POST /store_orders (parent) — awaiting story can't be ordered",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7C-3: 400\", () => pm.response.to.have.status(400));",
+           "pm.test(\"7C-3: STORY_AWAITING_APPROVAL\", () => pm.expect(code()).to.eql(\"STORY_AWAITING_APPROVAL\"));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "POST",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/store_orders",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "store_orders"
+         ]
+        },
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"instant_stories_id\": {{approvalStoryId}},\n  \"message\": \"Approval test order\"\n}",
+         "options": {
+          "raw": {
+           "language": "json"
+          }
+         }
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7C-4 · POST approve (user2) — not found",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"bearerToken_user2\") && !pm.environment.get(\"bearerToken_user2\")) { console.log(\"Skipped: no user2 token (run NEG-1A or 5F-0 first)\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7C-4: 404\", () => pm.response.to.have.status(404));",
+           "pm.test(\"7C-4: STORY_NOT_FOUND\", () => pm.expect(code()).to.eql(\"STORY_NOT_FOUND\"));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "POST",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/{{approvalStoryId}}/approve",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "{{approvalStoryId}}",
+          "approve"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{bearerToken_user2}}",
+           "type": "string"
+          }
+         ]
+        },
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"instant_stories_id\": {{approvalStoryId}}\n}",
+         "options": {
+          "raw": {
+           "language": "json"
+          }
+         }
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7C-5 · POST approve (parent) — unknown story",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7C-5: 404\", () => pm.response.to.have.status(404));",
+           "pm.test(\"7C-5: STORY_NOT_FOUND\", () => pm.expect(code()).to.eql(\"STORY_NOT_FOUND\"));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "POST",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/999999999/approve",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "999999999",
+          "approve"
+         ]
+        },
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"instant_stories_id\": 999999999\n}",
+         "options": {
+          "raw": {
+           "language": "json"
+          }
+         }
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7C-6 · POST approve (parent) — story that never needed approval",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"noApprovalStoryId\")) { console.log(\"Skipped: no story with approval_state none (7A-4)\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7C-6: 400\", () => pm.response.to.have.status(400));",
+           "pm.test(\"7C-6: NOT_AWAITING_APPROVAL\", () => pm.expect(code()).to.eql(\"NOT_AWAITING_APPROVAL\"));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "POST",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/{{noApprovalStoryId}}/approve",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "{{noApprovalStoryId}}",
+          "approve"
+         ]
+        },
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"instant_stories_id\": {{noApprovalStoryId}}\n}",
+         "options": {
+          "raw": {
+           "language": "json"
+          }
+         }
+        }
+       },
+       "response": []
+      }
+     ]
+    },
+    {
+     "name": "7D · Reject",
+     "item": [
+      {
+       "name": "7D-1 · POST reject (parent)",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7D-1: 200\", () => pm.response.to.have.status(200));",
+           "pm.test(\"7D-1: response\", () => { pm.expect(j().instant_stories_id).to.eql(sid()); pm.expect(j().approval_state).to.eql(\"rejected\"); });"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "POST",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/{{approvalStoryId}}/reject",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "{{approvalStoryId}}",
+          "reject"
+         ]
+        },
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"instant_stories_id\": {{approvalStoryId}}\n}",
+         "options": {
+          "raw": {
+           "language": "json"
+          }
+         }
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7D-2 · GET /instant_stories?approval_state=rejected (parent)",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7D-2: 200\", () => pm.response.to.have.status(200));",
+           "pm.test(\"7D-2: fixture in the rejected list\", () => pm.expect((j() || []).some(x => x.id === sid() && x.approval_state === \"rejected\")).to.eql(true));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories?approval_state=rejected",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories"
+         ],
+         "query": [
+          {
+           "key": "approval_state",
+           "value": "rejected"
+          }
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7D-3 · GET /instant_stories/{id} (parent) — rejected",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7D-3: 200\", () => pm.response.to.have.status(200));",
+           "pm.test(\"7D-3: rejected, with a rejection time\", () => { pm.expect(j().approval_state).to.eql(\"rejected\"); pm.expect(empty(j().approval_rejected_at)).to.eql(false); });"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/{{approvalStoryId}}",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "{{approvalStoryId}}"
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7D-4 · GET /instant_stories (child) — rejected story hidden",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (7A-1)\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7D-4: 200\", () => pm.response.to.have.status(200));",
+           "pm.test(\"7D-4: fixture not listed\", () => pm.expect((j() || []).some(x => x.id === sid())).to.eql(false));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{bearerToken_child}}",
+           "type": "string"
+          }
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7D-5 · GET /user_alerts/{id} (parent) — alert marked read",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"approvalAlertId\")) { console.log(\"Skipped: needs 7A-3\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7D-5: 200\", () => pm.response.to.have.status(200));",
+           "pm.test(\"7D-5: is_read true\", () => pm.expect(j().is_read).to.eql(true));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/user_alerts/{{approvalAlertId}}",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "user_alerts",
+          "{{approvalAlertId}}"
+         ]
+        }
+       },
+       "response": []
+      }
+     ]
+    },
+    {
+     "name": "7E · Approve (after reject)",
+     "item": [
+      {
+       "name": "7E-1 · POST approve (parent)",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7E-1: 200\", () => pm.response.to.have.status(200));",
+           "pm.test(\"7E-1: response\", () => { pm.expect(j().instant_stories_id).to.eql(sid()); pm.expect(j().approval_state).to.eql(\"approved\"); pm.expect(empty(j().approved_at)).to.eql(false); });"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "POST",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/{{approvalStoryId}}/approve",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "{{approvalStoryId}}",
+          "approve"
+         ]
+        },
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"instant_stories_id\": {{approvalStoryId}}\n}",
+         "options": {
+          "raw": {
+           "language": "json"
+          }
+         }
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7E-2 · GET /instant_stories/{id} (parent) — approved",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7E-2: 200\", () => pm.response.to.have.status(200));",
+           "pm.test(\"7E-2: approved, rejection cleared\", () => { pm.expect(j().approval_state).to.eql(\"approved\"); pm.expect(empty(j().approved_at)).to.eql(false); pm.expect(empty(j().approval_rejected_at)).to.eql(true); });"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/{{approvalStoryId}}",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "{{approvalStoryId}}"
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7E-3 · GET /instant_stories/{id} (child) — child can open it",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (7A-1)\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7E-3: 200\", () => pm.response.to.have.status(200));",
+           "pm.test(\"7E-3: right story\", () => pm.expect(j().id).to.eql(sid()));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/{{approvalStoryId}}",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "{{approvalStoryId}}"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{bearerToken_child}}",
+           "type": "string"
+          }
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7E-4 · GET /instant_stories (child) — full story, approved",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (7A-1)\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7E-4: 200\", () => pm.response.to.have.status(200));",
+           "const s = (j() || []).find(x => x.id === sid());",
+           "pm.test(\"7E-4: listed as approved\", () => pm.expect(s && s.approval_state).to.eql(\"approved\"));",
+           "pm.test(\"7E-4: full item, not a card\", () => pm.expect(s).to.have.property(\"status\"));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{bearerToken_child}}",
+           "type": "string"
+          }
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7E-5 · GET /user_alerts (child) — is ready! alert for this child",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"bearerToken_child\")) { console.log(\"Skipped: no child token (7A-1)\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7E-5: 200\", () => pm.response.to.have.status(200));",
+           "const a = (j() || []).find(x => x.instant_stories_id === sid() && x.type === \"System\" && x.audience === \"profile\");",
+           "pm.test(\"7E-5: ready alert present\", () => pm.expect(a).to.be.an(\"object\"));",
+           "pm.test(\"7E-5: for the child profile, ends is ready!\", () => { pm.expect(a.user_profiles_id).to.eql(pm.environment.get(\"test_child_profile_uuid\")); pm.expect(a.message).to.match(/ is ready!$/); });",
+           "if (a) pm.collectionVariables.set(\"readyAlertId\", a.id);"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/user_alerts",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "user_alerts"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{bearerToken_child}}",
+           "type": "string"
+          }
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7E-6 · GET /user_alerts (parent) — child's ready alert not shown",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }",
+           "else if (!pm.collectionVariables.get(\"readyAlertId\")) { console.log(\"Skipped: needs 7E-5\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7E-6: 200\", () => pm.response.to.have.status(200));",
+           "pm.test(\"7E-6: ready alert hidden from parent\", () => pm.expect((j() || []).some(x => x.id === Number(pm.collectionVariables.get(\"readyAlertId\")))).to.eql(false));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "GET",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/user_alerts",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "user_alerts"
+         ]
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7E-7 · POST approve again (parent) — already approved",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7E-7: 400\", () => pm.response.to.have.status(400));",
+           "pm.test(\"7E-7: ALREADY_APPROVED\", () => pm.expect(code()).to.eql(\"ALREADY_APPROVED\"));"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "POST",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/{{approvalStoryId}}/approve",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "{{approvalStoryId}}",
+          "approve"
+         ]
+        },
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"instant_stories_id\": {{approvalStoryId}}\n}",
+         "options": {
+          "raw": {
+           "language": "json"
+          }
+         }
+        }
+       },
+       "response": []
+      },
+      {
+       "name": "7E-8 · POST reject after approval (parent) — already approved",
+       "event": [
+        {
+         "listen": "prerequest",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "if (String(pm.environment.get(\"runApprovalTests\")) !== \"true\") { console.log(\"Skipped: set env runApprovalTests = true\"); pm.execution.skipRequest(); }",
+           "else if (pm.collectionVariables.get(\"approvalFixtureOk\") !== \"true\") { console.log(\"Skipped: fixture not ready, see 7A-2\"); pm.execution.skipRequest(); }"
+          ]
+         }
+        },
+        {
+         "listen": "test",
+         "script": {
+          "type": "text/javascript",
+          "exec": [
+           "const j = () => pm.response.json();",
+           "const code = () => ((pm.response.json() || {}).payload || {}).code;",
+           "const sid = () => Number(pm.environment.get(\"approvalStoryId\"));",
+           "const empty = v => v === null || v === undefined || v === \"\";",
+           "pm.test(\"7E-8: 400\", () => pm.response.to.have.status(400));",
+           "pm.test(\"7E-8: ALREADY_APPROVED\", () => pm.expect(code()).to.eql(\"ALREADY_APPROVED\"));",
+           "console.log(\"Folder 7 done. Before the next run, reset story \" + pm.environment.get(\"approvalStoryId\") + \" in Xano: parent_approved false; approved_at, approved_by_profile_id, approval_rejected_at empty.\");"
+          ]
+         }
+        }
+       ],
+       "request": {
+        "method": "POST",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "url": {
+         "raw": "{{auth_base_url}}/instant_stories/{{approvalStoryId}}/reject",
+         "host": [
+          "{{auth_base_url}}"
+         ],
+         "path": [
+          "instant_stories",
+          "{{approvalStoryId}}",
+          "reject"
+         ]
+        },
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"instant_stories_id\": {{approvalStoryId}}\n}",
+         "options": {
+          "raw": {
+           "language": "json"
+          }
+         }
+        }
+       },
+       "response": []
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

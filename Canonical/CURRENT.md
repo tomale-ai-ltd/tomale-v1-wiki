@@ -19,7 +19,7 @@ Start here. One page, updated whenever the phase or the next step changes. Last 
 
 ## Now
 
-- **Phase:** M3 Profiles and parental controls. **Part A (profiles and PIN backend) done 12/11; part B (approvals backend) B1–B5 built in Xano 13/11, Postman folder 7 to do** ([[m3-approvals-backend-prep-brief]], prompts in [[m3-approvals-xano-prompts]]). M1a and M2 (Characters, speckit 008, PR #27/#28) done 12/11.
+- **Phase:** M3 Profiles and parental controls. **Part A (profiles and PIN backend) done 12/11; part B (approvals backend) built 13/11, Postman folder 7 green 17/11** ([[m3-approvals-backend-prep-brief]], prompts in [[m3-approvals-xano-prompts]]). M1a and M2 (Characters, speckit 008, PR #27/#28) done 12/11.
 - **Backend:** Phase 1 (security and data integrity) signed off on 23/10, 86/86 `_tests` passing. Auth, profiles, stories and generation, store, payments and print fulfilment are built. Every PRD now has a backend prep list for what's still to build ([[v1-feature-map]]).
 - **App repo:** everything is on `main` (foundations 001–006, Expo SDK 58, constitution 1.6.0, Node 22, pnpm; CI `test` runs Gitleaks, Semgrep, audit, lint, typecheck, tests; Renovate for updates). PRs go into `main` and must pass CI; Kyle merges by rebase. No feature screens yet; the app starts to Sign in, and password and magic-link sign-in work on an EAS development build. **007 merged 06/11:** the session lives in `expo-secure-store` (memory only on web), one shared refresh with retry, sign-out only when refresh is rejected, and crash reports carry the account id and active profile id only.
 - **Agents:** Claude Project knowledge auto-syncs from the vault; Cursor writes raw session notes; Xano's agent reads a locked AGENTS.md ([[agent-context-sync]]). Daily pipeline 17:40 weekdays, weekly check Mondays ([[knowledge-architecture]] §10).
@@ -30,10 +30,8 @@ Public UK release on the App Store **and Google Play**, full V1 including subscr
 
 ## Next
 
-1. **M3 part B tests:** pull the mirror and check the approval-email fix and B5 child list; then **Postman folder 7** (approvals, gated by `runApprovalTests`, fixture `approvalStoryId` = 626). Approval email checked by hand 13/11 and 17/11. Then a PU for the part B docs.
-2. **RS-2026-11-12-04** (regenerate after M3 part A, overlay entries): approved, held until part B is tested, then extended with part B and applied by Cursor.
-3. **`/speckit.specify` for M3** (app side), including the 008 child device checks.
-4. Snag polish pass S-001 to S-003 ([[snags]]) when convenient. Then M4 story creation.
+1. **Speckit 009 profiles and PIN** (micro-PRD `Project/Plan/009-profiles-pin-micro-prd.md`, 17/11): specify → Claude review → clarify/plan; mock-ups needed before implement. Then **010 approvals** ([[split-m3-into-specs-009-and-010]]). API client regenerated 17/11 (PR #29), constitution 1.6.2 (PR #30).
+2. Snag polish pass S-001 to S-003 ([[snags]]) when convenient. Then M4 story creation.
 
 Handover for a new chat: the latest note in `_raw/Chat Sessions/` (or `Sessions/` once the pipeline has run). Launch tracker dashboard (live progress, pace, day ratings): https://claude.ai/artifact/XZ79NEg5XQiHphNDhAzs9i, source data in `Project/Automation/launch-tracker/`.
 

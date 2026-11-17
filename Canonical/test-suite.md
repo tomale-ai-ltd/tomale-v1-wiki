@@ -3,9 +3,9 @@ type: living-doc
 title: test-suite
 project: tomale-rn-v1
 status: current
-version: 1.0
+version: 1.1
 date: 2026-10-28
-last_verified: 2026-11-12
+last_verified: 2026-11-17
 owner: vault
 related:
   - "[[backend-xano]]"
@@ -30,6 +30,7 @@ What is tested, how to run it, and what isn't covered yet. The backend is tested
 | **4. Cancel & Refund** | 4A cancel after submission · 4B new order to paid · 4C–4E cancel by user 2 / user 1 · 4F refund failure · 4G duplicate event | `ORDER_NOT_CANCELLABLE` after HPBC submission; another user's cancel gets 404; cancel within the window → Cancelled + Refunded, never sent to HPBC; a failed refund puts `payment_status` back to Confirmed; a duplicate event is acknowledged without changing state |
 | **5. Characters** | 5A create (+ 5A-2 blocked name) · 5B flags (favourite, archive, unarchive, empty) · 5C link to a Draft story · 5H counts, 13-field detail, story filter (incl. an id with no links) · 5D draw again · 5E child via `select_profile` (+ 5K child counts 0 for a parent's story) · 5F user 2 (+ 5L empty list / 404) · 5G cleanup | `picture_status` on create and reads; `stories_count` per reader; flags return only public fields; favourites listed first; archived hidden unless a parent asks; empty update gets `NOTHING_TO_UPDATE`; linking is idempotent and a story past Draft gets `STORY_NOT_EDITABLE`; a copyright instruction gets `CONTENT_REJECTED`; a child gets `PARENT_PROFILE_REQUIRED` on delete/archive but can favourite and never sees archived; user 2 gets 404 on everything. 5D queued/`IMAGE_JOB_IN_PROGRESS` run only when env `runImageTests` = `true` (one paid image edit). 103 green on 11/11 (folders 1, NEG, 5) |
 | **6. Profiles and PIN** | 6A set/change PIN · 6B switching (PIN gate, attempt count, unknown profile, logged-out session) · 6C lock and email reset · 6D profiles create/edit/delete · 6E parent-only areas · 6F story move on delete, assign, `auth/me` | `PIN_FORMAT`/`PIN_REQUIRED`/`PIN_INVALID` with `attempts_remaining`; right PIN resets the count; 5 wrong locks (`PIN_LOCKED`), only an emailed `reset_pin` link unlocks; names 1–18, `NAME_NOT_ALLOWED`, `preset:`/`character:` avatars; child refused on profiles, store, Stripe, subscriptions, assign; deleting a profile moves its stories to the primary; `auth/me` has `pin_set`/`pin_locked`, no PIN data. 6C runs only with env `runLockTests` = `true`, in two passes (6C-11 to 6C-13 need the emailed token in `magicLinkToken`). The whole folder skips itself without `test_parent_pin`. Green 12/11 |
+| **7. Approvals** | 7A setup and fixture check · 7B child while awaiting · 7C parent while awaiting (order gate, user 2, unknown and never-needed stories) · 7D reject · 7E approve after reject | Child sees only the redacted card `{id, title, approval_state, created_at}` and gets 404 on the story; parents alerts invisible to a child (list, get, patch, mark-all-read); child refused on approve/reject (`PARENT_PROFILE_REQUIRED`); parent inbox filter; `STORY_AWAITING_APPROVAL` on ordering; `STORY_NOT_FOUND` for user 2 and unknown ids, `NOT_AWAITING_APPROVAL` for a story that never needed it; reject hides the card and marks the alert read; approve after reject clears the rejection, opens the story to the child and sends the child (not the parent) an "is ready!" alert; `ALREADY_APPROVED` on repeats. Runs only with env `runApprovalTests` = `true`; fixture env `approvalStoryId` (a Done story on the test child awaiting approval, with a parents alert). The folder approves it: reset in Xano before each run (`parent_approved` false; `approved_at`, `approved_by_profile_id`, `approval_rejected_at` empty). Green 17/11 (99/99 with folder 1) |
 
 ### How it works
 
@@ -62,7 +63,6 @@ What is tested, how to run it, and what isn't covered yet. The backend is tested
 
 | Area | Gap | When |
 |---|---|---|
-| Moderation and approval | Flagged story → parent approves → child sees it (CTO journey; approve flow not built) | M3 |
 | Entitlements | Generation limits | M8 |
 | App | jest-expo tests per slice: auth guard, stores, critical screens (CTO #24–#26 frontend side) | Each slice |
 | CI | Postman not in CI; app CI runs lint, typecheck and tests only (security stage in M1) | M1 / later |
