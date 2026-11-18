@@ -88,5 +88,10 @@
   "date": "2026-11-17",
   "milestone": "M3",
   "what": "Approval email fixed and Postman folder 7 green; API client regenerated (PR #29), constitution 1.6.2 (PR #30); 009 profiles and PIN specified"
+ },
+ {
+  "date": "2026-11-18",
+  "milestone": "M3",
+  "what": "009 profiles and PIN planned, tasked and implemented through editing (33 of 34 tasks) with mock-ups and 30 new animal avatars; handset check open"
  }
 ]

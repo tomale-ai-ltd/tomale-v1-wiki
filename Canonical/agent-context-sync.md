@@ -29,7 +29,7 @@ Each rule has one home. Other agents get a copy of it, or a pointer to it, never
 | Copy | Fingerprint at last update | Updated |
 |---|---|---|
 | Xano AGENTS.md | a4b4b5c2a6c5 | 2026-11-13 (PU-2026-11-12-05 applied, pasted by Kyle) |
-| Cursor tomale-api.mdc | 00db8ad713f4 (constitution 1.6.1) | 2026-11-06 (PU-2026-11-04-01 applied, PR #23, `2dbb672`) |
+| Cursor tomale-api.mdc | addf34ac0e92 (constitution 1.6.2) | 2026-11-18 (PU-2026-11-18-02 applied; RS-2026-11-17-01, PR #30, `9318632`) |
 
 ## Pipeline rule
 

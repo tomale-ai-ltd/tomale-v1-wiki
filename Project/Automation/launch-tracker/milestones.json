@@ -58,11 +58,11 @@
   "est_min": 4,
   "est_max": 6,
   "status": "in progress",
-  "progress": 0.55,
-  "actual_days": 2.5,
+  "progress": 0.75,
+  "actual_days": 3.5,
   "finished": null,
   "estimate_assumed": false,
-  "note": "Backend done (A 12/11, B built 13/11, tested 17/11); client regenerated and constitution 1.6.2; 009 specified 17/11, 010 next"
+  "note": "Backend done (A 12/11, B 13/11, tested 17/11); 009 planned and implemented 18/11 (33/34 tasks, not pushed, handset check open); 010 next"
  },
  {
   "order": 6,

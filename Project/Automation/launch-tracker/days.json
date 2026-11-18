@@ -70,5 +70,11 @@
   "delivered": 0.5,
   "milestones": "M3",
   "headline": "Approvals tested end to end and the app's 009 spec written"
+ },
+ {
+  "date": "2026-11-18",
+  "delivered": 1.0,
+  "milestones": "M3",
+  "headline": "Profiles and PIN built in the app, with 30 new Tomale animal avatars"
  }
 ]
