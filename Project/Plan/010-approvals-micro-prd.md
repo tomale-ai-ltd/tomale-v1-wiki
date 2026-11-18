@@ -19,7 +19,7 @@ When a story needs a grown-up's OK, the parent sees it, reads it and decides; th
 - Parent Home (minimal, from the 05/11 Home boards): greeting header (009 `ScreenHeader`), "Stories to review (N)" card when N > 0 → inbox; the existing story list below.
 - Avatar menu (009): adds "Approvals" with the count badge (parent only) → inbox.
 - Approvals inbox (parent): two segments, "To review" (awaiting) and "Rejected" (rejected). Each row: cover (or placeholder), title, whose story ("Mia's story", from the profile list), when it was made, and "Still being made" if the story isn't Done.
-- Review screen (parent), text first, no page pictures (Kyle, 18/11): (1) why it needs a look (`blocked_reason`), highlighted; (2) what the child asked for (`user_prompt`); (3) the characters in the story, each with its picture and name, tappable to the character's detail (008) where the parent can archive it so it can't be used again; (4) the story text, page by page; then "Approve" (primary) and "Reject" (secondary). Approve can be tapped before the story has finished making (the child is told when it's ready).
+- Review screen (parent), text first, no page pictures (Kyle, 18/11): (1) why it needs a look (`blocked_reason`), highlighted; (2) what the child asked for (`user_prompt`); (3) the characters in the story, each with its picture and name, tappable to the character's detail (008) where the parent can archive it so it can't be used again; (4) the story text as a one-page-at-a-time carousel (swipe, plus previous and next buttons, "Page N of M" and dots; Kyle, 18/11); then "Approve" (primary) and "Reject" (secondary). Approve can be tapped before the story has finished making (the child is told when it's ready).
 - Reject confirmation sheet: what happens ("Mia won't see this story. You can delete it or keep it on your profile.").
 - Rejected story actions (parent, from "Rejected"): "Keep it on my profile" (assign to the primary profile), "Delete story" (with confirmation), or "Approve".
 - Child Home story list: an awaiting story appears as a locked card ("Waiting for a grown-up", title only, no cover); tapping it shows that message, nothing opens. Approved stories appear as normal; rejected ones never appear.
@@ -40,7 +40,9 @@ When a story needs a grown-up's OK, the parent sees it, reads it and decides; th
 
 ## Design notes (mock-ups, 18/11)
 
-- Parent Home: the header avatar carries the review count as a small badge; the "Stories to review (N)" card says whose ("Mia's story needs a quick look" / "Mia and Leo have stories…").
+- Parent Home: the header avatar carries the review count as a small badge; the "Stories to review (N)" card is just that line and an arrow, with no names (Kyle, 18/11); the inbox rows say whose story it is.
+- Sheets (avatar menu, PIN pad, confirmations, waiting sheet): the real screen stays visible behind, under a 40% `ink` scrim; no blur (Android performance). The grey blocks behind sheets on the boards are stand-ins only.
+- Home quick actions and favourites (Kyle, 18/11): both Homes show two quick-action tiles (parent "New story" / "New character"; child "Make a story" / "Make a character", child-sized) and a favourites row drawn as placeholders. "New character" opens the 008 form; "New story" is disabled with "Coming soon" until 011. Favourite stories stays an empty placeholder: stories have no favourite flag yet (backend field needed in the dashboard slice).
 - Review screen: if the story text isn't written yet, the story section says "Still being written" and the parent can still decide from the request and characters; Approve and Reject sit in a bar fixed to the bottom.
 - Toasts: "Approved. Mia can read it now." / "Approved. Mia can read it once it's ready." / "Rejected. Mia won't see this story."
 - Inbox empty states: "All caught up" (To review) and "Nothing rejected" (Rejected).

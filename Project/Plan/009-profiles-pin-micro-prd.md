@@ -42,6 +42,7 @@ A household can hand the device between parent and children safely. Anyone can s
 
 ## Design notes (Kyle and Claude, 17/11; not all drawn in the mock-ups)
 
+- Sheets (avatar menu, PIN pad, confirmations, waiting sheet): the real screen stays visible behind, under a 40% `ink` scrim; no blur (Android performance). The grey blocks behind sheets on the boards are stand-ins only.
 - PIN pad submits on the fourth digit; no submit button and no success modal. Right PIN: green dots and "Welcome back, [name]" for a moment, then Home. Wrong PIN: dots clear with a short shake (none with reduce motion) and the tries-left line.
 - After an unlock link, saving the new PIN enters the parent profile and opens Home; the picker shows the next time the app opens (Kyle, clarify 18/11).
 - "Forgot PIN?" reuses the locked screen with the title "Forgot your PIN?"; same "Email me a link" button and "Check your email" result. No separate page.
