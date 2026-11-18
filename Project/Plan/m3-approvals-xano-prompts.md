@@ -63,3 +63,8 @@ GET /instant_stories:
 GET /instant_stories/{id}: child behaviour unchanged (404 unless allowed today). For a parent, add approval_state, blocked_reason, approved_at and approval_rejected_at to the response.
 Use the table name "instant stories" (quoted, with the space); no stack variable named $output; guard lists before reading fields.
 ```
+
+## B6: owner profile on the story list (for 010, added 18/11)
+```
+Edit GET /instant_stories in the app API group. Change only this: add "user_profiles_id" to the output list of the main db.query (the one with the visibility where clause), so each returned story includes the id of the profile it belongs to. Do not change the where clause, the redacted awaiting cards for a child, the approval_state logic or any other endpoint. Use the table name "instant stories" (quoted, with the space).
+```
