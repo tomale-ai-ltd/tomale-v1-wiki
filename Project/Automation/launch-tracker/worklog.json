@@ -78,5 +78,15 @@
   "date": "2026-11-12",
   "milestone": "M3",
   "what": "Part A backend (profiles and PIN) published with Postman folder 6 green; part B approvals brief and Xano prompts written"
+ },
+ {
+  "date": "2026-11-13",
+  "milestone": "M3",
+  "what": "Approvals backend built in Xano (B1–B5): alerts by audience, moderation and completion alerts, approve/reject, story reads with approval state"
+ },
+ {
+  "date": "2026-11-17",
+  "milestone": "M3",
+  "what": "Approval email fixed and Postman folder 7 green; API client regenerated (PR #29), constitution 1.6.2 (PR #30); 009 profiles and PIN specified"
  }
 ]

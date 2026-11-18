@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Add or edit a profile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}a:hover{color:#145e5d}
+</style>
+</helmet>
+<div style="width: 390px; height: 1000px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+
+<header style="box-sizing: border-box; padding: 54px 16px 20px; background: #39c2c1; border-radius: 0 0 32px 32px; position: relative; overflow: hidden">
+<svg viewBox="0 0 390 300" width="390" height="300" style="position: absolute; left: 0; top: 0" aria-hidden="true"><circle cx="195" cy="200" r="120" fill="#5fd0cf"/><circle cx="50" cy="120" r="5" fill="#ffffff"/><circle cx="340" cy="100" r="6" fill="#fcca37"/></svg>
+<div style="position: relative; display: flex; align-items: center; gap: 12px">
+<a href="ManageProfiles.dc.html" aria-label="Close" style="width: 48px; height: 48px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex: none">
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></a>
+<h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">{{title}}</h1>
+</div>
+<div style="position: relative; display: flex; justify-content: center; margin-top: 12px">
+<span style="width: 128px; height: 128px; border-radius: 999px; overflow: hidden; border: 5px solid #ffffff; display: block; background: #ffe0e0">
+<sc-if value="{{previewChar}}" hint-placeholder-val="{{ false }}"><dc-import name="Art" kind="dragon" hint-size="128px,128px"></dc-import></sc-if>
+<sc-if value="{{previewPreset}}" hint-placeholder-val="{{ true }}"><dc-import name="Art" kind="girl" hint-size="128px,128px"></dc-import></sc-if>
+<sc-if value="{{previewNone}}" hint-placeholder-val="{{ false }}"><dc-import name="Art" kind="pending" hint-size="128px,128px"></dc-import></sc-if>
+</span>
+</div>
+</header>
+
+<form style="padding: 24px 16px 0; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="nm" style="font-size: 14px; line-height: 20px; font-weight: 700">Name</label>
+<input id="nm" type="text" value="{{name}}" maxlength="18" style="{{nameStyle}}">
+<sc-if value="{{nameOk}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57">A first name or a nickname, up to 18 letters.</p>
+</sc-if>
+<sc-if value="{{nameBad}}" hint-placeholder-val="{{ false }}">
+<p role="alert" style="margin: 0; font-size: 14px; line-height: 20px; color: #b3261e; display: flex; gap: 6px; align-items: flex-start">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b3261e" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+That name isn't allowed. Please try another.</p>
+</sc-if>
+</div>
+
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 12px">
+<legend style="padding: 0; margin-bottom: 8px; font-size: 14px; line-height: 20px; font-weight: 700">Picture</legend>
+<div role="group" aria-label="Picture type" style="display: flex; padding: 4px; border-radius: 999px; background: #f1ebe8">
+<button type="button" aria-pressed="{{presetPressed}}" style="{{presetTab}}">Pictures</button>
+<button type="button" aria-pressed="{{charPressed}}" style="{{charTab}}">Our characters</button>
+</div>
+
+<sc-if value="{{showPresets}}" hint-placeholder-val="{{ true }}">
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{presets}}" as="a" hint-placeholder-count="8">
+<button type="button" aria-label="{{a.label}}" aria-pressed="{{a.pressed}}" style="{{a.tile}}">
+<svg viewBox="0 0 64 64" width="100%" height="100%" aria-hidden="true" style="display: block"><rect width="64" height="64" fill="{{a.bg}}"/><circle cx="32" cy="30" r="16" fill="{{a.face}}"/><circle cx="26" cy="29" r="2.4" fill="#2b1f1c"/><circle cx="38" cy="29" r="2.4" fill="#2b1f1c"/><path d="M26 36 Q32 41 38 36" stroke="#2b1f1c" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M14 64 Q32 46 50 64 Z" fill="{{a.top}}"/></svg>
+</button>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57">Placeholder pictures: the preset set is being replaced (snag S-004).</p>
+</sc-if>
+
+<sc-if value="{{showChars}}" hint-placeholder-val="{{ false }}">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{chars}}" as="c" hint-placeholder-count="5">
+<button type="button" aria-pressed="{{c.pressed}}" style="padding: 0; border: 0; background: transparent; font: inherit; color: #2b1f1c; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer">
+<span style="{{c.tile}}">
+<sc-if value="{{c.isDragon}}" hint-placeholder-val="{{ false }}"><dc-import name="Art" kind="dragon" hint-size="96px,96px"></dc-import></sc-if>
+<sc-if value="{{c.isFox}}" hint-placeholder-val="{{ false }}"><dc-import name="Art" kind="fox" hint-size="96px,96px"></dc-import></sc-if>
+<sc-if value="{{c.isRobot}}" hint-placeholder-val="{{ false }}"><dc-import name="Art" kind="robot" hint-size="96px,96px"></dc-import></sc-if>
+<sc-if value="{{c.isBear}}" hint-placeholder-val="{{ false }}"><dc-import name="Art" kind="bear" hint-size="96px,96px"></dc-import></sc-if>
+</span>
+<span style="font-size: 16px; line-height: 20px; font-weight: 700">{{c.name}}</span>
+</button>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57">Characters still being drawn, or archived, aren't shown.</p>
+</sc-if>
+
+<sc-if value="{{showCharsEmpty}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 20px 16px; border-radius: 16px; background: #ffffff; box-shadow: 0 2px 8px rgba(43,31,28,0.08); text-align: center">
+<span style="width: 88px; height: 88px; border-radius: 999px; overflow: hidden; display: block"><dc-import name="Art" kind="pending" hint-size="88px,88px"></dc-import></span>
+<p style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 700">No characters yet</p>
+<p style="margin: 0; font-size: 16px; line-height: 22px; color: #6e5c57">Characters your family makes will appear here. For now, pick a picture.</p>
+</div>
+</sc-if>
+</fieldset>
+
+<button type="button" aria-disabled="{{saveDisabled}}" style="{{saveStyle}}">{{saveLabel}}</button>
+<sc-if value="{{isEdit}}" hint-placeholder-val="{{ false }}">
+<a href="DeleteProfile.dc.html" style="min-height: 48px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 16px; font-weight: 700; color: #b3261e; text-decoration: none">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#b3261e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>
+Delete Mia's profile</a>
+</sc-if>
+</form>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mode":{"editor":"enum","options":["add","edit"],"default":"add"},"avatarTab":{"editor":"enum","options":["pictures","characters","characters-empty"],"default":"pictures"},"nameState":{"editor":"enum","options":["default","empty","rejected"],"default":"default"},"typedName":{"editor":"text","default":"Leo"},"pictureChosen":{"editor":"boolean","default":true},"$preview":{"width":390,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const edit = (this.props.mode ?? 'add') === 'edit';
+    const tabSel = this.props.avatarTab ?? 'pictures';
+    const chars = tabSel !== 'pictures';
+    const charsEmpty = tabSel === 'characters-empty';
+    const ns = this.props.nameState ?? 'default';
+    const bad = ns === 'rejected';
+    const typed = ns === 'empty' ? '' : String(this.props.typedName ?? 'Leo').trim();
+    const picked = edit || (this.props.pictureChosen ?? true) === true;
+    const disabled = typed === '' || !picked;
+    const tab = (on) => 'flex: 1 1 0; height: 44px; border-radius: 999px; border: 0; font: inherit; font-size: 16px; font-weight: 700; cursor: pointer; background: ' + (on ? '#ffffff' : 'transparent') + '; color: ' + (on ? '#2b1f1c' : '#6e5c57') + (on ? '; box-shadow: 0 2px 8px rgba(43,31,28,0.08)' : '');
+    const sel = (on) => on ? 'border: 4px solid #1b7b7a' : 'border: 4px solid transparent';
+    const palette = [
+      ['#ffe0e0', '#f2c9a5', '#ff6666'], ['#d7f3f2', '#a16959', '#39c2c1'], ['#fff1c4', '#f2c9a5', '#fcca37'], ['#ffe3d1', '#7c4a3e', '#ff914d'],
+      ['#e8e2f7', '#f2c9a5', '#8f7fd1'], ['#dff2e0', '#a16959', '#5fb36a'], ['#f1e3dc', '#f2c9a5', '#a16959'], ['#e3eef9', '#7c4a3e', '#5b8fd1']
+    ];
+    const presets = palette.map((p, i) => ({
+      label: 'Picture ' + (i + 1), pressed: (picked && !chars && i === 0) ? 'true' : 'false',
+      bg: p[0], face: p[1], top: p[2],
+      tile: 'aspect-ratio: 1 / 1; padding: 0; border-radius: 999px; overflow: hidden; cursor: pointer; background: #ffffff; ' + sel(picked && !chars && i === 0)
+    }));
+    const list = [
+      { name: 'Pip', isDragon: true }, { name: 'Rosie', isFox: true }, { name: 'Bolt', isRobot: true }, { name: 'Bramble', isBear: true }
+    ];
+    const charList = list.map((c, i) => Object.assign({}, c, {
+      pressed: (picked && chars && i === 0) ? 'true' : 'false',
+      tile: 'width: 96px; height: 96px; box-sizing: border-box; border-radius: 999px; overflow: hidden; display: block; ' + sel(picked && chars && i === 0)
+    }));
+    return {
+      title: edit ? 'Edit Mia' : 'Add a child',
+      name: edit ? 'Mia' : typed,
+      saveLabel: edit ? 'Save changes' : (disabled ? 'Add' : 'Add ' + typed),
+      saveDisabled: (!edit && disabled) ? 'true' : 'false',
+      saveStyle: 'height: 48px; border-radius: 999px; border: 0; font: inherit; font-size: 16px; font-weight: 700; ' + ((!edit && disabled) ? 'background: #e6dedb; color: #6e5c57' : 'background: #d63c3c; color: #ffffff'),
+      isEdit: edit,
+      nameOk: !bad, nameBad: bad,
+      nameStyle: 'box-sizing: border-box; height: 48px; padding: 0 12px; border-radius: 10px; border: 2px solid ' + (bad ? '#b3261e' : '#8f7f7a') + '; font: inherit; font-size: 16px; color: #2b1f1c; background: #ffffff',
+      showPresets: !chars, showChars: chars && !charsEmpty, showCharsEmpty: charsEmpty,
+      previewChar: picked && chars && !charsEmpty, previewPreset: picked && (!chars || charsEmpty), previewNone: !picked,
+      presetTab: tab(!chars), charTab: tab(chars),
+      presetPressed: chars ? 'false' : 'true', charPressed: chars ? 'true' : 'false',
+      presets, chars: charList
+    };
+  }
+}
+</script>
+</body>
+</html>

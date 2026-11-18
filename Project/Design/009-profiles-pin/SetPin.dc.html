@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Set your PIN</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}a:hover{color:#145e5d}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+
+<header style="box-sizing: border-box; padding: 54px 16px 24px; background: #fcca37; border-radius: 0 0 32px 32px; position: relative; overflow: hidden">
+<svg viewBox="0 0 390 230" width="390" height="230" style="position: absolute; left: 0; top: 0" aria-hidden="true"><circle cx="340" cy="40" r="80" fill="#fdd862"/><circle cx="40" cy="200" r="40" fill="#fdd862"/><circle cx="250" cy="150" r="5" fill="#ffffff"/><circle cx="90" cy="70" r="4" fill="#ff6666"/></svg>
+<div style="position: relative; display: flex; align-items: center; gap: 12px">
+<a href="ManageProfiles.dc.html" aria-label="Close" style="width: 48px; height: 48px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex: none">
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></a>
+<span style="font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase">{{eyebrow}}</span>
+</div>
+<h1 style="position: relative; margin: 16px 0 0; font-size: 32px; line-height: 38px; font-weight: 700">{{title}}</h1>
+<p style="position: relative; margin: 6px 0 0; font-size: 18px; line-height: 26px">{{intro}}</p>
+</header>
+
+<main style="padding: 28px 24px 34px; display: flex; flex-direction: column; align-items: center; gap: 14px">
+<div role="img" aria-label="{{dotsLabel}}" style="display: flex; gap: 18px; height: 22px; align-items: center">
+<sc-for list="{{dots}}" as="d" hint-placeholder-count="4"><span style="{{d.style}}"></span></sc-for>
+</div>
+<sc-if value="{{isMismatch}}" hint-placeholder-val="{{ false }}">
+<p role="alert" style="margin: 0; font-size: 16px; line-height: 22px; color: #b3261e; display: flex; gap: 6px; align-items: center">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b3261e" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+Those didn't match. Let's start again.</p>
+</sc-if>
+<sc-if value="{{showHint}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 16px; line-height: 22px; color: #6e5c57">{{hint}}</p>
+</sc-if>
+
+<div style="display: grid; grid-template-columns: repeat(3, 72px); gap: 10px 28px; margin-top: 6px">
+<sc-for list="{{keys}}" as="k" hint-placeholder-count="12">
+<sc-if value="{{k.isDigit}}" hint-placeholder-val="{{ true }}">
+<button type="button" style="width: 72px; height: 72px; border-radius: 999px; border: 0; background: #f1ebe8; color: #2b1f1c; font: inherit; font-size: 28px; font-weight: 700; cursor: pointer">{{k.label}}</button>
+</sc-if>
+<sc-if value="{{k.isBlank}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true"></span></sc-if>
+<sc-if value="{{k.isDelete}}" hint-placeholder-val="{{ false }}">
+<button type="button" aria-label="Delete last digit" style="width: 72px; height: 72px; border-radius: 999px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><path d="M18 9l-6 6M12 9l6 6"/></svg></button>
+</sc-if>
+</sc-for>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"step":{"editor":"enum","options":["first-child","confirm","mismatch","change-current"],"default":"first-child"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.props.step ?? 'first-child';
+    const copy = {
+      'first-child': { eyebrow: 'Before you add a child', title: 'Choose a 4-digit PIN', intro: "You'll use it to get back to your profile from a child's. Keep it to yourself.", hint: 'Pick numbers your children won’t guess.', filled: 1 },
+      'confirm': { eyebrow: 'Step 2 of 2', title: 'Type it again', intro: 'Just to make sure.', hint: '', filled: 3 },
+      'mismatch': { eyebrow: 'Step 1 of 2', title: 'Choose a 4-digit PIN', intro: "You'll use it to get back to your profile from a child's. Keep it to yourself.", hint: '', filled: 0 },
+      'change-current': { eyebrow: 'Change PIN', title: 'Enter your current PIN', intro: 'Then you can choose a new one.', hint: 'Forgotten it? Use “Forgot PIN?” on the PIN pad.', filled: 2 }
+    }[s];
+    const mismatch = s === 'mismatch';
+    const dots = [0, 1, 2, 3].map((i) => ({
+      style: 'width: 18px; height: 18px; border-radius: 999px; box-sizing: border-box; display: block; ' +
+        (i < copy.filled ? 'background: #2b1f1c; border: 3px solid #2b1f1c' : 'background: transparent; border: 3px solid ' + (mismatch ? '#b3261e' : '#8f7f7a'))
+    }));
+    const keys = ['1','2','3','4','5','6','7','8','9'].map((d) => ({ label: d, isDigit: true }));
+    keys.push({ isBlank: true }, { label: '0', isDigit: true }, { isDelete: true });
+    return {
+      eyebrow: copy.eyebrow, title: copy.title, intro: copy.intro, hint: copy.hint,
+      showHint: !mismatch && copy.hint !== '', isMismatch: mismatch,
+      dots, keys, dotsLabel: copy.filled + ' of 4 digits entered'
+    };
+  }
+}
+</script>
+</body>
+</html>

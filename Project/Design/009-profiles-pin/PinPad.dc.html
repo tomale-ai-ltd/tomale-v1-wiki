@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PIN pad</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}a:hover{color:#145e5d}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #fff6dc; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+<div aria-hidden="true" style="padding: 96px 24px 0; display: flex; flex-direction: column; align-items: center; gap: 28px">
+<div style="width: 220px; height: 34px; border-radius: 999px; background: #fdd862"></div>
+<div style="display: flex; gap: 16px"><div style="width: 132px; height: 132px; border-radius: 999px; background: #ffffff"></div><div style="width: 132px; height: 132px; border-radius: 999px; background: #ffffff"></div></div>
+</div>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(43,31,28,0.4)"></div>
+
+<section role="dialog" aria-modal="true" aria-labelledby="pin-title" style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 10px 24px 34px; background: #ffffff; border-radius: 24px 24px 0 0; box-shadow: 0 -8px 24px rgba(43,31,28,0.12); display: flex; flex-direction: column; align-items: center; gap: 14px">
+<div aria-hidden="true" style="width: 36px; height: 4px; border-radius: 999px; background: #e6dedb"></div>
+<div style="align-self: stretch; display: flex; justify-content: flex-end; margin-top: -6px">
+<a href="ProfilePicker.dc.html" aria-label="Close" style="width: 48px; height: 48px; border-radius: 999px; background: #f1ebe8; display: flex; align-items: center; justify-content: center">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2b1f1c" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></a>
+</div>
+<span style="width: 72px; height: 72px; border-radius: 999px; overflow: hidden; display: block; border: 4px solid #f1e3dc; margin-top: -40px"><dc-import name="Art" kind="bear" hint-size="72px,72px"></dc-import></span>
+<h2 id="pin-title" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">Enter Kyle's PIN</h2>
+
+<div role="img" aria-label="{{dotsLabel}}" style="display: flex; gap: 18px; height: 22px; align-items: center">
+<sc-for list="{{dots}}" as="d" hint-placeholder-count="4"><span style="{{d.style}}"></span></sc-for>
+</div>
+
+<sc-if value="{{isWrong}}" hint-placeholder-val="{{ false }}">
+<p role="alert" style="margin: 0; font-size: 16px; line-height: 22px; color: #b3261e; display: flex; gap: 6px; align-items: center">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b3261e" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+That's not right. 3 tries left.</p>
+</sc-if>
+<sc-if value="{{isEntering}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 16px; line-height: 22px; color: #6e5c57">Grown-ups only</p>
+</sc-if>
+<sc-if value="{{isCorrect}}" hint-placeholder-val="{{ false }}">
+<p role="status" style="margin: 0; font-size: 16px; line-height: 22px; color: #1b7b7a; font-weight: 700; display: flex; gap: 6px; align-items: center">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1b7b7a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+Welcome back, Kyle</p>
+</sc-if>
+
+<div style="display: grid; grid-template-columns: repeat(3, 76px); gap: 12px 28px; margin-top: 4px">
+<sc-for list="{{keys}}" as="k" hint-placeholder-count="12">
+<sc-if value="{{k.isDigit}}" hint-placeholder-val="{{ true }}">
+<button type="button" style="width: 76px; height: 76px; border-radius: 999px; border: 0; background: #f1ebe8; color: #2b1f1c; font: inherit; font-size: 30px; font-weight: 700; cursor: pointer">{{k.label}}</button>
+</sc-if>
+<sc-if value="{{k.isBlank}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true"></span></sc-if>
+<sc-if value="{{k.isDelete}}" hint-placeholder-val="{{ false }}">
+<button type="button" aria-label="Delete last digit" style="width: 76px; height: 76px; border-radius: 999px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><path d="M18 9l-6 6M12 9l6 6"/></svg></button>
+</sc-if>
+</sc-for>
+</div>
+
+<a href="PinLocked.dc.html" aria-label="Forgot PIN? Opens the email link screen" style="min-height: 48px; display: flex; align-items: center; font-size: 16px; font-weight: 700">Forgot PIN?</a>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["entering","correct","wrong"],"default":"entering"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = this.props.state ?? 'entering';
+    const wrong = st === 'wrong';
+    const correct = st === 'correct';
+    const filled = wrong ? 0 : (correct ? 4 : 2);
+    const ink = correct ? '#1b7b7a' : '#2b1f1c';
+    const dots = [0, 1, 2, 3].map((i) => ({
+      style: 'width: 18px; height: 18px; border-radius: 999px; box-sizing: border-box; display: block; ' +
+        (i < filled ? 'background: ' + ink + '; border: 3px solid ' + ink : 'background: transparent; border: 3px solid ' + (wrong ? '#b3261e' : '#8f7f7a'))
+    }));
+    const keys = ['1','2','3','4','5','6','7','8','9'].map((d) => ({ label: d, isDigit: true }));
+    keys.push({ isBlank: true }, { label: '0', isDigit: true }, { isDelete: true });
+    return {
+      isWrong: wrong, isEntering: st === 'entering', isCorrect: correct, dots, keys,
+      dotsLabel: filled + ' of 4 digits entered'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -58,16 +58,16 @@
   "est_min": 4,
   "est_max": 6,
   "status": "in progress",
-  "progress": 0.3,
-  "actual_days": 0.5,
+  "progress": 0.55,
+  "actual_days": 2.5,
   "finished": null,
   "estimate_assumed": false,
-  "note": "Part A backend (profiles, PIN) done 12/11; part B: email setup and schema done, B2–B5 next; app speckit not started"
+  "note": "Backend done (A 12/11, B built 13/11, tested 17/11); client regenerated and constitution 1.6.2; 009 specified 17/11, 010 next"
  },
  {
   "order": 6,
   "id": "M4",
-  "milestone": "Story creation (009)",
+  "milestone": "Story creation (011)",
   "est_min": 5,
   "est_max": 8,
   "status": "not started",
@@ -80,7 +80,7 @@
  {
   "order": 7,
   "id": "M5",
-  "milestone": "Bookshelf and e-reader (010)",
+  "milestone": "Bookshelf and e-reader (012)",
   "est_min": 3,
   "est_max": 5,
   "status": "not started",
@@ -106,7 +106,7 @@
  {
   "order": 9,
   "id": "M6",
-  "milestone": "Store (011)",
+  "milestone": "Store (013)",
   "est_min": 4,
   "est_max": 6,
   "status": "not started",
@@ -119,7 +119,7 @@
  {
   "order": 10,
   "id": "M6a",
-  "milestone": "AI character creation (012)",
+  "milestone": "AI character creation (014)",
   "est_min": 3,
   "est_max": 5,
   "status": "not started",

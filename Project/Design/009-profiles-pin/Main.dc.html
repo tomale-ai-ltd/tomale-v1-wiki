@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Avatar menu</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}a:hover{color:#145e5d}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+
+<header aria-hidden="true" style="{{headerStyle}}">
+<div style="display: flex; align-items: center; gap: 14px">
+<span style="width: 72px; height: 72px; border: 4px solid #ffffff; border-radius: 999px; overflow: hidden; display: block; flex: none">
+<sc-if value="{{isParent}}" hint-placeholder-val="{{ true }}"><dc-import name="Art" kind="bear" hint-size="72px,72px"></dc-import></sc-if>
+<sc-if value="{{isChild}}" hint-placeholder-val="{{ false }}"><dc-import name="Art" kind="girl" hint-size="72px,72px"></dc-import></sc-if>
+</span>
+<span style="font-size: 32px; line-height: 38px; font-weight: 700">Hello {{name}}</span>
+</div>
+</header>
+<div aria-hidden="true" style="padding: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<div style="height: 176px; border-radius: 24px; background: #ffffff"></div><div style="height: 176px; border-radius: 24px; background: #ffffff"></div>
+<div style="height: 176px; border-radius: 24px; background: #ffffff"></div><div style="height: 176px; border-radius: 24px; background: #ffffff"></div>
+</div>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(43,31,28,0.4)"></div>
+
+<section role="dialog" aria-modal="true" aria-labelledby="menu-title" style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 10px 16px 40px; background: #ffffff; border-radius: 24px 24px 0 0; box-shadow: 0 -8px 24px rgba(43,31,28,0.12); display: flex; flex-direction: column; gap: 16px">
+<div aria-hidden="true" style="width: 36px; height: 4px; border-radius: 999px; background: #e6dedb; margin: 0 auto"></div>
+
+<div style="display: flex; align-items: center; gap: 14px; padding: 0 8px">
+<span style="width: 64px; height: 64px; border-radius: 999px; overflow: hidden; display: block; flex: none; border: 3px solid #f1ebe8">
+<sc-if value="{{isParent}}" hint-placeholder-val="{{ true }}"><dc-import name="Art" kind="bear" hint-size="64px,64px"></dc-import></sc-if>
+<sc-if value="{{isChild}}" hint-placeholder-val="{{ false }}"><dc-import name="Art" kind="girl" hint-size="64px,64px"></dc-import></sc-if>
+</span>
+<div>
+<h2 id="menu-title" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">{{name}}</h2>
+<p style="margin: 0; font-size: 16px; line-height: 22px; color: #6e5c57">{{subtitle}}</p>
+</div>
+</div>
+
+<sc-if value="{{isChild}}" hint-placeholder-val="{{ false }}">
+<a href="ProfilePicker.dc.html" style="min-height: 72px; box-sizing: border-box; padding: 0 20px; border-radius: 999px; background: #d63c3c; color: #ffffff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 20px; font-weight: 700">
+<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"/><path d="M21 3l-7 7"/><path d="M8 21H3v-5"/><path d="M3 21l7-7"/></svg>
+Switch profile</a>
+</sc-if>
+
+<sc-if value="{{isParent}}" hint-placeholder-val="{{ true }}">
+<nav aria-label="Profile menu" style="display: flex; flex-direction: column">
+<sc-for list="{{items}}" as="it" hint-placeholder-count="4">
+<a href="{{it.href}}" style="min-height: 56px; box-sizing: border-box; padding: 0 8px; display: flex; align-items: center; gap: 14px; color: #2b1f1c; text-decoration: none; border-bottom: 1px solid #f1ebe8; font-size: 18px; font-weight: 700">
+<span style="width: 40px; height: 40px; border-radius: 999px; background: #d7f3f2; display: flex; align-items: center; justify-content: center; flex: none">
+<sc-if value="{{it.isSwitch}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1b7b7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"/><path d="M21 3l-7 7"/><path d="M8 21H3v-5"/><path d="M3 21l7-7"/></svg></sc-if>
+<sc-if value="{{it.isManage}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1b7b7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></sc-if>
+<sc-if value="{{it.isSettings}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1b7b7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></sc-if>
+<sc-if value="{{it.isHelp}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1b7b7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></sc-if>
+</span>
+<span style="flex: 1 1 auto">{{it.label}}</span>
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#6e5c57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+</a>
+</sc-for>
+</nav>
+</sc-if>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"profile":{"editor":"enum","options":["parent","child"],"default":"parent"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const child = (this.props.profile ?? 'parent') === 'child';
+    return {
+      isParent: !child, isChild: child,
+      name: child ? 'Mia' : 'Kyle',
+      subtitle: child ? 'Want to change who is reading?' : 'Your profile',
+      headerStyle: 'height: 220px; box-sizing: border-box; padding: 58px 16px 0; border-radius: 0 0 36px 36px; background: ' + (child ? '#fcca37' : '#39c2c1'),
+      items: [
+        { label: 'Switch profile', href: 'ProfilePicker.dc.html', isSwitch: true },
+        { label: 'Manage profiles', href: 'ManageProfiles.dc.html', isManage: true },
+        { label: 'Settings', href: '#', isSettings: true },
+        { label: 'Help', href: '#', isHelp: true }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
