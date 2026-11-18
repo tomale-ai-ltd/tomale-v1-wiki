@@ -42,7 +42,7 @@ One Tomale account is a household. The account (`users`) holds login, billing an
 | Profile context | Carried in the token (`active_profile`: id, name, is_child); a switch issues a new token | [[carry-active-profile-in-token-extras]] |
 | Fail closed | No `active_profile` in the token → re-login, never a fallback | [[fail-closed-active-profile-resolution]] |
 | Parent-only areas | Store, orders, subscriptions, approvals, profile management and character deletion are hidden or locked in the child UI **and** refused by the backend for child profiles (`PARENT_PROFILE_REQUIRED`) | Kyle 29/10 |
-| Avatars | Preset avatars (adult and child, with colour options) plus any of the household's character images | [[use-bundled-preset-avatars-for-profiles]], Kyle 29/10 |
+| Avatars | Tomale's own 30 animal avatars (`preset:<animal>`, no colour options, no third-party licence) plus any of the household's character pictures; an unknown key shows `preset:bear`; no old-key mapping (existing profiles moved in Xano, 18/11) | [[use-bundled-preset-avatars-for-profiles]], Kyle 29/10, amended 18/11 |
 | Names | Two-stage moderation on create and rename | [[moderate-names-in-two-stages]] |
 | Delete | Soft delete; not the primary profile, not the profile in use. The profile's stories move to the primary profile | [[prevent-deleting-active-profile-via-soft-delete]], Kyle 29/10 |
 | Visibility | Stories: a child sees their own; parents see the household's. Characters: shared by the household | [[per-child-story-visibility]], [[share-characters-across-the-household]] |
@@ -74,8 +74,9 @@ One Tomale account is a household. The account (`users`) holds login, billing an
 - **Header avatar:** every profile shows its avatar in the header. A child's avatar opens "switch profile" (the PIN pad when choosing a parent profile), so a child is never stuck in their profile; a parent's also opens Settings and Help ([[use-profile-aware-bottom-tabs-with-home-dashboard]]). Until M3 the child header has no avatar (PR #23, 06/11).
 - **Profile picker:** full-screen avatars and names; shown on app reopen (with children) and after 15 minutes in the background; tapping a parent profile opens the PIN pad.
 - **Onboarding:** verify email → name the adult profile → set PIN → optionally add children. Until M7, the Set PIN screen opens when first needed (adding the first child; a child profile can't be created without a PIN, `PIN_NOT_SET`, and `auth/me` `pin_set: false` tells the app) and Change PIN sits in Manage profiles ([[ask-for-pin-when-first-needed]]).
-- **Add child:** name + avatar (presets with colour options, or the picture of an active household character; archived characters and those still drawing aren't offered, Kyle 17/11); no adult/child toggle.
+- **Add child:** name + avatar (one of the 30 animal avatars, or the picture of an active household character; archived characters and those still drawing aren't offered, Kyle 17/11); no adult/child toggle.
 - **Manage profiles** (parent only): rename, change avatar, delete with confirmation ("their stories will move to your profile").
+- **Profile changes wait for the server:** create, rename, picture change and delete are not optimistic, so a refused name never appears and a profile never disappears before the server accepts ([[wait-for-server-on-profile-changes]]; exception to optimistic UI for 009, revisit if a later spec allows a pending profile row).
 - **Story detail** (parent): "Who's this story for?" to assign it to a profile. Built with the bookshelf slice (012), which has the story detail screen.
 - **Child UI:** store, orders, subscriptions, approvals and settings are locked (greyed out with a lock icon) in V1. A distinct child UI is a later option.
 - **PIN lock:** after 5 failures, an "Email me a link to unlock" screen.

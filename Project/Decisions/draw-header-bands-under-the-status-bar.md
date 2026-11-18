@@ -1,16 +1,16 @@
 ---
 type: decision
-title: "draw-header-bands-under-the-status-bar"
+title: draw-header-bands-under-the-status-bar
 project: tomale-rn-v1
-status: proposed
-date: "2026-11-17"
+status: accepted
+date: 2026-11-17
 related:
   - "[[2026-11-17-001]]"
   - "[[build-ui-from-a-component-kit-with-a-screenshot-loop]]"
   - "[[snags]]"
 affects:
   - "`.cursor/rules/ui.mdc`"
-  - "kit ScreenHeader"
+  - kit ScreenHeader
 features:
   - F-design-system
 ---
