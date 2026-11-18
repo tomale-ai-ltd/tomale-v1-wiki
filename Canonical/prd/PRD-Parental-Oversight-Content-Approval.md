@@ -3,7 +3,7 @@ type: prd
 title: PRD-Parental-Oversight-Content-Approval
 project: tomale-rn-v1
 status: current
-version: 2.2
+version: 2.3
 date: 2026-04-14
 last_verified: 2026-11-17
 owner: vault
@@ -71,7 +71,7 @@ The story-text moderation step sets `instant_stories.status_moderation`:
 4. The parent is also emailed (Resend, notification only, no approval in the email). The link opens the app at the approvals inbox (§8a).
 5. The parent switches to their profile (PIN required, [[parental-gate-on-profile-switch]]), opens the approvals inbox and taps the alert, which deep-links to the story.
 6. The parent reads the full story and approves or rejects it (no editing in V1).
-7. On approval, the child can open it. On rejection, it is hidden from the child (the "Waiting for a grown-up" card disappears; Kyle, 12/11); the parent can delete it or move it to their own profile (assign).
+7. On approval, the child can open it. On rejection, it is hidden from the child (the "Waiting for a grown-up" card disappears; Kyle, 12/11); the parent can later approve it for the child, approve it and keep it for themselves (assign to the primary profile, then approve: readable and orderable by the parent, never seen by the child), or delete it ([[hide-rejected-stories-from-child]], amended 18/11).
 8. Ordering a print copy is blocked until approval (built: `STORY_AWAITING_APPROVAL`, [[block-ordering-of-stories-awaiting-parental-approval]]).
 
 ## 7. Backend Function Logic (Xano)
@@ -117,7 +117,7 @@ Child UI:
 Parent UI:
 - Approvals inbox (filtered alerts) with a count badge, reached from a "Stories to review (N)" card on the parent Home and an Approvals entry with a badge in the avatar menu; no tab ([[surface-approvals-on-parent-home-and-avatar-menu]])
 - Full story view with Approve / Reject
-- Rejected stories listed, with Delete
+- Rejected stories listed only in the Rejected tab (not in other parent lists), with Approve for [child], Approve and keep it for me, and Delete
 
 ## 8a. Email link and resuming the route
 

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home, parent</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}a:hover{color:#145e5d}
+</style>
+</helmet>
+<div style="width: 390px; height: 1000px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+
+<header style="box-sizing: border-box; padding: 58px 16px 64px; background: #39c2c1; border-radius: 0 0 36px 36px; position: relative; overflow: hidden">
+<svg viewBox="0 0 390 220" width="390" height="220" style="position: absolute; left: 0; top: 0" aria-hidden="true"><circle cx="330" cy="40" r="70" fill="#5fd0cf"/><circle cx="20" cy="200" r="40" fill="#5fd0cf"/><circle cx="250" cy="70" r="5" fill="#fcca37"/><circle cx="300" cy="150" r="4" fill="#ffffff"/></svg>
+<div style="position: relative; display: flex; align-items: center; gap: 14px">
+<button type="button" aria-label="{{avatarLabel}}" style="position: relative; width: 72px; height: 72px; padding: 0; border: 4px solid #ffffff; border-radius: 999px; overflow: visible; background: #f1e3dc; cursor: pointer; flex: none">
+<span style="width: 64px; height: 64px; border-radius: 999px; overflow: hidden; display: block"><dc-import name="Art" kind="bear" hint-size="64px,64px"></dc-import></span>
+<sc-if value="{{hasReview}}" hint-placeholder-val="{{ true }}">
+<span aria-hidden="true" style="position: absolute; top: -4px; right: -6px; min-width: 24px; height: 24px; box-sizing: border-box; padding: 0 6px; border-radius: 999px; background: #d63c3c; border: 2px solid #ffffff; color: #ffffff; font-size: 13px; line-height: 20px; font-weight: 700; text-align: center">{{count}}</span>
+</sc-if>
+</button>
+<div style="min-width: 0">
+<h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">Hello Kyle</h1>
+<p style="margin: 2px 0 0; font-size: 16px; line-height: 24px">What shall we make today?</p>
+</div>
+</div>
+</header>
+
+<main style="position: relative; margin-top: -40px; padding: 0 16px; display: flex; flex-direction: column; gap: 24px">
+
+<sc-if value="{{hasReview}}" hint-placeholder-val="{{ true }}">
+<a href="Inbox.dc.html" style="box-sizing: border-box; padding: 16px; border-radius: 16px; background: #fff1c4; color: #2b1f1c; text-decoration: none; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(43,31,28,0.08)">
+<span style="width: 56px; height: 56px; border-radius: 999px; background: #fcca37; display: flex; align-items: center; justify-content: center; flex: none">
+<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+</span>
+<span style="flex: 1 1 auto; font-size: 20px; line-height: 26px; font-weight: 700">Stories to review ({{count}})</span>
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+</a>
+</sc-if>
+
+<section aria-label="Quick actions" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<a href="#" style="min-height: 112px; box-sizing: border-box; padding: 14px; border-radius: 20px; background: #ff6666; color: #2b1f1c; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 8px rgba(43,31,28,0.08)">
+<span style="width: 44px; height: 44px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M12 7v6M9 10h6"/></svg></span>
+<span style="font-size: 20px; line-height: 24px; font-weight: 700">New story</span>
+</a>
+<a href="#" style="min-height: 112px; box-sizing: border-box; padding: 14px; border-radius: 20px; background: #39c2c1; color: #2b1f1c; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 8px rgba(43,31,28,0.08)">
+<span style="width: 44px; height: 44px; border-radius: 999px; overflow: hidden; background: #ffffff; display: block"><dc-import name="Art" kind="dragon" hint-size="44px,44px"></dc-import></span>
+<span style="font-size: 20px; line-height: 24px; font-weight: 700">New character</span>
+</a>
+</section>
+
+<section aria-labelledby="fav-h" style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="fav-h" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">Favourite stories</h2>
+<span style="font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6e5c57">Placeholder</span>
+</div>
+<div aria-hidden="true" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<div style="height: 120px; border-radius: 14px; border: 3px dashed #c9b9b3; background: #ffffff"></div>
+<div style="height: 120px; border-radius: 14px; border: 3px dashed #c9b9b3; background: #ffffff"></div>
+<div style="height: 120px; border-radius: 14px; border: 3px dashed #c9b9b3; background: #ffffff"></div>
+</div>
+</section>
+
+<section aria-labelledby="recent-h" style="display: flex; flex-direction: column; gap: 12px">
+<h2 id="recent-h" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">Recent stories</h2>
+<div style="background: #ffffff; border-radius: 16px; box-shadow: 0 2px 8px rgba(43,31,28,0.08); overflow: hidden">
+<sc-for list="{{stories}}" as="s" hint-placeholder-count="4">
+<a href="#" style="min-height: 80px; box-sizing: border-box; padding: 12px 16px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: #2b1f1c; border-bottom: 1px solid #f1ebe8">
+<span style="width: 56px; height: 56px; border-radius: 10px; overflow: hidden; display: block; flex: none">
+<sc-if value="{{s.isDragon}}" hint-placeholder-val="{{ false }}"><dc-import name="Art" kind="dragon" hint-size="56px,56px"></dc-import></sc-if>
+<sc-if value="{{s.isFox}}" hint-placeholder-val="{{ false }}"><dc-import name="Art" kind="fox" hint-size="56px,56px"></dc-import></sc-if>
+<sc-if value="{{s.isRobot}}" hint-placeholder-val="{{ false }}"><dc-import name="Art" kind="robot" hint-size="56px,56px"></dc-import></sc-if>
+</span>
+<span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column">
+<span style="font-size: 18px; line-height: 24px; font-weight: 700">{{s.title}}</span>
+<span style="font-size: 14px; line-height: 20px; color: #6e5c57">{{s.meta}}</span>
+</span>
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#6e5c57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+</a>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57">Minimal Home for 010. Quick actions are placeholders until story creation (011); favourite stories, news and badges come with the Home dashboard slice.</p>
+</section>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"reviewCount":{"editor":"enum","options":["0","1","2"],"default":"2"},"$preview":{"width":390,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const n = Number(this.props.reviewCount ?? '2');
+    return {
+      hasReview: n > 0, count: String(n),
+      avatarLabel: n > 0 ? "Kyle's profile: switch profile, settings and approvals, " + n + ' to review' : "Kyle's profile: switch profile and settings",
+      stories: [
+        { title: 'Pip and the Moon Kite', meta: "Mia's story · 2 days ago", isDragon: true },
+        { title: 'Rosie Finds the Rainbow', meta: "Leo's story · last week", isFox: true },
+        { title: 'The Robot Who Baked', meta: 'Your story · last week', isRobot: true }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

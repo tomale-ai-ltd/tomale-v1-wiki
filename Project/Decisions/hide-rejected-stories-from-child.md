@@ -20,6 +20,8 @@ features:
 ## What we decided
 Kyle, 12/11: a story the parent rejects is hidden from the child, with no "not this one" card. The child sees their own awaiting stories as redacted "waiting" cards; once rejected, the card disappears. The parent can delete the rejected story or move it to their own profile (assign, M3 part A).
 
+**Amendment (2026-11-18, Kyle):** "move it to their own profile" becomes **"Approve and keep it for me"**: the story is assigned to the primary profile and then approved, so it is readable and orderable by the parent and the child never sees it. A plain move left a rejected, unorderable story on the parent's profile indefinitely. Rejected stories show only in the parent's Rejected tab, never in other parent lists. Actions on a rejected story: Approve for the child, Approve and keep it for me, Delete ([[010-approvals-micro-prd]]).
+
 ## Why
 Not discussed in session notes.
 

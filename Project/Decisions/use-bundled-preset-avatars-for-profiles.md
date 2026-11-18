@@ -27,7 +27,7 @@ The generator's licence allows free commercial use (Kyle). Check whether it requ
 
 Future idea: more flexible avatars, possibly a child's own characters.
 
-**Amendment (2026-11-18, Kyle):** the bundled set is replaced by Tomale's own 30 animal avatars (`Project/Design/avatars/`, keys `preset:<animal>`), drawn by Claude in the house style, so there's no third-party licence or attribution. Old keys map to new animals (RS-2026-11-18-01).
+**Amendment (2026-11-18, Kyle):** the bundled set is replaced by Tomale's own 30 animal avatars (`Project/Design/avatars/`, keys `preset:<animal>`), drawn by Claude in the house style, so there's no third-party licence or attribution. Existing profiles were moved to the new keys in Xano on 18/11, so no old-key mapping is kept; an unknown key shows `preset:bear` (RS-2026-11-18-01).
 
 ## Why
 

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Review story</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}a:hover{color:#145e5d}
+</style>
+</helmet>
+<div style="width: 390px; height: 1240px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+
+<header style="box-sizing: border-box; padding: 54px 16px 20px; background: #39c2c1; border-radius: 0 0 32px 32px; position: relative; overflow: hidden">
+<svg viewBox="0 0 390 170" width="390" height="170" style="position: absolute; left: 0; top: 0" aria-hidden="true"><circle cx="340" cy="30" r="64" fill="#5fd0cf"/><circle cx="260" cy="120" r="4" fill="#fcca37"/></svg>
+<div style="position: relative; display: flex; align-items: center; gap: 12px">
+<a href="Inbox.dc.html" aria-label="Back to approvals" style="width: 48px; height: 48px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex: none">
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></a>
+<div style="min-width: 0">
+<h1 style="margin: 0; font-size: 28px; line-height: 34px; font-weight: 700">The Big Storm</h1>
+<p style="margin: 0; font-size: 16px; line-height: 22px">Mia's story · today</p>
+</div>
+</div>
+</header>
+
+<main style="padding: 20px 16px 140px; display: flex; flex-direction: column; gap: 24px">
+
+<section aria-labelledby="why-h" style="display: flex; gap: 12px; align-items: flex-start; padding: 16px; border-radius: 16px; background: #fff1c4">
+<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 id="why-h" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 700">Why it needs a look</h2>
+<p style="margin: 0; font-size: 16px; line-height: 24px">The storyline involves a character getting injured and separated during a storm, which may be intense for younger readers.</p>
+</div>
+</section>
+
+<section aria-labelledby="ask-h" style="display: flex; flex-direction: column; gap: 8px">
+<h2 id="ask-h" style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 700">What Mia asked for</h2>
+<blockquote style="margin: 0; padding: 14px 16px; border-radius: 16px; background: #ffffff; box-shadow: 0 2px 8px rgba(43,31,28,0.08); font-size: 18px; line-height: 26px">"Pip gets lost in a big storm and hurts his wing, then his friends find him and help him get home."</blockquote>
+</section>
+
+<section aria-labelledby="chars-h" style="display: flex; flex-direction: column; gap: 8px">
+<h2 id="chars-h" style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 700">Characters in this story</h2>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+<a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; color: #2b1f1c">
+<span style="width: 88px; height: 88px; border-radius: 999px; overflow: hidden; display: block"><dc-import name="Art" kind="dragon" hint-size="88px,88px"></dc-import></span>
+<span style="font-size: 16px; line-height: 20px; font-weight: 700">Pip</span></a>
+<a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; color: #2b1f1c">
+<span style="width: 88px; height: 88px; border-radius: 999px; overflow: hidden; display: block"><dc-import name="Art" kind="fox" hint-size="88px,88px"></dc-import></span>
+<span style="font-size: 16px; line-height: 20px; font-weight: 700">Rosie</span></a>
+<a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; color: #2b1f1c">
+<span style="width: 88px; height: 88px; border-radius: 999px; overflow: hidden; display: block"><dc-import name="Art" kind="bear" hint-size="88px,88px"></dc-import></span>
+<span style="font-size: 16px; line-height: 20px; font-weight: 700">Bramble</span></a>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57">Tap a character to see it. You can archive it there so it isn't used again.</p>
+</section>
+
+<section aria-labelledby="story-h" style="display: flex; flex-direction: column; gap: 12px">
+<h2 id="story-h" style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 700">The story</h2>
+<sc-if value="{{textReady}}" hint-placeholder-val="{{ true }}">
+<article aria-roledescription="carousel" aria-label="Story pages" style="min-height: 200px; box-sizing: border-box; padding: 18px 16px; border-radius: 16px; background: #ffffff; box-shadow: 0 2px 8px rgba(43,31,28,0.08); display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6e5c57">Page {{pageNo}} of {{pageTotal}}</span>
+<p style="margin: 0; font-size: 18px; line-height: 28px">{{pageText}}</p>
+</article>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<button type="button" aria-label="Previous page" aria-disabled="{{prevDisabled}}" style="{{prevStyle}}"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+<div role="img" aria-label="Page {{pageNo}} of {{pageTotal}}" style="display: flex; gap: 8px; align-items: center">
+<sc-for list="{{dots}}" as="d" hint-placeholder-count="4"><span style="{{d.style}}"></span></sc-for>
+</div>
+<button type="button" aria-label="Next page" aria-disabled="{{nextDisabled}}" style="{{nextStyle}}"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57; text-align: center">Swipe or use the arrows to read each page.</p>
+</sc-if>
+<sc-if value="{{textPending}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; gap: 12px; align-items: flex-start; padding: 16px; border-radius: 16px; background: #d7f3f2">
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1b7b7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+<p style="margin: 0; font-size: 16px; line-height: 24px"><strong>Still being written.</strong> You can decide from the request and characters now, or come back when the text is ready. If you approve now, Mia will be told when it's finished.</p>
+</div>
+</sc-if>
+</section>
+</main>
+
+<div style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 14px 16px 34px; background: #ffffff; box-shadow: 0 -8px 24px rgba(43,31,28,0.12); display: flex; gap: 12px">
+<a href="RejectSheet.dc.html" style="flex: 1 1 0; height: 48px; box-sizing: border-box; border-radius: 999px; border: 2px solid #8f7f7a; background: #ffffff; color: #2b1f1c; font-size: 16px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center">Reject</a>
+<a href="Inbox.dc.html" style="flex: 1 1 0; height: 48px; border-radius: 999px; background: #d63c3c; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center">Approve</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"story":{"editor":"enum","options":["text-ready","text-pending"],"default":"text-ready"},"page":{"editor":"enum","options":["1","2","3","4"],"default":"1"},"$preview":{"width":390,"height":1240}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const pending = (this.props.story ?? 'text-ready') === 'text-pending';
+    const pages = [
+        { n: '1', text: 'Pip loved flying over the hills, but one afternoon the sky turned dark and the wind began to howl.' },
+        { n: '2', text: 'A big gust tumbled him into the woods. His wing hurt, and he couldn’t see the way home.' },
+        { n: '3', text: 'Rosie heard a small cry. "Pip! We’ve been looking everywhere," she said, wrapping him in her scarf.' },
+        { n: '4', text: 'Bramble carried Pip home, and by the fire his wing felt better. The storm was gone, and so was the fear.' }
+    ];
+    const i = Math.min(Math.max(Number(this.props.page ?? '1'), 1), pages.length) - 1;
+    const nav = (off) => 'width: 52px; height: 52px; border-radius: 999px; border: 2px solid ' + (off ? '#e6dedb' : '#8f7f7a') + '; background: #ffffff; color: ' + (off ? '#c9b9b3' : '#2b1f1c') + '; display: flex; align-items: center; justify-content: center; cursor: pointer';
+    return {
+      textReady: !pending, textPending: pending,
+      pageNo: String(i + 1), pageTotal: String(pages.length), pageText: pages[i].text,
+      prevDisabled: i === 0 ? 'true' : 'false', nextDisabled: i === pages.length - 1 ? 'true' : 'false',
+      prevStyle: nav(i === 0), nextStyle: nav(i === pages.length - 1),
+      dots: pages.map((p, k) => ({ style: 'width: ' + (k === i ? '22px' : '10px') + '; height: 10px; border-radius: 999px; background: ' + (k === i ? '#1b7b7a' : '#c9b9b3') + '; display: block' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home, child</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}a:hover{color:#145e5d}
+</style>
+</helmet>
+<div style="width: 390px; height: 1000px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+
+<header style="box-sizing: border-box; padding: 58px 16px 64px; background: #fcca37; border-radius: 0 0 36px 36px; position: relative; overflow: hidden">
+<svg viewBox="0 0 390 220" width="390" height="220" style="position: absolute; left: 0; top: 0" aria-hidden="true"><circle cx="340" cy="30" r="80" fill="#fdd862"/><circle cx="30" cy="200" r="46" fill="#fdd862"/><circle cx="230" cy="60" r="5" fill="#ff6666"/><circle cx="80" cy="36" r="4" fill="#ffffff"/></svg>
+<div style="position: relative; display: flex; align-items: center; gap: 14px">
+<button type="button" aria-label="Mia's profile: switch profile" style="width: 80px; height: 80px; padding: 0; border: 4px solid #ffffff; border-radius: 999px; overflow: hidden; background: #ffe0e0; cursor: pointer; flex: none">
+<dc-import name="Art" kind="girl" hint-size="72px,72px"></dc-import>
+</button>
+<div>
+<h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">Hello Mia</h1>
+<p style="margin: 2px 0 0; font-size: 18px; line-height: 24px">Ready for a story?</p>
+</div>
+</div>
+</header>
+
+<main style="position: relative; margin-top: -40px; padding: 0 16px; display: flex; flex-direction: column; gap: 16px">
+<section aria-label="Make something" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<a href="#" style="min-height: 132px; box-sizing: border-box; padding: 14px; border-radius: 24px; background: #ff6666; color: #2b1f1c; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 8px rgba(43,31,28,0.08)">
+<span style="width: 56px; height: 56px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M12 7v6M9 10h6"/></svg></span>
+<span style="font-size: 22px; line-height: 26px; font-weight: 700">Make a story</span>
+</a>
+<a href="#" style="min-height: 132px; box-sizing: border-box; padding: 14px; border-radius: 24px; background: #39c2c1; color: #2b1f1c; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 8px rgba(43,31,28,0.08)">
+<span style="width: 56px; height: 56px; border-radius: 999px; overflow: hidden; background: #ffffff; display: block"><dc-import name="Art" kind="dragon" hint-size="56px,56px"></dc-import></span>
+<span style="font-size: 22px; line-height: 26px; font-weight: 700">Make a character</span>
+</a>
+</section>
+
+<section aria-labelledby="cfav-h" style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="cfav-h" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">My favourites</h2>
+<span style="font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6e5c57">Placeholder</span>
+</div>
+<div aria-hidden="true" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<div style="height: 110px; border-radius: 14px; border: 3px dashed #c9b9b3; background: #ffffff"></div>
+<div style="height: 110px; border-radius: 14px; border: 3px dashed #c9b9b3; background: #ffffff"></div>
+<div style="height: 110px; border-radius: 14px; border: 3px dashed #c9b9b3; background: #ffffff"></div>
+</div>
+</section>
+
+<h2 style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700; padding: 4px 4px 0; background: transparent">My stories</h2>
+
+<button type="button" style="min-height: 96px; box-sizing: border-box; padding: 14px 16px; border-radius: 16px; border: 3px dashed #c9b9b3; background: #ffffff; font: inherit; color: #2b1f1c; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer">
+<span style="width: 64px; height: 64px; border-radius: 12px; background: #f1ebe8; display: flex; align-items: center; justify-content: center; flex: none">
+<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#6e5c57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+</span>
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 20px; line-height: 26px; font-weight: 700">The Big Storm</span>
+<span style="font-size: 16px; line-height: 22px; color: #6e5c57">Waiting for a grown-up</span>
+</span>
+</button>
+
+<sc-for list="{{stories}}" as="s" hint-placeholder-count="2">
+<a href="#" style="min-height: 96px; box-sizing: border-box; padding: 14px 16px; border-radius: 16px; background: #ffffff; box-shadow: 0 2px 8px rgba(43,31,28,0.08); text-decoration: none; color: #2b1f1c; display: flex; align-items: center; gap: 14px">
+<span style="width: 64px; height: 64px; border-radius: 12px; overflow: hidden; display: block; flex: none">
+<sc-if value="{{s.isDragon}}" hint-placeholder-val="{{ false }}"><dc-import name="Art" kind="dragon" hint-size="64px,64px"></dc-import></sc-if>
+<sc-if value="{{s.isFox}}" hint-placeholder-val="{{ false }}"><dc-import name="Art" kind="fox" hint-size="64px,64px"></dc-import></sc-if>
+</span>
+<span style="font-size: 20px; line-height: 26px; font-weight: 700">{{s.title}}</span>
+</a>
+</sc-for>
+</main>
+
+<sc-if value="{{tapped}}" hint-placeholder-val="{{ false }}">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(43,31,28,0.4)"></div>
+<section role="dialog" aria-modal="true" aria-labelledby="wait-title" style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 10px 24px 40px; background: #ffffff; border-radius: 24px 24px 0 0; box-shadow: 0 -8px 24px rgba(43,31,28,0.12); display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center">
+<div aria-hidden="true" style="width: 36px; height: 4px; border-radius: 999px; background: #e6dedb"></div>
+<svg viewBox="0 0 120 120" width="112" height="112" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#fff1c4"/><circle cx="60" cy="62" r="34" fill="#ffffff" stroke="#2b1f1c" stroke-width="4"/><path d="M60 42 V62 L74 70" stroke="#2b1f1c" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="30" r="4" fill="#ff6666"/><circle cx="98" cy="34" r="5" fill="#39c2c1"/></svg>
+<h2 id="wait-title" style="margin: 0; font-size: 26px; line-height: 32px; font-weight: 700">Waiting for a grown-up</h2>
+<p style="margin: 0; font-size: 18px; line-height: 26px">A grown-up will look at this story soon. You'll be able to read it once they say yes.</p>
+<button type="button" style="align-self: stretch; height: 64px; border-radius: 999px; border: 0; background: #d63c3c; color: #ffffff; font: inherit; font-size: 20px; font-weight: 700">OK</button>
+</section>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"tapped":{"editor":"boolean","default":false},"$preview":{"width":390,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      tapped: this.props.tapped === true,
+      stories: [
+        { title: 'Pip and the Moon Kite', isDragon: true },
+        { title: 'Rosie Finds the Rainbow', isFox: true }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

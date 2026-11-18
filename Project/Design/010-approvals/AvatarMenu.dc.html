@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Avatar menu with Approvals</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+<div aria-hidden="true" style="height: 200px; background: #39c2c1; border-radius: 0 0 36px 36px"></div>
+<div aria-hidden="true" style="margin: -40px 16px 0; display: flex; flex-direction: column; gap: 16px">
+<div style="height: 88px; border-radius: 16px; background: #fff1c4"></div>
+<div style="height: 240px; border-radius: 16px; background: #ffffff"></div>
+</div>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(43,31,28,0.4)"></div>
+
+<section role="dialog" aria-modal="true" aria-labelledby="menu-title" style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 10px 16px 40px; background: #ffffff; border-radius: 24px 24px 0 0; box-shadow: 0 -8px 24px rgba(43,31,28,0.12); display: flex; flex-direction: column; gap: 16px">
+<div aria-hidden="true" style="width: 36px; height: 4px; border-radius: 999px; background: #e6dedb; margin: 0 auto"></div>
+<div style="display: flex; align-items: center; gap: 14px; padding: 0 8px">
+<span style="width: 64px; height: 64px; border-radius: 999px; overflow: hidden; display: block; flex: none; border: 3px solid #f1ebe8"><dc-import name="Art" kind="bear" hint-size="64px,64px"></dc-import></span>
+<div>
+<h2 id="menu-title" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">Kyle</h2>
+<p style="margin: 0; font-size: 16px; line-height: 22px; color: #6e5c57">Your profile</p>
+</div>
+</div>
+<nav aria-label="Profile menu" style="display: flex; flex-direction: column">
+<a href="#" style="min-height: 56px; box-sizing: border-box; padding: 0 8px; display: flex; align-items: center; gap: 14px; color: #2b1f1c; text-decoration: none; border-bottom: 1px solid #f1ebe8; font-size: 18px; font-weight: 700">
+<span style="width: 40px; height: 40px; border-radius: 999px; background: #d7f3f2; display: flex; align-items: center; justify-content: center; flex: none"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1b7b7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"/><path d="M21 3l-7 7"/><path d="M8 21H3v-5"/><path d="M3 21l7-7"/></svg></span>
+<span style="flex: 1 1 auto">Switch profile</span>
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#6e5c57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a>
+<a href="Inbox.dc.html" aria-label="Approvals, 2 stories to review" style="min-height: 56px; box-sizing: border-box; padding: 0 8px; display: flex; align-items: center; gap: 14px; color: #2b1f1c; text-decoration: none; border-bottom: 1px solid #f1ebe8; font-size: 18px; font-weight: 700">
+<span style="width: 40px; height: 40px; border-radius: 999px; background: #fff1c4; display: flex; align-items: center; justify-content: center; flex: none"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+<span style="flex: 1 1 auto">Approvals</span>
+<span aria-hidden="true" style="min-width: 28px; height: 28px; box-sizing: border-box; padding: 0 8px; border-radius: 999px; background: #d63c3c; color: #ffffff; font-size: 15px; line-height: 28px; font-weight: 700; text-align: center">2</span>
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#6e5c57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a>
+<a href="#" style="min-height: 56px; box-sizing: border-box; padding: 0 8px; display: flex; align-items: center; gap: 14px; color: #2b1f1c; text-decoration: none; border-bottom: 1px solid #f1ebe8; font-size: 18px; font-weight: 700">
+<span style="width: 40px; height: 40px; border-radius: 999px; background: #d7f3f2; display: flex; align-items: center; justify-content: center; flex: none"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1b7b7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+<span style="flex: 1 1 auto">Manage profiles</span>
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#6e5c57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a>
+<a href="#" style="min-height: 56px; box-sizing: border-box; padding: 0 8px; display: flex; align-items: center; gap: 14px; color: #2b1f1c; text-decoration: none; font-size: 18px; font-weight: 700">
+<span style="width: 40px; height: 40px; border-radius: 999px; background: #d7f3f2; display: flex; align-items: center; justify-content: center; flex: none"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1b7b7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg></span>
+<span style="flex: 1 1 auto">Settings</span>
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#6e5c57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a>
+</nav>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

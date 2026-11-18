@@ -28,6 +28,8 @@ Home is the first tab for every profile: a dashboard that gets a parent or child
 - **Announcements:** new artwork styles, themes, offers. Child profiles see creative news only, never prices or offers.
 - **Onboarding tasks** (parent profile, first month): progress card from [[PRD-Rewards-Onboarding-Tasks]].
 - Badges earned (child), from the celebrations part of rewards.
+- **Stories to review (N)** (parent profile): card that opens the approvals inbox when stories are awaiting approval; spec 010 adds a minimal version of this card before the dashboard slice, and the dashboard keeps it ([[surface-approvals-on-parent-home-and-avatar-menu]]).
+- **Quick actions and favourite stories** (Kyle, 18/11): 010's minimal Home draws quick-action tiles (new story, new character) and a favourite-stories row as placeholders. Stories have no favourite flag yet; the dashboard slice adds one.
 
 ## 3. Open questions
 - Where announcements come from (a Xano table managed by Kyle, or a CMS).
