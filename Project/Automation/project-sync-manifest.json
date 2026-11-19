@@ -1,6 +1,6 @@
 {
   "note": "Project knowledge sync manifest: vault-relative path (project doc path) -> first 16 hex of sha256 at last upload. Maintained by the daily pipeline.",
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "files": {
     "Canonical/operating-model.md": "a3d3e191781291f0",
     "Canonical/stack.md": "0258509495898656",
@@ -42,7 +42,7 @@
     "Canonical/repo-sync/RS-2026-10-29-02.md": "291cab8c1de8f84f",
     "Canonical/repo-sync/RS-2026-11-01-05.md": "432b2d6ca7a39931",
     "Canonical/repo-sync/RS-2026-10-30-05.md": "038a41fd1b957e33",
-    "Canonical/repo-sync/RS-2026-11-18-02.md": "49fe16c7ed281644",
+    "Canonical/repo-sync/RS-2026-11-18-02.md": "b8415b3dda26d20f",
     "Canonical/repo-sync/RS-2026-11-05-03.md": "a4e538c11eae95fe",
     "Canonical/repo-sync/RS-2026-11-01-02.md": "1dd47b714f900b7d",
     "Canonical/repo-sync/RS-2026-10-30-01.md": "26318b692ec3a058",
@@ -304,6 +304,11 @@
     "Project/Decisions/create-architecture-folder-for-system-flow-docs.md": "55728bf0db513236",
     "Project/Decisions/refresh-xano-mirror-with-mac-launchd-job.md": "0e24b20215642d95",
     "Repos/tomale-rn-test/memory/constitution.md": "addf34ac0e9249de",
-    "Repos/tomale-rn-test/memory/data-model.md": "a0256f7614d1d125"
+    "Repos/tomale-rn-test/memory/data-model.md": "a0256f7614d1d125",
+    "Canonical/repo-sync/RS-2026-11-19-01.md": "11b2eed1df1d2fa3",
+    "Canonical/pending-updates/PU-2026-11-19-02.md": "71ed757b7f8e6573",
+    "Canonical/pending-updates/PU-2026-11-19-01.md": "4a9b637e88f21183",
+    "Project/Decisions/keep-approvals-list-in-memory-only.md": "7af1e4cbdf4e747d",
+    "Project/Decisions/retain-account-data-30-days-after-closing.md": "b6f1dc3b9f712bf9"
   }
 }

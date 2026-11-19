@@ -58,11 +58,11 @@
   "est_min": 4,
   "est_max": 6,
   "status": "in progress",
-  "progress": 0.8,
-  "actual_days": 3.5,
+  "progress": 0.85,
+  "actual_days": 4.5,
   "finished": null,
   "estimate_assumed": false,
-  "note": "Backend done (A 12/11, B 13/11, tested 17/11); 009 profiles and PIN merged 18/11 (PR #31, e688caf); 010 approvals next"
+  "note": "Backend done (A 12/11, B 13/11, tested 17/11); 009 merged 18/11 (PR #31); 010 approvals specified, planned and tasked 19/11 (0 of 29 tasks), build next"
  },
  {
   "order": 6,
