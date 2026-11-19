@@ -30,6 +30,8 @@ views:
     sort:
       - property: date
         direction: DESC
+    columnSize:
+      file.name: 323
   - type: table
     name: Recent (last 14 days)
     filters:
