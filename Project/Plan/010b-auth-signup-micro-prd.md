@@ -16,7 +16,7 @@ A new parent can download the app, create an account, confirm their email, tell 
 ## Screen flow
 
 - Sign in (restyled, replaces `login.tsx`): book mark logo (S-005 rule), email, password (show/hide), "Sign in" (kit Button, loading = full colour plus spinner, S-003), "Email me a sign-in link" (existing magic-link screen, restyled), "Forgot your password?" (same magic-link screen: no password reset in V1, `auth/reset_password` was deleted 12/11), and "New to Tomale? Create an account".
-- Create account: first name, last name, email, password (show/hide; the rule "At least 8 characters, with a letter and a number" under the field, ticking off as it's met), tick-box "I agree to the [Terms] and [Privacy Policy]" (Termly links, open in the in-app browser); "Create account" stays disabled until every field is valid and the box is ticked. On success the session is stored exactly as after login (007 rules) and the app goes to Check your email.
+- Create account: first name, last name, email, password (show/hide; the rule "At least 8 characters, with a letter and a number" under the field, ticking off as it's met), tick-box "I agree to the [Terms] and [Privacy Notice]" (links open in the in-app browser; URLs in one config constant: Privacy Notice `https://www.tomale.ai/privacy-notice`, Terms `https://www.tomale.ai/terms` once published); "Create account" stays disabled until every field is valid and the box is ticked. On success the session is stored exactly as after login (007 rules) and the app goes to Check your email.
 - Check your email: "We've sent a link to [email]. Tap it to confirm your email address." Primary "Continue" (on to the Name step), "Send it again", and "Wrong email? Start again" (signs out, back to Create account).
 - Email confirmed return (`tomalerntest://auth/verified?status=success|error&reason=…` / `tomale://…`): a new route, separate from `auth/complete`. Success: refetch `/auth/me`, toast "Email confirmed", carry on where the person was (Name step or Home). `reason` contains "expired": "That link has expired" with "Send a new link". Other errors: "We couldn't confirm your email" with "Send a new link".
 - Name step (replaces the `(onboarding)` placeholder while `onboarding_complete` is false): "What should we call you?", empty field (the primary profile starts as "default"; never show "default"), optional picture with 009's avatar picker. "Continue" renames the primary profile, completes onboarding, then opens Home.
@@ -38,7 +38,7 @@ A new parent can download the app, create an account, confirm their email, tell 
 ## Backend (Kyle, before or during 010b)
 
 - **B1 (needed): `POST /auth/resend_verification`**, auth required, no input: calls the existing verification custom function for `$auth.id` if `email_verified` is false; returns `{sent: true}`; refuses with `ALREADY_VERIFIED` if confirmed, and `TOO_SOON` if one was sent in the last 60 seconds. Needed because the gate and the expired-link case otherwise leave a parent stuck.
-- **B2 (recommended): record acceptance.** `users.terms_accepted_at` (timestamp) and `terms_version` (text), sent by sign-up as `terms_accepted: true` and refused without it. Gives a record of what each parent agreed to and when.
+- **B2 (in, Kyle 19/11): record acceptance.** `users.terms_accepted_at` (timestamp) and `terms_version` (text), sent by sign-up as `terms_accepted: true` and `terms_version` (the "Last updated" date printed on the published Terms, e.g. `2026-11-20`), refused without them. The app holds the current version in the same config constant as the URLs. Gives a record of what each parent agreed to and when.
 - **B3 (optional): codes on sign-up refusals** (`EMAIL_IN_USE`, `WEAK_PASSWORD`) at `payload.code`, like 009's typed refusals, so the app doesn't match on message text.
 - **Pre-launch, not 010b:** the same `email_verified` check on the create endpoints (characters, stories), so the gate isn't app-only. Add to [[pre-launch-checklist]].
 - Then `pnpm update:openapi` and an overlay entry for B1 (and B2/B3 if done), with recorded Postman fixtures.
@@ -94,4 +94,4 @@ Device checks (Kyle, phone): new account with a new email; Terms and Privacy ope
 
 ## Open questions (for Kyle)
 
-1. Termly URLs for Terms and Privacy (paste them, or say where they live), and whether B2 is in.
+1. Publish the Terms (EULA) at `https://www.tomale.ai/terms` with a "Last updated" date before the 010b phone pass; the tick-box can't link a draft. The cookie policy isn't needed for the app (no cookies); it's a website question.
