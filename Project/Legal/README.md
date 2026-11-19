@@ -13,7 +13,7 @@ related:
 
 Public legal pages for tomale.ai and the app, plus internal policies behind them. Each published version is kept in a dated folder and never edited afterwards, so we can always show what a parent agreed to. The folder date is the "Last updated" date on the pages, and the Terms date is `terms_version` recorded at sign-up (010b, B2).
 
-## Current version: `2026-11-19/` (not yet published)
+## Current version: `2026-11-19/` (live on Squarespace since 19/11/2026)
 
 | Page | File | Squarespace URL | Editable draft (Claude Docs) |
 |---|---|---|---|
@@ -25,12 +25,16 @@ Public legal pages for tomale.ai and the app, plus internal policies behind them
 
 Internal, never published: `internal/content-moderation-policy-v1.0.md` (the policy the Xano moderation prompts follow; the Content Guidelines are its public summary, so change both together).
 
-## Before publishing
+## Status
 
-- Privacy Notice §7: replace the `[35]` days backup placeholder with the Xano backup period (or remove the sentence).
-- Moderation record retention: 2 years proposed ([[retain-account-data-30-days-after-closing]]); the Privacy Notice already says 2 years.
-- Cookie Policy: confirm the banner type is "Opt in and out"; scan the live site before and after "Accept" and correct the cookie table.
-- If the publish date isn't 19 November 2026, rename the folder and the "Last updated" lines to the real date.
+Published 19/11/2026 (Kyle): all five pages live at the URLs above, Markdown blocks with the table CSS in Custom CSS. Backup period set to 35 days in the Privacy Notice §7.
+
+Still open (not blocking the pages):
+- Solicitor review before launch (pre-launch checklist §6, PU-2026-11-19-01).
+- Cookie Policy: confirm the banner type is "Opt in and out" and run the live-site scan; correct the cookie table if it differs.
+- Moderation record retention: 2 years as published; the Xano side still keeps them indefinitely until the purge job ([[account-closing-micro-prd]]).
+- The 30-day delete promised in the Terms and Privacy Notice needs the backend job before launch.
+- Page titles: set each page's SEO title (e.g. "Privacy Notice | Tomale") instead of the URL slug.
 
 ## How to publish (Squarespace)
 
@@ -48,4 +52,4 @@ Edit the Claude Docs draft, export it, strip the draft notes, and save as a new 
 
 | Date | Change |
 |---|---|
-| 2026-11-19 | First versions of all five, drafted by Claude from the vault; solicitor review before launch (pre-launch checklist §6, PU-2026-11-19-01). |
+| 2026-11-19 | First versions of all five, drafted by Claude from the vault; published on Squarespace 19/11 (Kyle). Solicitor review before launch (pre-launch checklist §6, PU-2026-11-19-01). |

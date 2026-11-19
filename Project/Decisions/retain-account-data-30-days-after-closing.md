@@ -42,7 +42,7 @@ Delete at once on closing (no way back); keep data until the parent asks again (
 Data lingers for 30 days after a parent asks to leave; backups can hold it up to the backup period longer.
 
 ## Workflow detail
-Build in M7 with account deletion: [[account-closing-micro-prd]]. Open: moderation retention (Kyle), Xano backup period, whether Apple accepts a 30-day grace period when the app states it.
+Build in M7 with account deletion: [[account-closing-micro-prd]]. Published in the Privacy Notice 19/11/2026 (backups: up to 35 days). Open: moderation retention (Kyle; 2 years published), whether Apple accepts a 30-day grace period when the app states it.
 
 ## Related notes
 - [[account-closing-micro-prd]]

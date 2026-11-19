@@ -94,4 +94,4 @@ Device checks (Kyle, phone): new account with a new email; Terms and Privacy ope
 
 ## Open questions (for Kyle)
 
-1. Publish the Terms (EULA) at `https://www.tomale.ai/terms` with a "Last updated" date before the 010b phone pass; the tick-box can't link a draft. The cookie policy isn't needed for the app (no cookies); it's a website question.
+None. Terms published 19/11/2026 at `https://www.tomale.ai/terms`, so `terms_version` = `2026-11-19`; Privacy Notice at `https://www.tomale.ai/privacy-notice` ([[Project/Legal/README|Legal README]]).

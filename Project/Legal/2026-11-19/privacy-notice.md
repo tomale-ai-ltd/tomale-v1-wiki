@@ -107,7 +107,7 @@ We keep your information while your account is open, and delete it on the timeta
 | Emails with our support team | 2 years after the last message |
 | Marketing consent | Until you opt out, then a record that you opted out |
 
-Backups are overwritten on a rolling basis, so deleted information can take up to \[35\] days more to leave them.
+Backups are overwritten on a rolling basis, so deleted information can take up to 35 days more to leave them.
 
 ## 8. Security, your rights and contact
 
