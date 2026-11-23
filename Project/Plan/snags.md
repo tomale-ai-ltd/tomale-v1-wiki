@@ -42,3 +42,4 @@ Small visual or UX defects found in device checks that don't block a merge. Each
 | S-028 | 23/11 (snag pass check) | Who's reading? | The close X above the book mark is slightly off centre. | Low | Snag pass 23/11 | Open |
 | S-029 | 23/11 (snag pass check) | Forgot PIN | Remove the envelope picture (Kyle doesn't like it); amends S-008. | Low | Snag pass 23/11 | Open |
 | S-030 | 23/11 (snag pass check) | Who's reading?, offline | The book mark disappears on the offline state. | Low | Snag pass 23/11 | Open |
+| S-031 | 23/11 (snag pass check) | Back buttons, all screens | Back buttons differ between screens. Make them uniform: a 48 × 48 back icon in a contrasting circular button, top left, from one kit component used everywhere. | Medium | With 010b (kit BackButton), then sweep | Open |
