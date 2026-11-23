@@ -2,8 +2,8 @@
 type: decision
 title: defer-expo-cloud-simulators-until-xano-split
 project: tomale-rn-v1
-status: proposed
-date: "2026-11-18"
+status: accepted
+date: 2026-11-18
 related:
   - "[[2026-11-18-002]]"
   - "[[check-every-screen-on-the-phone-before-done]]"

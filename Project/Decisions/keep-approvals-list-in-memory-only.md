@@ -1,16 +1,16 @@
 ---
 type: decision
-title: "keep-approvals-list-in-memory-only"
+title: keep-approvals-list-in-memory-only
 project: tomale-rn-v1
-status: proposed
-date: "2026-11-19"
+status: accepted
+date: 2026-11-19
 related:
   - "[[2026-11-19-001]]"
   - "[[surface-approvals-on-parent-home-and-avatar-menu]]"
   - "[[wait-for-server-on-profile-changes]]"
   - "[[hide-rejected-stories-from-child]]"
 affects:
-  - "specs/010-approvals/plan.md"
+  - specs/010-approvals/plan.md
 features:
   - F-parental-oversight
 ---

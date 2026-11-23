@@ -38,6 +38,7 @@ views:
         direction: ASC
     columnSize:
       note.title: 596
+      note.batch: 578
   - type: table
     name: Done
     filters:

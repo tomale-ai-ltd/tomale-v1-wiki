@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "keep-pin-gate-closed-when-app-returns-to-foreground"
+title: keep-pin-gate-closed-when-app-returns-to-foreground
 project: tomale-rn-v1
-status: proposed
-date: "2026-11-19"
+status: accepted
+date: 2026-11-19
 related:
   - "[[2026-11-19-002]]"
   - "[[parental-gate-on-profile-switch]]"
