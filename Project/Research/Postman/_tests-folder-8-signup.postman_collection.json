@@ -1,0 +1,974 @@
+{
+	"info": {
+		"_postman_id": "048c38cb-d4ad-4fb7-bd0b-2ad866450985",
+		"name": "_tests folder 8 (Sign-up) - move into _tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearerToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"item": [
+		{
+			"name": "8. Sign-up and email (010b)",
+			"description": "Sign-up and email confirmation (010b, 23/11). Runs only with env runSignupTests = true: it creates a real account and sends real emails (plus-addressed from test_account_email, e.g. you+010b-main-<time>@...). Never sets bearerToken; the new account's token is bearerToken_signup.\n\nOrder: run 8A and 8B (8B-3 waits 61 s). Then copy the token from email 2's link (or the users row) into env signupVerifyToken (and, optionally, email 1's token into signupVerifyTokenOld) and run 8C. 8C-2 clears both after use.\n\nNeeds: Xano X1–X5 from Project/Plan/010b-xano-prompts.md, with terms_accepted and terms_version optional inputs (so 8A-3 gets TERMS_REQUIRED).",
+			"item": [
+				{
+					"name": "8A · Sign-up",
+					"item": [
+						{
+							"name": "8A-1 · POST /auth/signup — new account (terms accepted)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }",
+											"const base = String(pm.environment.get(\"test_account_email\") || \"\");",
+											"const at = base.indexOf(\"@\");",
+											"pm.collectionVariables.set(\"signupEmail\", base.slice(0, at) + \"+010b-main-\" + Date.now() + base.slice(at));",
+											"[\"bearerToken_signup\",\"signupUserId\",\"signupSessionId\"].forEach(k => pm.collectionVariables.unset(k));"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8A-1: 200\", () => pm.response.to.have.status(200));",
+											"pm.test(\"8A-1: userid, authToken, refreshToken, session_id\", () => { const b = j(); pm.expect(b.userid).to.be.a(\"number\"); pm.expect(b.authToken).to.be.a(\"string\").and.not.empty; pm.expect(b.refreshToken).to.be.a(\"string\").and.not.empty; pm.expect(b.session_id).to.exist; });",
+											"if (j().authToken) { pm.collectionVariables.set(\"bearerToken_signup\", j().authToken); pm.collectionVariables.set(\"signupUserId\", j().userid); pm.collectionVariables.set(\"signupSessionId\", j().session_id); }",
+											"console.log(\"8A-1 new account:\", pm.collectionVariables.get(\"signupEmail\"), \"id\", j().userid, \"- check the users row: terms_accepted_at, terms_version, email_verification_token, email_ver_expires_at; email 1 should arrive\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/signup",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"Postman\",\n  \"last_name\": \"Signup\",\n  \"username\": \"Postman Signup\",\n  \"email\": \"{{signupEmail}}\",\n  \"password\": \"{{signupPassword}}\",\n  \"terms_accepted\": true,\n  \"terms_version\": \"{{termsVersion}}\",\n  \"sessionContext\": { \"deviceLabel\": \"postman-_tests\", \"platform\": \"postman\", \"appVersion\": \"tests\" }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "noauth"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8A-2 · POST /auth/signup — same email → EMAIL_IN_USE",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8A-2: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"8A-2: payload.code is EMAIL_IN_USE\", () => pm.expect(code()).to.eql(\"EMAIL_IN_USE\"));",
+											"console.log(\"8A-2 body:\", JSON.stringify(j()));"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/signup",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"Postman\",\n  \"last_name\": \"Signup\",\n  \"username\": \"Postman Signup\",\n  \"email\": \"{{signupEmail}}\",\n  \"password\": \"{{signupPassword}}\",\n  \"terms_accepted\": true,\n  \"terms_version\": \"{{termsVersion}}\",\n  \"sessionContext\": { \"deviceLabel\": \"postman-_tests\", \"platform\": \"postman\", \"appVersion\": \"tests\" }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "noauth"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8A-3 · POST /auth/signup — terms_accepted missing → TERMS_REQUIRED",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }",
+											"const base = String(pm.environment.get(\"test_account_email\") || \"\");",
+											"const at = base.indexOf(\"@\");",
+											"pm.collectionVariables.set(\"signupEmailAlt\", base.slice(0, at) + \"+010b-noterms-\" + Date.now() + base.slice(at));"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8A-3: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"8A-3: payload.code is TERMS_REQUIRED\", () => pm.expect(code()).to.eql(\"TERMS_REQUIRED\"));",
+											"console.log(\"8A-3 body:\", JSON.stringify(j()));"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/signup",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"Postman\",\n  \"last_name\": \"Signup\",\n  \"username\": \"Postman Signup\",\n  \"email\": \"{{signupEmailAlt}}\",\n  \"password\": \"{{signupPassword}}\",\n  \"terms_version\": \"{{termsVersion}}\",\n  \"sessionContext\": { \"deviceLabel\": \"postman-_tests\", \"platform\": \"postman\", \"appVersion\": \"tests\" }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "noauth"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8A-4 · POST /auth/signup — terms_version empty → TERMS_REQUIRED",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }",
+											"const base = String(pm.environment.get(\"test_account_email\") || \"\");",
+											"const at = base.indexOf(\"@\");",
+											"pm.collectionVariables.set(\"signupEmailAlt\", base.slice(0, at) + \"+010b-emptyversion-\" + Date.now() + base.slice(at));"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8A-4: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"8A-4: payload.code is TERMS_REQUIRED\", () => pm.expect(code()).to.eql(\"TERMS_REQUIRED\"));",
+											"console.log(\"8A-4 body:\", JSON.stringify(j()));"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/signup",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"Postman\",\n  \"last_name\": \"Signup\",\n  \"username\": \"Postman Signup\",\n  \"email\": \"{{signupEmailAlt}}\",\n  \"password\": \"{{signupPassword}}\",\n  \"terms_accepted\": true,\n  \"terms_version\": \"\",\n  \"sessionContext\": { \"deviceLabel\": \"postman-_tests\", \"platform\": \"postman\", \"appVersion\": \"tests\" }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "noauth"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8A-5 · POST /auth/signup — weak password (field rule)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }",
+											"const base = String(pm.environment.get(\"test_account_email\") || \"\");",
+											"const at = base.indexOf(\"@\");",
+											"pm.collectionVariables.set(\"signupEmailWeak\", base.slice(0, at) + \"+010b-weak-\" + Date.now() + base.slice(at));"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8A-5: refused (4xx)\", () => pm.expect(pm.response.code).to.be.within(400, 499));",
+											"pm.test(\"8A-5: no token returned\", () => pm.expect(j().authToken).to.be.undefined);",
+											"console.log(\"8A-5 status\", pm.response.code, \"body:\", JSON.stringify(j()), \"- send this to Claude for the overlay fixture\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/signup",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"Postman\",\n  \"last_name\": \"Signup\",\n  \"username\": \"Postman Signup\",\n  \"email\": \"{{signupEmailWeak}}\",\n  \"password\": \"abcdefgh\",\n  \"terms_accepted\": true,\n  \"terms_version\": \"{{termsVersion}}\",\n  \"sessionContext\": { \"deviceLabel\": \"postman-_tests\", \"platform\": \"postman\", \"appVersion\": \"tests\" }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "noauth"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8A-5b · POST /auth/login — weak-password account was not created",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8A-5b: login refused (no such account)\", () => pm.expect(pm.response.code).to.not.eql(200));"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/login",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{signupEmailWeak}}\",\n  \"password\": \"abcdefgh\",\n  \"sessionContext\": { \"deviceLabel\": \"postman-_tests\", \"platform\": \"postman\", \"appVersion\": \"tests\" }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "noauth"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8A-6 · POST /auth/signup — malformed email → Xano input error",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8A-6: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"8A-6: no token returned\", () => pm.expect(j().authToken).to.be.undefined);"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/signup",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"Postman\",\n  \"last_name\": \"Signup\",\n  \"username\": \"Postman Signup\",\n  \"email\": \"kyle@\",\n  \"password\": \"{{signupPassword}}\",\n  \"terms_accepted\": true,\n  \"terms_version\": \"{{termsVersion}}\",\n  \"sessionContext\": { \"deviceLabel\": \"postman-_tests\", \"platform\": \"postman\", \"appVersion\": \"tests\" }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "noauth"
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "8B · New account, resend",
+					"item": [
+						{
+							"name": "8B-1 · GET /auth/me — new account is unconfirmed",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }",
+											"if (!pm.collectionVariables.get(\"bearerToken_signup\")) { console.log(\"Skipped: run 8A-1 first\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8B-1: 200\", () => pm.response.to.have.status(200));",
+											"const u = j().user || {}; const ap = (j().auth || {}).active_profile || j().active_profile || {};",
+											"pm.test(\"8B-1: email not confirmed\", () => pm.expect(u.email_verified === true).to.eql(false));",
+											"pm.test(\"8B-1: onboarding not complete\", () => pm.expect(u.onboarding_complete === true).to.eql(false));",
+											"pm.test(\"8B-1: active profile is the primary parent, named Postman\", () => { pm.expect(ap.is_primary).to.eql(true); pm.expect(ap.is_child).to.eql(false); pm.expect(ap.name).to.eql(\"Postman\"); });"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/me",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_signup}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8B-2 · POST /auth/resend_verification — straight away → TOO_SOON",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8B-2: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"8B-2: payload.code is TOO_SOON\", () => pm.expect(code()).to.eql(\"TOO_SOON\"));",
+											"console.log(\"8B-2 body:\", JSON.stringify(j()));"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/resend_verification",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"resend_verification"
+									]
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_signup}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8B-3 · POST /auth/resend_verification — after 60 s → sent",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }",
+											"console.log(\"8B-3: waiting 61 s so the last email is over a minute old\");",
+											"setTimeout(() => {}, 61000);"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8B-3: 200\", () => pm.response.to.have.status(200));",
+											"pm.test(\"8B-3: sent true\", () => pm.expect(j().sent).to.eql(true));",
+											"console.log(\"8B-3: email 2 should arrive. To run 8C, set env signupVerifyToken to the token in email 2's link (or the users row), and optionally signupVerifyTokenOld to email 1's token.\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/resend_verification",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"resend_verification"
+									]
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_signup}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "8C · Confirm (needs signupVerifyToken)",
+					"item": [
+						{
+							"name": "8C-1 · GET /auth/verify_email — email 1's token is no longer valid",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }",
+											"if (!pm.environment.get(\"signupVerifyTokenOld\")) { console.log(\"Skipped (optional): set env signupVerifyTokenOld to email 1's token\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8C-1: old token refused (404)\", () => pm.response.to.have.status(404));"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/verify_email?token={{signupVerifyTokenOld}}",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"verify_email"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{signupVerifyTokenOld}}"
+										}
+									]
+								},
+								"auth": {
+									"type": "noauth"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8C-2 · GET /auth/verify_email — email 2's token confirms",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }",
+											"if (!pm.environment.get(\"signupVerifyToken\")) { console.log(\"Skipped: set env signupVerifyToken to the token from email 2 (8C runs after 8A–8B)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8C-2: 200\", () => pm.response.to.have.status(200));",
+											"pm.test(\"8C-2: success true\", () => pm.expect(j().success).to.eql(true));",
+											"pm.environment.unset(\"signupVerifyToken\"); pm.environment.unset(\"signupVerifyTokenOld\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/verify_email?token={{signupVerifyToken}}",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"verify_email"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{signupVerifyToken}}"
+										}
+									]
+								},
+								"auth": {
+									"type": "noauth"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8C-3 · GET /auth/me — email now confirmed",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8C-3: 200\", () => pm.response.to.have.status(200));",
+											"pm.test(\"8C-3: email_verified true\", () => pm.expect((j().user || {}).email_verified).to.eql(true));"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/me",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_signup}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8C-4 · POST /auth/resend_verification — confirmed → ALREADY_VERIFIED",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8C-4: 400\", () => pm.response.to.have.status(400));",
+											"pm.test(\"8C-4: payload.code is ALREADY_VERIFIED\", () => pm.expect(code()).to.eql(\"ALREADY_VERIFIED\"));",
+											"console.log(\"8C-4 body:\", JSON.stringify(j()));"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/resend_verification",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"resend_verification"
+									]
+								},
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{bearerToken_signup}}",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8C-5 · GET /auth/verify_email — no token → input error",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8C-5: refused (4xx)\", () => pm.expect(pm.response.code).to.be.within(400, 499));"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/verify_email",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"verify_email"
+									]
+								},
+								"auth": {
+									"type": "noauth"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8C-6 · POST /auth/login — the new account signs in",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"if (String(pm.environment.get(\"runSignupTests\")) !== \"true\") { console.log(\"Skipped: set env runSignupTests = true (creates a real account and sends emails)\"); pm.execution.skipRequest(); }"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const j = () => { try { return pm.response.json() || {}; } catch (e) { return {}; } };",
+											"const code = () => ((j().payload || {}).code);",
+											"pm.test(\"8C-6: 200\", () => pm.response.to.have.status(200));",
+											"pm.test(\"8C-6: token returned\", () => pm.expect(j().authToken).to.be.a(\"string\").and.not.empty);",
+											"// Deliberately does not touch bearerToken: later folders keep the main test account."
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{auth_base_url}}/auth/login",
+									"host": [
+										"{{auth_base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{signupEmail}}\",\n  \"password\": \"{{signupPassword}}\",\n  \"sessionContext\": { \"deviceLabel\": \"postman-_tests\", \"platform\": \"postman\", \"appVersion\": \"tests\" }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"auth": {
+									"type": "noauth"
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "signupEmail",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "signupEmailAlt",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "signupEmailWeak",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "signupPassword",
+			"value": "Tomale2026test",
+			"type": "string"
+		},
+		{
+			"key": "termsVersion",
+			"value": "2026-11-19",
+			"type": "string"
+		},
+		{
+			"key": "bearerToken_signup",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "signupUserId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "signupSessionId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

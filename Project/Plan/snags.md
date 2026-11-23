@@ -34,3 +34,11 @@ Small visual or UX defects found in device checks that don't block a merge. Each
 | S-020 | 19/11 (010 phone pass) | Network error on approve | "Try again" is a plain text link; use the kit Button (secondary), and show that the phone is offline (an icon or banner) rather than text alone. The fact that the error line stays after a successful retry is a bug, fixed in 010. | Low | Snag polish pass after 010 | Open |
 | S-021 | 19/11 (010 phone pass) | Waiting sheet OK, picker highlight ring | Both use the danger red rather than the primary coral; check against the 010 boards (HomeChild, picker). Danger red stays on Reject story and Delete. | Low | Snag polish pass after 010 | Open |
 | S-022 | 19/11 (010 phone pass) | Story cover placeholder, dark mode | The placeholder square on Home's Recent stories is almost black on the dark page; lift it to a visible surface tone. | Low | Snag polish pass after 010 | Open |
+| S-023 | 23/11 (snag pass check) | Settings page | The back button shows "(tabs)" beside the back icon. | Low | Snag pass 23/11 | Open |
+| S-024 | 23/11 (snag pass check) | Manage profiles | Pictures sit off centre since the active ring was added. | Low | Snag pass 23/11 | Open |
+| S-025 | 23/11 (snag pass check) | Manage profiles | "Parent PIN" / "Change PIN" is plain text; make it a kit Button. | Low | Snag pass 23/11 | Open |
+| S-026 | 23/11 (snag pass check) | Change PIN | No confirmation after the new PIN is saved; show a toast. | Low | Snag pass 23/11 | Open |
+| S-027 | 23/11 (snag pass check) | Change PIN, Forgot PIN headers | The back button stretches across the header; it should be a small button top left as on other pages. | Medium | Snag pass 23/11 | Open |
+| S-028 | 23/11 (snag pass check) | Who's reading? | The close X above the book mark is slightly off centre. | Low | Snag pass 23/11 | Open |
+| S-029 | 23/11 (snag pass check) | Forgot PIN | Remove the envelope picture (Kyle doesn't like it); amends S-008. | Low | Snag pass 23/11 | Open |
+| S-030 | 23/11 (snag pass check) | Who's reading?, offline | The book mark disappears on the offline state. | Low | Snag pass 23/11 | Open |
