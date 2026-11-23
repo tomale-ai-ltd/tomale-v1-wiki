@@ -103,5 +103,15 @@
   "date": "2026-11-19",
   "milestone": "M3",
   "what": "009 phone pass closed (T034); 010 approvals specified, planned and tasked (29 tasks), B6 story-list types committed on 010-approvals"
+ },
+ {
+  "date": "2026-11-19",
+  "milestone": "M3",
+  "what": "010 approvals built (US1 to US5), reviewed and phone-tested in two rounds; PIN-bypass and picker bugs fixed"
+ },
+ {
+  "date": "2026-11-20",
+  "milestone": "M3",
+  "what": "Sign-in handover fixed, PR #32 merged; 010 approvals done and M3 complete"
  }
 ]

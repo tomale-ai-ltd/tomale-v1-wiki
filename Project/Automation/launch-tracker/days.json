@@ -82,5 +82,11 @@
   "delivered": 0.3,
   "milestones": "M3",
   "headline": "Approvals planned end to end: 010 spec, plan and 29 tasks ready to build"
+ },
+ {
+  "date": "2026-11-20",
+  "delivered": 0.8,
+  "milestones": "M3",
+  "headline": "Approvals are live in the app: PR #32 merged and M3 is complete"
  }
 ]

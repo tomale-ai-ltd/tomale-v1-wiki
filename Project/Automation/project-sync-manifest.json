@@ -1,6 +1,6 @@
 {
   "note": "Project knowledge sync manifest: vault-relative path (project doc path) -> first 16 hex of sha256 at last upload. Maintained by the daily pipeline.",
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "files": {
     "Canonical/operating-model.md": "a3d3e191781291f0",
     "Canonical/stack.md": "0258509495898656",
@@ -309,6 +309,12 @@
     "Canonical/pending-updates/PU-2026-11-19-02.md": "71ed757b7f8e6573",
     "Canonical/pending-updates/PU-2026-11-19-01.md": "4a9b637e88f21183",
     "Project/Decisions/keep-approvals-list-in-memory-only.md": "7af1e4cbdf4e747d",
-    "Project/Decisions/retain-account-data-30-days-after-closing.md": "b6f1dc3b9f712bf9"
+    "Project/Decisions/retain-account-data-30-days-after-closing.md": "b6f1dc3b9f712bf9",
+    "Canonical/pending-updates/PU-2026-11-19-03.md": "8f9056a0d3a79616",
+    "Canonical/pending-updates/PU-2026-11-20-02.md": "0d66665694c6e50a",
+    "Canonical/pending-updates/PU-2026-11-20-01.md": "aa2a79a6138ed1cf",
+    "Project/Decisions/keep-pin-gate-closed-when-app-returns-to-foreground.md": "d07adbef6777ba1a",
+    "Project/Decisions/offer-sign-out-of-all-devices-in-v1.md": "a20ef2b621e8a589",
+    "Project/Decisions/replace-sign-in-with-the-app-on-handover.md": "1ae2f1897e9cf170"
   }
 }
