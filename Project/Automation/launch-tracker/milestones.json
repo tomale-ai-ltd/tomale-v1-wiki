@@ -59,10 +59,10 @@
   "est_max": 6,
   "status": "done",
   "progress": 1,
-  "actual_days": 5.5,
+  "actual_days": 6.5,
   "finished": "2026-11-20",
   "estimate_assumed": false,
-  "note": "Backend done (A 12/11, B 13/11, tested 17/11); 009 merged 18/11 (PR #31); 010 approvals built, phone-tested and merged 20/11 (PR #32); snags S-019 to S-022 for the polish pass"
+  "note": "Backend done (A 12/11, B 13/11, tested 17/11); 009 merged 18/11 (PR #31); 010 merged 20/11 (PR #32); snag polish pass 23/11 on polish-snags, phone check open"
  },
  {
   "order": 6,

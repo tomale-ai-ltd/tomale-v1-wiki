@@ -88,5 +88,11 @@
   "delivered": 0.8,
   "milestones": "M3",
   "headline": "Approvals are live in the app: PR #32 merged and M3 is complete"
+ },
+ {
+  "date": "2026-11-23",
+  "delivered": 0.0,
+  "milestones": "M3",
+  "headline": "Polish day: 20 snags smoothed across headers, the picker and the PIN screens"
  }
 ]

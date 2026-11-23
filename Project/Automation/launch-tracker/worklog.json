@@ -113,5 +113,10 @@
   "date": "2026-11-20",
   "milestone": "M3",
   "what": "Sign-in handover fixed, PR #32 merged; 010 approvals done and M3 complete"
+ },
+ {
+  "date": "2026-11-23",
+  "milestone": "M3",
+  "what": "Snag polish pass on branch polish-snags: 20 header, picker, PIN and control snags fixed, 009 docs list Help on the parent menu; phone check open"
  }
 ]
