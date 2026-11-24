@@ -23,4 +23,4 @@ feature: 010b-auth-signup
 - None.
 
 ## Next
-- Phone re-pass: Face ID / Passwords autofill on Sign in (fields stay), plus rename → Back → Home, Name after account switch, Set PIN not on cold start.
+- PR #34 open into main (CI `test` green). Do not merge until Kyle re-passes Face ID autofill + rename / Set PIN / Name seed after the follow-up commits.

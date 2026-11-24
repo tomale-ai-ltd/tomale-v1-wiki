@@ -50,7 +50,7 @@ related:
 1. Set env `image_workers_enabled` = `false`. This stops the tick claiming jobs while you edit; queued jobs just wait.
 2. For each page, cover and in-use character record, change only these fields:
    - `model_settings.image.model` → `gpt-image-2.6-flare`
-   - `model_settings.pricing.image.per_image` → `0.06` for now (corrected in S0-3)
+   - leave `model_settings.pricing.image.per_image` at its current `0.08` until S0-3 measures it
    - `version` → next minor (for example `1.0` → `1.1`)
    - `last_modified_at` → now
    Leave `model_settings.url`, `image.url`, `size`, `n`, the text model and everything else as they are.
