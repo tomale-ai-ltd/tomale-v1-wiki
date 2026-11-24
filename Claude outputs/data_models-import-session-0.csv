@@ -1,0 +1,101 @@
+slug,name,type,version,is_default,status,output_schema,prompt_template,model_settings,last_modified_at
+tomale_character_image_v_1_1,Tomale Character Image V1.1,character-image,1.1,false,draft,"{""type"":""object"",""title"":""tomale_character_model_v1_0"",""$schema"":""http://json-schema.org/draft-07/schema#"",""required"":[""id"",""name"",""physical_description"",""primary_attributes"",""face_attributes"",""eyes_attributes"",""hair_attributes"",""clothing_attributes""],""properties"":{""id"":{""type"":""integer"",""description"":""Unique identifier for the character.""},""name"":{""type"":""string"",""description"":""The character's name.""},""eyes_attributes"":{""type"":""object"",""required"":[""colour"",""shape"",""size""],""properties"":{""size"":{""type"":[""string"",""null""],""description"":""Relative eye size, e.g. small, medium, large.""},""shape"":{""type"":[""string"",""null""],""description"":""Eye shape, e.g. round, almond, narrow.""},""colour"":{""type"":[""string"",""null""],""description"":""Eye colour.""}},""description"":""Details about the character's eyes."",""additionalProperties"":false},""face_attributes"":{""type"":""object"",""required"":[""shape"",""nose"",""cheeks""],""properties"":{""nose"":{""type"":[""string"",""null""],""description"":""Description of the nose or beak.""},""shape"":{""type"":[""string"",""null""],""description"":""Overall face shape, e.g. oval, round, heart-shaped.""},""cheeks"":{""type"":[""string"",""null""],""description"":""Description of the cheeks, e.g. plump, freckled.""}},""description"":""Details about facial shape and features."",""additionalProperties"":false},""hair_attributes"":{""type"":""object"",""required"":[""colour"",""length"",""style""],""properties"":{""style"":{""type"":[""string"",""null""],""description"":""Style or pattern of hair, fur or feathers if applicable.""},""colour"":{""type"":[""string"",""null""],""description"":""Hair, fur or feather colour.""},""length"":{""type"":[""string"",""null""],""description"":""Hair, fur or feather length if applicable, e.g. short, medium, long.""}},""description"":""Hair or equivalent (fur, feathers, etc.) attributes."",""additionalProperties"":false},""primary_attributes"":{""type"":""object"",""required"":[""age"",""category"",""subcategory"",""gender"",""ethnicity""],""properties"":{""age"":{""type"":""integer"",""description"":""Approximate age of the character in years.""},""gender"":{""type"":[""string"",""null""],""description"":""Gender identity of the character, if specified.""},""category"":{""type"":""string"",""description"":""Broad type of character, e.g. Human, Bird, Animal, Creature.""},""ethnicity"":{""type"":[""string"",""null""],""description"":""Ethnic or cultural origin if human, or descriptive origin such as 'Tropical, Extraterrestrial' if not.""},""subcategory"":{""type"":[""string"",""null""],""description"":""More specific category, e.g. Parrot, Dog, Dragon.""}},""description"":""Core identity attributes for the character."",""additionalProperties"":false},""clothing_attributes"":{""type"":""object"",""required"":[""top"",""bottom"",""shoes"",""headgear"",""accessories""],""properties"":{""top"":{""type"":[""string"",""null""],""description"":""Description of clothing items covering the torso area""},""shoes"":{""type"":[""string"",""null""],""description"":""Description of footwear, could be a known style, material or barefoot.""},""bottom"":{""type"":[""string"",""null""],""description"":""Description of bottom clothing items such as trousers, shorts, skirt.""},""headgear"":{""type"":[""string"",""null""],""description"":""Description of headgear such as hat, cap, hair clip, bobble, or helmet, sunglasses.""},""accessories"":{""type"":[""string"",""null""],""description"":""Description of any miscellaneous accessories.""}},""description"":""Clothing and accessories. Can be empty/null values for non-human characters, or if not applicable."",""additionalProperties"":false},""physical_description"":{""type"":""string"",""description"":""High-level natural language description of the character's overall appearance.""}},""description"":""A character used in Tomale stories, including core identity and physical attributes."",""additionalProperties"":false}","You will receive an incomplete JSON object describing a story character.
+
+Your task:
+1. Read the character JSON.
+2. Produce a SINGLE natural-language image prompt.
+3. The prompt MUST be under 80 words.
+4. It MUST mention:
+   - age and species/category,
+   - key colours (hair/feathers, eyes),
+   - notable facial features,
+   - any important personality hints from the description.","{""url"":""https://api.openai.com/v1/images/generations"",""image"":{""n"":1,""size"":""1024x1024"",""model"":""gpt-image-2.6-flare""},""prompt"":{""style_hint"":""{artwork_style}"",""max_prompt_words"":80,""default_negative_prompt"":""blurry, extra limbs""},""pricing"":{""text"":{""input_per_million"":0.15,""output_per_million"":0.6},""image"":{""per_image"":0.08}},""provider"":""openai""}",1795557669242
+tomale_story_page_image_v_1_1,Tomale Page Image V1.1,story-page-image,1.1,false,draft,"{""$id"":""https://tomale.ai/schemas/tomale_page_plan_v_1_4.schema.json"",""type"":""object"",""title"":""Tomale Page Plan Schema"",""$schema"":""https://json-schema.org/draft/2020-12/schema"",""required"":[""subject"",""composition"",""background""],""properties"":{""subject"":{""type"":""string"",""maxLength"":260,""minLength"":20,""description"":""CONTENT ONLY. Describe the primary visual moment of this page as one clear scene. The subject may be character-focused, action-focused, or environment-focused. Characters are OPTIONAL. Include a character only if explicitly named in the page text and visually necessary for the moment. Do not infer characters from pronouns. Do not invent or add unnamed people/creatures/animals. If a character is included, embed essential visual identifiers inside this string (age/size, species if not human, hair/fur, face, clothing/accessories) using the provided character data. Avoid decorative lists and long enumerations; keep to one coherent idea.""},""background"":{""type"":""string"",""maxLength"":160,""minLength"":10,""description"":""SCENE-SETTING ONLY. Describe the setting, location, scenery, time-of-day, weather, lighting, and color palette that support the subject. Do not introduce any additional characters, creatures, crowds, or bystanders unless explicitly named in the page text (and if named, they should be described in SUBJECT, not here). Keep background supportive and uncluttered.""},""composition"":{""type"":""string"",""maxLength"":160,""minLength"":10,""description"":""TECHNICAL ONLY. Use visual composition language to reproduce the scene: shot size (close/medium/wide), camera angle (eye-level/low/high), framing (centered/rule of thirds/leading lines), focal point, depth of field (shallow/medium/deep), motion depiction (stillness/blur/speed lines), and silhouette clarity. Do not mention story context or character names. Avoid listing specific scene objects unless required as technical framing cues (e.g., 'clear silhouette', 'foreground framing element').""}},""description"":""Page-plan output for image prompting. SUBJECT captures the primary visual moment (characters optional). BACKGROUND sets the scene without adding actors. COMPOSITION specifies camera and visual structure. Prioritise variation across pages and fidelity to page text over poster-like layouts."",""additionalProperties"":false}","You will receive data describing a single page within a story.
+Your role is to create an image plan that illustrates the primary visual moment of that page as a single, standalone scene.
+This is not a cover image. Visual variety, pacing, and accuracy to the page text are essential.
+
+** Inputs **
+
+You will receive:
+
+1. text — the page text (primary source of truth)
+2. synopsis — story-wide context (secondary)
+3. characters — a fixed list of available characters with visual descriptions
+
+** High-Level Rules (Non-Negotiable) **
+
+- Characters are not mandatory
+- Include a character only if their physical presence meaningfully contributes to the visual moment of this page
+- If the page describes motion, transformation, environment, or atmosphere, you may omit characters entirely
+- Do not infer character presence
+- Only include a character if they are explicitly named in the page text
+- Do not infer characters from pronouns or collective nouns
+- If character reference is ambiguous, exclude the character
+- Do not invent or add characters
+- Do not introduce unnamed people, creatures, animals, or companions
+- Do not include background figures unless they are explicitly referenced in the text
+- Page text overrides familiarity or presence frequency
+
+** Visual Focus Decision (Required Step) **
+
+Before writing the output, decide the visual focus of the page:
+
+- Character-focused (a character’s emotion or action)
+- Action-focused (movement, transformation, events)
+- Environment-focused (setting, atmosphere, location)
+
+The image should prioritise this focus, even if it means excluding characters.
+
+** Instructions **
+
+SUBJECT
+
+- Describe what is visually happening in the scene
+- Include characters only if they are the visual focus
+- When characters are included:
+    - Use their physical descriptions from characters
+    - Derive emotion, pose, action, and expression strictly from the page text
+- If no characters are included, describe the action, object, or environment instead
+- Do not invent or imply off-screen actors
+
+BACKGROUND
+
+- Describe the setting, environment, scenery, lighting, and atmosphere
+- Support the subject without competing for attention
+- Do not introduce characters, creatures, or figures not named in the page text
+
+COMPOSITION
+
+- Describe only technical and cinematic aspects:
+- framing (close / medium / wide)
+- camera angle (eye-level / low / high)
+- focal emphasis
+- depth of field
+- motion or stillness
+- Do not mention characters, story events, objects, or setting details
+
+** Output Requirements **
+
+- Output must strictly conform to the provided JSON schema
+- Should only contain the required fields, not a copy of the schema itself.
+- Do not add commentary, explanation, or extra fields
+- Prioritise clarity, variation, and faithfulness to the page text","{""text"":{""url"":""https://api.openai.com/v1/chat/completions"",""model"":""gpt-4o-mini"",""top_p"":1,""prompt"":"""",""temperature"":0.35,""presence_penalty"":0.1,""frequency_penalty"":0.2,""max_completion_tokens"":4000},""image"":{""n"":1,""url"":""https://api.openai.com/v1/images/generations"",""size"":""1536x1024"",""model"":""gpt-image-2.6-flare"",""prompt"":""""},""pricing"":{""text"":{""input_per_million"":0.15,""output_per_million"":0.6},""image"":{""per_image"":0.08}},""provider"":""openai""}",1795557669242
+tomale_story_cover_image_v_1_2,Tomale Cover Image V1.2,story-cover-image,1.2,false,draft,"{""$id"":""https://tomale.ai/schemas/tomale_cover_plan_v_1_3.schema.json"",""type"":""object"",""title"":""Tomale Cover Plan Schema"",""$schema"":""https://json-schema.org/draft/2020-12/schema"",""required"":[""subject"",""composition"",""background""],""properties"":{""subject"":{""type"":""string"",""maxLength"":220,""minLength"":25,""description"":""CONTENT ONLY. Describe what appears in the cover as a single clear idea. You may include named characters only. If a character is included, include visual descriptors for each character INSIDE this subject string (age/size, species if not human, hair/fur, face, clothing/accessories). Do NOT add extra decorative lists (avoid 'surrounded by', long enumerations, or multiple background elements).""},""background"":{""type"":""string"",""maxLength"":120,""minLength"":10,""description"":""SCENE-SETTING ONLY. Describe the scene, setting, location. Include reference to lighting and surrounding colour palettes. Support the subject without competing.""},""composition"":{""type"":""string"",""maxLength"":120,""minLength"":10,""description"":""TECHNICAL ONLY. Use photography, design or image composition language to reproduce the scene: framing (centered/rule of thirds), shot size (close/medium/wide), camera angle (eye-level/low/high), focus rule (single focal point), depth of field (shallow/medium), lens feel (optional), and layout cues (clear silhouette). Do NOT mention story content, characters, objects, or background elements.""}},""description"":""Cover-plan output for image prompting. Subject carries the content and character detail. Composition is technical design & framing language. Background is scene-setting filler. Keep covers simple and poster-like whilst conveying the core conceps and feel of the story."",""additionalProperties"":false}","You will receive data summarising the key elements of a story. Your role is to create an image prompt that depicts a single standalone scene that can be used as the front cover for the storybook.
+
+Key Elements:
+
+1. title
+2. subtitle
+3. synopsis
+4. characters
+
+Your task:
+
+1. Analyse the data provided
+2. Produce an output in line with the JSON schema provided.
+
+Useful Information:
+
+1. SUBJECT should describe, explicitly, in detail, the scene and the characters within. It should be derived from the 'synopsis' and 'characters' data provided.
+2. COMPOSITION should describe the technical composition of the image such as focal point, angle, lighting, motion.
+3. BACKGROUND should describe background elements such as items, decorations, scenery, surroundings or miscellaneous non-named characters.","{""text"":{""url"":""https://api.openai.com/v1/chat/completions"",""model"":""gpt-4o-mini"",""top_p"":1,""prompt"":"""",""temperature"":0.35,""presence_penalty"":0.1,""frequency_penalty"":0.2,""max_completion_tokens"":4000},""image"":{""n"":1,""url"":""https://api.openai.com/v1/images/generations"",""size"":""1536x1024"",""model"":""gpt-image-2.6-flare"",""prompt"":""""},""pricing"":{""text"":{""input_per_million"":0.15,""output_per_million"":0.6},""image"":{""per_image"":0.08}},""provider"":""openai""}",1795557669242

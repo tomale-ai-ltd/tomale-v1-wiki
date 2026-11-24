@@ -21,7 +21,7 @@ features:
 
 ## What we decided
 
-Before 1 December 2026, the page, cover and every in-use character `data_models` record moves from `gpt-image-1.5` to `gpt-image-2.6-flare`. The records are edited in place: model name, `pricing.image.per_image` and `version`. Sunburst is used only if Flare is clearly worse in the smoke test.
+Before 1 December 2026, new versioned `data_models` records replace the `gpt-image-1.5` ones: page v1.1, cover v1.2 and character v1.1, all on `gpt-image-2.6-flare`. The new records become the defaults; the old ones (1, 5, 9) are set `deprecated`; every character is repointed from record 1 to the new character record. Sunburst gets its own record version only if Flare is clearly worse in the smoke test.
 
 ## Why
 
@@ -30,14 +30,14 @@ OpenAI removes `gpt-image-1.5` from the API on 1 Dec 2026. `gpt-image-2` also le
 ## Alternatives considered
 
 - `gpt-image-2`: rejected, it shuts down 10 Feb 2027.
-- New records with a default switch: rejected for Session 0, because character pictures are pinned per character and rollback to 1.5 is impossible after 1 Dec.
+- Editing the records in place (first proposal): rejected by Kyle on 24/11. The table exists to hold versions for tuning, model changes and retirement, and every character points to one record, so repointing them is a single bulk edit.
 - Going straight to Vertex: not possible in a week.
 
 ## Trade-offs accepted
 
 - Paid in cash until the new pipeline is live.
 - The `complexity` field can't be set without a code change, and defaults to high (possibly slower).
-- Record history lives in the session note, not git.
+- A bulk repoint of `characters.data_models_id`.
 
 ## Workflow detail
 

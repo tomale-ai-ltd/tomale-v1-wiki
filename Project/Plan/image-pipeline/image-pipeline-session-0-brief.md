@@ -14,7 +14,7 @@ related:
 
 # Image pipeline, Xano Session 0: move off gpt-image-1.5
 
-**Goal:** story, cover and character images keep working after OpenAI removes `gpt-image-1.5` on **1 December 2026**. Do this by **Friday 27/11**, which leaves Monday 30/11 spare. About half a day, all Kyle in Xano and Postman. No code changes.
+**Goal:** story, cover and character images keep working after OpenAI removes `gpt-image-1.5` on **1 December 2026**. Do this by **Friday 27/11**, which leaves Monday 30/11 spare. About half a day, all Kyle in Xano and Postman. No code changes: three new `data_models` records and a bulk repoint of characters.
 
 ## Why now (checked 24/11)
 
@@ -45,18 +45,26 @@ related:
    - Body `{"model": "gpt-image-2.6-flare", "prompt": "a small red ball on a white table", "size": "1024x1024", "quality": "low"}`
    - Expect 200 with `data[0].b64_json` and a `usage` object. A 403 means the organisation needs access or verification for this model: fix that in the OpenAI dashboard before going on.
 
-## S0-2: change the records (about 15 minutes)
+## S0-2: add new versioned records (about 25 minutes)
 
-1. Set env `image_workers_enabled` = `false`. This stops the tick claiming jobs while you edit; queued jobs just wait.
-2. For each page, cover and in-use character record, change only these fields:
-   - `model_settings.image.model` → `gpt-image-2.6-flare`
-   - leave `model_settings.pricing.image.per_image` at its current `0.08` until S0-3 measures it
-   - `version` → next minor (for example `1.0` → `1.1`)
-   - `last_modified_at` → now
-   Leave `model_settings.url`, `image.url`, `size`, `n`, the text model and everything else as they are.
-3. Set `image_workers_enabled` = `true`.
+Changed 24/11 (Kyle): add new records rather than editing in place, so the table keeps its history and rollback is a matter of flipping defaults. Every character points to record 1 (S0-1 found 0 rows on any other id), so the only extra step is one bulk repoint.
 
-**Why edit in place rather than add new records:** characters are pinned to their record, so new records would need every character repointed. Rolling back to 1.5 is impossible after 1 December anyway. The separate fallback record comes with Session A ([[keep-openai-image-record-as-fallback-provider]]).
+1. Set env `image_workers_enabled` = `false`. Each type must have exactly one active default, and the executors query for a single record, so make the swap while nothing runs.
+2. **Add three records** in `data models`, copying the old record's `type`, `output_schema`, `prompt_template` and `model_settings`, with only these changes:
+
+| From | New slug | name | version | `model_settings` change |
+|---|---|---|---|---|
+| 5 (page) | `tomale_story_page_image_v_1_1` | Tomale Page Image V1.1 | 1.1 | `image.model` → `gpt-image-2.6-flare` (the `text` model stays) |
+| 9 (cover) | `tomale_story_cover_image_v_1_2` | Tomale Cover Image V1.2 | 1.2 | `image.model` → `gpt-image-2.6-flare` (the `text` model stays) |
+| 1 (character) | `tomale_character_image_v_1_1` | Tomale Character Image V1.1 | 1.1 | `image.model` → `gpt-image-2.6-flare`; keep the top-level `url` |
+
+   New records: `is_default` = true, `status` = active. Leave `pricing.image.per_image` at 0.08 until S0-3. Write down the three new ids.
+3. **Retire the old records:** on 1, 5 and 9 set `is_default` = false and `status` = `deprecated`. `gpt-image-1.5` stops working on 1 Dec, so they can't serve as a fallback.
+4. **Repoint the characters:** in `characters`, filter `data_models_id` = 1, select all rows and bulk-edit `data_models_id` to the new character record id. Afterwards, the same filter must return 0 rows. If Xano's table view won't bulk-edit, tell Claude and we'll use a one-off function instead.
+5. **Check:** each of the three types has exactly one row with `is_default` true and `status` active.
+6. Set `image_workers_enabled` = `true`.
+
+The OpenAI fallback record for the new pipeline is added the same way in Session A ([[keep-openai-image-record-as-fallback-provider]]).
 
 ## S0-3: smoke test
 
@@ -70,15 +78,15 @@ related:
    - no stray text in the pictures
    - characters recognisable across pages
    - put one story next to a recent 1.5 story
-5. **If Flare looks clearly worse:** set the page record to `gpt-image-2.6-sunburst`, run one more story and compare.
+5. **If Flare looks clearly worse:** add a page record with `gpt-image-2.6-sunburst` (next version), make it the default, run one more story and compare.
 6. **Correct the cost:** read the image output tokens per image on the OpenAI usage page. Set `per_image` to (output tokens × $30 ÷ 1M) plus input, rounded up, on all edited records.
 
 **Pass:** every job completes, no terminal errors, no story over about 20 minutes, and pictures at least as good as on 1.5.
 
 ## Rollback
 
-- **Before 1 December:** paste the saved `model_settings` back (model `gpt-image-1.5`).
-- **After 1 December:** switch between Flare and Sunburst only.
+- **Before 1 December:** set records 1, 5 and 9 back to default and active, set the new ones to `is_default` false, and repoint the characters to 1.
+- **After 1 December:** add a Sunburst version the same way, if Flare disappoints.
 
 The image kill switch stays available as always.
 

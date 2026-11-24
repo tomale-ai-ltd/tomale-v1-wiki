@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Story chat</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+a{color:#1b7b7a}a:hover{color:#145e5d}
+</style>
+</helmet>
+<div style="width: 390px; height: 1000px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<header style="box-sizing: border-box; padding: 54px 16px 18px; background: #fcca37; border-radius: 0 0 32px 32px; position: relative; overflow: hidden; flex: none">
+<svg viewBox="0 0 390 130" width="390" height="130" style="position: absolute; left: 0; top: 0" aria-hidden="true"><circle cx="340" cy="30" r="64" fill="#fdd65e"/><circle cx="260" cy="100" r="4" fill="#ff6666"/></svg>
+<div style="position: relative; display: flex; align-items: center; gap: 12px">
+<a href="Main.dc.html" aria-label="Back" style="width: 48px; height: 48px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex: none">
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></a>
+<h1 style="margin: 0; font-size: 28px; line-height: 34px; font-weight: 700">New story</h1>
+<span style="margin-left: auto; font-size: 14px; line-height: 20px; font-weight: 700">Step {{stepNo}} of 6</span>
+</div>
+</header>
+
+<main aria-live="polite" style="flex: 1 1 auto; box-sizing: border-box; padding: 16px 16px 24px; display: flex; flex-direction: column; gap: 12px; overflow: hidden">
+
+<sc-if value="{{showPrev}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; gap: 8px; align-items: flex-end; opacity: 0.7">
+<span aria-hidden="true" style="width: 32px; height: 32px; border-radius: 999px; background: #39c2c1; flex: none; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg></span>
+<p style="margin: 0; max-width: 260px; box-sizing: border-box; padding: 10px 14px; border-radius: 18px 18px 18px 4px; background: #fff7e0; font-size: 16px; line-height: 22px">{{prevQ}}</p>
+</div>
+<p style="margin: 0; align-self: flex-end; max-width: 260px; box-sizing: border-box; padding: 10px 14px; border-radius: 18px 18px 4px 18px; background: #1b7b7a; color: #ffffff; font-size: 16px; line-height: 22px; font-weight: 700; opacity: 0.85">{{prevA}}</p>
+</sc-if>
+
+<div style="display: flex; gap: 8px; align-items: flex-end">
+<span aria-hidden="true" style="width: 32px; height: 32px; border-radius: 999px; background: #39c2c1; flex: none; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg></span>
+<p style="margin: 0; max-width: 280px; box-sizing: border-box; padding: 12px 14px; border-radius: 18px 18px 18px 4px; background: #fff7e0; font-size: 18px; line-height: 24px; font-weight: 700">{{question}}</p>
+</div>
+
+<sc-if value="{{isCharacters}}" hint-placeholder-val="{{ true }}">
+<div role="group" aria-label="Characters" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{chars}}" as="c" hint-placeholder-count="5">
+<button type="button" aria-pressed="{{c.on}}" style="{{c.style}}">
+<span style="width: 72px; height: 72px; border-radius: 999px; overflow: hidden; display: block"><dc-import name="Art" kind="{{c.kind}}" hint-size="72px,72px"></dc-import></span>
+<span style="font-size: 15px; line-height: 20px; font-weight: 700">{{c.name}}</span>
+</button>
+</sc-for>
+<button type="button" style="min-height: 124px; box-sizing: border-box; padding: 10px 6px; border-radius: 16px; border: 3px dashed #c9b9b3; background: #ffffff; font: inherit; color: #2b1f1c; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer">
+<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#2b1f1c" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+<span style="font-size: 15px; line-height: 20px; font-weight: 700">Make a new character</span>
+</button>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57">Choose up to 3.</p>
+<button type="button" style="height: 52px; border-radius: 999px; border: 0; background: #ff6666; color: #2b1f1c; font: inherit; font-size: 18px; font-weight: 700">These ones</button>
+</sc-if>
+
+<sc-if value="{{isTheme}}" hint-placeholder-val="{{ false }}">
+<div role="group" aria-label="Kinds of story" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{themes}}" as="t" hint-placeholder-count="6">
+<button type="button" aria-pressed="{{t.on}}" style="{{t.style}}">
+<span style="font-size: 17px; line-height: 22px; font-weight: 700">{{t.name}}</span>
+<span style="font-size: 14px; line-height: 19px; color: #6e5c57">{{t.line}}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{isStyle}}" hint-placeholder-val="{{ false }}">
+<div role="group" aria-label="Picture styles" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{styles}}" as="s" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{s.on}}" style="{{s.style}}">
+<span role="img" aria-label="Sample picture" style="{{s.swatch}}"></span>
+<span style="font-size: 17px; line-height: 22px; font-weight: 700">{{s.name}}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{isIdea}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{showIdeas}}" hint-placeholder-val="{{ false }}">
+<div role="group" aria-label="Ideas" style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{ideas}}" as="i" hint-placeholder-count="3">
+<button type="button" style="box-sizing: border-box; padding: 12px 14px; border-radius: 16px; border: 2px solid #e6dedb; background: #ffffff; font: inherit; color: #2b1f1c; text-align: left; display: flex; flex-direction: column; gap: 2px; cursor: pointer">
+<span style="font-size: 16px; line-height: 22px; font-weight: 700">{{i.title}}</span>
+<span style="font-size: 15px; line-height: 21px; color: #6e5c57">{{i.idea}}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<label for="idea" style="font-size: 14px; line-height: 20px; font-weight: 700">Your idea</label>
+<textarea id="idea" rows="4" placeholder="A dragon who's scared of the dark…" style="box-sizing: border-box; width: 100%; padding: 12px 14px; border-radius: 16px; border: 2px solid #c9b9b3; background: #ffffff; font: inherit; font-size: 17px; line-height: 24px; color: #2b1f1c; resize: none">{{ideaText}}</textarea>
+<div style="display: flex; justify-content: space-between; font-size: 13px; line-height: 18px; color: #6e5c57"><span>Up to 300 letters</span><span>{{count}} / 300</span></div>
+<div style="display: flex; gap: 10px">
+<button type="button" style="flex: 1 1 0; height: 52px; border-radius: 999px; border: 2px solid #8f7f7a; background: #ffffff; color: #2b1f1c; font: inherit; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>{{ideaChip}}</button>
+<button type="button" style="flex: 1 1 0; height: 52px; border-radius: 999px; border: 0; background: #ff6666; color: #2b1f1c; font: inherit; font-size: 16px; font-weight: 700">Use this idea</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isPhonics}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0 0 0 40px; font-size: 15px; line-height: 21px; color: #6e5c57">The story will use words with these sounds, to practise reading together.</p>
+<div role="group" aria-label="Practise some sounds" style="display: flex; flex-direction: column; gap: 10px">
+<button type="button" style="height: 52px; border-radius: 999px; border: 2px solid #8f7f7a; background: #ffffff; color: #2b1f1c; font: inherit; font-size: 17px; font-weight: 700">Not this time</button>
+<button type="button" aria-pressed="true" style="height: 52px; border-radius: 999px; border: 3px solid #1b7b7a; background: #d7f3f2; color: #2b1f1c; font: inherit; font-size: 17px; font-weight: 700">Yes, let's practise</button>
+</div>
+<p style="margin: 8px 0 0; font-size: 16px; line-height: 22px; font-weight: 700">Which sounds?</p>
+<div role="group" aria-label="Phonics stage" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{stages}}" as="p" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{p.on}}" style="{{p.style}}">
+<span style="font-size: 16px; line-height: 21px; font-weight: 700">{{p.name}}</span>
+<span style="font-size: 14px; line-height: 19px; color: #6e5c57">{{p.line}}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{isSummary}}" hint-placeholder-val="{{ false }}">
+<section aria-label="Your story" style="background: #ffffff; border-radius: 20px; box-shadow: 0 2px 8px rgba(43,31,28,0.08); overflow: hidden">
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="5">
+<div style="min-height: 64px; box-sizing: border-box; padding: 10px 8px 10px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #f1ebe8">
+<span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column">
+<span style="font-size: 13px; line-height: 18px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6e5c57">{{r.label}}</span>
+<span style="font-size: 16px; line-height: 22px; font-weight: 700">{{r.value}}</span>
+</span>
+<button type="button" aria-label="Change {{r.label}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #f1ebe8; color: #2b1f1c; font: inherit; font-size: 15px; font-weight: 700; flex: none">Change</button>
+</div>
+</sc-for>
+</section>
+<sc-if value="{{isParent}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 15px; line-height: 21px; color: #6e5c57; text-align: center">3 of 4 stories left this month</p>
+</sc-if>
+<a href="Making.dc.html" style="height: 56px; border-radius: 999px; background: #ff6666; color: #2b1f1c; font-size: 19px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 2px 8px rgba(43,31,28,0.12)">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2b1f1c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 10l-5 3.6L16.8 20 12 16.5 7.2 20 9 13.6 4 10l6.1-1.2z"/></svg>Make my story</a>
+</sc-if>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"step":{"editor":"enum","options":["characters","theme","style","idea","ideas","phonics","summary"],"default":"characters"},"profile":{"editor":"enum","options":["parent","child"],"default":"parent"},"$preview":{"width":390,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.props.step ?? 'characters';
+    const card = (on, pad) => 'box-sizing: border-box; padding: ' + pad + '; border-radius: 16px; border: 3px solid ' + (on ? '#1b7b7a' : '#e6dedb') + '; background: ' + (on ? '#d7f3f2' : '#ffffff') + '; font: inherit; color: #2b1f1c; text-align: left; display: flex; flex-direction: column; gap: 4px; cursor: pointer; min-height: 72px';
+    const ccard = (on) => 'min-height: 124px; box-sizing: border-box; padding: 10px 6px; border-radius: 16px; border: 3px solid ' + (on ? '#1b7b7a' : '#e6dedb') + '; background: ' + (on ? '#d7f3f2' : '#ffffff') + '; font: inherit; color: #2b1f1c; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer';
+    const sw = (a, b) => 'height: 96px; border-radius: 10px; display: block; background: linear-gradient(135deg, ' + a + ', ' + b + ')';
+    const prev = {
+      theme: ['Who’s in your story?', 'Pip and Rosie'],
+      style: ['What kind of story?', 'Space adventure'],
+      idea: ['How should it look?', 'Watercolour'],
+      ideas: ['How should it look?', 'Watercolour'],
+      phonics: ['What happens in your story?', 'Pip and Rosie fly to the moon to find a lost star.'],
+      summary: ['Practise some sounds?', 'Phase 3, week 2']
+    };
+    const q = { characters: 'Who’s in your story?', theme: 'What kind of story?', style: 'How should it look?', idea: 'What happens in your story?', ideas: 'What happens in your story?', phonics: 'Practise some sounds?', summary: 'Here’s your story!' };
+    const no = { characters: '1', theme: '2', style: '3', idea: '4', ideas: '4', phonics: '5', summary: '6' };
+    const chars = [['Pip', 'dragon', true], ['Rosie', 'girl', true], ['Bo', 'bear', false], ['Zip', 'robot', false], ['Red', 'fox', false]].map(([n, k, on]) => ({ name: n, kind: k, on: on ? 'true' : 'false', style: ccard(on) }));
+    const themes = [['Space adventure', 'Rockets, stars and planets', true], ['Under the sea', 'Fish, shells and waves', false], ['Bedtime', 'Calm and cosy', false], ['Making friends', 'Being kind together', false], ['Dinosaurs', 'Long ago and very big', false], ['Fairy tale', 'Castles and magic', false]].map(([n, l, on]) => ({ name: n, line: l, on: on ? 'true' : 'false', style: card(on, '12px 14px') }));
+    const styles = [['Watercolour', '#9fe0df', '#ffe0e0', true], ['Bright cartoon', '#fcca37', '#ff6666', false], ['Pencil sketch', '#e6dedb', '#8f7f7a', false], ['Storybook classic', '#a579dd', '#fff1c4', false]].map(([n, a, b, on]) => ({ name: n, swatch: sw(a, b), on: on ? 'true' : 'false', style: card(on, '8px 8px 12px') }));
+    const stages = [['Phase 2', 'First sounds', false], ['Phase 3, week 1', 'ch, sh, th', false], ['Phase 3, week 2', 'ai, ee, igh, oa', true], ['Phase 4', 'Longer words', false]].map(([n, l, on]) => ({ name: n, line: l, on: on ? 'true' : 'false', style: card(on, '12px 14px') }));
+    const idea = s === 'ideas' ? '' : 'Pip and Rosie fly to the moon to find a lost star.';
+    return {
+      stepNo: no[s], question: q[s], showPrev: s !== 'characters', prevQ: (prev[s] || ['', ''])[0], prevA: (prev[s] || ['', ''])[1],
+      isCharacters: s === 'characters', isTheme: s === 'theme', isStyle: s === 'style', isIdea: s === 'idea' || s === 'ideas', showIdeas: s === 'ideas', isPhonics: s === 'phonics', isSummary: s === 'summary',
+      isParent: (this.props.profile ?? 'parent') === 'parent',
+      chars, themes, styles, stages, ideaText: idea, count: String(idea.length), ideaChip: s === 'ideas' ? 'More ideas' : 'Give me ideas',
+      ideas: [
+        { title: 'The Lost Star', idea: 'Pip and Rosie fly to the moon to find a star that fell out of the sky.' },
+        { title: 'Moon Picnic', idea: 'Rosie packs a picnic and Pip flies them to the moon to share it with a lonely alien.' },
+        { title: 'Rocket Race', idea: 'Pip and Rosie build a rocket from boxes and race the comets home before bedtime.' }
+      ],
+      rows: [
+        { label: 'Characters', value: 'Pip and Rosie' },
+        { label: 'Kind of story', value: 'Space adventure' },
+        { label: 'Pictures', value: 'Watercolour' },
+        { label: 'Idea', value: 'Pip and Rosie fly to the moon to find a lost star.' },
+        { label: 'Sounds', value: 'Phase 3, week 2' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

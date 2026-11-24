@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Character art</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 100%; height: 100%; min-width: 40px; min-height: 40px; display: flex; overflow: hidden">
+<sc-if value="{{isDragon}}" hint-placeholder-val="{{ true }}">
+<svg viewBox="0 0 200 200" style="width: 100%; height: 100%; display: block" aria-hidden="true">
+<rect width="200" height="200" fill="#d7f3f2"/>
+<circle cx="40" cy="40" r="6" fill="#ffffff"/><circle cx="165" cy="58" r="4" fill="#ffffff"/><circle cx="150" cy="30" r="3" fill="#ffffff"/>
+<path d="M60 200 C60 150 140 150 140 200 Z" fill="#2fa9a8"/>
+<path d="M66 176 L134 176 L136 190 L64 190 Z" fill="#ff6666"/><path d="M80 176 L88 176 L86 190 L78 190 Z M104 176 L112 176 L110 190 L102 190 Z M126 176 L134 176 L134 190 L124 190 Z" fill="#fcca37"/>
+<path d="M68 70 L60 40 L84 60 Z" fill="#fcca37"/><path d="M132 70 L140 40 L116 60 Z" fill="#fcca37"/>
+<ellipse cx="100" cy="112" rx="52" ry="50" fill="#39c2c1"/>
+<ellipse cx="100" cy="132" rx="30" ry="20" fill="#9fe0df"/>
+<circle cx="82" cy="104" r="15" fill="#ffffff" stroke="#2b1f1c" stroke-width="4"/><circle cx="118" cy="104" r="15" fill="#ffffff" stroke="#2b1f1c" stroke-width="4"/>
+<path d="M97 104 L103 104" stroke="#2b1f1c" stroke-width="4"/>
+<circle cx="84" cy="106" r="5" fill="#2b1f1c"/><circle cx="120" cy="106" r="5" fill="#2b1f1c"/>
+<circle cx="70" cy="128" r="7" fill="#ff9a9a"/><circle cx="130" cy="128" r="7" fill="#ff9a9a"/>
+<path d="M88 136 Q100 146 112 136" stroke="#2b1f1c" stroke-width="4" fill="none" stroke-linecap="round"/>
+<circle cx="94" cy="126" r="2.5" fill="#2b1f1c"/><circle cx="106" cy="126" r="2.5" fill="#2b1f1c"/>
+</svg>
+</sc-if>
+<sc-if value="{{isFox}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 200 200" style="width: 100%; height: 100%; display: block" aria-hidden="true">
+<rect width="200" height="200" fill="#ffe3d1"/>
+<path d="M30 170 Q100 120 170 170 L170 200 L30 200 Z" fill="#fcca37"/>
+<path d="M56 98 L50 36 L94 72 Z" fill="#ff914d"/><path d="M144 98 L150 36 L106 72 Z" fill="#ff914d"/>
+<path d="M60 84 L57 52 L80 70 Z" fill="#7c4a3e"/><path d="M140 84 L143 52 L120 70 Z" fill="#7c4a3e"/>
+<path d="M44 100 Q100 40 156 100 Q150 150 100 168 Q50 150 44 100 Z" fill="#ff914d"/>
+<path d="M66 122 Q100 110 134 122 Q124 158 100 166 Q76 158 66 122 Z" fill="#ffffff"/>
+<ellipse cx="80" cy="104" rx="6" ry="8" fill="#2b1f1c"/><ellipse cx="120" cy="104" rx="6" ry="8" fill="#2b1f1c"/>
+<circle cx="82" cy="101" r="2" fill="#ffffff"/><circle cx="122" cy="101" r="2" fill="#ffffff"/>
+<ellipse cx="100" cy="128" rx="8" ry="6" fill="#2b1f1c"/>
+<path d="M92 140 Q100 147 108 140" stroke="#2b1f1c" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>
+</sc-if>
+<sc-if value="{{isRobot}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 200 200" style="width: 100%; height: 100%; display: block" aria-hidden="true">
+<rect width="200" height="200" fill="#fff1c4"/>
+<rect x="64" y="160" width="72" height="40" rx="12" fill="#39c2c1"/>
+<circle cx="100" cy="166" r="8" fill="#fcca37"/>
+<path d="M100 56 L100 34" stroke="#2b1f1c" stroke-width="4"/><circle cx="100" cy="30" r="9" fill="#ff6666"/>
+<rect x="50" y="56" width="100" height="96" rx="28" fill="#a7b8c6"/>
+<rect x="40" y="88" width="14" height="30" rx="7" fill="#7f93a3"/><rect x="146" y="88" width="14" height="30" rx="7" fill="#7f93a3"/>
+<rect x="64" y="76" width="72" height="44" rx="18" fill="#2b1f1c"/>
+<circle cx="84" cy="98" r="9" fill="#39c2c1"/><circle cx="116" cy="98" r="9" fill="#39c2c1"/>
+<circle cx="87" cy="95" r="3" fill="#ffffff"/><circle cx="119" cy="95" r="3" fill="#ffffff"/>
+<path d="M82 134 L118 134" stroke="#2b1f1c" stroke-width="5" stroke-linecap="round"/>
+<circle cx="64" cy="132" r="6" fill="#ff9a9a"/><circle cx="136" cy="132" r="6" fill="#ff9a9a"/>
+</svg>
+</sc-if>
+<sc-if value="{{isGirl}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 200 200" style="width: 100%; height: 100%; display: block" aria-hidden="true">
+<rect width="200" height="200" fill="#ffe0e0"/>
+<path d="M50 200 Q100 150 150 200 Z" fill="#39c2c1"/>
+<circle cx="100" cy="96" r="58" fill="#7c4a3e"/>
+<circle cx="52" cy="122" r="18" fill="#7c4a3e"/><circle cx="148" cy="122" r="18" fill="#7c4a3e"/>
+<ellipse cx="100" cy="108" rx="42" ry="46" fill="#f2c9a5"/>
+<path d="M58 92 Q100 46 142 92 Q120 70 100 74 Q80 70 58 92 Z" fill="#7c4a3e"/>
+<path d="M126 52 L150 40 L146 66 Z M126 52 L150 64 L134 74 Z" fill="#fcca37"/><circle cx="130" cy="58" r="6" fill="#ff6666"/>
+<circle cx="84" cy="108" r="6" fill="#2b1f1c"/><circle cx="116" cy="108" r="6" fill="#2b1f1c"/>
+<circle cx="86" cy="106" r="2" fill="#ffffff"/><circle cx="118" cy="106" r="2" fill="#ffffff"/>
+<circle cx="74" cy="124" r="7" fill="#ff9a9a"/><circle cx="126" cy="124" r="7" fill="#ff9a9a"/>
+<path d="M88 130 Q100 142 112 130" stroke="#2b1f1c" stroke-width="4" fill="none" stroke-linecap="round"/>
+</svg>
+</sc-if>
+<sc-if value="{{isBear}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 200 200" style="width: 100%; height: 100%; display: block" aria-hidden="true">
+<rect width="200" height="200" fill="#f1e3dc"/>
+<path d="M40 200 Q100 140 160 200 Z" fill="#ff6666"/>
+<circle cx="56" cy="62" r="24" fill="#a16959"/><circle cx="144" cy="62" r="24" fill="#a16959"/>
+<circle cx="56" cy="62" r="12" fill="#ffd6c2"/><circle cx="144" cy="62" r="12" fill="#ffd6c2"/>
+<circle cx="100" cy="104" r="60" fill="#a16959"/>
+<ellipse cx="100" cy="128" rx="30" ry="24" fill="#ffd6c2"/>
+<circle cx="78" cy="96" r="7" fill="#2b1f1c"/><circle cx="122" cy="96" r="7" fill="#2b1f1c"/>
+<circle cx="80" cy="94" r="2" fill="#ffffff"/><circle cx="124" cy="94" r="2" fill="#ffffff"/>
+<ellipse cx="100" cy="118" rx="10" ry="7" fill="#2b1f1c"/>
+<path d="M90 134 Q100 142 110 134" stroke="#2b1f1c" stroke-width="4" fill="none" stroke-linecap="round"/>
+</svg>
+</sc-if>
+<sc-if value="{{isPending}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 200 200" style="width: 100%; height: 100%; display: block" aria-hidden="true">
+<rect width="200" height="200" fill="#f1ebe8"/>
+<circle cx="100" cy="96" r="52" fill="none" stroke="#c9b9b3" stroke-width="5" stroke-dasharray="10 10"/>
+<path d="M118 66 L134 82 L92 124 L72 130 L78 110 Z" fill="#fcca37" stroke="#2b1f1c" stroke-width="4" stroke-linejoin="round"/>
+<path d="M118 66 L134 82" stroke="#2b1f1c" stroke-width="4"/>
+<path d="M72 130 L78 110 L92 124 Z" fill="#ffd6c2" stroke="#2b1f1c" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="64" cy="160" r="5" fill="#c9b9b3"/><circle cx="84" cy="160" r="5" fill="#c9b9b3"/><circle cx="104" cy="160" r="5" fill="#c9b9b3"/>
+</svg>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"kind":{"editor":"enum","options":["dragon","fox","robot","girl","bear","pending"],"default":"dragon"},"$preview":{"width":200,"height":200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const k = this.props.kind ?? 'dragon';
+    return {
+      isDragon: k === 'dragon', isFox: k === 'fox', isRobot: k === 'robot',
+      isGirl: k === 'girl', isBear: k === 'bear', isPending: k === 'pending'
+    };
+  }
+}
+</script>
+</body>
+</html>

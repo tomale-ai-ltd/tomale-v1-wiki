@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Limit reached</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Glacial Indifference";src:url("ds/tomale/fonts/GlacialIndifference-Bold.woff2") format("woff2");font-weight:700}
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+<div aria-hidden="true" style="height: 124px; background: #fcca37; border-radius: 0 0 32px 32px"></div>
+<div aria-hidden="true" style="padding: 20px 16px; display: flex; flex-direction: column; gap: 16px">
+<div style="height: 300px; border-radius: 20px; background: #ffffff"></div>
+<div style="height: 56px; border-radius: 999px; background: #ff6666"></div>
+</div>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(43,31,28,0.4)"></div>
+
+<section role="alertdialog" aria-modal="true" aria-labelledby="lim-title" aria-describedby="lim-body" style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 10px 24px 40px; background: #ffffff; border-radius: 24px 24px 0 0; box-shadow: 0 -8px 24px rgba(43,31,28,0.12); display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center">
+<div aria-hidden="true" style="width: 36px; height: 4px; border-radius: 999px; background: #e6dedb"></div>
+<svg viewBox="0 0 120 120" width="104" height="104" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#fff1c4"/><path d="M60 26 l9 19 21 3 -15 15 4 21 -19 -10 -19 10 4 -21 -15 -15 21 -3z" fill="#fcca37" stroke="#2b1f1c" stroke-width="3" stroke-linejoin="round"/></svg>
+<h2 id="lim-title" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">{{title}}</h2>
+<p id="lim-body" style="margin: 0; font-size: 17px; line-height: 25px">{{body}}</p>
+<p style="margin: 0; font-size: 15px; line-height: 21px; color: #6e5c57">Your story is saved in the Story builder.</p>
+<sc-if value="{{isChild}}" hint-placeholder-val="{{ true }}">
+<button type="button" style="width: 100%; height: 52px; border-radius: 999px; border: 0; background: #ff6666; color: #2b1f1c; font: inherit; font-size: 17px; font-weight: 700">Ask a grown-up</button>
+</sc-if>
+<button type="button" style="width: 100%; height: 52px; border-radius: 999px; border: 2px solid #8f7f7a; background: #ffffff; color: #2b1f1c; font: inherit; font-size: 17px; font-weight: 700">OK</button>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"profile":{"editor":"enum","options":["child","parent"],"default":"child"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const child = (this.props.profile ?? 'child') === 'child';
+    return {
+      isChild: child,
+      title: child ? 'You’ve made lots of stories this month!' : 'This month’s stories are used up',
+      body: child ? 'New ones unlock on 1 December.' : 'You’ve used this month’s 4 stories. More unlock on 1 December.'
+    };
+  }
+}
+</script>
+</body>
+</html>
