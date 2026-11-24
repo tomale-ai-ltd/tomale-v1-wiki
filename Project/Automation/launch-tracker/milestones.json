@@ -62,7 +62,7 @@
   "actual_days": 6.5,
   "finished": "2026-11-20",
   "estimate_assumed": false,
-  "note": "Backend done (A 12/11, B 13/11, tested 17/11); 009 merged 18/11 (PR #31); 010 merged 20/11 (PR #32); snag polish pass 23/11 on polish-snags, phone check open"
+  "note": "Backend done (A 12/11, B 13/11, tested 17/11); 009 merged 18/11 (PR #31); 010 merged 20/11 (PR #32); snag polish PR #33 merged 23/11"
  },
  {
   "order": 6,
@@ -135,12 +135,12 @@
   "milestone": "Account, onboarding, notifications",
   "est_min": 3,
   "est_max": 4,
-  "status": "not started",
-  "progress": 0,
-  "actual_days": 0,
+  "status": "in progress",
+  "progress": 0.05,
+  "actual_days": 1.0,
   "finished": null,
   "estimate_assumed": false,
-  "note": "Settings, onboarding, alerts, account deletion"
+  "note": "010b sign-up, sign-in and confirm email specified and clarified 24/11 (counted here: not yet in the roadmap); onboarding walkthrough, settings, alerts, account deletion to come"
  },
  {
   "order": 12,

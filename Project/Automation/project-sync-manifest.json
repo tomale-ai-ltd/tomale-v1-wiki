@@ -1,6 +1,6 @@
 {
   "note": "Project knowledge sync manifest: vault-relative path (project doc path) -> first 16 hex of sha256 at last upload. Maintained by the daily pipeline.",
-  "updated": "2026-11-23",
+  "updated": "2026-11-24",
   "files": {
     "Canonical/operating-model.md": "a3d3e191781291f0",
     "Canonical/stack.md": "0258509495898656",

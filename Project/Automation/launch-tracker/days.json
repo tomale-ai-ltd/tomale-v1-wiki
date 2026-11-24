@@ -94,5 +94,11 @@
   "delivered": 0.0,
   "milestones": "M3",
   "headline": "Polish day: 20 snags smoothed across headers, the picker and the PIN screens"
+ },
+ {
+  "date": "2026-11-24",
+  "delivered": 0.2,
+  "milestones": "M7",
+  "headline": "Sign-up is specified: the 010b spec is written and every clarify question answered"
  }
 ]

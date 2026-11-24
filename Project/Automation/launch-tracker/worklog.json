@@ -118,5 +118,10 @@
   "date": "2026-11-23",
   "milestone": "M3",
   "what": "Snag polish pass on branch polish-snags: 20 header, picker, PIN and control snags fixed, 009 docs list Help on the parent menu; phone check open"
+ },
+ {
+  "date": "2026-11-24",
+  "milestone": "M7",
+  "what": "010b sign-up prepared: refusal codes in the OpenAPI overlay, spec written and Kyle's clarify answers recorded"
  }
 ]
