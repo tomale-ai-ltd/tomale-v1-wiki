@@ -26,10 +26,11 @@ Start here. One page, updated whenever the phase or the next step changes. Last 
 
 ## Launch plan
 
-Public UK release on the App Store **and Google Play**, full V1 including subscriptions (Free and Creator via RevenueCat), targeted for **late January 2027** ([[move-v1-public-launch-to-late-january]]). Estimate 40–61 working days; the velocity checkpoint after Slice 100 decides whether an earlier closed beta is worth it ([[roadmap]] §2–3).
+Public UK release on the App Store **and Google Play**, full V1 including subscriptions (Free and Creator via RevenueCat), targeted for **late January 2027** ([[move-v1-public-launch-to-late-january]]). Estimate 40–61 working days; the velocity checkpoint after Slice 100 decides whether an earlier closed beta is worth it ([[roadmap]] §2–3). Image pipeline milestone MI runs in parallel and goes live before launch ([[PRD-Image-Pipeline]]).
 
 ## Next
 
+0. **Image models off `gpt-image-1.5` by 27/11** (shutdown 1 Dec): [[image-pipeline-session-0-brief]]. Then the G0 child-image spike.
 1. **Speckit 010b** (branch `010b-auth-signup`): plan → tasks → analyze → implement, then the phone pass and PR. RS-2026-11-17-02 done in `6c68343` (constitution 1.6.3, with the 010b codes). Includes S-031 (one kit back button).
 2. The B6 docs PU (`user_profiles_id` in [[backend-xano]] and [[security-model]]); the roadmap line for 010b. Then a short polish slice (S-032 loading states, S-033 animated launch; [[snags]]), then M4 story creation (011).
 
@@ -37,13 +38,14 @@ Handover for a new chat: the latest note in `_raw/Chat Sessions/` (or `Sessions/
 
 ## Known risks
 
+- **OpenAI shutdowns before launch:** `gpt-image-1.5` 1 Dec 2026 (Session 0); `gpt-4o-mini-tts`/`tts-1` 6 Jan 2027 (read-aloud); `gpt-4o-mini` 14 Jan 2027 (compiler, moderation, story text, chat) ([[IP-03-replace-text-and-voice-models]]).
 - **Moderation:** a gentle illness story passed text moderation in testing (19/11); check the prompt before launch.
 - **Schedule is tight:** 40–61 days of estimated work against late January.
 - **Not built yet:** entitlements and in-app purchase (RevenueCat), account closing (App Store requirement), sign out of all devices, the server-side email-confirmed gate, backend error reporting, rate limiting, the dev/prod Xano split.
 - **Club and an Apple-approved bundle** are V2 ([[v2-backlog]]).
 - **Google Play:** new organisation developer account for Tomale.ai Ltd (01/11; contact verification and admin user done 03/11). App record and first build still to do before an Android release ([[pre-launch-checklist]] §5).
 - **Apple distribution certificate** renewed 18/11 (the old one expired 13/11 and broke the dev build). The next production or preview build will ask for new App Store signing; annual renewal reminder set.
-- **Story generation takes 10–15 minutes**; the app must handle the wait.
+- **Story generation takes 10–15 minutes**; the app must handle the wait (target under 3 minutes after MI).
 - **User images are public URLs**; signed URLs are decided but not built.
 
 ## Where things are

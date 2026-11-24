@@ -21,7 +21,8 @@ Grouped by feature id from [[v1-feature-map]]. **Why later** gives the reason or
 ## Stories and images
 | Item | Feature | Why later | Source |
 |---|---|---|---|
-| Regenerate a story's images after creation (before ordering) | F-story-generation | Waits for the cheaper image pipeline (SDXL on AWS) and character/style training | Kyle 29/10, [[PRD-Order-PoD-System]] |
+| Regenerate a story's images after creation (before ordering) | F-story-generation | Waits for the image pipeline milestone MI ([[PRD-Image-Pipeline]]) and character/style training | Kyle 29/10, [[PRD-Order-PoD-System]] |
+| Self-hosted open image model (Qwen-Image-Edit-2511, Apache-2.0) as a third provider | F-story-generation | Post-launch; only if child-filter blocks or price justify it | [[defer-self-hosted-image-models-until-after-launch]] |
 | Character and style training (LoRA / IP-adapter) for consistency | F-story-generation | Image pipeline track | [[roadmap]] §6 |
 | Edit a story | F-story-create | Not specified; needs moderation on edit | [[1-prd-tomale-react-native-app-v1]] |
 | Custom tags (topics) | F-story-chatbot | No table; Nice to Have | [[PRD-Chatbot-Story-Conversations]] |

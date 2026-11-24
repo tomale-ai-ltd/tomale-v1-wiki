@@ -58,6 +58,7 @@ Tomale is built by one human founder working with several AI collaborators. Each
 | **Scribe** | Claude daily pipeline (scheduled task, 17:00 weekdays) | Turn raw notes into session notes and decision notes; propose canonical edits; sync Claude Project knowledge | Write sessions, decisions, `pending-updates`, `repo-sync`; archive raw notes | Edit canonical docs, repos or Xano; invent rationale not in the notes |
 | **Frontend engineer** | Cursor agents (in `tomale-rn-test`) | Implement V1 slices through speckit; keep repo specs current; apply `repo-sync` items | Edit repo code and specs through speckit and `repo-sync`; write raw session notes to the vault | Edit protected docs outside their process; edit vault canonical docs or decisions; touch Xano |
 | **Backend pair** | Xano AI (inside Xano) | Draft XanoScript and analyse the workspace | Draft; analyse; propose | Have anything published without Kyle's review against the published version in the `tomale-xano` mirror; be trusted on security without review |
+| **Image pipeline engineer** | Claude Code (in `tomale-image-gateway`) | Build the gateway, worker, signer, eval harness and Terraform, spec-first | Edit that repo through PRs; run tests, evals and `terraform plan`; write raw session notes to the vault | Run `terraform apply` or deploy without Kyle's approval; touch the app repo, Xano or production data; hold long-lived cloud keys |
 | **Regression evidence** | Postman `_tests` | Prove the backend behaves | n/a | n/a |
 | **System of record** | GitHub | History, diffs, rollback for the app repo, the Xano mirror and the vault | n/a | n/a |
 
@@ -69,23 +70,26 @@ Tomale is built by one human founder working with several AI collaborators. Each
 - Anything security-relevant: auth, ownership, secrets, payment amounts.
 - Any conflict between sources of truth (see the order of authority in [[knowledge-architecture]] §4).
 - Any proposal to change a protected document.
+- Cloud IAM changes, budget or credit changes, and `terraform apply` to production.
 
 ## 2. Decision rights (RACI)
 
 R = does the work · A = approves · C = consulted · I = informed
 
-| Activity | Kyle | Claude chat | Pipeline | Cursor agents | Xano AI |
-|---|---|---|---|---|---|
-| Product scope and PRDs | A | R | I | C | n/a |
-| Backend design (Xano) | A | R (design, review) | n/a | C | R (draft) |
-| Publishing in Xano | R/A | C (review first) | n/a | n/a | n/a |
-| Frontend slice (speckit) | A | C (review) | n/a | R | n/a |
-| Protected spec changes | A | R (`repo-sync` item) | R (proposes) | R (applies) | n/a |
-| Decision notes | A | R | R (drafts) | I | n/a |
-| Canonical doc changes | A | R | R (proposes) | I | n/a |
-| Regression testing | R/A | C (designs tests) | n/a | n/a | n/a |
-| Release (EAS, stores) | R/A | C | n/a | R (build config) | n/a |
-| Third parties (Stripe, Pureprint, Apple, Google) | R/A | C (drafts) | n/a | n/a | n/a |
+| Activity | Kyle | Claude chat | Pipeline | Cursor agents | Xano AI | Claude Code |
+|---|---|---|---|---|---|---|
+| Product scope and PRDs | A | R | I | C | n/a | n/a |
+| Backend design (Xano) | A | R (design, review) | n/a | C | R (draft) | n/a |
+| Publishing in Xano | R/A | C (review first) | n/a | n/a | n/a | n/a |
+| Frontend slice (speckit) | A | C (review) | n/a | R | n/a | n/a |
+| Protected spec changes | A | R (`repo-sync` item) | R (proposes) | R (applies) | n/a | n/a |
+| Decision notes | A | R | R (drafts) | I | n/a | n/a |
+| Canonical doc changes | A | R | R (proposes) | I | n/a | n/a |
+| Regression testing | R/A | C (designs tests) | n/a | n/a | n/a | n/a |
+| Release (EAS, stores) | R/A | C | n/a | R (build config) | n/a | n/a |
+| Third parties (Stripe, Pureprint, Apple, Google) | R/A | C (drafts) | n/a | n/a | n/a | n/a |
+| Image pipeline service and infra | A | C (design, review) | n/a | n/a | n/a | R |
+| Cloud apply and deploy | R/A | C | n/a | n/a | n/a | C |
 
 ## 3. Workflows
 
@@ -185,6 +189,12 @@ Changes to protected specs can change how speckit works and how Cursor builds, s
   - endpoint inventory, CORS, test-data cleanup, backup
 - **Backend release:** in Xano, *branch footer → Merge Branches → source dev, destination prod*, review the change list, Merge, then publish prod once. That gives one GitHub commit on prod. Take a backup first. Run the full `_tests` against prod test accounts afterwards.
 - **Builds:** EAS; store submission by Kyle.
+
+### 3.8 Image pipeline repo
+
+- Branch protection and a required CI check (tests, evals on change, checkov, tflint, Gitleaks).
+- `terraform plan` on every PR; apply only after Kyle approves.
+- Raw session notes go to `_raw/Chat Sessions/` as `YYYY-MM-DD-claude-code-<slug>.md`, with the Cursor raw-note header (`source: claude-code`).
 
 ## 4. Security habits (everyone)
 

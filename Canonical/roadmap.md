@@ -33,6 +33,8 @@ Replaces [[2-build-plan]] (slice order) and the open phases 2–5 of the fractio
 
 The estimates are rough: one person working with Cursor agents, in working days. The milestones in §4 add up to about **37–56 days** without AI character creation (**40–61 days** with it, added to V1 on 29/10). From 29/10 to a submission around 23/11 (leaving about a week for App Store review and one rejection round), there are roughly **20–25 working days**.
 
+**Image pipeline (24/11):** milestone MI adds about 9 Kyle-days (Xano sessions, reviews, tests) to the 40–61-day estimate. Re-check the January date at the next velocity checkpoint.
+
 **The full V1 does not fit by the end of November.** The largest items are story creation (M4) and entitlements with in-app purchase (M8). Apple requires in-app purchase for digital subscriptions, so it can't be Stripe. Printed books are physical goods and can keep using Stripe.
 
 ## 3. Options
@@ -77,11 +79,15 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 - App: 101 index, 102 detail, 103 create (form, names moderated on create), 104 carousel, 105 quick actions (favourite, archive, delete) and re-create image. "Create a story with this character" ships with Slice 200.
 
 ### M3. Profiles and parental controls, speckit 009 (profiles and PIN) and 010 (approvals) (4–6 days)
-- **Backend part A (profiles and PIN) done 12/11** ([[m3-profiles-pin-backend-prep-brief]]); **part B (approvals) built 13/11, tested 17/11** (Postman folder 7; [[m3-approvals-backend-prep-brief]]). Next: API client regeneration (RS-2026-11-12-04) and `/speckit.specify` for M3. The child device checks deferred from 008 run here.
+- **Backend part A (profiles and PIN) done 12/11** ([[m3-profiles-pin-backend-prep-brief]]); **part B (approvals) built 13/11, tested 17/11** (Postman folder 7; [[m3-approvals-backend-prep-brief]]). **Done 20/11:** 009 merged 18/11 (PR #31), 010 merged 20/11 (PR #32, `417f073`); snag polish pass S-001 to S-030 merged 23/11 (PR #33). The child device checks deferred from 008 run here.
 - Profile picker, create child profile, preset avatars ([[use-bundled-preset-avatars-for-profiles]]). The child's header avatar returns here and opens switch profile (hidden since PR #23).
 - **PIN gate** on switching to a parent profile, backend and UI ([[parental-gate-on-profile-switch]]).
 - **Approve/reject flow** for flagged stories, with the channel (profile switch, email, push with PIN) decided in the B9 PRD ([[PRD-Parental-Oversight-Content-Approval]]).
 - Child-experience tests (**CTO #23–#26**, moderation and approval journey).
+
+### M3a. Sign-up, sign-in and confirm email, speckit 010b (2–3 days)
+- Sign-up with terms acceptance (`terms_version`), confirm-email screen with resend and a 60-second wait, the email-confirmed lock on creating (parent sheet; child "Ask a grown-up"), sign in with the email filled in, and the shared kit back button (S-031) ([[010b-auth-signup-micro-prd]]).
+- Backend X1–X5 published and Postman folder 8 green 23/11. The server-side email-confirmed gate on create is a launch item ([[pre-launch-checklist]] §1).
 
 ### M4. Story creation, Slice 200 / speckit 011 (5–8 days)
 - 201 draft bootstrap → 202 conversation → 203 suggestion cards → 204 complete. Uses the live `conversations` endpoints and the Draft → Preparing → In Queue → Done lifecycle ([[formalise-story-status-lifecycle]]).
@@ -103,7 +109,7 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 
 ### M7. Account, onboarding, notifications (3–4 days)
 - Settings and preferences, onboarding walkthrough, alerts inbox.
-- **Account closing** (App Store guideline 5.1.1(v)): close with a 30-day reopen window, then a scheduled purge (backend B1–B5 and the app slice in [[account-closing-micro-prd]]).
+- **Account closing** (App Store guideline 5.1.1(v)): close with a 30-day reopen window, then a scheduled purge (backend B1–B5 and the app slice in [[account-closing-micro-prd]]). The purge also removes accounts never confirmed after 7 days.
 - **Sign out of all devices** in Settings (parent only, behind the PIN), on the shared revoke function ([[pre-launch-checklist]] §1).
 
 ### M8. Entitlements and subscriptions (6–10 days)
@@ -120,6 +126,12 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 - Backend error reporting to Sentry and email alerting (**CTO #15** as elevated, **#17**; [[elevate-backend-observability-to-launch-requirement]]).
 - Everything on [[pre-launch-checklist]]: rate limiting (CTO §4.1), the hidden-fields sweep (CTO §4.6), request history off on auth endpoints, stray `422` messages, Stripe live keys, HPBC live SKU, MFA on all services (**CTO #13**, remainder).
 - Signed URLs for user images (CTO §2.9, [[migrate-image-storage-to-aws-s3-signed-urls]]): decide whether this happens before launch or straight after (children's images are public URLs today).
+
+### MI. Image pipeline on GCP + AWS credits (runs in parallel; about 28 days of effort, about 9 of them Kyle's)
+- Session 0 by 27/11: image models off `gpt-image-1.5` before its 1 Dec shutdown ([[image-pipeline-session-0-brief]]).
+- Gates: G0 child-image policy (week of 24/11), G1 model bake-off (by about 12/12), G2 live (Session B, by 13/01). Xano Session A about 15–17/12.
+- Also replaces `gpt-4o-mini` (shuts down 14/01/2027) and `gpt-4o-mini-tts` (6/01/2027) ([[IP-03-replace-text-and-voice-models]]).
+- The app contract doesn't change, so app milestones continue unchanged.
 
 ### M10. Store submission (2–3 days, plus review)
 App Store Connect listing, privacy policy and nutrition labels, age rating and category, screenshots, TestFlight round, submission. Google Play listing, data safety form, internal testing track and submission at the same time.
@@ -157,13 +169,14 @@ Requirements outside the phase tables that are still open: rate limiting (§4.1)
 
 Raised by Kyle on 28/10. The goal is **cost**, not only speed: moving generation off Xano onto AWS (Bedrock and/or a queue-based worker) so most post-launch running costs can be covered by credits, and early revenue goes into marketing. It builds on [[defer-image-pipeline-throughput-to-phase-2]] and pairs naturally with S3 signed URLs ([[migrate-image-storage-to-aws-s3-signed-urls]]): images generated on AWS can land in S3 directly.
 
-- **Inputs (Kyle, 28/10):** £25k GCP and £10k AWS credits, both expiring 30/06/2027 (about five months after launch). Character consistency across pages is already a problem with `gpt-image-1.5`. Preferred shape: storage on AWS, images from Google models, keeping the Xano orchestrator → worker tick → executor cycle with new `data_models` records and minimal infrastructure.
-- **Working assumption to test:** Google's image models (Gemini image, Imagen) are API-only on Vertex AI, not models you can host on your own VMs, so credits apply when Vertex is called and billed on GCP. The simplest version then needs no VMs: the Xano executors call Vertex AI instead of OpenAI, and write images to S3. Throughput stays Xano-bound until a later step moves the executor to Cloud Run or Lambda.
+- **Inputs (Kyle, 28/10):** £25k GCP and £10k AWS credits (confirmed 24/11: AWS £10k from AWS Activate, GCP £25k from Google for Startups, nothing spent), both expiring 30/06/2027 (about five months after launch). Character consistency across pages is already a problem with `gpt-image-1.5`. Preferred shape: storage on AWS, images from Google models, keeping the Xano orchestrator → worker tick → executor cycle with new `data_models` records and minimal infrastructure.
+- **Answered by the 24/11 research ([[image-pipeline-research-2026-11]]): Imagen, Nova Canvas and Titan are gone and SDXL is deprecated; the lines below are kept as background.**
+- **Working assumption to test (answered):** Google's image models (Gemini image, Imagen) are API-only on Vertex AI, not models you can host on your own VMs, so credits apply when Vertex is called and billed on GCP. The simplest version then needs no VMs: the Xano executors call Vertex AI instead of OpenAI, and write images to S3. Throughput stays Xano-bound until a later step moves the executor to Cloud Run or Lambda.
 - **Now (background, off the critical path):** a research note covering cost per story today vs on Vertex; which Vertex models handle character consistency (multi-image reference input); whether the credit terms cover Vertex AI; Vertex auth from Xano (a service-account token signed with RS256); S3 uploads and signed URLs from Xano (note: Xano already authenticates to Google Cloud with a service account and uploads to a GCS bucket in `create_tts_audio`, so Google-side storage is also an option); and what happens to costs after June 2027. Added by Kyle, 28/10:
   - **Other credit-eligible models:** on Vertex AI, Imagen, Gemini image and the open models in Model Garden (e.g. FLUX, SDXL) deployed to Vertex endpoints; on Bedrock, the Stability and Amazon image models currently offered (check what's still available).
   - **Concurrency and speed:** several GPU workers in parallel (GCP or AWS), scale-to-zero vs always-on (idle GPUs burn credits), cold starts. The real limit today is Xano dispatching one job at a time, so parallel workers need a hand-off: Xano queues the job externally and the worker posts the result back to a webhook, like the HPBC callbacks.
   - **LoRA pipelines:** start from the **SDXL + LoRA + IP-Adapter pipeline in the CfI "Boosting Fathers' Engagement" application** (`Project/Research/Research Proposals/CFI Boosting Fathers Engagement/`: project plan, cost model and draft). It covers LoRA training per art style on SageMaker, IP-Adapter for character conditioning, and evaluation against a golden dataset for multi-character bleed. Earlier background, imported 28/10: [[bedrock-image-migration-plan-2026-04]] (Bedrock → self-hosted ComfyUI on GPU for LoRA → two-stage img2img, with a cost model) and [[latent-preserving-regeneration-2026-05]]. Product idea on record: trained per-character LoRAs as a premium upsell.
-- **Decision point:** before M8. Either build before launch (together with the S3 change in M9) or as the first post-launch milestone.
+- **Decided 24/11 (Kyle): build before launch**, in parallel with the app milestones. Scope in [[PRD-Image-Pipeline]], tasks and gates in [[image-pipeline-plan]], research in [[image-pipeline-research-2026-11]].
 - **Contract to keep:** `image_jobs` stays the interface. The app and story flow shouldn't change whichever side runs the work.
 
 ## 7. After V1
@@ -180,3 +193,4 @@ Actual working days per milestone, against the estimate, for the checkpoint afte
 | M1 App foundations rework | 4–5 (was 2–3) | ~5 | 06/11 |
 | M1a Design system and Characters design | 1–2 | ~1.2 | 12/11 |
 | M2 Characters (008) | 3–4 | ~1.7 (session-day count as in the launch tracker; 11/11 and 12/11 were long days) | 12/11 (PR #27, #28) |
+| M3 Profiles and parental controls (009, 010) | 4–6 | 6.5 | 20/11 (PR #31, #32) |

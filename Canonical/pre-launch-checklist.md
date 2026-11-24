@@ -44,6 +44,12 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] **Sign out of all devices:** a shared Xano function `auth/revoke_all_sessions` marks every `user_sessions` row for the account `revoked`; `POST /auth/logout_all` (parent profile only, `PARENT_PROFILE_REQUIRED`; PIN if set, `PIN_INVALID`) calls it, and account closing (B2 in [[account-closing-micro-prd]]) uses the same function. Open: revoking only stops refresh, so a 1-hour access token on another device keeps working until it expires; decide whether the auth check should look up the session on each request.
 - [ ] **Emergency revoke-all (incident runbook):** an admin-only Xano function that revokes every session for every account, with the steps written in the runbook (when to use it: leaked token or signing key, signing change, breaking session change). Not run on app updates.
 - [ ] **Email-confirmed gate on create:** `POST /characters`, `POST /instant_stories` and the conversation create endpoints refuse with `EMAIL_NOT_VERIFIED` while `users.email_verified` is false, so 010b's in-app lock isn't the only check. Add Postman cases with an unconfirmed account.
+- [ ] **Purge never-confirmed accounts:** the daily purge job also hard-deletes accounts with `email_verified` false created more than 7 days ago, with their profiles and sessions (they can't have orders, payments or stories, because creating needs a confirmed email). No reminder email (Kyle, 24/11: someone who hasn't confirmed in a week signs up again). Postman case: an unconfirmed account older than the cutoff is gone after the job runs; a confirmed one is untouched.
+- [ ] No AI model in use has an OpenAI or Google shutdown date before 30/06/2027. Check the OpenAI deprecations page and the Vertex model-versions page, and `GET /v1/models` `shutdown_date`.
+- [ ] Image pipeline gate G2 passed and the cut-over done ([[PRD-Image-Pipeline]] §6), or the OpenAI record confirmed as default with a dated plan.
+- [ ] Output image moderation live (`moderation-image`) ([[moderate-generated-images-in-three-layers]]).
+- [ ] Budgets and alerts on both clouds at 25/50/75% of credits.
+- [ ] DPIA covers Vertex `eu` processing of generated character pictures.
 
 ## 2. Environments and money
 
