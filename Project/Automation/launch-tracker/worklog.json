@@ -123,5 +123,10 @@
   "date": "2026-11-24",
   "milestone": "M7",
   "what": "010b sign-up prepared: refusal codes in the OpenAPI overlay, spec written and Kyle's clarify answers recorded"
+ },
+ {
+  "date": "2026-11-24",
+  "milestone": "M7",
+  "what": "010b sign-up planned, tasked and built (all 38 tasks): Create account, Check your email, resend, creation lock, Name step and kit back button; phone pass open"
  }
 ]
