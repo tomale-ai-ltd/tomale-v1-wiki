@@ -1,16 +1,16 @@
 ---
 type: decision
-title: "use-gemini-3-1-flash-image-on-vertex-eu-for-story-images"
+title: use-gemini-3-1-flash-image-on-vertex-eu-for-story-images
 project: tomale-rn-v1
-status: proposed
-date: "2026-11-24"
+status: accepted
+date: 2026-11-24
 related:
   - "[[2026-11-24-002]]"
   - "[[image-pipeline-research-2026-11]]"
 affects:
   - "[[PRD-Image-Pipeline]]"
   - "[[stack]]"
-  - "data models (gateway records)"
+  - data models (gateway records)
 features:
   - F-story-generation
   - F-characters

@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "repoint-image-models-to-gpt-image-2-6-before-shutdown"
+title: repoint-image-models-to-gpt-image-2-6-before-shutdown
 project: tomale-rn-v1
-status: proposed
-date: "2026-11-24"
+status: accepted
+date: 2026-11-24
 related:
   - "[[2026-11-24-002]]"
   - "[[image-pipeline-session-0-brief]]"
@@ -11,7 +11,7 @@ affects:
   - "[[image-generation-flow]]"
   - "[[stack]]"
   - "[[backend-xano]]"
-  - "data models (story-page-image, story-cover-image, character-image)"
+  - data models (story-page-image, story-cover-image, character-image)
 features:
   - F-story-generation
   - F-characters

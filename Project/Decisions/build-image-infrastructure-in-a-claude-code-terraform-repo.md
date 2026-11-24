@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "build-image-infrastructure-in-a-claude-code-terraform-repo"
+title: build-image-infrastructure-in-a-claude-code-terraform-repo
 project: tomale-rn-v1
-status: proposed
-date: "2026-11-24"
+status: accepted
+date: 2026-11-24
 related:
   - "[[2026-11-24-002]]"
 affects:

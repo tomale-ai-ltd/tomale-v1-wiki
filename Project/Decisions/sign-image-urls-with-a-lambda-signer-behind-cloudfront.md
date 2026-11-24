@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "sign-image-urls-with-a-lambda-signer-behind-cloudfront"
+title: sign-image-urls-with-a-lambda-signer-behind-cloudfront
 project: tomale-rn-v1
-status: proposed
-date: "2026-11-24"
+status: accepted
+date: 2026-11-24
 related:
   - "[[2026-11-24-002]]"
   - "[[migrate-image-storage-to-aws-s3-signed-urls]]"
@@ -11,7 +11,7 @@ affects:
   - "[[migrate-image-storage-to-aws-s3-signed-urls]]"
   - "[[security-model]]"
   - "[[pre-launch-checklist]]"
-  - "GET /instant_stories, GET /instant_stories/{id}, characters reads"
+  - GET /instant_stories, GET /instant_stories/{id}, characters reads
 features:
   - X-security
   - F-story-generation

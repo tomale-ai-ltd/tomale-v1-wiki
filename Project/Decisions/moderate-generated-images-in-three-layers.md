@@ -1,17 +1,17 @@
 ---
 type: decision
-title: "moderate-generated-images-in-three-layers"
+title: moderate-generated-images-in-three-layers
 project: tomale-rn-v1
-status: proposed
-date: "2026-11-24"
+status: accepted
+date: 2026-11-24
 related:
   - "[[2026-11-24-002]]"
   - "[[moderate-free-text-instructions-with-moderation-text-policy]]"
 affects:
   - "[[story-creation-flow]]"
   - "[[PRD-Image-Pipeline]]"
-  - "data models (moderation-image)"
-  - "moderation_flags"
+  - data models (moderation-image)
+  - moderation_flags
 features:
   - X-security
   - F-story-generation

@@ -1,9 +1,9 @@
 ---
 type: decision
-title: "generate-story-images-through-a-cloud-run-gateway-with-xano-callbacks"
+title: generate-story-images-through-a-cloud-run-gateway-with-xano-callbacks
 project: tomale-rn-v1
-status: proposed
-date: "2026-11-24"
+status: accepted
+date: 2026-11-24
 supersedes: []
 related:
   - "[[2026-11-24-002]]"
@@ -14,8 +14,8 @@ affects:
   - "[[backend-xano]]"
   - "[[security-model]]"
   - "[[roadmap]]"
-  - "image_jobs (status dispatched)"
-  - "ai pipeline/executor_page_image, executor_cover_image, executor_character_image, image_worker_tick, orchestrator_story_images"
+  - image_jobs (status dispatched)
+  - ai pipeline/executor_page_image, executor_cover_image, executor_character_image, image_worker_tick, orchestrator_story_images
 features:
   - F-story-generation
   - X-platform
