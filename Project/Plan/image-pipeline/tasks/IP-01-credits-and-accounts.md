@@ -2,7 +2,7 @@
 type: plan-task
 id: IP-01
 title: "Credits, GCP project and AWS account"
-status: todo
+status: done
 owner: "Kyle"
 depends: []
 gate: ""

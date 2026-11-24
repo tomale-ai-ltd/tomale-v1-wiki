@@ -86,6 +86,7 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 - Child-experience tests (**CTO #23–#26**, moderation and approval journey).
 
 ### M3a. Sign-up, sign-in and confirm email, speckit 010b (2–3 days)
+- **Done 24/11** (main `05f27b1`): phone pass and bug round 24/11; S-031 fixed; constitution 1.6.3.
 - Sign-up with terms acceptance (`terms_version`), confirm-email screen with resend and a 60-second wait, the email-confirmed lock on creating (parent sheet; child "Ask a grown-up"), sign in with the email filled in, and the shared kit back button (S-031) ([[010b-auth-signup-micro-prd]]).
 - Backend X1–X5 published and Postman folder 8 green 23/11. The server-side email-confirmed gate on create is a launch item ([[pre-launch-checklist]] §1).
 

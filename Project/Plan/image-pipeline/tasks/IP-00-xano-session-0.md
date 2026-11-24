@@ -2,7 +2,7 @@
 type: plan-task
 id: IP-00
 title: "Xano Session 0: image models off gpt-image-1.5"
-status: todo
+status: done
 owner: "Kyle"
 depends: []
 gate: ""
