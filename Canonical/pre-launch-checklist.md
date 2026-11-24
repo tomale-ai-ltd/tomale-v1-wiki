@@ -3,9 +3,9 @@ type: living-doc
 title: pre-launch-checklist
 project: tomale-rn-v1
 status: current
-version: 1.2
+version: 1.3
 date: 2026-10-28
-last_verified: 2026-11-17
+last_verified: 2026-11-24
 owner: vault
 related:
   - "[[roadmap]]"
@@ -30,7 +30,7 @@ Everything that must be true before the public release, in one place. Items were
 - [x] **`auth/reset_password` deleted** (12/11): public, never checked the emailed code, returned the user record. Forgotten password = email link login.
 - [ ] **Restored session and the PIN:** a refresh returns a token for the last active profile, which may be the parent; the app must show the picker and require the PIN before using it. Server-side enforcement would need refresh to downgrade the token (not in V1; revisit before launch).
 - [ ] **Precondition messages:** replace the 14 `error = 422` messages, and about 20 others that put a status number (`404`, `401`, `500`, `413`, `415`) in `error`, with real text. The status comes from `error_type` ([[backend-xano]] §3).
-- [ ] **Account deletion endpoint** (App Store guideline 5.1.1(v)), with what happens to stories, orders and profiles defined.
+- [ ] **Account closing and deletion** (App Store guideline 5.1.1(v)): close, reopen within 30 days, then the daily purge job deletes the account and its content; orders and payments kept 6 years; soft-deleted items purged after 30 days ([[account-closing-micro-prd]], [[retain-account-data-30-days-after-closing]]).
 - [ ] **Endpoint inventory** against [[security-model]] §3; remove the legacy functions (`mixam_*`, `make_com_*`, `mixpanel_import_event`).
 - [ ] **CORS** settings reviewed for both groups.
 - [ ] **Signed URLs for user images:** decide before launch or immediately after; all images are public URLs today ([[migrate-image-storage-to-aws-s3-signed-urls]]; CTO §2.9).
@@ -41,6 +41,9 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] **Postman collection re-synced** from the Xano OpenAPI export ([[adopt-openapi-import-for-postman-collection-sync]]), then `_tests` run green.
 
 - [x] Server-side sign-out (done 06/11: Xano `auth/logout` revokes the session; the app calls it on a user sign-out, PR #24; Postman 1F/1G): add `auth/logout` in Xano that revokes the session's refresh token (`user_sessions`), and call it from the app's logout. Today sign-out is client-only, so a signed-out refresh token stays valid until it expires (found 04/11 reviewing speckit 007).
+- [ ] **Sign out of all devices:** a shared Xano function `auth/revoke_all_sessions` marks every `user_sessions` row for the account `revoked`; `POST /auth/logout_all` (parent profile only, `PARENT_PROFILE_REQUIRED`; PIN if set, `PIN_INVALID`) calls it, and account closing (B2 in [[account-closing-micro-prd]]) uses the same function. Open: revoking only stops refresh, so a 1-hour access token on another device keeps working until it expires; decide whether the auth check should look up the session on each request.
+- [ ] **Emergency revoke-all (incident runbook):** an admin-only Xano function that revokes every session for every account, with the steps written in the runbook (when to use it: leaked token or signing key, signing change, breaking session change). Not run on app updates.
+- [ ] **Email-confirmed gate on create:** `POST /characters`, `POST /instant_stories` and the conversation create endpoints refuse with `EMAIL_NOT_VERIFIED` while `users.email_verified` is false, so 010b's in-app lock isn't the only check. Add Postman cases with an unconfirmed account.
 
 ## 2. Environments and money
 
@@ -95,3 +98,17 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] Checkout copy states that personalised orders can't be cancelled once in production, and the pre-payment preview is in place ([[disallow-cancelling-personalised-orders-once-in-production]], [[use-e-reader-preview-before-order-payment]]).
 - [ ] Screenshots, description, support URL; reviewer test account with sample stories.
 - [ ] TestFlight round passed; final `_tests` regression on prod.
+
+## 6. Legal and compliance (research, then act)
+
+- [ ] **Legal pages** published 19/11/2026 (Terms, Content Guidelines, Privacy Notice, Cookie Policy, EULA; [[Project/Legal/README|Legal README]]); still to do: a UK solicitor's review. The Terms date (2026-11-19) is `terms_version` in sign-up (010b, B2). Book Club is in the published Terms; revisit §7 if App Review refuses a subscription that includes a printed book.
+- [ ] **Privacy Notice** brought in line with the terms: no AI training on user content; usage information only in a form that doesn't identify anyone; account data deleted 30 days after closing; order and payment records kept as tax law requires. Written so a parent, and a child where relevant, can follow it.
+- [ ] **Content Guidelines** page (`https://www.tomale.ai/content-guidelines`): a public summary of the Xano content policy, not the policy prompts.
+- [ ] **Electronic Commerce Regulations 2002:** confirm the hosting defence applies (stories and pictures held for a household) and what "acting expeditiously" on a report means for us; the reporting route is support email (terms §6). No US DMCA agent needed while Tomale is UK-only.
+- [ ] **Online Safety Act 2023:** a short written assessment of whether Tomale is a user-to-user service (content shared only within one household; shared characters across profiles; `instant_stories.is_public` exists but is unused). If in scope: Ofcom's illegal-content and children's risk assessments. Reassess before any public or cross-household sharing.
+- [ ] **UK GDPR and the ICO Children's Code:** ICO registration and data protection fee; a DPIA covering children's data, AI processing and moderation; a review against the Code's 15 standards (high-privacy defaults, no profiling, data minimisation, parental controls, plain-language information); data processing agreements with Xano, OpenAI and other AI providers, Resend, Sentry, Stripe, HPBC/Pureprint, Papermill and Squarespace; international transfer safeguards for US providers; a retention schedule (including the 30-day delete after closing, which needs a backend job).
+- [ ] **Consumer law:** pre-contract information for subscriptions and print orders (Consumer Contracts Regulations 2013); the personalised-goods exemption wording; check whether the subscription-contract rules in the Digital Markets, Competition and Consumers Act 2024 are in force by launch and what they require (reminders, easy exit).
+- [ ] **Advertising and in-app purchases to children:** the CAP Code and the CMA's principles for online and app-based games: no direct exhortation to children to buy or to ask a parent to buy. Check every child-profile screen, especially the "limit reached" message ([[PRD-Subscription-Entitlement-System]]), upgrade prompts, Store entry points and any marketing.
+- [ ] **Product safety for printed books:** UK General Product Safety Regulations 2005 (who is the "producer", us or HPBC/Pureprint; traceability on the book or packing slip). Delivery to Northern Ireland brings in the EU GPSR's seller and labelling rules: confirm with HPBC, or decide on Great Britain only.
+- [ ] **Ownership of AI output:** CDPA 1988 s9(3) (computer-generated works) is under government review; check the terms §5 wording ("as far as we have rights") with the solicitor.
+- [ ] **VAT:** printed books are zero-rated and digital subscriptions standard-rated; confirm how prices are shown and how the Creator discount and Book Club's included book are treated.

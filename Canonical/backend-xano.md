@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.2
 date: 2026-11-05
-last_verified: 2026-11-17
+last_verified: 2026-11-24
 owner: vault
 related:
   - "[[security-model]]"
@@ -72,7 +72,7 @@ Backend for Tomale, a children's personalised storybook app (iOS and Android). A
 - Money is integer minor units (pence) everywhere. Only HPBC is sent pounds.
 - Inputs are explicit allowlists; no `dblink`. Never name an input or variable after a column the function writes. Test switches are `bool x?` (optional).
 - `db.add` / `db.edit` map columns explicitly. Never write `enforce_hidden_fields = false`.
-- Soft delete with `deleted_at` for user content and profiles.
+- Soft delete with `deleted_at` for user content and profiles. Soft-deleted rows are purged 30 days after `deleted_at`, and closed accounts 30 days after `closed_at`, by the scheduled task `purge_closed_accounts` (to build, M7; [[retain-account-data-30-days-after-closing]]).
 - Counters such as `images_remaining` are recounted, never decremented.
 - Check for empty, not only null: blank values are stored as `""`.
 - Before reading `$list.field` from a query result, check `($list|count) > 0` (an empty list makes it a fatal error).

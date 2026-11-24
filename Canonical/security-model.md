@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 2.1
 date: 2026-10-28
-last_verified: 2026-11-17
+last_verified: 2026-11-24
 owner: vault
 related:
   - "[[backend-xano]]"
@@ -151,7 +151,7 @@ Per [[5-cto-implementation-plan]], Phase 1 items 5–9 closed on 2026-07-16 and 
 
 ### What was hardened, by area
 
-- **Auth:** magic-link login; JWE tokens (1 hour) carrying `active_profile` extras; `select_profile`; refresh with rotation, hashed refresh tokens and 401 `invalid_refresh_token`; `auth/logout` (06/11) sets the session `revoked` and `auth/refresh` accepts only `active` sessions (the 1-hour access token can't be revoked and lapses on its own); `auth/signup` writes `test_mode: false` (06/11); `verify_email` through the Squarespace intermediary. `auth/login` returns a single generic "Invalid Credentials." for an unknown user or a wrong password. Parental PIN on every switch into a parent profile, locked after 5 wrong attempts, unlocked only by an emailed link (`purpose: reset_pin`); `auth/reset_password` deleted 12/11 (it never checked the emailed code and returned the user record).
+- **Auth:** magic-link login; JWE tokens (1 hour) carrying `active_profile` extras; `select_profile`; refresh with rotation, hashed refresh tokens and 401 `invalid_refresh_token`; `auth/logout` (06/11) sets the session `revoked` and `auth/refresh` accepts only `active` sessions (the 1-hour access token can't be revoked and lapses on its own); `auth/signup` writes `test_mode: false` (06/11); `verify_email` through the Squarespace intermediary. `auth/login` returns a single generic "Invalid Credentials." for an unknown user or a wrong password. Parental PIN on every switch into a parent profile, locked after 5 wrong attempts, unlocked only by an emailed link (`purpose: reset_pin`). App side (010, 19/11): returning to the foreground can raise the profile picker but never lower it; only entering through the PIN opens a parent profile. The cold-start picker is decided once per sign-in, so a refreshed or replacement token does not raise it again ([[keep-pin-gate-closed-when-app-returns-to-foreground]]; fixes a PIN bypass where a brief background, such as the share sheet, dropped the picker over a parent token); `auth/reset_password` deleted 12/11 (it never checked the emailed code and returned the user record).
 - **Users and profiles:** `PATCH /users/me` (boolean preferences folded in), `complete_onboarding`, the image endpoint. `user_profiles` is one table with `is_child` and `is_primary`: parent-only create and delete, household scope, soft delete, profanity list plus AI moderation.
 - **Stories and characters:** owner-scoped `instant_stories` with per-child visibility and the moderation and parental-approval flags. `conversations/{id}/message` and `API/character_edit` take explicit input lists, no `dblink` (2026-10-23).
 - **System:** activities, `artwork_style`, `fact/random` (with an `is_child` gate), themes; phonics reduced to two nested read endpoints.

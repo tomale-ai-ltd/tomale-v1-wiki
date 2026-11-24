@@ -1,0 +1,70 @@
+filters:
+  and:
+    - file.inFolder("Project/Plan/image-pipeline/tasks")
+    - type == "plan-task"
+properties:
+  file.name:
+    displayName: Task
+  title:
+    displayName: Title
+  status:
+    displayName: Status
+  owner:
+    displayName: Owner
+  gate:
+    displayName: Gate
+  effort_days:
+    displayName: Days
+  target:
+    displayName: Target
+  scoping:
+    displayName: Scoping
+  depends:
+    displayName: Depends on
+views:
+  - type: table
+    name: Open
+    filters:
+      and:
+        - status != "done"
+    order:
+      - file.name
+      - title
+      - status
+      - owner
+      - target
+      - gate
+      - effort_days
+      - scoping
+      - depends
+    sort:
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: Kyle
+    filters:
+      and:
+        - status != "done"
+        - owner.contains("Kyle")
+    order:
+      - file.name
+      - title
+      - status
+      - target
+      - effort_days
+    sort:
+      - property: target
+        direction: ASC
+  - type: table
+    name: All
+    order:
+      - file.name
+      - title
+      - status
+      - owner
+      - target
+      - gate
+      - effort_days
+    sort:
+      - property: file.name
+        direction: ASC

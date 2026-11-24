@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.8
 date: 2026-10-28
-last_verified: 2026-11-17
+last_verified: 2026-11-24
 owner: vault
 supersedes:
   - "[[2-build-plan]]"
@@ -103,7 +103,8 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 
 ### M7. Account, onboarding, notifications (3–4 days)
 - Settings and preferences, onboarding walkthrough, alerts inbox.
-- **Account deletion** (App Store guideline 5.1.1(v)): a new backend endpoint plus UI.
+- **Account closing** (App Store guideline 5.1.1(v)): close with a 30-day reopen window, then a scheduled purge (backend B1–B5 and the app slice in [[account-closing-micro-prd]]).
+- **Sign out of all devices** in Settings (parent only, behind the PIN), on the shared revoke function ([[pre-launch-checklist]] §1).
 
 ### M8. Entitlements and subscriptions (6–10 days)
 - Backend: entitlement gate before story and image-job creation, usage counters, `GET /me/entitlements`, subscription state ([[PRD-Subscription-Entitlement-System]]).
