@@ -47,5 +47,10 @@ feature: 010b-auth-signup
 ## What changed (sign-up handover)
 - `d56c8a4` on `010b-auth-signup`: Check your email opens from `signUp` after `/auth/me`, before the token is stored. Create account no longer navigates from an effect that unmounts with the signed-out guard. Cold start still opens the Name step when `onboarding_complete` is false. Not pushed. Typecheck and the overlay and signup-rules tests passed.
 
+## What changed (US2)
+- `a5cb0d7` skips `dismissAll` on the sign-up handover so `POP_TO_TOP` is not dispatched after the signed-out guard has removed `(auth)`. Sign-in still drops a stack that is mounted.
+- `66019e6` T015: Send it again posts `/auth/resend_verification`. `0916bf1` T016 T017: `app/auth/verified.tsx`, the foreground recheck, the one "Email confirmed" toast, and the parent and child confirm sheets. `2249af1` T018–T022: Create, Home, and Characters stay locked until the email is confirmed. Not pushed.
+- `pnpm typecheck` passed. Signup-rules, overlay, and approvals-rules tests passed (3 suites, 52 tests). Metro was not started.
+
 ## Next
-- Phone check again from Create account to Check your email. Then T015 when Kyle asks. The me output list still needs `email_ver_expires_at` on the Xano side.
+- Phone check for US2, then stop. T023 is next when Kyle asks. The me output list still needs `email_ver_expires_at` on the Xano side.
