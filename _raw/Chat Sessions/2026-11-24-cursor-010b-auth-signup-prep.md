@@ -52,5 +52,9 @@ feature: 010b-auth-signup
 - `66019e6` T015: Send it again posts `/auth/resend_verification`. `0916bf1` T016 T017: `app/auth/verified.tsx`, the foreground recheck, the one "Email confirmed" toast, and the parent and child confirm sheets. `2249af1` T018–T022: Create, Home, and Characters stay locked until the email is confirmed. Not pushed.
 - `pnpm typecheck` passed. Signup-rules, overlay, and approvals-rules tests passed (3 suites, 52 tests). Metro was not started.
 
+## What changed (toast + rest of 010b)
+- `3582a35` Bug: "Email confirmed" lives on the account check, so a remount on the ALREADY_VERIFIED handover still shows it once. Unit test in `.tests/resend-verification.test.ts`.
+- `25c3837` T023–T025 Name step. `7ce89bc` T026 T027 Sign in and magic-link restyle. `dcf4899` T028–T037 kit BackButton on every existing back icon. T038: signup-rules and overlay tests green; `pnpm check` green. Not pushed. Metro was not started.
+
 ## Next
-- Phone check for US2, then stop. T023 is next when Kyle asks. The me output list still needs `email_ver_expires_at` on the Xano side.
+- One full phone pass for 010b (US1–US4, creation lock from Home, Name step, Sign in, BackButton). The me output list still needs `email_ver_expires_at` on the Xano side.
