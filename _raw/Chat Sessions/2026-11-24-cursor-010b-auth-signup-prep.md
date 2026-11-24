@@ -44,5 +44,8 @@ feature: 010b-auth-signup
 - Overlay and signup-rules tests passed (2 suites, 29 tests). `pnpm typecheck` passed. Metro was not started.
 - "Send it again" posts nothing yet (T015). If `/auth/me` still omits `email_ver_expires_at`, the control is available because a null expiry does not invent a wait.
 
+## What changed (sign-up handover)
+- `d56c8a4` on `010b-auth-signup`: Check your email opens from `signUp` after `/auth/me`, before the token is stored. Create account no longer navigates from an effect that unmounts with the signed-out guard. Cold start still opens the Name step when `onboarding_complete` is false. Not pushed. Typecheck and the overlay and signup-rules tests passed.
+
 ## Next
-- Phone check of Create account and Check your email. Then T015 when Kyle asks. The me output list still needs `email_ver_expires_at` on the Xano side.
+- Phone check again from Create account to Check your email. Then T015 when Kyle asks. The me output list still needs `email_ver_expires_at` on the Xano side.
