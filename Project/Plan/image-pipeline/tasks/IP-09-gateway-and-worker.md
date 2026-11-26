@@ -3,7 +3,7 @@ type: plan-task
 id: IP-09
 title: "Gateway and worker service"
 status: todo
-owner: "Claude Code"
+owner: "Cursor"
 depends:
   - "[[IP-04-spec-contract-and-repo]]"
   - "[[IP-08-terraform]]"

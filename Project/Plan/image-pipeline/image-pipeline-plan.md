@@ -16,7 +16,7 @@ related:
 Scope: [[PRD-Image-Pipeline]] · Evidence: [[image-pipeline-research-2026-11]] · Diagrams: [[image-pipeline-future-state]].
 
 **Target:** live before the late-January launch (Kyle, 24/11).
-- **Effort:** about 28 days in total. About 9 of those are Kyle's: Session 0, credits, Sessions A and B, IP-03, reviews and the printed proof. The rest is Claude Code work that Kyle reviews.
+- **Effort:** about 28 days in total. About 9 of those are Kyle's: Session 0, credits, Sessions A and B, IP-03, reviews and the printed proof. The rest is Cursor work that Kyle reviews.
 - **Parallel work:** the app contract doesn't change, so Cursor milestones carry on alongside.
 
 ## Task board
@@ -57,8 +57,8 @@ IP-03 has hard dates: TTS ends 6/01 and `gpt-4o-mini` ends 14/01. If Session A s
   - A checklist for admin and cut-over.
   - Nothing after a gate is detailed until that gate passes.
 - **Xano changes** follow [[operating-model]] §3.2 (brief → draft → review against the mirror → publish → Postman), batched into Sessions 0, A and B.
-- **The gateway repo** is spec-first, with Claude Code building and Kyle merging. Plan on PR; apply after approval ([[build-image-infrastructure-in-a-claude-code-terraform-repo]], [[PU-2026-11-24-04]]).
+- **The gateway repo** is spec-first, with Cursor building and Kyle merging. Plan on PR; apply after approval ([[build-image-infrastructure-in-a-cursor-terraform-repo]], [[PU-2026-11-24-04]]).
 - **Decisions** are notes in `Project/Decisions/`, `proposed` until their gate passes.
 - **Canonical changes** go through `Canonical/pending-updates/` (PU-2026-11-24-02 to -08).
-- **Session notes** go to `_raw/Chat Sessions/` as usual. Claude Code writes `YYYY-MM-DD-claude-code-<slug>.md`.
+- **Session notes** go to `_raw/Chat Sessions/` as usual. Cursor's raw notes for the gateway repo follow the usual `YYYY-MM-DD-cursor-<slug>.md` format.
 - **Cost** is tracked per job in `token_usage` (provider, model, cost), with budgets at 25/50/75% of credits on both clouds.

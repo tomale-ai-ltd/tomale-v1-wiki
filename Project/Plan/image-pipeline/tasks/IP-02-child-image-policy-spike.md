@@ -3,7 +3,7 @@ type: plan-task
 id: IP-02
 title: "G0: child-image policy spike"
 status: done
-owner: "Claude Code (script), Kyle (runs)"
+owner: "Claude (script), Kyle (runs)"
 depends:
   - "[[IP-01-credits-and-accounts]]"
 gate: "G0"

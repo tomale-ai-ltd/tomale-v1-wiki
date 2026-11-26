@@ -3,7 +3,7 @@ type: plan-task
 id: IP-05
 title: "Golden set: 10 stories frozen"
 status: todo
-owner: "Kyle + Claude Code"
+owner: "Kyle + Cursor"
 depends: []
 gate: ""
 effort_days: 1

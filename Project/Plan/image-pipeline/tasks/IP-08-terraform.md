@@ -3,7 +3,7 @@ type: plan-task
 id: IP-08
 title: "Terraform for GCP and AWS"
 status: todo
-owner: "Claude Code"
+owner: "Cursor"
 depends:
   - "[[IP-04-spec-contract-and-repo]]"
   - "[[IP-01-credits-and-accounts]]"

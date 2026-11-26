@@ -165,7 +165,7 @@ a{color:#1b7b7a}a:hover{color:#145e5d}
 </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"step":{"editor":"enum","options":["idea","ideas","characters","theme","style","phonics","surprise-thinking","summary"],"default":"idea"},"profile":{"editor":"enum","options":["parent","child"],"default":"parent"},"$preview":{"width":390,"height":1000}}'>
+<script type="text/x-dc" data-dc-script data-props='{"step":{"editor":"enum","options":["idea","ideas","idea-refused","characters","theme","style","phonics","surprise-thinking","summary"],"default":"idea"},"profile":{"editor":"enum","options":["parent","child"],"default":"parent"},"$preview":{"width":390,"height":1000}}'>
 class Component extends DCLogic {
   renderVals() {
     const s = this.props.step ?? 'idea';
@@ -176,13 +176,13 @@ class Component extends DCLogic {
     const Q = { idea: 'What happens in your story?', chars: 'Who’s in your story?', theme: 'What kind of story?', style: 'How should it look?', phon: 'Practise some sounds?' };
     const A = { idea: 'Pip the dragon and Rosie fly to the moon to find a lost star.', chars: 'Pip and Rosie', theme: 'Space adventure', style: 'Watercolour', phon: 'Phase 3 · Week 2' };
     const hist = {
-      idea: [], ideas: [], 'surprise-thinking': [],
+      idea: [], ideas: [], 'surprise-thinking': [], 'idea-refused': [['refused']],
       characters: [['idea']], theme: [['idea'], ['chars']], style: [['chars'], ['theme']],
       phonics: [['theme'], ['style']], summary: [['phon']]
     };
-    const history = (hist[s] || []).map(([k]) => ({ q: Q[k], a: A[k] }));
-    const qs = { idea: Q.idea, ideas: Q.idea, characters: 'Who’s in your story? I’ve ticked the ones from your idea.', theme: 'What kind of story? This one fits your idea.', style: Q.style, phonics: Q.phon, 'surprise-thinking': '', summary: 'Here’s your story!' };
-    const no = { idea: '1', ideas: '1', 'surprise-thinking': '1', characters: '2', theme: '3', style: '4', phonics: '5', summary: '6' };
+    const history = (hist[s] || []).map(([k]) => (k === 'refused' ? { q: Q.idea, a: '[the idea they typed]' } : { q: Q[k], a: A[k] }));
+    const qs = { idea: Q.idea, ideas: Q.idea, 'idea-refused': 'Hmm, I can\u2019t make a story about that. Let\u2019s try a different idea.', characters: 'Who’s in your story? I’ve ticked the ones from your idea.', theme: 'What kind of story? This one fits your idea.', style: Q.style, phonics: Q.phon, 'surprise-thinking': '', summary: 'Here’s your story!' };
+    const no = { idea: '1', ideas: '1', 'idea-refused': '1', 'surprise-thinking': '1', characters: '2', theme: '3', style: '4', phonics: '5', summary: '6' };
     const chars = [['Pip', 'dragon', true, true], ['Rosie', 'girl', true, true], ['Bo', 'bear', false, false], ['Zip', 'robot', false, false], ['Red', 'fox', false, false]].map(([n, k, on, from]) => ({ name: n, kind: k, on: on ? 'true' : 'false', isOn: on, fromIdea: from, style: ccard(on) }));
     const themes = [['Space adventure', 'Rockets, stars and planets', true, true], ['Under the sea', 'Fish, shells and waves', false, false], ['Bedtime', 'Calm and cosy', false, false], ['Making friends', 'Being kind together', false, false], ['Dinosaurs', 'Long ago and very big', false, false], ['Fairy tale', 'Castles and magic', false, false]].map(([n, l, on, sug]) => ({ name: n, line: l, on: on ? 'true' : 'false', suggested: sug, style: card(on, '12px 14px') }));
     const styles = [['Watercolour', '#9fe0df', '#ffe0e0', true], ['Bright cartoon', '#fcca37', '#ff6666', false], ['Pencil sketch', '#e6dedb', '#8f7f7a', false], ['Storybook classic', '#a579dd', '#fff1c4', false]].map(([n, a, b, on]) => ({ name: n, swatch: sw(a, b), on: on ? 'true' : 'false', style: card(on, '8px 8px 12px') }));
@@ -196,7 +196,7 @@ class Component extends DCLogic {
       me: child ? 'girl' : 'bear',
       stepNo: no[s], question: qs[s], history,
       thinking: s === 'surprise-thinking', notThinking: s !== 'surprise-thinking',
-      isIdea: s === 'idea' || s === 'ideas' || s === 'surprise-thinking', showIdeas: s === 'ideas',
+      isIdea: s === 'idea' || s === 'ideas' || s === 'idea-refused' || s === 'surprise-thinking', showIdeas: s === 'ideas',
       isCharacters: s === 'characters', isTheme: s === 'theme', isStyle: s === 'style', isPhonics: s === 'phonics', isSummary: s === 'summary',
       isParent: !child,
       chars, themes, styles, phases, ideaText: idea, count: String(idea.length), ideaChip: s === 'ideas' ? 'More ideas' : 'Give me ideas',

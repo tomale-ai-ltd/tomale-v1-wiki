@@ -129,7 +129,7 @@ It must be live **before the late-January 2027 launch** (Kyle, 24/11), built in 
 - [[sign-image-urls-with-a-lambda-signer-behind-cloudfront]]
 - [[moderate-generated-images-in-three-layers]]
 - [[measure-character-consistency-with-a-vlm-judge-and-blind-ratings]]
-- [[build-image-infrastructure-in-a-claude-code-terraform-repo]]
+- [[build-image-infrastructure-in-a-cursor-terraform-repo]]
 - [[defer-self-hosted-image-models-until-after-launch]]
 
 ## 10. Open questions

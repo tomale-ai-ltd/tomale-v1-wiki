@@ -3,7 +3,7 @@ type: plan-task
 id: IP-11
 title: "Shadow mode for a week"
 status: todo
-owner: "Claude Code + Kyle"
+owner: "Cursor + Kyle"
 depends:
   - "[[IP-10-xano-session-a]]"
 gate: ""

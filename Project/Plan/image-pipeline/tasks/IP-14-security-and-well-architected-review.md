@@ -3,7 +3,7 @@ type: plan-task
 id: IP-14
 title: "Security, Well-Architected and DPIA"
 status: todo
-owner: "Kyle + Claude Code"
+owner: "Kyle + Cursor"
 depends:
   - "[[IP-12-load-test]]"
 gate: "G2"

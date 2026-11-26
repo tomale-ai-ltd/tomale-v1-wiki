@@ -3,7 +3,7 @@ type: plan-task
 id: IP-04
 title: "Spec, contract, ADRs, threat model and repo"
 status: todo
-owner: "Claude Code"
+owner: "Cursor"
 depends:
   - "[[IP-02-child-image-policy-spike]]"
 gate: ""
@@ -15,7 +15,7 @@ project: tomale-rn-v1
 
 # IP-04: Spec, contract, ADRs, threat model and repo
 
-**Goal:** Create `tomale-image-gateway` (Tomale.ai Ltd org, branch protection, required CI); `CLAUDE.md`; spec (from [[PRD-Image-Pipeline]]); OpenAPI contract for `POST /v1/batches` and the Xano callback (payload, HMAC, idempotency key, error codes); ADRs mirroring the decision notes; STRIDE threat model; moderation thresholds.
+**Goal:** Create `tomale-image-gateway` (Tomale.ai Ltd org, branch protection, required CI); `.cursor/rules` and guard rails copied from rn-test, with cloud rules added; spec (from [[PRD-Image-Pipeline]]); OpenAPI contract for `POST /v1/batches` and the Xano callback (payload, HMAC, idempotency key, error codes); ADRs mirroring the decision notes; STRIDE threat model; moderation thresholds.
 
 **Done when:** Kyle reviews and approves the spec and contract; the vault links the repo (PU-2026-11-24-08).
 

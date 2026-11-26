@@ -3,7 +3,7 @@ type: plan-task
 id: IP-12
 title: "Load test: 20 books at once"
 status: todo
-owner: "Claude Code"
+owner: "Cursor"
 depends:
   - "[[IP-10-xano-session-a]]"
 gate: "G2"

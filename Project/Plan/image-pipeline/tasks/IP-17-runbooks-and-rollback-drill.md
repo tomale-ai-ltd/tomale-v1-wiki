@@ -3,7 +3,7 @@ type: plan-task
 id: IP-17
 title: "Runbooks, alerts and rollback drill"
 status: todo
-owner: "Claude Code"
+owner: "Cursor"
 depends:
   - "[[IP-16-xano-session-b-cut-over]]"
 gate: ""

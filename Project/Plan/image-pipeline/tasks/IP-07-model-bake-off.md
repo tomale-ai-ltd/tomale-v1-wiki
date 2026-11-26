@@ -3,7 +3,7 @@ type: plan-task
 id: IP-07
 title: "G1: model and reference bake-off"
 status: todo
-owner: "Claude Code, Kyle rates"
+owner: "Cursor, Kyle rates"
 depends:
   - "[[IP-06-eval-harness]]"
   - "[[IP-02-child-image-policy-spike]]"

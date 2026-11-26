@@ -3,7 +3,7 @@ type: plan-task
 id: IP-06
 title: "Evaluation harness and rating sheet"
 status: todo
-owner: "Claude Code"
+owner: "Cursor"
 depends:
   - "[[IP-05-golden-set]]"
   - "[[IP-04-spec-contract-and-repo]]"

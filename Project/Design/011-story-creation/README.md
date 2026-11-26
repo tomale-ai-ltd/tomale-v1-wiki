@@ -5,12 +5,13 @@ Drawn 24/11, revised 26/11 for Kyle's scope edits, on the Claude Design canvas "
 | Board | File | States (`data-props`) |
 |---|---|---|
 | 1101 Create · Being made, Story builder, pull to refresh | `Main.dc.html` | `empty` · `refreshing` |
-| 1102 Story chat (idea first) | `Chat.dc.html` | `step`: idea, ideas, characters, theme, style, phonics, surprise-thinking, summary · `profile`: parent, child (reply avatar, allowance line) |
+| 1102 Story chat (idea first) | `Chat.dc.html` | `step`: idea, ideas, idea-refused, characters, theme, style, phonics, surprise-thinking, summary · `profile`: parent, child (reply avatar, allowance line) |
 | 1103 Being made (animated ring) | `Making.dc.html` | `stage`: writing, pictures |
 | 1104–1105 Home · being-made card and ready toast | `HomeMaking.dc.html` | `profile`: parent, child · `toast`: none, ready, ready-held |
 | 1106 Story cover with Sounds in this story (until 012) | `Cover.dc.html` | `phonics` |
 | 1107 Limit reached | `Limit.dc.html` | `profile`: child, parent |
 | 1108 Couldn't make it | `Problem.dc.html` | `kind`: blocked, failed |
+| 1109 Something worrying (safe message) | `Safe.dc.html` | `profile`: child, adult |
 
 Notes:
 - `<dc-import name="Art" kind="…">` is placeholder art (bear, girl, fox, dragon, robot). In the app: character pictures from the character, covers from the story, avatars from `avatar_key`.

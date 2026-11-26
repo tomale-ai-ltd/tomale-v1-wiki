@@ -3,7 +3,7 @@ type: plan-task
 id: IP-18
 title: "Character pictures on the gateway (gated)"
 status: todo
-owner: "Claude Code + Kyle"
+owner: "Cursor + Kyle"
 depends:
   - "[[IP-16-xano-session-b-cut-over]]"
 gate: "G3"

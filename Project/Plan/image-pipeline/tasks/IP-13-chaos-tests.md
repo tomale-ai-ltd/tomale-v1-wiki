@@ -3,7 +3,7 @@ type: plan-task
 id: IP-13
 title: "Chaos tests"
 status: todo
-owner: "Claude Code"
+owner: "Cursor"
 depends:
   - "[[IP-10-xano-session-a]]"
 gate: "G2"
