@@ -143,5 +143,15 @@
   "date": "2026-11-24",
   "milestone": "M4",
   "what": "011 make a story scoped: micro-PRD, Xano prompts X1 to X9 and screen mock-ups drafted"
+ },
+ {
+  "date": "2026-11-26",
+  "milestone": "MI",
+  "what": "GCP project and £400 budget set up, G0 child-image spike passed 165/165, gateway repo PR #1 opened with its six-principle constitution and CI green"
+ },
+ {
+  "date": "2026-11-26",
+  "milestone": "M4",
+  "what": "011 micro-PRD approved with Kyle's scope edits, then reworked for a server-written chat log, idea moderation, a safe message and strikes (Xano X1 to X12)"
  }
 ]

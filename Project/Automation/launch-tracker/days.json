@@ -100,5 +100,11 @@
   "delivered": 0.2,
   "milestones": "M7",
   "headline": "Sign-up is specified: the 010b spec is written and every clarify question answered"
+ },
+ {
+  "date": "2026-11-26",
+  "delivered": 1.1,
+  "milestones": "MI, M4",
+  "headline": "G0 passed 165/165 and the image gateway repo has its foundations; story chat now keeps children safe"
  }
 ]

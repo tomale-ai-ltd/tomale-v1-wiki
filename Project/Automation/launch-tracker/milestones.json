@@ -84,11 +84,11 @@
   "est_min": 5,
   "est_max": 8,
   "status": "in progress",
-  "progress": 0.05,
-  "actual_days": 0.25,
+  "progress": 0.1,
+  "actual_days": 0.75,
   "finished": null,
   "estimate_assumed": false,
-  "note": "011 micro-PRD, Xano prompts and mock-ups drafted 24/11 for Kyle's review; Xano X1 to X3, then specify"
+  "note": "Micro-PRD approved 26/11 and reworked for the chat log and safeguarding (PU-2026-11-26-05 proposes +2 days); Xano X1 to X4 next, then specify"
  },
  {
   "order": 8,
@@ -201,11 +201,11 @@
   "est_min": 9,
   "est_max": 9,
   "status": "in progress",
-  "progress": 0.06,
-  "actual_days": 0.25,
+  "progress": 0.15,
+  "actual_days": 0.75,
   "finished": null,
   "estimate_assumed": false,
-  "note": "Kyle's ~9 of ~28 effort days (roadmap); Session 0 passed 24/11 on gpt-image-2.6-flare; lease and cost checks open; G0 policy spike next"
+  "note": "Kyle's ~9 of ~28 effort days (roadmap); Session 0 passed 24/11; GCP set up and G0 passed 26/11; gateway PR #1 (IP-04 PR A) awaiting merge, then PR B"
  },
  {
   "order": 17,
