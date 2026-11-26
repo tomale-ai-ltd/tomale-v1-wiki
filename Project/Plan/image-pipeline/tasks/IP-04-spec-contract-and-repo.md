@@ -2,7 +2,7 @@
 type: plan-task
 id: IP-04
 title: "Spec, contract, ADRs, threat model and repo"
-status: todo
+status: in-progress
 owner: "Cursor"
 depends:
   - "[[IP-02-child-image-policy-spike]]"
@@ -22,3 +22,5 @@ project: tomale-rn-v1
 **Notes:** The contract is the one hard interface with Xano, so it's specified fully before IP-09 or IP-10 start.
 
 Plan: [[image-pipeline-plan]] · Scope: [[PRD-Image-Pipeline]]
+
+**Brief:** [[ip-04-cursor-brief]] (26/11): PR A foundation, then PR B spec and contract (stops before `/speckit.tasks`).

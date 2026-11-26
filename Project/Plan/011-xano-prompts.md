@@ -174,6 +174,8 @@ Change generate_story_page_text and GET /instant_stories/{id}. Change nothing el
 
 ## Postman folder 9 (Make a story)
 
+**Existing folders that change with 011 (found 26/11):** folder 2 (2A-1 sends `user_prompt` on create, which X3 now ignores, so 2B-1 `page_text` fails until 2A gets a `POST …/idea` step after X6); folder 5C (5C-2 asserts the old `{instant_stories_id, characters_ids}` reply, now `{characters: [...]}`; 5C-3's duplicate ids are now `INVALID_CHARACTERS`, so it becomes a "duplicates refused" test). Folder 2 is expected red between publishing X3 and adding the X6 step.
+
 Gate with env `runStoryCreateTests`. Use a confirmed `test_mode` account, a second unconfirmed account (9A-1) and a confirmed non-test account (9E). Set `SAFEGUARDING_ALERT_EMAIL` to your own address before 9F.
 
 - **9A Draft:** 9A-1 unconfirmed `POST /instant_stories` → `EMAIL_NOT_VERIFIED`; 9A-2 confirmed `POST /instant_stories {}` → Draft, `total_pages` 12, a `conversation_id`, approval fields and `user_prompt` ignored if sent; 9A-3 `?status=Draft` doesn't list it yet (no idea); 9A-4 characters 0 ids / 4 ids / another account's id → `INVALID_CHARACTERS`; 9A-5 two good ids → 200; 9A-6 `PATCH` theme, style, phonics stage → 200 and `GET` shows them with `phonics` filled; 9A-7 `PATCH` a missing theme → `INVALID_INPUT`.

@@ -27,7 +27,7 @@ a{color:#1b7b7a}a:hover{color:#145e5d}
 <div aria-hidden="true" style="position: relative; width: 240px; height: 240px; margin-top: 8px">
 <svg viewBox="0 0 240 240" width="240" height="240" style="position: absolute; left: 0; top: 0">
 <sc-if value="{{showSegs}}" hint-placeholder-val="{{ true }}">
-<sc-for list="{{segs}}" as="g" hint-placeholder-count="13"><path d="{{g.d}}" fill="none" stroke="{{g.c}}" stroke-width="14" stroke-linecap="round"/></sc-for>
+<sc-for list="{{segs}}" as="g" hint-placeholder-count="12"><path d="{{g.d}}" fill="none" stroke="{{g.c}}" stroke-width="14" stroke-linecap="round"/></sc-for>
 </sc-if>
 <sc-if value="{{showPulse}}" hint-placeholder-val="{{ false }}">
 <circle cx="120" cy="120" r="108" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="14"/>
@@ -57,13 +57,13 @@ class Component extends DCLogic {
   renderVals() {
     const pics = (this.props.stage ?? 'pictures') === 'pictures';
     const done = 5;
-    const segs = Array.from({ length: 13 }, (_, i) => {
-      const gap = 0.09, a0 = -Math.PI / 2 + (i / 13) * 2 * Math.PI + gap, a1 = -Math.PI / 2 + ((i + 1) / 13) * 2 * Math.PI - gap, r = 108;
+    const segs = Array.from({ length: 12 }, (_, i) => {
+      const gap = 0.09, a0 = -Math.PI / 2 + (i / 12) * 2 * Math.PI + gap, a1 = -Math.PI / 2 + ((i + 1) / 12) * 2 * Math.PI - gap, r = 108;
       const p = (a) => (120 + r * Math.cos(a)).toFixed(1) + ' ' + (120 + r * Math.sin(a)).toFixed(1);
       return { d: 'M ' + p(a0) + ' A ' + r + ' ' + r + ' 0 0 1 ' + p(a1), c: i < done ? '#fcca37' : 'rgba(255,255,255,0.45)' };
     });
     return {
-      progress: pics ? 'Drawing the pictures: ' + done + ' of 13' : 'Writing the words…',
+      progress: pics ? 'Drawing the pictures: ' + done + ' of 12' : 'Writing the words…',
       showSegs: pics, showPulse: !pics, segs
     };
   }

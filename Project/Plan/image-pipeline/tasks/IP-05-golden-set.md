@@ -2,7 +2,7 @@
 type: plan-task
 id: IP-05
 title: "Golden set: 10 stories frozen"
-status: todo
+status: done
 owner: "Kyle + Cursor"
 depends: []
 gate: ""
@@ -21,3 +21,5 @@ project: tomale-rn-v1
 **Notes:** Use test accounts' stories only.
 
 Plan: [[image-pipeline-plan]] · Scope: [[PRD-Image-Pipeline]]
+
+**Done 26/11:** [[Project/Plan/image-pipeline/golden-set/README|golden set v1]], 12 stories, frozen inputs only (baselines regenerated).
