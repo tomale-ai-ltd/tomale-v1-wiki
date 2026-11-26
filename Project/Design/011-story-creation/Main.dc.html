@@ -27,6 +27,16 @@ a{color:#1b7b7a}a:hover{color:#145e5d}
 
 <main style="position: relative; margin-top: -36px; padding: 0 16px; display: flex; flex-direction: column; gap: 24px">
 
+<sc-if value="{{refreshing}}" hint-placeholder-val="{{ false }}">
+<div role="status" aria-label="Refreshing" style="height: 96px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end">
+<span aria-hidden="true" style="width: 2px; height: 22px; background: #c9b9b3; display: block"></span>
+<span aria-hidden="true" style="position: relative; width: 64px; height: 64px; border-radius: 999px; background: #ffffff; box-shadow: 0 4px 12px rgba(43,31,28,0.15); display: flex; align-items: center; justify-content: center">
+<svg viewBox="0 0 120 120" width="44" height="44"><path d="M60 36 C46 28 28 28 16 32 L16 90 C28 86 46 86 60 94 Z" fill="#e0dff2"/><path d="M60 36 C74 28 92 28 104 32 L104 90 C92 86 74 86 60 94 Z" fill="#f9f9f9"/><path d="M60 36 L60 94" stroke="#bebcdb" stroke-width="3"/><path d="M14 92 C28 88 46 88 60 96 C74 88 92 88 106 92 L106 98 C92 94 74 94 60 102 C46 94 28 94 14 98 Z" fill="#a16959"/><circle cx="40" cy="18" r="9" fill="#ff6666"/><circle cx="62" cy="10" r="5" fill="#fcca37"/><circle cx="84" cy="20" r="6" fill="#a579dd"/></svg>
+<svg viewBox="0 0 96 96" width="96" height="96" style="position: absolute; left: -16px; top: -16px"><path d="M10 48 l3 6 6 3 -6 3 -3 6 -3 -6 -6 -3 6 -3z" fill="#fcca37"/><circle cx="80" cy="20" r="4" fill="#ff6666"/><circle cx="76" cy="80" r="3" fill="#39c2c1"/></svg>
+</span>
+</div>
+</sc-if>
+
 <section aria-label="Make something" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
 <a href="Chat.dc.html" style="min-height: 112px; box-sizing: border-box; padding: 14px; border-radius: 20px; background: #fcca37; color: #2b1f1c; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 8px rgba(43,31,28,0.08)">
 <span style="width: 44px; height: 44px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M12 7v6M9 10h6"/></svg></span>
@@ -43,7 +53,7 @@ a{color:#1b7b7a}a:hover{color:#145e5d}
 <h2 id="making-h" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">Being made</h2>
 <a href="Making.dc.html" style="box-sizing: border-box; padding: 12px 16px; border-radius: 16px; background: #ffffff; box-shadow: 0 2px 8px rgba(43,31,28,0.08); display: flex; align-items: center; gap: 14px; text-decoration: none; color: #2b1f1c">
 <span aria-hidden="true" style="width: 56px; height: 72px; border-radius: 10px; background: #d7f3f2; display: flex; align-items: center; justify-content: center; flex: none">
-<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1b7b7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+<svg viewBox="0 0 120 120" width="44" height="44"><path d="M60 36 C46 28 28 28 16 32 L16 90 C28 86 46 86 60 94 Z" fill="#e0dff2"/><path d="M60 36 C74 28 92 28 104 32 L104 90 C92 86 74 86 60 94 Z" fill="#f9f9f9"/><path d="M60 36 L60 94" stroke="#bebcdb" stroke-width="3"/><path d="M14 92 C28 88 46 88 60 96 C74 88 92 88 106 92 L106 98 C92 94 74 94 60 102 C46 94 28 94 14 98 Z" fill="#a16959"/><circle cx="40" cy="18" r="9" fill="#ff6666"/><circle cx="62" cy="10" r="5" fill="#fcca37"/><circle cx="84" cy="20" r="6" fill="#a579dd"/></svg>
 </span>
 <span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 4px">
 <span style="align-self: flex-start; padding: 2px 10px; border-radius: 999px; background: #d7f3f2; font-size: 13px; line-height: 18px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase">Being made</span>
@@ -93,12 +103,12 @@ a{color:#1b7b7a}a:hover{color:#145e5d}
 </nav>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"empty":{"editor":"boolean","default":false},"$preview":{"width":390,"height":1000}}'>
+<script type="text/x-dc" data-dc-script data-props='{"empty":{"editor":"boolean","default":false},"refreshing":{"editor":"boolean","default":false},"$preview":{"width":390,"height":1000}}'>
 class Component extends DCLogic {
   renderVals() {
     const empty = this.props.empty === true;
     return {
-      hasMaking: !empty, hasDrafts: !empty, isEmpty: empty,
+      hasMaking: !empty, hasDrafts: !empty, isEmpty: empty, refreshing: this.props.refreshing === true,
       drafts: [
         { title: 'Untitled story', meta: 'Space adventure · edited today', a: 'dragon', b: 'girl', hasB: true },
         { title: 'Untitled story', meta: 'Under the sea · edited 3 days ago', a: 'fox', b: 'fox', hasB: false }

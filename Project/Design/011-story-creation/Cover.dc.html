@@ -15,10 +15,10 @@ body{margin:0}
 a{color:#1b7b7a}a:hover{color:#145e5d}
 </style>
 </helmet>
-<div style="width: 390px; height: 1000px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
+<div style="width: 390px; height: 1080px; position: relative; overflow: hidden; background: #f8f8f8; color: #2b1f1c; font-family: 'Glacial Indifference', 'Avenir Next', system-ui, sans-serif">
 
-<div style="position: relative; height: 470px; overflow: hidden; border-radius: 0 0 32px 32px">
-<dc-import name="Art" kind="girl" hint-size="390px,470px"></dc-import>
+<div style="position: relative; height: 340px; overflow: hidden; border-radius: 0 0 32px 32px">
+<dc-import name="Art" kind="girl" hint-size="390px,340px"></dc-import>
 <a href="HomeMaking.dc.html" aria-label="Back" style="position: absolute; left: 16px; top: 54px; width: 48px; height: 48px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(43,31,28,0.12)">
 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b1f1c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></a>
 </div>
@@ -35,7 +35,25 @@ a{color:#1b7b7a}a:hover{color:#145e5d}
 </div>
 
 <sc-if value="{{hasPhonics}}" hint-placeholder-val="{{ true }}">
-<p style="margin: 0; align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: #fff1c4; font-size: 15px; line-height: 20px; font-weight: 700">Practising: Phase 3, week 2</p>
+<section aria-labelledby="ph-h" style="box-sizing: border-box; padding: 16px; border-radius: 20px; background: #fff7e0; display: flex; flex-direction: column; gap: 10px">
+<div>
+<h2 id="ph-h" style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 700">Sounds in this story</h2>
+<p style="margin: 2px 0 0; font-size: 15px; line-height: 21px; color: #6e5c57">Tomale Phonics · Phase 3, week 2</p>
+</div>
+<p style="margin: 0; font-size: 13px; line-height: 18px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6e5c57">Sounds</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{graphemes}}" as="g" hint-placeholder-count="4">
+<li style="padding: 6px 12px; border-radius: 12px; background: #ffffff; display: flex; align-items: baseline; gap: 6px"><span style="font-size: 20px; line-height: 24px; font-weight: 700">{{g.g}}</span><span style="font-size: 14px; line-height: 18px; color: #6e5c57">{{g.ex}}</span></li>
+</sc-for>
+</ul>
+<p style="margin: 0; font-size: 13px; line-height: 18px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6e5c57">Tricky words</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{tricky}}" as="t" hint-placeholder-count="4">
+<li style="padding: 6px 12px; border-radius: 12px; background: #ffffff; font-size: 17px; line-height: 22px; font-weight: 700">{{t}}</li>
+</sc-for>
+</ul>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #6e5c57">The story also uses the sounds from earlier weeks.</p>
+</section>
 </sc-if>
 
 <button type="button" disabled aria-disabled="true" style="height: 56px; border-radius: 999px; border: 0; background: #e6dedb; color: #6e5c57; font: inherit; font-size: 18px; font-weight: 700">Read</button>
@@ -43,10 +61,14 @@ a{color:#1b7b7a}a:hover{color:#145e5d}
 </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"phonics":{"editor":"boolean","default":true},"$preview":{"width":390,"height":1000}}'>
+<script type="text/x-dc" data-dc-script data-props='{"phonics":{"editor":"boolean","default":true},"$preview":{"width":390,"height":1080}}'>
 class Component extends DCLogic {
   renderVals() {
-    return { hasPhonics: this.props.phonics !== false };
+    return {
+      hasPhonics: this.props.phonics !== false,
+      graphemes: [{ g: 'ai', ex: 'rain' }, { g: 'ee', ex: 'tree' }, { g: 'igh', ex: 'night' }, { g: 'oa', ex: 'boat' }],
+      tricky: ['he', 'she', 'we', 'me', 'be']
+    };
   }
 }
 </script>

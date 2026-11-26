@@ -24,8 +24,18 @@ a{color:#1b7b7a}a:hover{color:#145e5d}
 </div>
 
 <main style="position: relative; flex: 1 1 auto; box-sizing: border-box; padding: 24px 32px 40px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px">
-<div aria-hidden="true" style="width: 200px; height: 200px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center; margin-top: 24px; box-shadow: 0 8px 24px rgba(43,31,28,0.12)">
-<svg viewBox="0 0 120 120" width="140" height="140">
+<div aria-hidden="true" style="position: relative; width: 240px; height: 240px; margin-top: 8px">
+<svg viewBox="0 0 240 240" width="240" height="240" style="position: absolute; left: 0; top: 0">
+<sc-if value="{{showSegs}}" hint-placeholder-val="{{ true }}">
+<sc-for list="{{segs}}" as="g" hint-placeholder-count="13"><path d="{{g.d}}" fill="none" stroke="{{g.c}}" stroke-width="14" stroke-linecap="round"/></sc-for>
+</sc-if>
+<sc-if value="{{showPulse}}" hint-placeholder-val="{{ false }}">
+<circle cx="120" cy="120" r="108" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="14"/>
+<circle cx="120" cy="120" r="108" fill="none" stroke="#fcca37" stroke-width="14" stroke-linecap="round" stroke-dasharray="120 560" transform="rotate(-90 120 120)"/>
+</sc-if>
+</svg>
+<div style="position: absolute; left: 30px; top: 30px; width: 180px; height: 180px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(43,31,28,0.12)">
+<svg viewBox="0 0 120 120" width="124" height="124">
 <path d="M60 36 C46 28 28 28 16 32 L16 90 C28 86 46 86 60 94 Z" fill="#e0dff2"/>
 <path d="M60 36 C74 28 92 28 104 32 L104 90 C92 86 74 86 60 94 Z" fill="#f9f9f9"/>
 <path d="M60 36 L60 94" stroke="#bebcdb" stroke-width="3"/>
@@ -34,15 +44,9 @@ a{color:#1b7b7a}a:hover{color:#145e5d}
 <path d="M92 44 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#fcca37"/>
 </svg>
 </div>
+</div>
 <h1 style="margin: 8px 0 0; font-size: 32px; line-height: 38px; font-weight: 700">We're making your story</h1>
 <p role="status" style="margin: 0; padding: 8px 16px; border-radius: 999px; background: #ffffff; font-size: 18px; line-height: 24px; font-weight: 700">{{progress}}</p>
-<sc-if value="{{showDots}}" hint-placeholder-val="{{ true }}">
-<div role="img" aria-label="{{dotsLabel}}" style="display: grid; grid-template-columns: repeat(13, minmax(0, 1fr)); gap: 6px; width: 100%">
-<sc-for list="{{dots}}" as="d" hint-placeholder-count="13">
-<span style="{{d.style}}"></span>
-</sc-for>
-</div>
-</sc-if>
 <p style="margin: 8px 0 0; font-size: 18px; line-height: 26px">It takes a few minutes. You can leave: we'll tell you when it's ready.</p>
 <a href="HomeMaking.dc.html" style="margin-top: auto; width: 100%; height: 56px; border-radius: 999px; background: #ffffff; color: #2b1f1c; font-size: 18px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center">Back to Home</a>
 </main>
@@ -53,10 +57,14 @@ class Component extends DCLogic {
   renderVals() {
     const pics = (this.props.stage ?? 'pictures') === 'pictures';
     const done = 5;
-    const dots = Array.from({ length: 13 }, (_, i) => ({ style: 'height: 14px; border-radius: 999px; background: ' + (i < done ? '#fcca37' : 'rgba(255,255,255,0.55)') }));
+    const segs = Array.from({ length: 13 }, (_, i) => {
+      const gap = 0.09, a0 = -Math.PI / 2 + (i / 13) * 2 * Math.PI + gap, a1 = -Math.PI / 2 + ((i + 1) / 13) * 2 * Math.PI - gap, r = 108;
+      const p = (a) => (120 + r * Math.cos(a)).toFixed(1) + ' ' + (120 + r * Math.sin(a)).toFixed(1);
+      return { d: 'M ' + p(a0) + ' A ' + r + ' ' + r + ' 0 0 1 ' + p(a1), c: i < done ? '#fcca37' : 'rgba(255,255,255,0.45)' };
+    });
     return {
       progress: pics ? 'Drawing the pictures: ' + done + ' of 13' : 'Writing the words…',
-      showDots: pics, dots, dotsLabel: done + ' of 13 pictures drawn'
+      showSegs: pics, showPulse: !pics, segs
     };
   }
 }
