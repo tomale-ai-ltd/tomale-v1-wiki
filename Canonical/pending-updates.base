@@ -31,7 +31,7 @@ views:
       - property: file.name
         direction: ASC
     columnSize:
-      note.title: 584
+      note.title: 677
       note.status: 97
   - type: table
     name: Done
