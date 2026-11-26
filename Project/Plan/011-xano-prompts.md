@@ -45,6 +45,7 @@ Also input text content (optional, the display text).
 3. Update last_modified_at. Return nothing.
 Event types used: idea (data {text}), ideas_offered ({ideas}), suggestions ({characters_ids, theme_id}), surprise ({user_prompt, characters_ids, theme_id, artwork_style_id}), characters ({characters_ids}), theme ({theme_id}), style ({artwork_style_id}), phonics ({phonics_phase_stage_id}), make ({}), moderation ({outcome}), safeguarding ({}).
 This function is only ever called by other functions and endpoints; the app can never write events.
+Set request history to disabled for this function (it carries children's free text).
 ```
 
 ## X3: create and edit a draft
@@ -183,6 +184,8 @@ Gate with env `runStoryCreateTests`. Use a confirmed `test_mode` account, a seco
 - **9F Phonics:** a story with a stage reaches In Queue and the request history shows the phonics block in the story-text prompt.
 
 ## Later (not 011)
+
+- `story/log_event` reads, appends and writes `chat_messages`, so two simultaneous events on one story could lose one (accepted 26/11; the app calls are sequential). If the log is ever relied on as evidence at volume, move it to an append-only `story_events` table (one row per event).
 
 - The purge job (M7) must not delete moderation_flags rows or the stories and conversations they point to; they're kept for the period the solicitor sets ([[pre-launch-checklist]] §6). Empty drafts (no idea) older than a day are deleted by it.
 - Locked art styles and the real plan limits replace `STORY_MONTHLY_LIMIT` in M8.
