@@ -128,5 +128,20 @@
   "date": "2026-11-24",
   "milestone": "M7",
   "what": "010b sign-up planned, tasked and built (all 38 tasks): Create account, Check your email, resend, creation lock, Name step and kit back button; phone pass open"
+ },
+ {
+  "date": "2026-11-24",
+  "milestone": "M3a",
+  "what": "010b phone pass and bug round done (accounts, Set PIN, Face ID autofill, rename); PR #34 merged to main 05f27b1"
+ },
+ {
+  "date": "2026-11-24",
+  "milestone": "MI",
+  "what": "Session 0 passed: image records moved to gpt-image-2.6-flare as new versions, all 14 smoke-test jobs done in about 3 minutes"
+ },
+ {
+  "date": "2026-11-24",
+  "milestone": "M4",
+  "what": "011 make a story scoped: micro-PRD, Xano prompts X1 to X9 and screen mock-ups drafted"
  }
 ]
