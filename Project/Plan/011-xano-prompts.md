@@ -61,12 +61,12 @@ A. POST /instant_stories
 6. After db.add, create the conversation (conversation_type "story", instant_stories_id, users_id, status "active", chat_messages []) and return the story plus conversation_id.
 
 B. New PATCH /instant_stories/{id}. Authentication required (users).
-Inputs (all optional): int theme_id, int artwork_style_id, int phonics_phase_stage_id (nullable: null clears it). No user_prompt.
+Inputs (all optional): int theme_id, int artwork_style_id, int phonics_phase_stage_id, bool clear_phonics (true clears the phonics stage; a missing or null phonics_phase_stage_id leaves it as it is). No user_prompt.
 1. Load the story with the same ownership and active-profile rule as GET /instant_stories/{id} (a child may only edit its own story; a parent any story on the account). Not visible → 404 payload {code "STORY_NOT_FOUND"}.
 2. status !== "Draft" → inputerror payload {code "STORY_NOT_EDITABLE", message "This story is already being made."}.
 3. Given ids must exist (theme and style active) → otherwise inputerror payload {code "INVALID_INPUT", message "That choice isn't available."}.
 4. db.edit only the inputs sent, plus last_modified_at = now.
-5. For each input sent, function.run story/log_event (step "theme" / "style" / "phonics", same type, data with the id).
+5. For each input sent, function.run story/log_event (step "theme" / "style" / "phonics", same type, data {id}; {id: null} when phonics is cleared).
 6. Return the same shape as GET /instant_stories/{id}.
 ```
 
@@ -153,7 +153,7 @@ Return {used, limit, resets_at}: the same count as X8 step 2, limit = STORY_MONT
 ## X10: lists for Story builder and Being made
 ```
 Change GET /instant_stories (list). Keep approval_state, child redaction and rejected filtering exactly as they are.
-1. status === "Draft": only the active profile's own drafts that have a user_prompt (empty drafts are never listed), newest last_modified_at first.
+1. status === "Draft": only the active profile's own drafts whose user_prompt is neither null nor "" (new drafts start with ""; empty drafts are never listed), newest last_modified_at first.
 2. New optional bool in_progress: when true, the active profile's stories with status in ["Preparing", "In Queue"], newest first.
 3. Each item also returns total_pages, images_remaining, theme {id, name}, characters [{id, name, cover_image}], last_modified_at, blocked_kind.
 ```
