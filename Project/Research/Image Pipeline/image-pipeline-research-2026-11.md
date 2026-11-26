@@ -33,7 +33,8 @@ Research run in the Claude Project chat on 24/11 (Advanced Research), after an i
 - **From the Xano mirror:**
   - Page and cover executors load the default record by type at run time, not the story's `data_models_id`. So a record can't be trialled on test stories just by pointing a story at it, as the April plan assumed.
   - Character images use the record pinned on each character.
-- **Kyle's answers (24/11):** AWS credits are £10k (the vault figure), from AWS Activate and Google for Startups, nothing spent yet; live before launch; keep the Papermill title overlay; defer upscaling until a printed proof; all tier 0 and 1 art styles; in house unless a partner is fully credit-funded.
+- **Credits corrected 26/11 (Kyle): $10k AWS and $25k GCP**, in dollars; the report assumed £10k and £25k (≈$12.7k and ≈$31.7k). The burn-down below still fits: about $10.8k of $25k GCP and under $0.4k of $10k AWS by 30/06/2027.
+- **Kyle's answers (24/11):** AWS credits are £10k (the vault figure, since corrected), from AWS Activate and Google for Startups, nothing spent yet; live before launch; keep the Papermill title overlay; defer upscaling until a printed proof; all tier 0 and 1 art styles; in house unless a partner is fully credit-funded.
 
 ## Key findings
 
@@ -134,8 +135,8 @@ To re-check in the consoles: the Nano Banana 2.1 reference limits, the `eu` pric
 - Flash Image at 1K: ≈ $1.14.
 
 **Burn-down to 30/06/2027** (100 stories in Feb → 500 in Mar → 2,000 in Jun):
-- ≈ $10.8k of the ≈ $31.7k GCP credit (£25k) is spent.
-- Under $0.4k of the ≈ $12.7k AWS credit (£10k) is spent.
+- ≈ $10.8k of the $25k GCP credit is spent (corrected 26/11; the report assumed ≈ $31.7k).
+- Under $0.4k of the $10k AWS credit is spent.
 - **Under-use is the issue, not runway.**
   - Spend headroom only where the evals show it pays: Pro for covers, two candidates per page with the judge picking.
   - Move other OpenAI cash spend (text, TTS) onto credits.

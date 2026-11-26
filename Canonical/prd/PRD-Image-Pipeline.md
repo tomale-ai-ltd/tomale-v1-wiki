@@ -41,7 +41,7 @@ It must be live **before the late-January 2027 launch** (Kyle, 24/11), built in 
 - **G4** Every output image is moderated against the Tomale content guidelines.
 - **G5** Images are private in AWS London and served by 1-hour signed URLs.
 - **G6** `image_jobs` and the app contract stay unchanged; models can be swapped through `data_models.model_settings`.
-- **G7** Both credit pools are used efficiently (£25k GCP, £10k AWS, both expiring 30/06/2027); no cost when idle.
+- **G7** Both credit pools are used efficiently ($25k GCP, $10k AWS, both expiring 30/06/2027; corrected by Kyle 26/11 from £); no cost when idle.
 
 ## 3. Scope
 
