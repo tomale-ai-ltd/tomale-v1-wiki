@@ -2,7 +2,7 @@
 type: plan-task
 id: IP-02
 title: "G0: child-image policy spike"
-status: in-progress
+status: done
 owner: "Claude Code (script), Kyle (runs)"
 depends:
   - "[[IP-01-credits-and-accounts]]"
@@ -30,3 +30,10 @@ Plan: [[image-pipeline-plan]] · Scope: [[PRD-Image-Pipeline]]
   - Claude's visual check: the portraits match their descriptions; the two-character labelled-reference pages keep each child's hair and clothes, with no bleed; style changes correctly.
   - One nit: Ollie's shirt has a "7" on it, picked up from the portrait (counts as stray text).
   - Next: the full run, 165 calls.
+- **26/11 full run (55 calls per target, 165 in total): G0 PASSED.**
+  - 165/165 OK: 0 child blocks, 0 other blocks, 0 errors, 0 rate-limit retries (3 parallel workers).
+  - Latency p50/p95: eu-flash 8.9/11.2 s, global-flash 8.9/12.4 s, Nano Banana 2.1 17.0/23.1 s.
+- **Claude's visual check (eu-flash) found no bleed.** All 5 two-character pages kept each child's hair, clothes and features. Findings for G1 and prompt tuning:
+  1. **Style drift with references:** two-character pages asked for soft 3D chibi came out in a painted 2D picture-book style. The style prompt alone doesn't hold when references are passed, so test the `artwork_style.sample_image` as a style reference in IP-07.
+  2. **Stray numbers:** football shirts got numbers ("7", then "8"). Add "no numbers on clothing" to the constraints, or describe shirts as plain.
+  3. **Outfits applied literally:** Mia wears her raincoat and wellies in bed. Whether the JSON outfit is fixed or adapts to the scene is a product question for the compiler prompt.

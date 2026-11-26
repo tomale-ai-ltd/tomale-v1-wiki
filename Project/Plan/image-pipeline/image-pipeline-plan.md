@@ -29,7 +29,7 @@ To update a task, change its Status cell (`todo` → `in-progress` → `done`, o
 
 | Gate | When | Pass | If it fails |
 |---|---|---|---|
-| **G0** child-image policy | Week of 24/11 | Under 2% child-filter blocks on Vertex `eu` | Ask for allowlisting; launch on the OpenAI record; consider self-hosting earlier |
+| **G0** child-image policy ✅ **passed 26/11** (165/165, 0 blocks) | Week of 24/11 | Under 2% child-filter blocks on Vertex `eu` | Ask for allowlisting; launch on the OpenAI record; consider self-hosting earlier |
 | **G1** quality | About 12/12 | Blind consistency ≥ baseline, bleed ≤ baseline, VLM attribute accuracy ≥ 90% | Try another model or strategy; or launch on OpenAI 2.6 with references |
 | **G2** live | By 13/01 | p95 under 3 minutes at 20 books, no lost or duplicate jobs, chaos tests pass, no high findings, print approved, rollback under 5 minutes | Launch on the OpenAI record; cut over after launch |
 | **G3** character pictures | After G2 | Portrait eval ≥ today | Character pictures stay on OpenAI |

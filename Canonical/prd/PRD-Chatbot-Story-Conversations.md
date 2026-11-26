@@ -3,9 +3,9 @@ type: prd
 title: PRD-Chatbot-Story-Conversations
 project: tomale-rn-v1
 status: current
-version: 2.0
+version: 2.1
 date: 2026-04-14
-last_verified: 2026-10-29
+last_verified: 2026-11-26
 owner: vault
 features:
   - F-story-chatbot
@@ -18,6 +18,16 @@ related:
 
 # 📘 PRD: Chatbot-Driven Story Creation
 
+> **Changes in 2.1 (24–26/11/2026, 011 scoping, Kyle; [[011-story-creation-micro-prd]]):**
+> - **Guided chat (Kyle, 24/11):** scripted steps with tap cards, idea first (idea, characters 1–3, theme, art style, optional phonics, summary; Kyle 26/11). The AI helps in three ways, none needing a draft: three story ideas (`POST /story_ideas`), characters and a theme suggested from the idea (`POST /story_suggestions`, with an in-app name match; a shared name picks the most recent character) and a "Surprise me" quick story (`POST /story_surprise`, then the summary). Records `story-ideas` and `story-suggest` in `data_models`. No AI-led turns and no stored transcript in V1: the chat is rebuilt from the draft's fields, so `conversations` isn't used for stories in V1 (it stays for character chat, M6a). §5a's context-aware chatbot and §5b item 1–2 become the ideas record and endpoint.
+> - **Draft editing:** `PATCH /instant_stories/{id}` (Draft only, `STORY_NOT_EDITABLE`); the draft is created when the idea is confirmed.
+> - **Limit until M8:** a simple monthly cap in `page_text` (`STORY_MONTHLY_LIMIT`, default 4 = Free; `test_mode` accounts skip it), `ENTITLEMENT_LIMIT_REACHED` with `resets_at`, and `GET /story_allowance`. Parent sheet has no upgrade until M8.
+> - **After "Make my story":** a being-made screen and card (progress from `images_remaining`), an in-app "ready" toast while the app is open, and a story cover page until the reader (012). §6's route `create-story/chat.tsx` is indicative only.
+> - **Phonics:** Tomale Phonics is the only scheme, so the chat shows stages only; the story page gets a "Sounds in this story" section (stage, graphemes, tricky words).
+> - **Pull to refresh** on Home, Create and the story lists.
+> - **`/model` not used:** generation starts with `POST /instant_stories/{id}/page_text` ([[story-creation-flow]]).
+> - §8's component-library question is closed (gluestack via the kit, 008).
+>
 > **Changes in 2.0 (B9, 29/10/2026):**
 > - Live `conversations` table and endpoints replace `story_conversations`.
 > - The status lifecycle is the live one (Draft → Preparing → In Queue → Done, Blocked on a moderation fail).

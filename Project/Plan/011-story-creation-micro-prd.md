@@ -1,7 +1,7 @@
 # 011-story-creation -- Make a story -- Guided chat, wait, ready #
 
 <!--
-Micro-PRD for speckit 011 (roadmap M4, Slice 200). Drafted by Claude 24/11; status: draft, Kyle's scope edits 26/11 folded in; for Kyle's review.
+Micro-PRD for speckit 011 (roadmap M4, Slice 200). Drafted by Claude 24/11; approved by Kyle 26/11 (his scope edits folded in).
 Cursor copies it to `.docs/prd/011-story-creation.md` before `/speckit.specify`. Starts after 010b merges (needs the email lock, the kit BackButton and the shared toast).
 Sources: [[PRD-Chatbot-Story-Conversations]] (2.0), [[story-creation-flow]], [[formalise-story-status-lifecycle]], [[gate-image-generation-with-entitlements-at-story-creation]], [[add-phonics-focus-to-story-creation]], [[PRD-Subscription-Entitlement-System]] §6a, [[PRD-Parental-Oversight-Content-Approval]] §8a, [[share-characters-across-the-household]], the live OpenAPI export (24/11).
 Kyle's 24/11 answers: guided chat (scripted steps with tap cards; AI only writes story ideas), a simple monthly story cap in Xano now (M8 swaps in plans), phonics in this slice, and a being-made card plus an in-app "ready" toast; a finished story opens a simple cover page until the reader (012). Whole of M4 in one slice.
