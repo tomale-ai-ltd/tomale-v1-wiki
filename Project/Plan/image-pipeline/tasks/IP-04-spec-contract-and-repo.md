@@ -24,3 +24,4 @@ project: tomale-rn-v1
 Plan: [[image-pipeline-plan]] · Scope: [[PRD-Image-Pipeline]]
 
 **Brief:** [[ip-04-cursor-brief]] (26/11): PR A foundation, then PR B spec and contract (stops before `/speckit.tasks`).
+- **26/11:** PR A (#1, `chore/foundation`) ready to merge at `18fb995`: guard rails with position-aware, fail-closed cloud rules and secret-read denies (62 guard tests; Claude spot-checked 34 cases), gateway rule, Spec Kit copied from rn-test `@05f27b1`, constitution 1.0.0 (the approved draft, verbatim), uv tooling, CI `test` green. Next: merge, make `test` required, the guard check in the workspace, then PR B.
