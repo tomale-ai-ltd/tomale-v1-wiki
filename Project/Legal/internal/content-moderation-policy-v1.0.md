@@ -135,6 +135,11 @@ Examples of disallowed content:
 Child sexual exploitation or abusive content. Repeated attempts to bypass moderation. Use of known abusive or sexualised dogwhistles. Persistent requests for disallowed material. Attempts to generate copyrighted characters after prior blocks
 
 - Flagging enables internal safeguards such as evidence preservation and review, the details of these processes are intentionally not exposed to users.
+- **Strikes (26/11):** each refused idea or story is a strike; 3 strikes in 30 days flags the account for internal review. The user is never told.
+
+5. Safeguarding concern (26/11)
+- When text reads like the writer (a child or an adult) disclosing that something harmful is happening to them, or that they may hurt themselves, the outcome is `safeguarding_concern`, not FAIL. This is about the person telling us something about their own life, not a story theme.
+- No story is made. The person sees a calm safe message (Childline for a child, Samaritans for an adult). It is not a strike, the parent is not alerted automatically (the person causing harm may be in the household), and Tomale reviews it internally under the safeguarding runbook.
 
 
 5. Enforcement Rules

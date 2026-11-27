@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.8
 date: 2026-10-28
-last_verified: 2026-11-24
+last_verified: 2026-11-27
 owner: vault
 supersedes:
   - "[[2-build-plan]]"
@@ -90,7 +90,8 @@ Runs as four ordered Cursor PRs A–D ([[split-m1-into-four-ordered-cursor-prs]]
 - Sign-up with terms acceptance (`terms_version`), confirm-email screen with resend and a 60-second wait, the email-confirmed lock on creating (parent sheet; child "Ask a grown-up"), sign in with the email filled in, and the shared kit back button (S-031) ([[010b-auth-signup-micro-prd]]).
 - Backend X1–X5 published and Postman folder 8 green 23/11. The server-side email-confirmed gate on create is a launch item ([[pre-launch-checklist]] §1).
 
-### M4. Story creation, Slice 200 / speckit 011 (5–8 days)
+### M4. Story creation, Slice 200 / speckit 011 (7–10 days)
+- Includes the server-written conversation log, idea moderation on confirm, the safeguarding outcome and strikes (Kyle 26/11, about two days; [[log-story-chats-on-the-server-with-a-safeguarding-outcome]]).
 - 201 draft bootstrap → 202 conversation → 203 suggestion cards → 204 complete. Uses the live `conversations` endpoints and the Draft → Preparing → In Queue → Done lifecycle ([[formalise-story-status-lifecycle]]).
 - "Limit reached" error handled from day one (§3).
 - Generation takes 10–15 minutes per story, so the UI must handle waiting and the completion alert ([[defer-image-pipeline-throughput-to-phase-2]]).

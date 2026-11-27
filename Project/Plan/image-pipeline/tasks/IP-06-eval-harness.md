@@ -2,7 +2,7 @@
 type: plan-task
 id: IP-06
 title: "Evaluation harness and rating sheet"
-status: todo
+status: in-progress
 owner: "Cursor"
 depends:
   - "[[IP-05-golden-set]]"
@@ -23,3 +23,5 @@ project: tomale-rn-v1
 **Notes:** Decision: [[measure-character-consistency-with-a-vlm-judge-and-blind-ratings]].
 
 Plan: [[image-pipeline-plan]] · Scope: [[PRD-Image-Pipeline]]
+
+**Brief:** [[ip-06-cursor-brief]] (27/11), speckit feature 002-eval-harness.

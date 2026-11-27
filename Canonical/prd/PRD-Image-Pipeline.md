@@ -70,10 +70,10 @@ It must be live **before the late-January 2027 launch** (Kyle, 24/11), built in 
 | R1 | Integrate with orchestrator → tick → executor | Must | Executors get a `provider: tomale_gateway` branch that posts the job and sets `dispatched`; results return through an HMAC-signed Xano webhook; the tick keeps its kill switch, reaper and leases | Postman contract folder; shadow run |
 | R2 | All 13 images, a whole book queued at once | Must | The orchestrator dispatches the whole book straight away; Cloud Tasks fans out within rate caps | Load test: 20 books at once |
 | R3 | Consistency ≥ today, from the JSON character model | Must | Labelled portrait references, character sheet and JSON attributes in the prompt | Golden-set evals and blind ratings (§6) |
-| R4 | Efficient use of both credits | Must | Generation, LLM and queue on GCP; storage, CDN, signer and Rekognition on AWS; budgets at 25/50/75% | Monthly burn-down |
+| R4 | Efficient use of both credits | Must | Generation, LLM and queue on GCP; storage, CDN, signer and Rekognition on AWS; budgets at 25/50/75%, tracking gross spend (credits/Savings excluded) ([[track-cloud-budgets-on-gross-spend]]) | Monthly burn-down |
 | R5 | Sleep mode | Must | Cloud Run and Lambda scale to zero; the model API costs nothing idle | Billing after an idle week |
 | R6 | Legible text in images | Must (low) | Evaluated for in-scene text; the title stays with Papermill | 20 sign/label prompts in the eval |
-| R7 | Secure storage, access via Xano and the app | Must | Private S3, CloudFront OAC, signer Lambda; Cloud Run → AWS through OIDC federation, no stored AWS keys | Security review, IAM Access Analyzer |
+| R7 | Secure storage, access via Xano and the app | Must | Private S3, CloudFront OAC, signer Lambda; Cloud Run → AWS through OIDC federation, no stored AWS keys; no GCP service account keys: ADC for people, Workload Identity Federation for CI and services ([[use-no-service-account-keys-on-gcp]]) | Security review, IAM Access Analyzer |
 | R8 | Highly available and resilient | Must | Cloud Tasks retries, task name = job id and attempt, terminal-failure callback, idempotent webhook, fallback record | Chaos tests |
 | R9 | Style, page plot and characters captured | Must | Style sample image and style prompt; compiler output {subject, background, composition} | VLM judge |
 | R10 | Content guidelines, including children | Must | `personGeneration`, provider filters, Rekognition, VLM guideline check, mapped to `moderation-image` enforcement | Red-team prompt set; G0 |

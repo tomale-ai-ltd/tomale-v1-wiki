@@ -45,6 +45,8 @@ Claude's review against the vault PRD and decisions, and the Xano mirror (`5783a
 
 ## Decisions for Kyle
 
+**Decided 27/11 (Kyle): D1 (a) and D2 (a).** For D1, today Tomale moderates only text (names, instructions, story prompt and text); no image output is checked. The "borderline" verdict therefore comes from the new output layers (provider filters, Rekognition, the Tomale-guidelines judge), and (a) also keeps parents' inboxes free of image approvals. For D2, images live only in S3 from cut-over, Xano stores the key, and reads return 1-hour CloudFront signed URLs. Reads must handle both cases (S3 key present → sign it; otherwise the existing native URL) until M9 migrates the older images. The app needs to refresh expired links, which is an rn-test change.
+
 - **D1, borderline images.** When image moderation says "a parent should look at this":
   - **(a) Regenerate, then fail if it's still borderline.** No borderline picture ever reaches a story; this matches the rule already used for character pictures ([[moderate-free-text-instructions-with-moderation-text-policy]]). *Claude recommends (a).*
   - **(b) Keep the picture and send the story to parental approval,** like flagged text.
@@ -58,7 +60,7 @@ Claude's review against the vault PRD and decisions, and the Xano mirror (`5783a
 | # | Question | Answer |
 |---|---|---|
 | 1 | HMAC-SHA256 outbound | **Yes.** Xano lambdas run JavaScript with Node `crypto`; `print_on_demand/hpbc_create_order` already signs with `crypto.createHmac`. SHA-256 works the same way. |
-| 2 | Raw body inbound | **Partly.** `util.get_raw_input` exists and is used by the Stripe and HPBC webhooks (`encoding = "json"`). **Kyle to check:** does the encoding dropdown offer a raw or text option? HMAC needs the exact bytes. The Stripe verify action works, which suggests yes. |
+| 2 | Raw body inbound | **Yes (Kyle, 27/11):** `util.get_raw_input` offers raw, text and json; use raw for HMAC verification. Earlier note: **Partly.** `util.get_raw_input` exists and is used by the Stripe and HPBC webhooks (`encoding = "json"`). **Kyle to check:** does the encoding dropdown offer a raw or text option? HMAC needs the exact bytes. The Stripe verify action works, which suggests yes. |
 | 3 | Headers | **Yes.** Inbound via `$env.$http_headers` (Stripe, HPBC); outbound via `api.request` headers. |
 | 4 | Clock | Server UTC; a 5-minute window is fine. |
 | 5–6 | Sizes | 20 jobs × (attributes ≈ 2 KB + style ≈ 1 KB + page text) is under 100 KB, well within normal limits. Callbacks are about 2 KB. |
@@ -74,3 +76,19 @@ Claude's review against the vault PRD and decisions, and the Xano mirror (`5783a
 ## Next
 
 Kyle answers D1, D2 and feasibility question 2 → Cursor applies the fixes on PR #2 → Claude re-checks → Kyle approves → IP-08 and IP-09 briefs.
+
+## Re-check (27/11, `1519182`): passed
+
+All six must-fix and four should-fix items are applied and match the review.
+- **Planner snapshot:** `prompt_template` and `output_schema` are carried.
+- **Inputs by job type:** page, cover and character inputs are separate, discriminated by `job_type`; character jobs need no style or theme.
+- **Characters:** `name` is required and the attributes are typed.
+- **Moderation and status:** normative text plus `if`/`then` rules; `complete` only with `none`.
+- **No `callback_url`** in the request.
+- **Too many characters:** a per-job `TOO_MANY_CHARACTERS` reject.
+- **Correlation and retries:** `executor_runs_id` is echoed; `retry_after_seconds` is added.
+- **Storage key:** `reference_image_s3_key` is added.
+- **Threat model:** two secrets with rotation, auth checked first, max instances.
+- **Feasibility:** table filled in, question 2 answered with raw encoding.
+
+One note to carry into IP-09: the D1(a) regeneration happens **inside the worker within the same attempt**; only the final outcome is reported in the callback. **Recommendation: approve and merge.**

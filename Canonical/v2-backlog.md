@@ -81,6 +81,7 @@ Grouped by feature id from [[v1-feature-map]]. **Why later** gives the reason or
 ## Platform
 | Item | Feature | Why later | Source |
 |---|---|---|---|
+| Tomale for schools: an `organisations` table (shared database, tenant id on accounts and profiles, no per-school databases unless a contract demands it) with settings such as the safeguarding contact; review emails go to the school's Designated Safeguarding Lead through `safeguarding/alert_recipient` (built in 011 as the single routing point); school as data controller with a DPA per school and a school-facing DPIA; teacher and class roles, pupils without email, Google/Microsoft sign-in; approvals routed to a teacher instead of the parent PIN. The real cost is the security model (scoping moves from household `users_id` to organisation and class) | F-profiles, F-auth | Post-launch; only if schools are pursued | Kyle 26/11 |
 | Push notifications | F-notifications | [[defer-push-notifications-until-post-v1]] | [[v1-feature-map]] |
 | Phonics progress tracking and assessment (per child, through a scheme) | F-phonics | V1 only uses phonics to shape story text; keeps V1 out of edtech | [[add-phonics-focus-to-story-creation]] |
 | Automated decodability check on generated text | F-phonics | Prompt-only in V1 | [[PRD-Chatbot-Story-Conversations]] |

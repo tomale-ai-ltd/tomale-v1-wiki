@@ -5,7 +5,7 @@ project: tomale-rn-v1
 status: current
 version: 1.3
 date: 2026-10-28
-last_verified: 2026-11-24
+last_verified: 2026-11-27
 owner: vault
 related:
   - "[[roadmap]]"
@@ -45,6 +45,8 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] **Emergency revoke-all (incident runbook):** an admin-only Xano function that revokes every session for every account, with the steps written in the runbook (when to use it: leaked token or signing key, signing change, breaking session change). Not run on app updates.
 - [ ] **Email-confirmed gate on create:** `POST /characters`, `POST /instant_stories` and the conversation create endpoints refuse with `EMAIL_NOT_VERIFIED` while `users.email_verified` is false, so 010b's in-app lock isn't the only check. Add Postman cases with an unconfirmed account.
 - [ ] **Purge never-confirmed accounts:** the daily purge job also hard-deletes accounts with `email_verified` false created more than 7 days ago, with their profiles and sessions (they can't have orders, payments or stories, because creating needs a confirmed email). No reminder email (Kyle, 24/11: someone who hasn't confirmed in a week signs up again). Postman case: an unconfirmed account older than the cutoff is gone after the job runs; a confirmed one is untouched.
+- [ ] **Purge exemption:** the M7 purge job never deletes `moderation_flags` rows or the stories and conversations they reference, until the retention period ends; it deletes empty drafts (no idea) older than a day.
+- [ ] **Moderation fails closed:** an unrecognised enforcement value is Blocked (011 X5); the `flag_account` branch stores the real prompt (011 X8 writes `flagged_text`).
 - [ ] No AI model in use has an OpenAI or Google shutdown date before 30/06/2027. Check the OpenAI deprecations page and the Vertex model-versions page, and `GET /v1/models` `shutdown_date`.
 - [ ] Image pipeline gate G2 passed and the cut-over done ([[PRD-Image-Pipeline]] §6), or the OpenAI record confirmed as default with a dated plan.
 - [ ] Output image moderation live (`moderation-image`) ([[moderate-generated-images-in-three-layers]]).
@@ -82,6 +84,7 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] **Avatar licence credit** in the app if the avatar set needs attribution ([[use-bundled-preset-avatars-for-profiles]]).
 
 - [ ] **Squarespace app-link pages use the production scheme:** `/verify-email` and `/app/approvals` hard-code `tomalerntest://`; switch to `tomale://` (or Universal Links) for the production app, and set Xano `app_url_scheme` per environment ([[use-per-build-variant-url-schemes]]).
+- [ ] **Child copy reading level:** every label, button and message on a screen a child can see (tabs, Home, Create, Bookshelf, Characters, the story chat, waiting and ready messages, sheets, errors) checked against Tomale Phonics: decodable by about Phase 3 or a common tricky word, short sentences, an icon beside each label. Shared screens use one simpler wording for parent and child alike (no separate copy). Swap harder words where a simpler one works (e.g. 'Make' for 'Create'). Parent-only screens (Manage profiles, Settings, Approvals, PIN) are out of scope. Snags such as S-040 are fixed in the polish slices; this is the final sweep.
 
 ## 4a. App build and release hygiene (added 04/11)
 
@@ -118,3 +121,7 @@ Everything that must be true before the public release, in one place. Items were
 - [ ] **Product safety for printed books:** UK General Product Safety Regulations 2005 (who is the "producer", us or HPBC/Pureprint; traceability on the book or packing slip). Delivery to Northern Ireland brings in the EU GPSR's seller and labelling rules: confirm with HPBC, or decide on Great Britain only.
 - [ ] **Ownership of AI output:** CDPA 1988 s9(3) (computer-generated works) is under government review; check the terms §5 wording ("as far as we have rights") with the solicitor.
 - [ ] **VAT:** printed books are zero-rated and digital subscriptions standard-rated; confirm how prices are shown and how the Creator discount and Book Club's included book are treated.
+- [ ] **Safeguarding advice:** have the disclosure flow (wording, Childline and Samaritans signposting, not alerting the parent automatically, the review email) checked by a safeguarding professional (e.g. NSPCC Learning's guidance for online services); confirm the numbers and links are current at launch.
+- [ ] **Safeguarding runbook:** what Kyle does with a `safeguarding` or `flag_account` review email: who looks, how fast, when to contact police (999 if a child is in immediate danger), the local authority children's services or the NCA, and what is recorded. Kept with the incident runbook.
+- [ ] **Retention of moderation evidence:** solicitor to set how long `moderation_flags` rows and the stories and conversations they point to are kept, and who may access them (Kyle only, no app endpoint). Covered in the DPIA and the Privacy Notice (conversation logs are kept with the story and deleted with it, except where flagged).
+- [ ] **Online Safety Act re-check:** if Tomale becomes in scope (household-only today; the Crime and Policing Act 2026 powers to bring chatbots in), register with the NCA CSEA Industry Reporting Portal and map `moderation_flags` to the report contents.

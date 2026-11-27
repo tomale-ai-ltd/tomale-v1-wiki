@@ -2,7 +2,7 @@
 type: plan-task
 id: IP-04
 title: "Spec, contract, ADRs, threat model and repo"
-status: in-progress
+status: done
 owner: "Cursor"
 depends:
   - "[[IP-02-child-image-policy-spike]]"
@@ -25,3 +25,5 @@ Plan: [[image-pipeline-plan]] · Scope: [[PRD-Image-Pipeline]]
 
 **Brief:** [[ip-04-cursor-brief]] (26/11): PR A foundation, then PR B spec and contract (stops before `/speckit.tasks`).
 - **26/11:** PR A (#1, `chore/foundation`) ready to merge at `18fb995`: guard rails with position-aware, fail-closed cloud rules and secret-read denies (62 guard tests; Claude spot-checked 34 cases), gateway rule, Spec Kit copied from rn-test `@05f27b1`, constitution 1.0.0 (the approved draft, verbatim), uv tooling, CI `test` green. Next: merge, make `test` required, the guard check in the workspace, then PR B.
+- **27/11:** PR B (#2) reviewed ([[pr-b-contract-review]]): six must-fix and four should-fix items applied at `1519182`; re-check passed; ready for Kyle to approve and merge.
+- **Done 27/11:** PR #1 and PR #2 merged; `main` at `9871fa4` (contract with the review fixes, D1a/D2a).
